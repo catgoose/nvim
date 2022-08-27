@@ -1,12 +1,13 @@
 require("config.utils").plugin_setup("focus", {
 	width = 145,
 	height = 32,
-	cursorline = true,
+	cursorline = false,
 	signcolumn = false,
 	number = false,
 	bufnew = false,
-	autoresize = true,
+	autoresize = false,
 	winheight = true,
-	excluded_buftypes = { "nofile", "prompt", "popup", "quickfix", "packer" },
+	excluded_buftypes = { "nofile", "prompt", "popup", "quickfix", "packer", "help" },
+	excluded_filetypes = { "harpoon" },
 	compatible_filetrees = { "neo-tree" },
 })

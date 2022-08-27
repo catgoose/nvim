@@ -1,10 +1,5 @@
-local map_key = vim.api.nvim_set_keymap -- TODO: use vim.key_map
-local fn = vim.fn
-local api = vim.api
-local cmd = vim.cmd
-
+local fn, api, cmd = vim.fn, vim.api, vim.cmd
 local autocmd = api.nvim_create_autocmd
-
 local config_path = "config"
 local func_path = config_path .. "." .. "functions"
 
@@ -12,19 +7,11 @@ local M = {}
 
 M.packer_install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-local function to_array(v)
+local function to_tbl(v)
 	if type(v) == "string" then
 		v = { v }
 	end
 	return v
-end
-
-M.map = function(modes, lhs, rhs, opts)
-	opts = opts or { silent = true, noremap = true }
-	modes = to_array(modes)
-	for _, mode in ipairs(modes) do
-		map_key(mode, lhs, rhs, opts)
-	end
 end
 
 M.packer_config = function(bootstrap)
@@ -48,7 +35,7 @@ M.packer_config = function(bootstrap)
 end
 
 M.load_nvim_config = function()
-	local default_plugins = { -- disable default plugins
+	local default_plugins = {
 		"2html_plugin",
 		"getscript",
 		"getscriptPlugin",
@@ -76,10 +63,9 @@ M.load_nvim_config = function()
 	local nvim_modules = {
 		"globals",
 		"options",
+		"functions",
 		"autocmd",
 		"keymaps",
-		"functions",
-		"highlight",
 	}
 	for _, module in ipairs(nvim_modules) do
 		local module_ok, err = pcall(require, nvim_modules_path .. "." .. module)
@@ -89,15 +75,6 @@ M.load_nvim_config = function()
 	end
 end
 
-M.event_print = function(event)
-	autocmd({ event }, {
-		pattern = "*",
-		callback = function()
-			print(event)
-		end,
-	})
-end
-
 M.packer_compile_done = function()
 	autocmd({ "User" }, {
 		pattern = "PackerCompileDone",
@@ -105,6 +82,14 @@ M.packer_compile_done = function()
 			cmd.qall()
 		end,
 	})
+end
+
+M.map = function(modes, lhs, rhs, opts)
+	opts = opts or { silent = true, noremap = true }
+	modes = to_tbl(modes)
+	for _, mode in ipairs(modes) do
+		vim.keymap.set(mode, lhs, rhs, opts)
+	end
 end
 
 M.map_cmd = function(cmd_arg)
@@ -117,7 +102,9 @@ end
 
 M.map_func = function(cmd_arg, func_arg)
 	func_arg = func_arg or ""
-	return M.map_cmd([[lua require("]] .. func_path .. [[").]] .. cmd_arg .. [[(]] .. func_arg .. [[)]])
+	return function()
+		return require(func_path)[cmd_arg](func_arg)
+	end
 end
 
 M.plugin_updates = M.map_cmd("PackerSync") .. M.map_cmd("MasonToolsUpdate") .. M.map_cmd("TSUpdate")
@@ -144,10 +131,8 @@ M.get_mason_tools = function()
 		"diagnostic-languageserver",
 		"dockerfile-language-server",
 		"eslint-lsp",
-		"eslint_d",
 		"fixjson",
 		"hadolint",
-		"html-lsp",
 		"json-lsp",
 		"lua-language-server",
 		"markdownlint",
@@ -174,7 +159,7 @@ M.plugin_setup = function(plugin_name, setup_tbl)
 	plugin.setup(setup_tbl)
 end
 
-M.DiagnosticSigns = function()
+M.diagnostic_signs = function()
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },
 		{ name = "DiagnosticSignWarn", text = "" },
@@ -182,10 +167,31 @@ M.DiagnosticSigns = function()
 		{ name = "DiagnosticSignInfo", text = "" },
 	}
 	for _, sign in ipairs(signs) do
-		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+		fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 	end
 
 	return signs
+end
+
+M.create_augroup = function(group, opts)
+	opts = opts or { clear = true }
+	return api.nvim_create_augroup(group, opts)
+end
+
+M.nonrelative_win_count = function()
+	local wins = api.nvim_list_wins()
+	local non_relative = 0
+	for _, win in ipairs(wins) do
+		local config = vim.api.nvim_win_get_config(win)
+		if config.relative == "" then
+			non_relative = non_relative + 1
+		end
+	end
+	return non_relative
+end
+
+M.display_winbar = function()
+	return M.nonrelative_win_count() > 1
 end
 
 return M

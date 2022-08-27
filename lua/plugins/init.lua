@@ -14,6 +14,29 @@ local plugins = {
 	"nvim-lua/plenary.nvim",
 	"jamessan/vim-gnupg",
 	{
+		"neovim/nvim-lspconfig",
+		config = config("lspconfig"),
+		requires = {
+			{
+				"windwp/nvim-autopairs",
+				config = config("autopairs"),
+			},
+			"jose-elias-alvarez/typescript.nvim",
+			{
+				"williamboman/mason.nvim",
+				config = config("mason"),
+				requires = {
+					"williamboman/mason-lspconfig.nvim",
+				},
+			},
+			"b0o/schemastore.nvim",
+			{
+				"stevearc/aerial.nvim",
+				config = config("aerial"),
+			},
+		},
+	},
+	{
 		"onsails/lspkind-nvim",
 		config = config("lspkind"),
 		requires = {
@@ -49,34 +72,6 @@ local plugins = {
 			{
 				"saadparwaiz1/cmp_luasnip",
 			},
-			-- {
-			-- 	"0x100101/lab.nvim",
-			-- 	config = config("lab"),
-			-- 	run = "cd js && npm ci",
-			-- },
-		},
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = config("lspconfig"),
-		requires = {
-			"jose-elias-alvarez/typescript.nvim",
-			{
-				"williamboman/mason.nvim",
-				config = config("mason"),
-				requires = {
-					"williamboman/mason-lspconfig.nvim",
-				},
-			},
-			{
-				"SmiteshP/nvim-navic",
-				config = config("navic"),
-			},
-			"b0o/schemastore.nvim",
-			{
-				"stevearc/aerial.nvim",
-				config = config("aerial"),
-			},
 		},
 	},
 	{
@@ -88,12 +83,6 @@ local plugins = {
 		"rmagatti/auto-session",
 		config = config("autosession"),
 		after = "alpha-nvim",
-	},
-	{
-		"nathom/filetype.nvim",
-		config = function()
-			require("filetype")
-		end,
 	},
 	{
 		"akinsho/toggleterm.nvim",
@@ -112,6 +101,10 @@ local plugins = {
 			"RRethy/nvim-treesitter-textsubjects",
 			"windwp/nvim-ts-autotag",
 		},
+	},
+	{
+		"rebelot/heirline.nvim",
+		config = config("heirline"),
 	},
 	-- cmd
 	{
@@ -159,13 +152,12 @@ local plugins = {
 	},
 	{
 		"WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-		cmd = { "ToggleDiag", "ToggleDiagOn", "ToggleDiagOff" },
+		cmd = "ToggleDiag*",
 	},
-	-- BufReadPre
 	{
-		"nvim-lualine/lualine.nvim",
-		config = config("lualine"),
-		event = "BufReadPre",
+		"beauwilliams/focus.nvim",
+		config = config("focus"),
+		cmd = "Focus*",
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -198,12 +190,6 @@ local plugins = {
 	},
 	-- WinEnter
 	{
-		"beauwilliams/focus.nvim",
-		config = config("focus"),
-		event = { "WinEnter", "BufReadPre" },
-		cmd = { "FocusToggle" },
-	},
-	{
 		"sindrets/winshift.nvim",
 		config = config("winshift"),
 		event = "WinEnter",
@@ -211,6 +197,11 @@ local plugins = {
 	{
 		"famiu/bufdelete.nvim",
 		requires = "schickling/vim-bufonly",
+		event = "WinEnter",
+	},
+	{
+		"RRethy/vim-illuminate",
+		config = config("illuminate"),
 		event = "WinEnter",
 	},
 	-- CursorHold
@@ -247,10 +238,6 @@ local plugins = {
 		event = "CursorHold",
 	},
 	{
-		"vimwiki/vimwiki",
-		event = "CursorHold",
-	},
-	{
 		"pwntester/octo.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim",
@@ -266,16 +253,7 @@ local plugins = {
 		event = "CursorHold",
 	},
 	{
-		"christoomey/vim-tmux-navigator",
-		event = "CursorHold",
-	},
-	{
 		"romainl/vim-cool",
-		event = "CursorHold",
-	},
-	{
-		"windwp/nvim-autopairs",
-		config = config("autopairs"),
 		event = "CursorHold",
 	},
 	{
@@ -319,7 +297,14 @@ local plugins = {
 		event = "CursorHold",
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim", -- TODO: needs config
+		"axelvc/template-string.nvim",
+		config = function()
+			require("template-string").setup()
+		end,
+		event = "CursorHold",
+	},
+	{
+		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v2.x",
 		requires = {
 			"nvim-lua/plenary.nvim",
@@ -339,13 +324,13 @@ local plugins = {
 		config = config("refactoring"),
 		event = "CursorHold",
 	},
-	{
-		"stevearc/dressing.nvim",
-		config = function()
-			require("dressing").setup({})
-		end,
-		event = "CursorHold",
-	},
+	-- {
+	-- 	"stevearc/dressing.nvim",
+	-- 	config = function()
+	-- 		require("dressing").setup({})
+	-- 	end,
+	-- 	event = "CursorHold",
+	-- },
 	{
 		"mrbjarksen/neo-tree-diagnostics.nvim",
 		requires = "nvim-neo-tree/neo-tree.nvim",
@@ -358,21 +343,17 @@ local plugins = {
 		event = "CursorHold",
 	},
 	{
-		"RRethy/vim-illuminate",
-		event = "CursorHold",
-	},
-	-- {
-	-- 	"ray-x/lsp_signature.nvim",
-	-- 	config = config("lsp_signature"),
-	-- 	event = "CursorHold",
-	-- },
-	{
 		"simrat39/symbols-outline.nvim",
 		event = "CursorHold",
 	},
 	{
 		"github/copilot.vim",
 		config = config("copilot"),
+		event = "CursorHold",
+	},
+	{
+		"doums/suit.nvim",
+		config = config("suit"),
 		event = "CursorHold",
 	},
 	-- keys
@@ -384,7 +365,18 @@ local plugins = {
 		config = config("leap"),
 		keys = { "s", "S" },
 	},
-	-- Testing
+	-- filetype
+	{
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		config = config("bqf"),
+		requires = {
+			"junegunn/fzf",
+			run = function()
+				vim.fn["fzf#install"]()
+			end,
+		},
+	},
 }
 
 return packer.startup(function(use)

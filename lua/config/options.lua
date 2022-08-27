@@ -44,7 +44,6 @@ opt.showmode = false
 opt.mouse = "a"
 opt.showcmd = false
 opt.showtabline = 0
-opt.winbar = "%=%m %t"
 
 -- Indentation
 opt.tabstop = 2
@@ -107,4 +106,4 @@ opt.shada = "!,'1000,f1,<1000,s100,:1000,/1000,h"
 opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Sessions
-o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"

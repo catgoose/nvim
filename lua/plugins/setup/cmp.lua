@@ -41,9 +41,8 @@ cmp.setup({
 		["<C-Space>"] = cmp.mapping.complete(),
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp", keyword_length = 2, group_index = 1 },
 		{ name = "luasnip", keyword_length = 2, group_index = 1, option = { use_show_condition = false } },
-		-- { name = "copilot", group_index = 1 },
+		{ name = "nvim_lsp", keyword_length = 2, group_index = 1 },
 		{ name = "nvim_lua", keyword_length = 2, group_index = 1 },
 		{ name = "path", keyword_length = 3, group_index = 3 },
 		{ name = "buffer", keyword_length = 3, group_index = 3 },
@@ -65,21 +64,13 @@ cmp.setup({
 				buffer = "[BUF]",
 				path = "[PATH]",
 				cmdline = "[CMD]",
-				treesitter = "[TS]",
-				-- lab = "[LAB]",
+				treesitter = "[TREE]",
 			},
 		}),
 	},
 	experimental = {
 		native_menu = false,
 		ghost_text = false, -- disable if using copilot.vim
-	},
-})
-
-cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = "buffer", keyword_length = 3 },
 	},
 })
 

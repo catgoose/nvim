@@ -1,7 +1,6 @@
 local null_ls = require("config.utils").require_plugin("null-ls")
 
 local code_actions = null_ls.builtins.code_actions
-local completion = null_ls.builtins.completion
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
@@ -13,9 +12,6 @@ local cs_ignore = {
 null_ls.setup({
 	sources = {
 		code_actions.eslint,
-		code_actions.refactoring,
-		completion.luasnip,
-		diagnostics.eslint_d,
 		diagnostics.codespell.with(cs_ignore),
 		diagnostics.fish,
 		diagnostics.hadolint,

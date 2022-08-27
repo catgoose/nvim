@@ -1,3 +1,11 @@
+--  HACK: 2022-08-16 - fixes error when accessing nofile bufer.  use codeblock until PR is merged: https://github.com/folke/todo-comments.nvim/issues/97#issuecomment-1129990423
+local hl = require("todo-comments.highlight")
+local highlight_win = hl.highlight_win
+hl.highlight_win = function(win, force)
+	pcall(highlight_win, win, force)
+end
+
+-- require("todo-comments").setup()
 require("config.utils").plugin_setup("todo-comments", {
 	signs = true,
 	sign_priority = 10,

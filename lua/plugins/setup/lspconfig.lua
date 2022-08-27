@@ -3,20 +3,22 @@ local plugin = utils.require_plugin
 
 local lspconfig = plugin("lspconfig")
 local typescript = plugin("typescript")
-local navic = plugin("nvim-navic")
 local aerial = plugin("aerial")
 local cmp = plugin("cmp_nvim_lsp")
 
 -- LSP capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = false
 capabilities = cmp.update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Diagnostic
 vim.diagnostic.config({
 	virtual_text = false,
+	virtual_lines = {
+		only_current_line = true,
+	},
 	signs = {
-		active = utils.DiagnosticSigns(),
+		active = utils.diagnostic_signs(),
 	},
 	update_in_insert = false,
 	underline = true,
@@ -57,15 +59,11 @@ local shared_on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set("v", "<space>ca", vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set("n", "<space>bf", vim.lsp.buf.format, bufopts)
 end
 
 -- LSP config
 
 local on_attach = function(client, bufnr)
-	if client.server_capabilities.documentSymbolProvider then
-		navic.attach(client, bufnr)
-	end
 	shared_on_attach(client, bufnr)
 end
 
@@ -123,20 +121,15 @@ local lang_servers = {
 	"cssmodules_ls",
 	"diagnosticls",
 	"dockerls",
-	"html",
+	"eslint",
 	"cssls",
+	"html",
 	"marksman",
 }
 
 for _, lang in pairs(lang_servers) do
 	require("lspconfig")[lang].setup({
 		capabilities = capabilities,
-		on_attach = function()
-			if lang == "cssls" then
-				return shared_on_attach
-			else
-				return on_attach
-			end
-		end,
+		on_attach = on_attach,
 	})
 end

@@ -1,5 +1,6 @@
 require("config.utils").plugin_setup("nvim-treesitter.configs", {
 	ensure_installed = {
+		"bash",
 		"css",
 		"dockerfile",
 		"fish",
@@ -12,6 +13,7 @@ require("config.utils").plugin_setup("nvim-treesitter.configs", {
 		"markdown",
 		"regex",
 		"scss",
+		"sql",
 		"toml",
 		"typescript",
 		"vim",
@@ -36,7 +38,6 @@ require("config.utils").plugin_setup("nvim-treesitter.configs", {
 				["]d"] = "@block.inner",
 				["]e"] = "@function.inner",
 				["]a"] = "@attribute.inner",
-				-- ["]c"] = "@call.inner",
 			},
 			goto_next_end = {
 				["]F"] = "@function.outer",
@@ -44,7 +45,6 @@ require("config.utils").plugin_setup("nvim-treesitter.configs", {
 				["]D"] = "@block.inner",
 				["]E"] = "@function.inner",
 				["]A"] = "@attribute.inner",
-				-- ["]C"] = "@call.inner",
 			},
 			goto_previous_start = {
 				["[f"] = "@function.outer",
@@ -52,7 +52,6 @@ require("config.utils").plugin_setup("nvim-treesitter.configs", {
 				["[d"] = "@block.inner",
 				["[e"] = "@function.inner",
 				["[a"] = "@attribute.inner",
-				-- ["[c"] = "@call.inner",
 			},
 			goto_previous_end = {
 				["[F"] = "@function.outer",
@@ -60,7 +59,6 @@ require("config.utils").plugin_setup("nvim-treesitter.configs", {
 				["[D"] = "@block.inner",
 				["[E"] = "@function.inner",
 				["[A"] = "@attribute.inner",
-				-- ["[C"] = "@call.inner",
 			},
 		},
 		select = {

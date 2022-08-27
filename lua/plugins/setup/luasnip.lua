@@ -2,16 +2,31 @@ local ls = require("luasnip")
 local types = require("luasnip.util.types")
 
 ls.config.set_config({
-	history = true,
+	history = false,
 	updateevents = "TextChanged,TextChangedI",
-	-- delete_check_events = "TextChanged",
-	enable_autosnippets = true,
+	delete_check_events = "TextChanged",
+	enable_autosnippets = false,
 	ext_opts = {
-		[types.choiceNode] = {
+		[types.textNode] = {
 			active = {
-				virt_text = { { " <- Choice", "Comment" } },
+				virt_text = { { " <- Text", "Comment" } },
 			},
 		},
+		-- [types.choiceNode] = {
+		-- 	active = {
+		-- 		virt_text = { { " <- Choice", "Comment" } },
+		-- 	},
+		-- },
+		-- [types.restoreNode] = {
+		-- 	active = {
+		-- 		virt_text = { { " <- Restore", "Comment" } },
+		-- 	},
+		-- },
+		-- [types.functionNode] = {
+		-- 	active = {
+		-- 		virt_text = { { " <- Function", "Comment" } },
+		-- 	},
+		-- },
 	},
 	ext_base_prio = 300,
 	ext_prio_increase = 1,
@@ -38,7 +53,4 @@ vim.keymap.set("i", "<c-l>", function()
 	end
 end)
 
--- TODO:read documentation: there is a luasnips way of doing this
-for _, file in ipairs(vim.api.nvim_get_runtime_file("lua/snippets/*.lua", true)) do
-	vim.cmd.luafile(file)
-end
+require("luasnip.loaders.from_lua").lazy_load({ paths = vim.fn.stdpath("config") .. "/lua/snippets" })
