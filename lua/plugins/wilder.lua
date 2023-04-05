@@ -1,7 +1,4 @@
 local config = function()
-	local kanagawa = require("kanagawa.colors").setup({ theme = "wave" })
-	local colors = kanagawa.palette
-
 	require("wilder").setup({
 		modes = { ":", "/", "?" },
 		next_key = "<Tab>",
@@ -19,6 +16,7 @@ local config = function()
   cmap <expr> <C-p> wilder#in_context() ? wilder#previous() : "\<C-p>"
 ]])
 	local wilder = require("wilder")
+
 	local highlighters = {
 		wilder.pcre2_highlighter(),
 		wilder.basic_highlighter(),
@@ -64,6 +62,7 @@ local config = function()
 			search_pipeline
 		),
 	})
+
 	local render_popup = {
 		mode = "float",
 		highlighter = highlighters,
@@ -81,27 +80,21 @@ local config = function()
 		},
 		highlights = {
 			border = "Normal",
-			accent = wilder.make_hl("WilderAccent", "Pmenu", {
-				{ a = 1 },
-				{ a = 1 },
-				{
-					foreground = colors.waveBlue1,
-					background = colors.roninYellow,
-					bold = true,
-				},
-			}),
+			selected = "PmenuSel",
+			accent = "PmenuSel",
+			default = "Pmenu",
 		},
 		border = "rounded",
-		pumblend = 20,
+		pumblend = 4,
 		min_height = 0,
 		max_height = "50%",
 		min_width = "25%",
-		max_width = "100%",
+		max_width = "25%",
 	}
 	local render_popup_border = vim.tbl_deep_extend("force", render_popup, {})
 	local render_popup_palette = vim.tbl_deep_extend("force", render_popup, {
 		min_width = "50%",
-		max_width = "100%",
+		max_width = "50%",
 		prompt_position = "bottom",
 		margin = "15%",
 	})
@@ -121,7 +114,6 @@ return {
 	"gelguy/wilder.nvim",
 	config = config,
 	event = "CmdlineEnter",
-
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
 		{

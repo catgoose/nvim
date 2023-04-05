@@ -47,6 +47,7 @@ return {
 				"hrsh7th/cmp-cmdline",
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-emoji",
+				"chrisgrieser/cmp-nerdfont",
 				"ray-x/cmp-treesitter",
 				"saadparwaiz1/cmp_luasnip",
 				"roobert/tailwindcss-colorizer-cmp.nvim",

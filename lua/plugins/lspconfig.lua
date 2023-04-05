@@ -22,6 +22,10 @@ local config = function()
 	}
 	capabilities.offsetEncoding = { "utf-16" }
 
+	local _snippet_capabilities = l.protocol.make_client_capabilities()
+	_snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
+	local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
+
 	-- Diagnostic
 	vim.diagnostic.config({
 		virtual_text = false,
@@ -77,8 +81,27 @@ local config = function()
 		k("n", "<leader>ca", l.buf.code_action, bufopts)
 		k("v", "<leader>ca", l.buf.code_action, bufopts)
 	end
-	local no_formatting_on_attach = function(client, _)
-		client.server_capabilities.documentFormattingProvider = false
+
+	local lsp_formatting = function(bufnr)
+		vim.lsp.buf.format({
+			filter = function(client)
+				return client.name == "null-ls"
+			end,
+			bufnr = bufnr,
+		})
+	end
+	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+	local format_on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					lsp_formatting(bufnr)
+				end,
+			})
+		end
 	end
 	local virtual_types_on_attach = function(client, bufnr)
 		if client.server_capabilities.textDocument then
@@ -87,10 +110,19 @@ local config = function()
 			end
 		end
 	end
-	local on_attach = function(client, bufnr)
+	local base_on_attach = function(client, bufnr)
 		keys_on_attach(client, bufnr)
-		no_formatting_on_attach(client, bufnr)
+		format_on_attach(client, bufnr)
 		virtual_types_on_attach(client, bufnr)
+	end
+	local on_attach = function(client, bufnr)
+		base_on_attach(client, bufnr)
+		m("<leader>rn", [[lua require("renamer").rename()]], { "n", "v" })
+	end
+	local ts_on_attach = function(client, bufnr)
+		base_on_attach(client, bufnr)
+		m("<leader>rn", "AnglerRenameSymbol", "n", { noremap = true, silent = true, buffer = bufnr })
+		client.server_capabilities.renameProvider = true
 	end
 
 	-- LSP config
@@ -99,11 +131,7 @@ local config = function()
 		disable_commands = false,
 		debug = false,
 		server = {
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-				m("<leader>rn", "AnglerRenameSymbol", "n", { noremap = true, silent = true, buffer = bufnr })
-				client.server_capabilities.renameProvider = true
-			end,
+			on_attach = ts_on_attach,
 		},
 	})
 
@@ -178,7 +206,7 @@ local config = function()
 	})
 
 	lspc.jsonls.setup({
-		capabilities = capabilities,
+		capabilities = snippet_capabilities,
 		on_attach = on_attach,
 		settings = {
 			json = {
@@ -247,11 +275,8 @@ local config = function()
 		"cssls",
 	}
 	for _, lang in pairs(lang_servers_snippet_support) do
-		local snippet_capabilities = l.protocol.make_client_capabilities()
-		snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
-		local extended_capabilities = vim.tbl_extend("keep", capabilities, snippet_capabilities)
 		lspc[lang].setup({
-			capabilities = extended_capabilities,
+			capabilities = snippet_capabilities,
 			on_attach = on_attach,
 		})
 	end
@@ -270,6 +295,8 @@ return {
 		"kevinhwang91/nvim-ufo",
 		"simrat39/rust-tools.nvim",
 		"p00f/clangd_extensions.nvim",
+		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
+		"filipdutescu/renamer.nvim",
 	},
 }

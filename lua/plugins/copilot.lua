@@ -16,12 +16,11 @@ local opts = {
 	},
 	suggestion = {
 		enabled = true,
-		auto_trigger = true,
+		auto_trigger = false,
 		debounce = 75,
 		keymap = {
-			accept = "<Tab>",
-			accept_line = "<S-Tab>",
-			accept_word = "<M-o>",
+			accept = "<S-Tab>",
+			accept_line = "<M-o>",
 			next = "<M-]>",
 			prev = "<M-[>",
 			dismiss = "<C-]>",

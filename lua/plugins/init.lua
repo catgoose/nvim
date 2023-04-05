@@ -1,6 +1,8 @@
-local m = require("util").lazy_map
-
 return {
+	{
+		"dstein64/vim-startuptime",
+		lazy = false,
+	},
 	{
 		"jamessan/vim-gnupg",
 		lazy = false,
@@ -39,34 +41,15 @@ return {
 		cmd = { "BufOnly", "Bdelete" },
 	},
 	{
-		"nvim-treesitter/playground",
-		cmd = "TSPlaygroundToggle",
-		keys = {
-			m("<leader>tp", [[TSPlaygroundToggle]]),
-		},
-	},
-	{
-		"theHamsta/nvim-dap-virtual-text",
+		"lukas-reineke/virt-column.nvim",
 		config = true,
-		dependencies = {
-			"mfussenegger/nvim-dap",
-			"nvim-treesitter/nvim-treesitter",
-		},
 		event = "BufReadPre",
-	},
-	{
-		"ofirgall/goto-breakpoints.nvim",
-		event = "BufReadPre",
-		keys = {
-			m("]r", [[lua require('goto-breakpoints').next()]]),
-			m("[r", [[lua require('goto-breakpoints').prev()]]),
-		},
-		dependecies = "mfussenegger/nvim-dap",
+		ft = { "markdown" },
 	},
 	{
 		"ellisonleao/glow.nvim",
 		config = true,
 		cmd = "Glow",
-		filetypes = { "markdown" },
+		ft = { "markdown" },
 	},
 }

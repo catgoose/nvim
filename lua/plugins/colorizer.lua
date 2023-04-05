@@ -17,6 +17,12 @@ local opts = {
 			css = false,
 			names = false,
 		},
+		markdown = {
+			names = false,
+		},
+		help = {
+			names = false,
+		},
 	},
 	user_default_options = {
 		RGB = true,

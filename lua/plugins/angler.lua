@@ -15,7 +15,7 @@ local plugin = {
 		m("<leader>gh", angler_str .. [[.open({extension = "html"})]]),
 		m("<leader>gt", angler_str .. [[.open({extension = "html", split = true})]]),
 		m("<leader>gd", angler_str .. [[.open({extension = "scss"})]]),
-		m("<leader>gs", angler_str .. [[.open({extension = "scss", split = "true"})]]),
+		m("<leader>gs", angler_str .. [[.open({extension = "scss", split = true})]]),
 		m("<leader>gf", angler_str .. [[.open({extension = "spec.ts"})]]),
 		m("<leader>gn", angler_str .. [[.open_cwd({order = "next"})]]),
 		m("<leader>gp", angler_str .. [[.open_cwd({order = "prev"})]]),

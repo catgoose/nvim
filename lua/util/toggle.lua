@@ -4,7 +4,7 @@ local M = {}
 
 M.toggleterm_opts = function(added_opts)
 	local toggleterm_opts = {
-		auto_scroll = false,
+		auto_scroll = true,
 		direction = "float",
 		float_opts = {
 			border = "curved",
@@ -27,21 +27,6 @@ M.toggleterm_opts = function(added_opts)
 		return toggleterm_opts
 	end
 	return vim.tbl_deep_extend("force", toggleterm_opts, added_opts)
-end
-
----@diagnostic disable-next-line: unused-local
-M.toggle_tasks = function(win)
-	-- local ft = api.nvim_buf_get_option(api.nvim_win_get_buf(win), "filetype")
-	local tasks = {
-		{
-			name = "mailbox permissions",
-			cmd = "",
-			tags = { "powershell", "exchange", "mailbox" },
-			close_on_exit = true,
-			count = 9,
-		},
-	}
-	return tasks
 end
 
 return M

@@ -5,21 +5,9 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local u = require("util.luasnip")
 local smn = u.same_node
+local low = u.lower
 
 local snippets = {
-	s(
-		"same",
-		fmt(
-			[[
-  same 1 {}
-  same 2 {}
-  ]],
-			{
-				i(1),
-				smn(1),
-			}
-		)
-	),
 	s(
 		"cl",
 		c(1, {
@@ -185,7 +173,6 @@ expect({}).toHaveBeenCalled();
 		)
 	),
 	s("onpush", t([[changeDetection: ChangeDetectionStrategy.OnPush,]])),
-	s("change", t([[changeDetection: ChangeDetectionStrategy.OnPush,]])),
 	s(
 		"ncon",
 		fmta(
@@ -326,7 +313,7 @@ export class <>Entity {
 		)
 	),
 	s(
-		"#httpexc",
+		"httpexc",
 		fmta(
 			[[
   #httpException(error: any, ...args: any) {
@@ -379,7 +366,7 @@ export class <>Entity {
 			{ i(1) }
 		)
 	),
-	s("#destroy", {
+	s("destroy", {
 		t([[#destroy = new Subject<void>();]]),
 	}),
 	s("ondestroy", {
@@ -467,7 +454,7 @@ export class <>Store extends ComponentStore<<<>State>> {
 		t([[@Inject(CACHE_MANAGER) private cacheManager: Cache]]),
 	}),
 	s("nhttpimport", t([[import { HttpService } from "@nestjs/axios";]])),
-	s("schedule", t([[ScheduleModule.forRoot(),]])),
+	s("nschedule", t([[ScheduleModule.forRoot(),]])),
 	s(
 		"appenv",
 		fmta(
@@ -509,7 +496,7 @@ export const environment = new AppEnvironment().environment;
 		)
 	),
 	s("tap", {
-		t("tap((val) => console.log(val))"),
+		t("tap((val) => console.log(val)),"),
 	}),
 	s("catchError", {
 		fmta(
@@ -532,6 +519,121 @@ catchError((err) =>> {
   imports: [CommonModule, {}],
   ]],
 			{ i(1) }
+		)
+	),
+	s(
+		"rxsel",
+		fmt(
+			[[
+  readonly {}{}$ = this.select((state) => state.{})
+  ]],
+			{ c(1, {
+				t("#"),
+				t(""),
+			}), i(2, "selector"), smn(2) }
+		)
+	),
+	s(
+		"rxupd",
+		fmt(
+			[[
+  readonly {}set{} = this.updater((state, {}: {}) => ({{
+    ...state,
+    {}
+  }}))
+  ]],
+			{
+				c(1, {
+					t("#"),
+					t(""),
+				}),
+				i(2, "Updater"),
+				low(2),
+				i(3, "Type"),
+				low(2),
+			}
+		)
+	),
+	s(
+		"rxeff",
+		fmt(
+			[[
+  readonly {}{} = this.effect(({}$: Observable<{}>) =>
+  {}$.pipe({})
+  )
+  ]],
+			{
+				c(1, {
+					t(""),
+					t("#"),
+				}),
+				i(2, "effect"),
+				i(3, "obs"),
+				i(4, "type"),
+				smn(3),
+				i(0),
+			}
+		)
+	),
+	--  TODO: 2023-03-29 - make this more better
+	s(
+		"switchmap",
+		fmt(
+			[[
+  switchMap(({}) => this.{}{}({})),
+  ]],
+			{
+				c(1, {
+					t(""),
+					fmt(
+						[[
+          {}: {}
+          ]],
+						--  TODO: 2023-03-29 - add restore node
+						{ i(1), i(2) }
+					),
+				}),
+				c(2, {
+					t(""),
+					t("#"),
+				}),
+				i(3),
+				i(0),
+			}
+		)
+	),
+	s(
+		"reduce",
+		fmta(
+			[[
+  <>.reduce((acc, cur) =>> {
+    <>
+    return acc
+  })
+  ]],
+			{ i(1), i(2) }
+		)
+	),
+	s(
+		"ct",
+		fmt([[{}]], { c(1, {
+			t("console.time()"),
+			t("console.timeEnd()"),
+		}) })
+	),
+	s(
+		"meth",
+		fmt(
+			[[
+    {}({}) {{
+      {}
+    }}
+    ]],
+			{
+				i(1),
+				i(2),
+				i(3),
+			}
 		)
 	),
 }

@@ -1,7 +1,7 @@
 local u = require("util")
 local m = u.lazy_map
 
-local _, maxheight = u.screen_scale()
+local _, maxheight = u.screen_scale({ height = 0.65 })
 
 local opts = {
 	fold_virt_text_handler = require("util.ufo").handler,
@@ -32,7 +32,7 @@ return {
 	event = "VeryLazy",
 	opts = opts,
 	init = function()
-		vim.o.foldcolumn = "auto"
+		vim.o.foldcolumn = "0"
 		vim.o.foldlevel = 99
 		vim.o.foldlevelstart = 99
 		vim.o.foldenable = true

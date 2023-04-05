@@ -40,7 +40,7 @@ local config = function()
 	local active_foreground_color = colors.sumiInk5
 	local inactive_background_color = colors.sumiInk1
 	local scrollbar_foreground_color = colors.dragonBlue
-	local scrollbar_background_color = active_foreground_color
+	local scrollbar_background_color = active_background_color
 
 	local scrollbar_enabled = function()
 		return api.nvim_buf_line_count(0) > 99 and conditions.is_active()
@@ -141,7 +141,6 @@ local config = function()
 		end,
 	}
 
-	--  TODO: 2023-03-04 - add empty slant between diag and scrollbar
 	local diagnostics_spacer = " "
 	local Diagnostics = {
 		condition = conditions.has_diagnostics,
@@ -201,17 +200,6 @@ local config = function()
 		},
 		{
 			condition = function()
-				return scrollbar_enabled()
-			end,
-			{
-				{
-					RightSep,
-					hl = { fg = scrollbar_background_color },
-				},
-			},
-		},
-		{
-			condition = function()
 				return not scrollbar_enabled()
 			end,
 			{
@@ -266,7 +254,7 @@ local config = function()
 					if conditions.is_active() then
 						return {
 							bg = active_background_color,
-							fg = scrollbar_background_color,
+							fg = active_foreground_color,
 						}
 					else
 						return {
@@ -340,38 +328,15 @@ local config = function()
 		},
 		{
 			{
-				condition = function()
-					return not conditions.has_diagnostics()
-				end,
-				{
-					{
-						RightSep,
-						hl = {
-							bg = active_background_color,
-							fg = scrollbar_background_color,
-						},
-					},
-					{
-						Space,
-						hl = {
-							bg = scrollbar_background_color,
-							fg = active_background_color,
-						},
-					},
-				},
-			},
-			{
 				provider = function(self)
 					local curr_line = api.nvim_win_get_cursor(0)[1]
 					local lines = api.nvim_buf_line_count(0)
 					local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
 					return string.rep(self.sbar[i], 2)
 				end,
-				hl = { fg = scrollbar_foreground_color, bg = scrollbar_background_color },
-			},
-			{
-				Space,
-				hl = { bg = scrollbar_background_color },
+				hl = function()
+					return { fg = scrollbar_foreground_color, bg = scrollbar_background_color }
+				end,
 			},
 		},
 	}
@@ -478,6 +443,6 @@ end
 return {
 	"rebelot/heirline.nvim",
 	config = config,
-	event = "VeryLazy",
+	event = "BufReadPre",
 	dependencies = "kyazdani42/nvim-web-devicons",
 }

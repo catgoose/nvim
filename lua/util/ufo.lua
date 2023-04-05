@@ -8,8 +8,6 @@ M.toggle_fold = function()
 		cmd("silent! normal! zc")
 	else
 		cmd("silent! normal! zo")
-		-- vim.o.statuscolumn = ""
-		-- vim.o.statuscolumn = "%!v:lua.StatusCol()"
 	end
 end
 
@@ -36,7 +34,7 @@ M.handler = function(virtText, lnum, endLnum, width, truncate)
 		end
 		curWidth = curWidth + chunkWidth
 	end
-	table.insert(newVirtText, { suffix, "UfoFoldedVirtText" })
+	table.insert(newVirtText, { suffix, "MoreMsg" })
 	return newVirtText
 end
 

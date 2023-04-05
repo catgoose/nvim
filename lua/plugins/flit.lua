@@ -10,4 +10,5 @@ return {
 	opts = opts,
 	event = "BufReadPre",
 	dependencies = "ggandor/leap.nvim",
+	enabled = false,
 }

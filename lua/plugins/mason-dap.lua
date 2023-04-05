@@ -62,7 +62,7 @@ return {
 		listeners()
 	end,
 	event = "BufReadPre",
-	dependecies = {
+	dependencies = {
 		"williamboman/mason.nvim",
 		"mfussenegger/nvim-dap",
 	},

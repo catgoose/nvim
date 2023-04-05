@@ -2,13 +2,10 @@ local opt = vim.opt
 local o = vim.o
 local fn = vim.fn
 
--- require("config.statuscol")
-
 -- General
 opt.numberwidth = 1
 opt.number = true
 opt.relativenumber = true
-opt.signcolumn = "auto"
 opt.fillchars = {
 	horiz = "━",
 	horizup = "┻",
@@ -27,10 +24,10 @@ opt.fillchars = {
 }
 opt.confirm = true
 opt.shortmess = "filnxtToOFWIcC"
-opt.autoread = true
 opt.lazyredraw = true
 opt.updatetime = 100
 opt.splitkeep = "screen"
+opt.cursorline = true
 
 -- Window
 opt.splitright = true
@@ -84,7 +81,6 @@ opt.diffopt = {
 opt.conceallevel = 0
 
 opt.pumblend = 12
-opt.cursorline = true
 opt.clipboard = "unnamedplus"
 opt.formatoptions = opt.formatoptions
 	- "t" -- wrap with text width
@@ -110,4 +106,4 @@ opt.shada = "!,'1000,f1,<1000,s100,:1000,/1000,h"
 opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Sessions
-opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages"

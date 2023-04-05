@@ -4,6 +4,13 @@ local m = require("util").lazy_map
 
 local opts = {
 	dev = dev,
+	langs = {
+		cpp = {
+			{ "clear" },
+			{ "compiledb make", { "[#ask]", "compiledb args" } },
+			{ { "[#ask]", "Command to run after make" } },
+		},
+	},
 }
 
 local cr_str = [[lua require("coderunner").run]]
@@ -25,6 +32,7 @@ if dev == true then
 else
 	return e("keep", plugin, {
 		"catgoose/coderunner.nvim",
+		config = true,
 		event = "BufReadPre",
 	})
 end

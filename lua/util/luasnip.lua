@@ -46,35 +46,11 @@ M.capitalize = function(node_index)
 	end, node_index)
 end
 
-M.split_str = function(arg, _, user_args)
-	local split_str = user_args or "."
-	local parts = vim.split(arg[1][1], split_str, { plain = true })
-	return parts[#parts] or ""
-end
-
-M.ts_deconstructed_args = function(t_arg)
-	local args = t_arg[1][1]
-
-	args = vim.split(args, ":")
-	if #args == 1 then
-		return args[1]
-	end
-
-	local ret_args = ""
-	for _, v in ipairs(args) do
-		if _ ~= #args then
-			local s_tbl = vim.split(v, " ")
-			ret_args = ret_args .. s_tbl[#s_tbl] .. ", "
-		end
-	end
-
-	ret_args = string.gsub(ret_args, ",%s*$", "")
-	return ret_args
-end
-
-M.base_filename = function()
-	local base_name = vim.fn.expand("%:t:r")
-	return base_name
+M.lower = function(node_index)
+	return f(function(args)
+		local str = args[1][1]
+		return str:sub(1, 1):lower() .. str:sub(2)
+	end, node_index)
 end
 
 M.lua_require = function(arg)
@@ -98,7 +74,7 @@ M.nest_method_args = function(_, snip, _)
 	local node = tstree:root():named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
 
 	for child in node:iter_children() do
-		local query = vim.treesitter.parse_query("typescript", ts_query)
+		local query = vim.treesitter.query.parse("typescript", ts_query)
 		for _, arg in query:iter_captures(child, 0) do
 			method_args = method_args .. vim.treesitter.get_node_text(arg, 0) .. ", "
 		end
@@ -115,7 +91,7 @@ M.nest_classname = function()
 	local parser = vim.treesitter.get_parser(0, "typescript")
 	local tstree = parser:parse()[1]
 	local node = tstree:root()
-	local query = vim.treesitter.parse_query("typescript", ts_query)
+	local query = vim.treesitter.query.parse("typescript", ts_query)
 	for _, class_name in query:iter_captures(node, 0) do
 		return vim.treesitter.get_node_text(class_name, 0)
 	end

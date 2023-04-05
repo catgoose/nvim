@@ -32,6 +32,7 @@ class <> {
 public:
   <>() {}
   ~<>() {}
+protected:
 private:
 <>
 };

@@ -4,7 +4,7 @@ return {
 	sumiInk3 = "#1F1F28",
 	sumiInk4 = "#2A2A37",
 	sumiInk5 = "#363646",
-	sumiInk6 = "#54546D", --fg
+	sumiInk6 = "#54546D",
 
 	-- Popup and Floats
 	waveBlue1 = "#223249",
@@ -36,8 +36,8 @@ return {
 	springViolet1 = "#938AA9",
 	springViolet2 = "#9CABCA",
 	springBlue = "#7FB4CA",
-	lightBlue = "#A3D4D5", -- unused yet
-	waveAqua2 = "#7AA89F", -- improve lightness: desaturated greenish Aqua
+	lightBlue = "#A3D4D5",
+	waveAqua2 = "#7AA89F",
 
 	-- waveAqua2  = "#68AD99",
 	-- waveAqua4  = "#7AA880",

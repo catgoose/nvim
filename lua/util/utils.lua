@@ -1,4 +1,5 @@
-local fn, api, cmd, lsp, diag, o, g = vim.fn, vim.api, vim.cmd, vim.lsp, vim.diagnostic, vim.o, vim.g
+local fn, api, cmd, diag, o, g, tbl_contains, bo, keymap =
+	vim.fn, vim.api, vim.cmd, vim.diagnostic, vim.o, vim.g, vim.tbl_contains, vim.bo, vim.keymap
 
 local M = {}
 
@@ -6,7 +7,7 @@ M.cmd_map = function(lhs, rhs, modes, opts)
 	modes = M.str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do
-		vim.keymap.set(mode, lhs, M.cmd_string(rhs), opts)
+		keymap.set(mode, lhs, M.cmd_string(rhs), opts)
 	end
 end
 
@@ -14,7 +15,7 @@ M.func_map = function(lhs, rhs, modes, opts)
 	modes = M.str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do
-		vim.keymap.set(mode, lhs, rhs, opts)
+		keymap.set(mode, lhs, rhs, opts)
 	end
 end
 
@@ -46,12 +47,6 @@ M.nonrelative_win_count = function()
 		end
 	end
 	return non_relative
-end
-
-M.lsp_buf_format = function()
-	lsp.buf.format({
-		async = false,
-	})
 end
 
 M.current_word = function()
@@ -121,7 +116,7 @@ M.tbl_system_cmd = function(command)
 end
 
 M.map_q_to_quit = function(event)
-	vim.bo[event.buf].buflisted = false
+	bo[event.buf].buflisted = false
 	M.cmd_map("q", "close", "n", { silent = true, noremap = true, buffer = true })
 end
 
@@ -168,8 +163,10 @@ M.screen_scale = function(config)
 		height = 0.5,
 	}
 	config = config or defaults
-	local width = fn.round(vim.o.columns * config.width)
-	local height = fn.round(vim.o.lines * config.height)
+	config.width = config.width or defaults.width
+	config.height = config.height or defaults.height
+	local width = fn.round(o.columns * config.width)
+	local height = fn.round(o.lines * config.height)
 	return width, height
 end
 
@@ -184,7 +181,7 @@ M.get_config_modules = function(exclude_map)
 	exclude_map = exclude_map or {
 		"lazy",
 		"init",
-		"colors",
+		"statuscol",
 	}
 	local files = {}
 	for _, file in ipairs(fn.glob(fn.stdpath("config") .. "/lua/config/*.lua", true, true)) do
@@ -206,11 +203,10 @@ M.reload_lua = function()
 		R("config." .. file)
 	end
 	cmd.nohlsearch()
-	-- R("util")
 end
 
 M.diag_error = function()
-	return #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) ~= 0
+	return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
 M.hover_handler = function()
@@ -218,16 +214,15 @@ M.hover_handler = function()
 	if winid then
 		return
 	end
-	local ft = vim.bo.filetype
-	if vim.tbl_contains({ "vim", "help" }, ft) then
-		vim.cmd("silent! h " .. vim.fn.expand("<cword>"))
-	elseif vim.tbl_contains({ "man" }, ft) then
-		vim.cmd("silent! Man " .. vim.fn.expand("<cword>"))
-	elseif vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+	local ft = bo.filetype
+	if tbl_contains({ "vim", "help" }, ft) then
+		cmd("silent! h " .. fn.expand("<cword>"))
+	elseif tbl_contains({ "man" }, ft) then
+		cmd("silent! Man " .. fn.expand("<cword>"))
+	elseif fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
 		require("crates").show_popup()
 	else
-		-- vim.lsp.buf.hover()
-		vim.cmd("Lspsaga hover_doc")
+		vim.lsp.buf.hover()
 	end
 end
 

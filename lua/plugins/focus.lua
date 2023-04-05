@@ -1,5 +1,4 @@
 local m = require("util").lazy_map
-local cmd = vim.cmd
 
 local opts = {
 	autoresize = false,
@@ -25,19 +24,10 @@ return {
 		m("<leader>sm", [[FocusMaximise]]),
 		m("<leader>se", [[FocusEqualise]]),
 		m("<leader>st", [[FocusToggle]]),
-		{
-			"<leader>tv",
-			function()
-				cmd.FocusSplitRight()
-				cmd.terminal()
-			end,
-		},
-		{
-			"<leader>ts",
-			function()
-				cmd.FocusSplitDown()
-				cmd.terminal()
-			end,
-		},
+		m("<leader>tv", [[OpenTerminalRightScale]]),
+		m("<leader>ts", [[OpenTerminalDownScale]]),
+		m("<leader>tl", [[OpenTerminalRight]]),
+		m("<leader>tj", [[OpenTerminalDown]]),
+		m("<leader>tt", [[OpenTerminalTab]]),
 	},
 }

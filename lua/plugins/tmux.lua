@@ -1,13 +1,6 @@
 local opts = {
 	copy_sync = {
-		enable = true,
-		ignore_buffers = { empty = false },
-		redirect_to_clipboard = false,
-		register_offset = 0,
-		sync_clipboard = true,
-		sync_registers = true,
-		sync_deletes = true,
-		sync_unnamed = true,
+		enable = false,
 	},
 	navigation = {
 		cycle_navigation = true,
@@ -23,6 +16,6 @@ local opts = {
 
 return {
 	"aserowy/tmux.nvim",
-	event = "VeryLazy",
+	event = "BufReadPre",
 	opts = opts,
 }

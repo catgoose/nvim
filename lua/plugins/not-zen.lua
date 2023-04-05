@@ -35,5 +35,6 @@ else
 	return e("keep", plugin, {
 		"catgoose/not-zen.nvim",
 		event = "BufReadPre",
+		enabled = false,
 	})
 end

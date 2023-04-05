@@ -26,7 +26,6 @@ local config = function()
 		},
 		mapping = cmp.mapping.preset.insert({
 			["<CR>"] = cmp.mapping.confirm({
-				-- behavior = cmp.ConfirmBehavior.Replace,
 				behavior = cmp.confirm({ select = true }),
 				select = true,
 			}),
@@ -81,6 +80,11 @@ local config = function()
 			},
 			{
 				name = "emoji",
+				keyword_length = 2,
+				group_index = 5,
+			},
+			{
+				name = "nerdfont",
 				keyword_length = 2,
 				group_index = 5,
 			},

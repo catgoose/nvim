@@ -121,18 +121,25 @@ M.populate_qf = function(lines, mode)
 	cmd([[wincmd p]])
 end
 
+local open_help_tab = function(help_cmd, topic)
+	cmd.tabe()
+	local winnr = api.nvim_get_current_win()
+	cmd(help_cmd .. " " .. topic)
+	api.nvim_win_close(winnr, false)
+end
+
 M.help_select = function()
 	ui.input({ prompt = "Open help for> " }, function(input)
 		if not input then
 			return
 		end
-		cmd([[vertical help ]] .. input)
+		open_help_tab("help", input)
 	end)
 end
 
 M.help_word = function()
 	local current_word = u.current_word()
-	cmd([[vertical help ]] .. current_word)
+	open_help_tab("help", current_word)
 end
 
 M.help_grep = function()
@@ -140,7 +147,7 @@ M.help_grep = function()
 		if input == "" then
 			return
 		end
-		cmd([[vertical help_grep ]] .. input)
+		open_help_tab("helpgrep", input)
 		cmd.copen()
 	end)
 end
@@ -227,7 +234,7 @@ M.ufo_toggle_fold = function()
 end
 
 M.fold_paragraph = function()
-	local foldclosed = vim.fn.foldclosed(vim.fn.line("."))
+	local foldclosed = fn.foldclosed(fn.line("."))
 	if foldclosed == -1 then
 		cmd([[silent! normal! zfip]])
 	else
@@ -236,25 +243,99 @@ M.fold_paragraph = function()
 end
 
 M.make_run = function()
-	cmd.make([[%<]])
-	cmd([[!./%<]])
-	cmd.cwindow()
+	if M.terminal_send_cmd("") then
+		local file_name = fn.expand("%:t:r")
+		M.terminal_send_cmd("make " .. file_name)
+		M.terminal_send_cmd("clear && ./" .. file_name)
+	else
+		cmd.make([[%<]])
+		cmd([[!./%<]])
+		cmd.cwindow()
+	end
 end
 
 u.create_augroup("MakeOnSave")
 M.auto_make_toggle = function()
-	local autocmds = vim.api.nvim_get_autocmds({ group = "MakeOnSave" })
+	local autocmds = api.nvim_get_autocmds({ group = "MakeOnSave" })
 	if #autocmds > 0 then
 		u.create_augroup("MakeOnSave")
 	else
 		local make_on_save = u.create_augroup("MakeOnSave")
-		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+		api.nvim_create_autocmd({ "BufWritePost" }, {
 			group = make_on_save,
 			pattern = { "*.cpp" },
 			callback = function()
 				M.make_run()
 			end,
 		})
+	end
+end
+
+M.terminal_send_cmd = function(cmd_text)
+	local function get_first_terminal()
+		local terminal_chans = {}
+		for _, chan in pairs(api.nvim_list_chans()) do
+			if chan["mode"] == "terminal" and chan["pty"] ~= "" then
+				table.insert(terminal_chans, chan)
+			end
+		end
+		table.sort(terminal_chans, function(left, right)
+			return left["buffer"] < right["buffer"]
+		end)
+		if #terminal_chans == 0 then
+			return nil
+		end
+		return terminal_chans[1]["id"]
+	end
+
+	local send_to_terminal = function(terminal_chan, term_cmd_text)
+		api.nvim_chan_send(terminal_chan, term_cmd_text .. "\n")
+	end
+
+	local terminal = get_first_terminal()
+	if not terminal then
+		return nil
+	end
+
+	if not cmd_text then
+		ui.input({ prompt = "Send to terminal: " }, function(input_cmd_text)
+			if not input_cmd_text then
+				return nil
+			end
+			send_to_terminal(terminal, input_cmd_text)
+		end)
+	else
+		send_to_terminal(terminal, cmd_text)
+	end
+	return true
+end
+
+M.terminal_open_split = function(cfg)
+	local defaults = {
+		direction = "right",
+		scale = nil,
+		tab = false,
+	}
+	cfg = vim.tbl_extend("keep", cfg, defaults)
+	if cfg.tab == false then
+		if cfg.direction == "right" then
+			cmd.FocusSplitRight()
+		else
+			cmd.FocusSplitDown()
+		end
+	else
+		cmd.tabe()
+		cmd.terminal()
+		return
+	end
+	cmd.terminal()
+	if cfg.scale then
+		local winnr = api.nvim_get_current_win()
+		if cfg.direction == "right" then
+			api.nvim_win_set_width(winnr, math.floor(o.columns * cfg.scale))
+		else
+			api.nvim_win_set_height(winnr, math.floor(o.lines * cfg.scale))
+		end
 	end
 end
 

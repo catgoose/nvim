@@ -76,7 +76,8 @@ end
 		)
 	),
 	s("insp", fmt([[print(vim.inspect({}))]], i(1))),
-	s("pp", fmt([[vim.pretty_print({})]], i(1))),
+	s("pp", fmt([[vim.print({})]], i(1))),
+	s("p", fmt([[vim.print({})]], i(1))),
 	s(
 		"lazy",
 		c(1, {
@@ -102,6 +103,42 @@ end
 				{ i(1), r(2, "lazy_plugin") }
 			),
 		})
+	),
+	s(
+		"func",
+		fmt(
+			[[
+  local function {}({})
+    {}
+  end
+  ]],
+			{ i(1, "func_name"), i(2), i(3) }
+		)
+	),
+	s(
+		"mfunc",
+		fmt(
+			[[
+  function M.{}({})
+    {}
+  end
+  ]],
+			{ i(1, "func_name"), i(2), i(3) }
+		)
+	),
+	s(
+		"if",
+		fmt(
+			[[
+  {} {} then
+    {}
+  end
+  ]],
+			{ c(1, {
+				t("if"),
+				t("if not"),
+			}), i(2), i(0) }
+		)
 	),
 }
 

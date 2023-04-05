@@ -42,12 +42,18 @@ autocmd(buf_event, {
 		opt_local.filetype = "markdown"
 	end,
 })
+autocmd({ "FileType" }, {
+	group = set_filetype,
+	pattern = { "markdown" },
+	callback = function()
+		opt_local.colorcolumn = "80"
+	end,
+})
 
 local all_filetypes = augroup("AllFileTypesLocalOptions")
 autocmd({ "FileType" }, {
 	group = all_filetypes,
 	pattern = { "*" },
-	---
 	callback = function()
 		opt_local.formatoptions = opt_local.formatoptions - "t" + "c" - "r" - "o" - "q" - "a" + "n" - "2" + "l" + "j"
 	end,
@@ -76,6 +82,7 @@ autocmd({ "FileType" }, {
 	pattern = { "harpoon" },
 	callback = function()
 		opt_local.cursorline = true
+		opt_local.numberwidth = 5
 	end,
 })
 
@@ -124,11 +131,11 @@ autocmd({ "BufEnter" }, {
 	end,
 })
 
-local terminal = augroup("NeovimTerminalLocalOptions")
+local terminal = augroup("TerminalLocalOptions")
 autocmd({ "TermOpen" }, {
 	group = terminal,
 	pattern = { "*" },
-	callback = function()
+	callback = function(event)
 		opt_local.number = false
 		opt_local.relativenumber = false
 		opt_local.cursorline = false
@@ -140,6 +147,24 @@ autocmd({ "TermOpen" }, {
 				local code_dir = api.nvim_replace_termcodes("<C-" .. key .. ">", true, true, true)
 				api.nvim_feedkeys(code_term_esc .. code_dir, "t", true)
 			end, { noremap = true })
+		end
+		local createExitAuGroup = function()
+			return augroup("TerminalExited0" .. event.buf .. "-" .. event.id)
+		end
+		local terminalExit = createExitAuGroup()
+		autocmd("TextChangedT", {
+			group = terminalExit,
+			callback = function()
+				local buffer_table = api.nvim_buf_get_lines(0, 0, -1, false)
+				local buffer_text = table.concat(buffer_table, "\n")
+				if string.find(buffer_text, "Process exited 0") then
+					api.nvim_input("<ESC>")
+					createExitAuGroup()
+				end
+			end,
+		})
+		if bo.filetype == "" then
+			cmd.startinsert()
 		end
 	end,
 })
@@ -171,7 +196,6 @@ autocmd({ "FocusGained", "BufEnter" }, {
 	end,
 })
 
--- Cursorline
 local cursor_line = augroup("LocalCursorLine")
 autocmd({ "WinEnter", "BufWinEnter" }, {
 	group = cursor_line,
@@ -188,17 +212,7 @@ autocmd({ "WinLeave" }, {
 	end,
 })
 
--- Formatting
-local formatting = augroup("BufFormatting")
-autocmd({ "BufWritePre" }, {
-	group = formatting,
-	pattern = file_pattern,
-	callback = function()
-		u.lsp_buf_format()
-	end,
-})
-
--- -- Lua reload
+-- Lua reload
 local write_source = augroup("WritePostReload")
 autocmd({ "BufWritePost" }, {
 	group = write_source,

@@ -10,7 +10,7 @@ local opts = {
 	highlight = {
 		on_put = true,
 		on_yank = true,
-		timer = 750,
+		timer = 500,
 	},
 	preserve_cursor_position = {
 		enabled = true,
@@ -25,9 +25,9 @@ return {
 		{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" } },
 		{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" } },
 		{ "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" } },
-		{ "gP", "<Plug>(YankyGPutAfter)", mode = { "n", "x" } },
+		{ "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" } },
 		{ "<c-p>", "<Plug>(YankyCycleForward)" },
-		{ "<c-n>", "<Plug>(YankyCycleBackwards)" },
+		{ "<c-n>", "<Plug>(YankyCycleBackward)" },
 		{ "<leader>pp", "<cmd>YankyRingHistory<cr>" },
 	},
 	event = "BufReadPre",

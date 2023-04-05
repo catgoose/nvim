@@ -1,5 +1,4 @@
-local kanagawa = require("kanagawa.colors").setup({ theme = "wave" })
-local colors = kanagawa.palette
+local colors = require("config.colors")
 
 local opts = {
 	autoselect_one = false,
@@ -22,5 +21,4 @@ return {
 	version = "v1.*",
 	opts = opts,
 	cmd = "Neotree",
-	event = "VeryLazy",
 }

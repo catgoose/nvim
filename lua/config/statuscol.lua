@@ -31,7 +31,7 @@ function M.fold_col()
 			return [[%#StatusColumnFoldClosed#]] .. [[▶]] .. [[%*]]
 		end
 	end
-	return " "
+	return ""
 end
 
 function M.sign_col()
