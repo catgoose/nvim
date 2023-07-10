@@ -104,7 +104,6 @@ local config = function()
 					buffer = "[BUF]",
 					path = "[PATH]",
 					treesitter = "[TREE]",
-					dap = "[DAP]",
 				},
 				before = cmp_tailwind.formatter,
 			}),
@@ -116,7 +115,6 @@ local config = function()
 				cmp.config.compare.exact,
 				cmp.config.compare.score,
 				cmp.config.compare.recently_used,
-				require("clangd_extensions.cmp_scores"),
 				cmp.config.compare.locality,
 				cmp.config.compare.kind,
 				cmp.config.compare.sort_text,
@@ -131,12 +129,6 @@ local config = function()
 	})
 	---@diagnostic disable-next-line: undefined-field
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-	require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-		sources = {
-			{ name = "dap" },
-		},
-	})
 end
 
 return {

@@ -20,38 +20,25 @@ local config = function()
 		disabled_filetypes = { "lua", "yaml" },
 	}
 	local rustywind_ft = { filetypes = { "html", "javascript", "typescript", "typescriptreact" } }
-	local cs_ignore = {
-		extra_args = { "--ignore-words=~/.config/codespell/ignore_words" },
-	}
 
 	local sources = {
 		ca.eslint_d,
 		ca.refactoring,
 		ca.shellcheck,
-		d.codespell.with(cs_ignore),
-		d.clang_check,
 		d.eslint_d,
 		d.fish,
 		d.hadolint,
 		d.jsonlint,
 		d.markdownlint.with(md_ft),
-		d.misspell,
 		d.shellcheck,
 		d.tsc,
-		f.autopep8,
-		f.beautysh,
-		f.black,
 		f.cbfmt.with(md_ft),
-		f.clang_format,
-		f.codespell.with(cs_ignore),
 		f.fish_indent,
 		f.fixjson,
 		f.markdownlint.with(md_ft),
 		f.prettierd.with(prettier_ft),
-		f.reorder_python_imports,
 		f.rustfmt,
 		f.rustywind.with(rustywind_ft),
-		f.shellharden,
 		f.stylua.with({ filetypes = { "lua" } }),
 		f.yamlfmt.with({ filetypes = { "yaml" } }),
 		require("typescript.extensions.null-ls.code-actions"),

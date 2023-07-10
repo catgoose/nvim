@@ -4,14 +4,11 @@ local k = vim.keymap.set
 local config = function()
 	local opts = {
 		ensure_installed = {
-			"awk",
 			"bash",
-			"cmake",
 			"cpp",
 			"css",
 			"dockerfile",
 			"fish",
-			"help",
 			"html",
 			"http",
 			"gitignore",

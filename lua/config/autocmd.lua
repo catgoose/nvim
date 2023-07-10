@@ -101,12 +101,6 @@ autocmd({ "FileType" }, {
 		"octo",
 		"ClangdAST",
 		"ClangdTypeHierarchy",
-		"dap-repl",
-		"dapui_watches",
-		"dapui_stacks",
-		"dapui_breakpoints",
-		"dapui_scopes",
-		"dapui_console",
 	},
 	callback = function(event)
 		q_to_quit(event)

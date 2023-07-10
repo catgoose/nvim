@@ -135,7 +135,6 @@ local config = function()
 		"fzf",
 		"ui-select",
 		"harpoon",
-		"tmux-tasks",
 		"workspaces",
 		"lazy",
 	}

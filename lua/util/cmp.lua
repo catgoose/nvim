@@ -14,6 +14,7 @@ local is_not_filetype = function()
 	local ft = vim.bo.filetype
 	local exclude_ft = {
 		"neorepl",
+		"neoai-input",
 	}
 	for _, v in pairs(exclude_ft) do
 		if ft == v then
@@ -25,13 +26,10 @@ end
 local is_not_luasnip = function()
 	return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
 end
-local is_dap_buffer = function()
-	return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
-end
 
 ---@diagnostic disable-next-line: duplicate-set-field
 M.is_cmp_enabled = function()
-	return (is_not_comment() and is_not_prompt() and is_not_filetype() and is_not_luasnip()) or is_dap_buffer()
+	return (is_not_comment() and is_not_prompt() and is_not_filetype() and is_not_luasnip())
 end
 
 return M

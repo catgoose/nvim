@@ -5,10 +5,7 @@ local config = function()
 
 	local lspc = require("lspconfig")
 	local ts = require("typescript")
-	local rt = require("rust-tools")
-	local ih = require("inlay-hints")
 	local cmp = require("cmp_nvim_lsp")
-	local clangd_ext = require("clangd_extensions")
 	local vt = require("virtualtypes")
 
 	-- LSP capabilities
@@ -135,25 +132,6 @@ local config = function()
 		},
 	})
 
-	rt.setup({
-		server = {
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-				ih.on_attach(client, bufnr)
-				vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-				vim.keymap.set("n", "<leader>u", rt.code_action_group.code_action_group, { buffer = bufnr })
-			end,
-		},
-		tools = {
-			on_initialized = function()
-				ih.set_all()
-			end,
-			inlay_hints = {
-				auto = false,
-			},
-		},
-	})
-
 	lspc.angularls.setup({
 		capabilities = capabilities,
 		on_attach = function(client, bufnr)
@@ -166,7 +144,6 @@ local config = function()
 		capabilities = capabilities,
 		on_attach = function(client, bufnr)
 			on_attach(client, bufnr)
-			ih.on_attach(client, bufnr)
 		end,
 		settings = {
 			Lua = {
@@ -223,15 +200,11 @@ local config = function()
 	})
 
 	local lang_servers = {
-		"awk_ls",
 		"bashls",
-		"cmake",
 		"cssmodules_ls",
 		"docker_compose_language_service",
 		"dockerls",
-		"jedi_language_server",
 		"marksman",
-		"neocmake",
 		"powershell_es",
 		"rust_analyzer",
 		"tailwindcss",
@@ -243,32 +216,6 @@ local config = function()
 			on_attach = on_attach,
 		})
 	end
-	lspc.diagnosticls.setup({
-		capabilities = capabilities,
-		on_attach = function(client, bufnr)
-			local stop_ft = {
-				"dap-repl",
-			}
-			for _, ft in pairs(stop_ft) do
-				if vim.bo.filetype == ft then
-					if l.buf_is_attached(bufnr, client.id) then
-						local notify = vim.notify
-						---@diagnostic disable-next-line: duplicate-set-field
-						vim.notify = function() end
-						l.buf_detach_client(bufnr, client.id)
-						vim.notify = notify
-					end
-				end
-			end
-			on_attach(client, bufnr)
-		end,
-	})
-	clangd_ext.setup({
-		server = {
-			capabilities = capabilities,
-			on_attach = on_attach,
-		},
-	})
 
 	local lang_servers_snippet_support = {
 		"html",
@@ -293,8 +240,6 @@ return {
 		"onsails/lspkind-nvim",
 		"litao91/lsp_lines",
 		"kevinhwang91/nvim-ufo",
-		"simrat39/rust-tools.nvim",
-		"p00f/clangd_extensions.nvim",
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"filipdutescu/renamer.nvim",
