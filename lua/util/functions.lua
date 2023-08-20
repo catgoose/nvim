@@ -219,9 +219,9 @@ end
 
 M.update_all = function()
 	local cmds = {
-		"Lazy sync",
 		"MasonToolsUpdate",
 		"TSUpdate",
+		"Lazy sync",
 	}
 	for _, c in ipairs(cmds) do
 		print("Running: " .. c)

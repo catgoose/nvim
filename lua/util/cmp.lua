@@ -14,6 +14,7 @@ local is_not_filetype = function()
 	local ft = vim.bo.filetype
 	local exclude_ft = {
 		"neorepl",
+		"neoai-input",
 	}
 	for _, v in pairs(exclude_ft) do
 		if ft == v then
@@ -26,7 +27,8 @@ local is_not_luasnip = function()
 	return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
 end
 local is_dap_buffer = function()
-	return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+	-- return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+	return false
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field

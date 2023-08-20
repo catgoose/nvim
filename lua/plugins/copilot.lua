@@ -1,6 +1,6 @@
 local opts = {
 	panel = {
-		enabled = true,
+		enabled = false,
 		auto_refresh = true,
 		keymap = {
 			jump_prev = false,
@@ -16,14 +16,18 @@ local opts = {
 	},
 	suggestion = {
 		enabled = true,
-		auto_trigger = false,
+		-- auto_trigger = false,
+		auto_trigger = true,
 		debounce = 75,
 		keymap = {
-			accept = "<S-Tab>",
-			accept_line = "<M-o>",
+			-- accept = "<S-Tab>",
+			accept = "<Tab>",
+			-- accept_line = "<M-o>",
+			accept_line = "<S-Tab>",
 			next = "<M-]>",
 			prev = "<M-[>",
-			dismiss = "<C-]>",
+			-- dismiss = "<C-]>",
+			dismiss = "<M-o>",
 		},
 	},
 	filetypes = {

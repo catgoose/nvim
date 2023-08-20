@@ -3,6 +3,10 @@ local opts = {
 		"*",
 		typescript = {
 			css = false,
+			names = true,
+		},
+		javascript = {
+			css = false,
 			names = false,
 		},
 		json = {
@@ -21,6 +25,9 @@ local opts = {
 			names = false,
 		},
 		help = {
+			names = false,
+		},
+		terminal = {
 			names = false,
 		},
 	},

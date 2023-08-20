@@ -16,10 +16,19 @@ local config = function()
 			"scss",
 			"typescript",
 			"typescriptreact",
+			"vue",
 		},
 		disabled_filetypes = { "lua", "yaml" },
 	}
-	local rustywind_ft = { filetypes = { "html", "javascript", "typescript", "typescriptreact" } }
+	local rustywind_ft = {
+		filetypes = {
+			"html",
+			"javascript",
+			"typescript",
+			"typescriptreact",
+			"vue",
+		},
+	}
 	local cs_ignore = {
 		extra_args = { "--ignore-words=~/.config/codespell/ignore_words" },
 	}
@@ -42,18 +51,18 @@ local config = function()
 		f.beautysh,
 		f.black,
 		f.cbfmt.with(md_ft),
-		f.clang_format,
-		f.codespell.with(cs_ignore),
-		f.fish_indent,
-		f.fixjson,
 		f.markdownlint.with(md_ft),
+		f.codespell.with(cs_ignore),
 		f.prettierd.with(prettier_ft),
-		f.reorder_python_imports,
-		f.rustfmt,
 		f.rustywind.with(rustywind_ft),
-		f.shellharden,
 		f.stylua.with({ filetypes = { "lua" } }),
 		f.yamlfmt.with({ filetypes = { "yaml" } }),
+		f.clang_format,
+		f.fish_indent,
+		f.fixjson,
+		f.reorder_python_imports,
+		f.shellharden,
+		f.erb_format,
 		require("typescript.extensions.null-ls.code-actions"),
 	}
 

@@ -69,7 +69,7 @@ local opts = {
 				icon = "",
 				desc = "Restore session",
 				key = "r",
-				action = "RestoreSessionSilent",
+				action = "SessionRestore",
 			},
 			{
 				icon = "",

@@ -5,12 +5,13 @@ local m = require("util").lazy_map
 
 local opts = {
 	tasks = {},
+	config = ".tasks.json",
 }
 
 local plugin = {
 	keys = {
-		m("<leader>;", [[Telescope tmux-tasks tasks]]),
-		m("<leader>:", [[Telescope tmux-tasks]]),
+		m("<leader>;", [[Telescope do-the-needful please]]),
+		m("<leader>:", [[Telescope do-the-needful]]),
 	},
 	dependencies = "nvim-lua/plenary.nvim",
 	opts = opts,
@@ -19,13 +20,13 @@ local plugin = {
 
 if dev == true then
 	return e("keep", plugin, {
-		dir = "~/git/tmux-tasks.nvim",
+		dir = "~/git/do-the-needful",
 		dev = true,
 		lazy = false,
 	})
 else
 	return e("keep", plugin, {
-		"catgoose/tmux-tasks.nvim",
+		"catgoose/do-the-needful",
 		event = "BufReadPre",
 	})
 end

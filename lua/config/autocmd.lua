@@ -148,6 +148,10 @@ autocmd({ "TermOpen" }, {
 				api.nvim_feedkeys(code_term_esc .. code_dir, "t", true)
 			end, { noremap = true })
 		end
+		if bo.filetype == "" then
+			api.nvim_buf_set_option(event.buf, "filetype", "terminal")
+			cmd.startinsert()
+		end
 		local createExitAuGroup = function()
 			return augroup("TerminalExited0" .. event.buf .. "-" .. event.id)
 		end
@@ -163,9 +167,6 @@ autocmd({ "TermOpen" }, {
 				end
 			end,
 		})
-		if bo.filetype == "" then
-			cmd.startinsert()
-		end
 	end,
 })
 

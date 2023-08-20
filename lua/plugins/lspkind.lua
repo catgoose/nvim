@@ -51,7 +51,6 @@ return {
 				"ray-x/cmp-treesitter",
 				"saadparwaiz1/cmp_luasnip",
 				"roobert/tailwindcss-colorizer-cmp.nvim",
-				"rcarriga/cmp-dap",
 			},
 		},
 		"hrsh7th/nvim-cmp",

@@ -135,7 +135,7 @@ local config = function()
 		"fzf",
 		"ui-select",
 		"harpoon",
-		"tmux-tasks",
+		"do-the-needful",
 		"workspaces",
 		"lazy",
 	}
@@ -174,4 +174,5 @@ return {
 		"jedrzejboczar/toggletasks.nvim",
 		"tsakirist/telescope-lazy.nvim",
 	},
+	-- commit = "40c31fdde93bcd85aeb3447bb3e2a3208395a868",
 }

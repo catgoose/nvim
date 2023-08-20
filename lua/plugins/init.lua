@@ -1,3 +1,5 @@
+local m = require("util").lazy_map
+
 return {
 	{
 		"dstein64/vim-startuptime",
@@ -52,4 +54,46 @@ return {
 		cmd = "Glow",
 		ft = { "markdown" },
 	},
+	{
+		"folke/neodev.nvim",
+		config = true,
+		lazy = true,
+	},
+	{
+		"folke/neoconf.nvim",
+		lazy = true,
+	},
+	{
+		"MaximilianLloyd/tw-values.nvim",
+		config = true,
+		lazy = true,
+		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
+	},
+	{
+		"MaximilianLloyd/lazy-reload.nvim",
+		config = true,
+		lazy = true,
+		keys = {
+			{ "<leader>rl", "<cmd>lua require('lazy-reload').feed()<cr>" },
+		},
+	},
+	--  TODO: 2023-08-20 - configure this
+	-- refer to: https://github.com/lewis6991/hover.nvim/issues/34
+	-- {
+	-- 	"lewis6991/hover.nvim",
+	-- 	lazy = false,
+	-- 	config = function()
+	-- 		require("hover").setup({
+	-- 			init = function()
+	-- 				require("hover.providers.lsp")
+	-- 			end,
+	-- 			preview_opts = {
+	-- 				preview_window = false,
+	-- 				title = true,
+	-- 			},
+	-- 		})
+	-- 		vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+	-- 		-- vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+	-- 	end,
+	-- },
 }

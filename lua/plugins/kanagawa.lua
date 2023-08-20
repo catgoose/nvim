@@ -83,6 +83,10 @@ local overrides = function(colors)
 			bg = p.springViolet2,
 			bold = true,
 		},
+		UfoFoldedBg = {
+			bg = p.waveBlue1,
+			bold = true,
+		},
 	}
 end
 

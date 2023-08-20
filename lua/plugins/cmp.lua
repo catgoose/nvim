@@ -1,3 +1,13 @@
+local source_mapping = {
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[LUA]",
+	luasnip = "[SNIP]",
+	buffer = "[BUF]",
+	path = "[PATH]",
+	treesitter = "[TREE]",
+	dap = "[DAP]",
+}
+
 local config = function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
@@ -97,15 +107,7 @@ local config = function()
 				-- 	entry = entry
 				-- 	return vim_item
 				-- end,
-				menu = {
-					nvim_lsp = "[LSP]",
-					nvim_lua = "[LUA]",
-					luasnip = "[SNIP]",
-					buffer = "[BUF]",
-					path = "[PATH]",
-					treesitter = "[TREE]",
-					dap = "[DAP]",
-				},
+				menu = source_mapping,
 				before = cmp_tailwind.formatter,
 			}),
 		},

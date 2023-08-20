@@ -243,12 +243,12 @@ local snippets = {
 		"ngoutlet",
 		fmt(
 			[[
-  <ng-template
+  <ng-container
     [ngTemplateOutlet]="{}"
     [ngTemplateOutletContext]="{{ {} }}"
     >
     {}
-    </ng-template>
+  </ng-container>
   ]],
 			{ i(1), i(2), i(3) }
 		)

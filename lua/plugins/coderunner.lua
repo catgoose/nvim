@@ -10,6 +10,10 @@ local opts = {
 			{ "compiledb make", { "[#ask]", "compiledb args" } },
 			{ { "[#ask]", "Command to run after make" } },
 		},
+		cs = {
+			{ "clear" },
+			{ "dotnet run" },
+		},
 	},
 }
 

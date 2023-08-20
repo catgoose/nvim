@@ -2,7 +2,7 @@ local m = require("util").lazy_map
 
 local opts = {
 	ssh_aliases = {
-		["github.com"] = "github.com",
+		["github.com-dsld"] = "github.com",
 	},
 }
 

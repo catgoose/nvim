@@ -14,7 +14,6 @@ local opts = {
 
 local handlers = function()
 	local dap = require("dap")
-	require("mason-nvim-dap").setup_handlers({})
 	dap.configurations.cpp = {
 		{
 			name = "Launch file (cppdbg)",
@@ -38,7 +37,6 @@ local handlers = function()
 		},
 	}
 	dap.configurations.c = dap.configurations.cpp
-	dap.configurations.rust = dap.configurations.cpp
 end
 
 local listeners = function()

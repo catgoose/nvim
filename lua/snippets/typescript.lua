@@ -96,14 +96,14 @@ expect({}).toHaveBeenCalled();
 		fmta(
 			[[
       #<>(message: any, ...args: any) {
-      this.logger.<>(message, { context: <>.name, ...args, });
+        this.logger.<>(message, { context: <>.name, ...args, });
       }
       ]],
 			{
 				c(1, {
 					t("error"),
-					t("warn"),
 					t("debug"),
+					t("warn"),
 				}),
 				smn(1),
 				f(u.nest_classname),
@@ -235,6 +235,8 @@ export class <>Entity {
 			[[
   @Column({})
   {}: {}
+
+  {}
   ]],
 			{
 				c(1, {
@@ -247,6 +249,7 @@ export class <>Entity {
 				}),
 				i(2, "name"),
 				i(3, "Type"),
+				i(0),
 			}
 		)
 	),
@@ -270,7 +273,7 @@ export class <>Entity {
 		fmt(
 			[[
     @InjectDataSource("{}")
-    private entityManager: Entitymanager
+    private entityManager: EntityManager
     ]],
 			i(1, "datasource")
 		)
@@ -280,7 +283,7 @@ export class <>Entity {
 		fmt(
 			[[
     @InjectDataSource("{}")
-    private entityManager: Entitymanager
+    private entityManager: EntityManager
     ]],
 			i(1, "datasource")
 		)
@@ -378,6 +381,24 @@ export class <>Entity {
 			}),
 		}),
 	}),
+	--  TODO: 2023-04-12 - get context servicename from TS query
+	s(
+		"#debug",
+		fmta(
+			[[
+  async #debug(message: any, ...args: any) {
+    await this.winstonDebugService.debug(message, {
+      context: <>.name,
+      label: '<>',
+      ...args,
+    });
+    this.logger.debug()
+  }
+  ]],
+			{ i(1, "ClassName"), i(2, "AppName") }
+		)
+	),
+	s("debserv", t("private winstonDebugService: WinstonDebugService")),
 	s(
 		"deb",
 		fmta(
@@ -455,6 +476,43 @@ export class <>Store extends ComponentStore<<<>State>> {
 	}),
 	s("nhttpimport", t([[import { HttpService } from "@nestjs/axios";]])),
 	s("nschedule", t([[ScheduleModule.forRoot(),]])),
+	s(
+		"nsubscriber",
+		fmt(
+			[[
+import {{
+  EntitySubscriberInterface,
+  EventSubscriber,
+  InsertEvent,
+  UpdateEvent,
+}} from 'typeorm';
+
+@EventSubscriber()
+export class {}Subscriber
+  implements EntitySubscriberInterface<{}Entity>
+{{
+  listenTo(): any {{
+    return {}Entity;
+  }}
+
+  #updatedColumns: string[];
+  async beforeUpdate(event: UpdateEvent<{}Entity>) {{
+    const entity = <{}Entity>event.entity;
+    this.#updatedColumns = event.updatedColumns.map((m) => m.propertyName);
+  }}
+
+  async beforeInsert(event: InsertEvent<{}Entity>) {{
+    const entity = <{}Entity>event.entity;
+  }}
+
+  #isColumnUpdated(column: string) {{
+    return this.#updatedColumns.indexOf(column) >= 0;
+  }}
+}}
+    ]],
+			{ i(1, "Entity"), smn(1), smn(1), smn(1), smn(1), smn(1), smn(1) }
+		)
+	),
 	s(
 		"appenv",
 		fmta(
@@ -633,6 +691,43 @@ catchError((err) =>> {
 				i(1),
 				i(2),
 				i(3),
+			}
+		)
+	),
+	s(
+		"tryerr",
+		fmt(
+			[[
+  if (!{}) {{
+    throw new Error("Error: {}");
+  }}
+  {}
+  ]],
+			{
+				i(1),
+				i(2),
+				i(0),
+			}
+		)
+	),
+	s(
+		"pinia",
+		fmta(
+			[[
+  import { defineStore } from "pinia";
+  import { computed, ref } from "vue";
+
+  export const use<>Store = defineStore('<>Store', () =>> {
+   <> 
+    return {
+
+    }
+  })
+  ]],
+			{
+				i(1),
+				low(1),
+				i(0),
 			}
 		)
 	),

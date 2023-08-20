@@ -1,15 +1,5 @@
-local opts = {
-	patterns = {
-		html = {
-			"element",
-			"start_tag",
-		},
-	},
-}
-
 return {
 	"nvim-treesitter/nvim-treesitter-context",
-	opts = opts,
+	config = true,
 	event = "BufReadPre",
-	enabled = false,
 }

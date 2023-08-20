@@ -18,7 +18,7 @@ M.toggleterm_opts = function(added_opts)
 		shade_terminals = false,
 		hide_numbers = false,
 		on_open = function(term)
-			cmd.startinsert()
+			-- cmd.startinsert()
 			api.nvim_buf_set_keymap(term.bufnr, "n", "q", [[<cmd>close<cr>]], { noremap = true, silent = true })
 		end,
 		on_close = function() end,

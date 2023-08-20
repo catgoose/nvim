@@ -23,7 +23,7 @@ local plugin = {
 		m("<leader>tf", [[AnglerRenameFile]]),
 		m("<leader>k", [[AnglerFixAll]]),
 	},
-	ft = "typescript",
+	ft = { "typescript", "vue" },
 	dependencies = "jose-elias-alvarez/typescript.nvim",
 }
 

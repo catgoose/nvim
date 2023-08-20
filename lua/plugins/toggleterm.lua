@@ -16,6 +16,9 @@ return {
 		m("[4", "ToggleTermFish", modes),
 		m("[8", "ToggleTermRepl", modes),
 		m("[0", "ToggleTermPowershell", modes),
+		-- ToggleTasks
+		m("[5", "5ToggleTerm", modes),
+		m("[9", "9ToggleTerm", modes),
 	},
 	branch = "main",
 }

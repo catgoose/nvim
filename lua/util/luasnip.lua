@@ -73,8 +73,12 @@ M.nest_method_args = function(_, snip, _)
 	local tstree = parser:parse()[1]
 	local node = tstree:root():named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
 
+	if node == nil then
+		return ""
+	end
 	for child in node:iter_children() do
 		local query = vim.treesitter.query.parse("typescript", ts_query)
+		---@diagnostic disable-next-line: missing-parameter
 		for _, arg in query:iter_captures(child, 0) do
 			method_args = method_args .. vim.treesitter.get_node_text(arg, 0) .. ", "
 		end
@@ -92,6 +96,7 @@ M.nest_classname = function()
 	local tstree = parser:parse()[1]
 	local node = tstree:root()
 	local query = vim.treesitter.query.parse("typescript", ts_query)
+	---@diagnostic disable-next-line: missing-parameter
 	for _, class_name in query:iter_captures(node, 0) do
 		return vim.treesitter.get_node_text(class_name, 0)
 	end

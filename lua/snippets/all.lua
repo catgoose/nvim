@@ -19,7 +19,7 @@ local todos = {
 	"note",
 	"test",
 	"bug",
-	"ref",
+	"refc",
 	"question",
 }
 for _, todo in ipairs(todos) do

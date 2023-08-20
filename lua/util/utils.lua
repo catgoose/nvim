@@ -209,6 +209,43 @@ M.diag_error = function()
 	return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
+M.treesitter_is_css_class_under_cursor = function()
+	local ft = bo.filetype
+	if not tbl_contains({ "typescript", "typescriptreact", "vue", "html", "svelt", "astro" }, ft) then
+		return false
+	end
+	local ft_query = [[
+    (attribute
+      (attribute_name) @attr_name
+        (quoted_attribute_value (attribute_value) @attr_val)
+        (#match? @attr_name "class")
+    )
+    ]]
+	local queries = vim.treesitter.query.parse(ft, ft_query)
+	local bufnr = vim.api.nvim_get_current_buf()
+	local cursor = vim.treesitter.get_node({
+		bufnr = bufnr,
+		ignore_injections = false,
+	})
+	if cursor == nil then
+		return false
+	end
+	local parent = cursor:parent()
+
+	if not parent then
+		return false
+	end
+
+	if queries == nil then
+		return false
+	end
+
+	for id, _ in queries:iter_captures(parent, bufnr, 0, -1) do
+		local name = queries.captures[id]
+		return #name > 0
+	end
+end
+
 M.hover_handler = function()
 	local winid = require("ufo").peekFoldedLinesUnderCursor()
 	if winid then
@@ -217,6 +254,8 @@ M.hover_handler = function()
 	local ft = bo.filetype
 	if tbl_contains({ "vim", "help" }, ft) then
 		cmd("silent! h " .. fn.expand("<cword>"))
+	elseif M.treesitter_is_css_class_under_cursor() then
+		cmd("TWValues")
 	elseif tbl_contains({ "man" }, ft) then
 		cmd("silent! Man " .. fn.expand("<cword>"))
 	elseif fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
@@ -224,6 +263,11 @@ M.hover_handler = function()
 	else
 		vim.lsp.buf.hover()
 	end
+end
+
+M.is_x_display = function()
+	local x_display = os.getenv("DISPLAY")
+	return x_display ~= nil and x_display ~= ""
 end
 
 return M
