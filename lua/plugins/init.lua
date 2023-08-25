@@ -17,7 +17,9 @@ return {
 	},
 	{
 		"axelvc/template-string.nvim",
-		config = true,
+		opts = {
+			filetypes = { "html", "typescript", "javascript", "typescriptreact", "javascriptreact", "python", "vue" },
+		},
 		event = "BufReadPre",
 	},
 	{
@@ -77,23 +79,10 @@ return {
 			{ "<leader>rl", "<cmd>lua require('lazy-reload').feed()<cr>" },
 		},
 	},
-	--  TODO: 2023-08-20 - configure this
-	-- refer to: https://github.com/lewis6991/hover.nvim/issues/34
-	-- {
-	-- 	"lewis6991/hover.nvim",
-	-- 	lazy = false,
-	-- 	config = function()
-	-- 		require("hover").setup({
-	-- 			init = function()
-	-- 				require("hover.providers.lsp")
-	-- 			end,
-	-- 			preview_opts = {
-	-- 				preview_window = false,
-	-- 				title = true,
-	-- 			},
-	-- 		})
-	-- 		vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-	-- 		-- vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
-	-- 	end,
-	-- },
+	{
+		"m4xshen/hardtime.nvim",
+		opts = {},
+		cmd = { "Hardtime" },
+		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+	},
 }

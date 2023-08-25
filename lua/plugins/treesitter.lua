@@ -217,7 +217,6 @@ return {
 					"javascript",
 					"typescript",
 				},
-				-- branch = "fix/oh-ten-injections",
 			},
 		},
 	},

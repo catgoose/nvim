@@ -49,6 +49,23 @@ console.groupEnd();
 			{ i(1) }
 		)
 	),
+	s(
+		"vue",
+		fmt(
+			[[
+<style></style>
+
+<template>
+<div></div>
+</template>
+
+<script setup lang="ts">
+{}
+</script>
+  ]],
+			{ i(1) }
+		)
+	),
 }
 
 return snippets

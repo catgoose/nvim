@@ -102,7 +102,7 @@ for _, i in ipairs(opts.config.center) do
 end
 
 return {
-	"glepnir/dashboard-nvim",
+	"nvimdev/dashboard-nvim",
 	event = "VimEnter",
 	opts = opts,
 	dependencies = "kyazdani42/nvim-web-devicons",

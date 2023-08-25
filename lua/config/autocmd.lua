@@ -152,21 +152,6 @@ autocmd({ "TermOpen" }, {
 			api.nvim_buf_set_option(event.buf, "filetype", "terminal")
 			cmd.startinsert()
 		end
-		local createExitAuGroup = function()
-			return augroup("TerminalExited0" .. event.buf .. "-" .. event.id)
-		end
-		local terminalExit = createExitAuGroup()
-		autocmd("TextChangedT", {
-			group = terminalExit,
-			callback = function()
-				local buffer_table = api.nvim_buf_get_lines(0, 0, -1, false)
-				local buffer_text = table.concat(buffer_table, "\n")
-				if string.find(buffer_text, "Process exited 0") then
-					api.nvim_input("<ESC>")
-					createExitAuGroup()
-				end
-			end,
-		})
 	end,
 })
 
