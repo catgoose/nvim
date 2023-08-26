@@ -2,7 +2,7 @@
   "lsp": {
     "servers": {
       "volar": {
-        "disable": false
+        "disable": true
       }
     }
   }
