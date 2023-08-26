@@ -5,7 +5,7 @@ local source_mapping = {
 	buffer = "[BUF]",
 	path = "[PATH]",
 	treesitter = "[TREE]",
-	dap = "[DAP]",
+	cmp_ai = "[AI]",
 }
 
 local config = function()
@@ -13,12 +13,13 @@ local config = function()
 	local lspkind = require("lspkind")
 	local luasnip = require("luasnip")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-	local enabled = require("util.cmp").is_cmp_enabled
+	local is_enabled = require("util.cmp").is_enabled
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
+	local cmp_ai = require("cmp_ai.config")
 
 	cmp.setup({
 		enabled = function()
-			return enabled()
+			return is_enabled()
 		end,
 		preselect = cmp.PreselectMode.Item,
 		keyword_length = 2,
@@ -45,6 +46,16 @@ local config = function()
 			["<C-f>"] = cmp.mapping.scroll_docs(5),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-q>"] = cmp.mapping.abort(),
+			["<C-x>"] = cmp.mapping(
+				cmp.mapping.complete({
+					config = {
+						sources = cmp.config.sources({
+							{ name = "cmp_ai" },
+						}),
+					},
+				}),
+				{ "i" }
+			),
 		}),
 		sources = cmp.config.sources({
 			{
@@ -118,6 +129,7 @@ local config = function()
 		sorting = {
 			priority_weight = 2,
 			comparators = {
+				require("cmp_ai.compare"),
 				cmp.config.compare.offset,
 				cmp.config.compare.exact,
 				cmp.config.compare.score,
@@ -138,10 +150,24 @@ local config = function()
 	---@diagnostic disable-next-line: undefined-field
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-	require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-		sources = {
-			{ name = "dap" },
-		},
+	-- require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+	-- 	sources = {
+	-- 		{ name = "dap" },
+	-- 	},
+	-- })
+
+	cmp_ai:setup({
+		max_lines = 1000,
+		provider = "OpenAI",
+		model = "gpt-3.5-turbo",
+		notify = true,
+		notify_callback = function(msg)
+			require("notify").notify(msg, vim.log.levels.INFO, {
+				title = "OpenAI",
+			})
+		end,
+		run_on_every_keystroke = true,
+		ignored_file_types = {},
 	})
 end
 

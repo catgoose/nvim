@@ -51,6 +51,7 @@ return {
 				"ray-x/cmp-treesitter",
 				"saadparwaiz1/cmp_luasnip",
 				"roobert/tailwindcss-colorizer-cmp.nvim",
+				-- "tzachar/cmp-ai",
 			},
 		},
 		"hrsh7th/nvim-cmp",

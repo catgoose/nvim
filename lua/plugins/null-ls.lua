@@ -12,7 +12,7 @@ local config = function()
 			"javascript",
 			"json",
 			"jsonc",
-			-- "markdown",
+			"markdown",
 			"scss",
 			"typescript",
 			"typescriptreact",
