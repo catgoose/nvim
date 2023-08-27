@@ -85,4 +85,27 @@ return {
 		cmd = { "Hardtime" },
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 	},
+	{
+		"kevinhwang91/nvim-fundo",
+		dependencies = "kevinhwang91/promise-async",
+		build = function()
+			require("fundo").install()
+		end,
+		config = true,
+		lazy = true,
+	},
+	{
+		"jcdickinson/codeium.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			-- "hrsh7th/nvim-cmp",
+			{
+				"jcdickinson/http.nvim",
+				build = "cargo build --workspace --release",
+			},
+		},
+		lazy = true,
+		config = true,
+		cmd = { "Codeium" },
+	},
 }

@@ -29,6 +29,7 @@ local config = function()
 			Operator = "",
 			TypeParameter = "",
 			Copilot = "",
+			Codeium = "",
 		},
 	})
 end
@@ -56,6 +57,7 @@ return {
 					"catgoose/cmp-ai",
 					dependencies = "nvim-lua/plenary.nvim",
 				},
+				"jcdickinson/codeium.nvim",
 			},
 		},
 		"hrsh7th/nvim-cmp",

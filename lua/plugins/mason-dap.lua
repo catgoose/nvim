@@ -1,11 +1,11 @@
 local opts = {
 	ensure_installed = {
 		"bash",
-		"chrome",
+		-- "chrome",
 		"codelldb",
 		"cppdbg",
-		"js",
-		"node2",
+		-- "js",
+		-- "node2",
 		"cpptools",
 	},
 	automatic_installation = true,

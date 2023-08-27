@@ -68,6 +68,10 @@ local config = function()
 				end,
 			},
 			{
+				name = "codeium",
+				group_index = 1,
+			},
+			{
 				name = "nvim_lsp",
 				group_index = 2,
 			},
