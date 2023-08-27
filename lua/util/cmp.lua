@@ -16,6 +16,7 @@ local is_not_buftype = function()
 			return false
 		end
 	end
+	return true
 end
 local is_not_filetype = function()
 	local ft = vim.bo.filetype
@@ -35,7 +36,7 @@ local is_not_luasnip = function()
 	return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
 end
 
-M.is_enabled = function()
+M.cmp_is_enabled = function()
 	return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
 end
 

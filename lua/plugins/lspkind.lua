@@ -51,7 +51,11 @@ return {
 				"ray-x/cmp-treesitter",
 				"saadparwaiz1/cmp_luasnip",
 				"roobert/tailwindcss-colorizer-cmp.nvim",
-				-- "tzachar/cmp-ai",
+				{
+					-- "tzachar/cmp-ai",
+					"catgoose/cmp-ai",
+					dependencies = "nvim-lua/plenary.nvim",
+				},
 			},
 		},
 		"hrsh7th/nvim-cmp",
