@@ -14,11 +14,9 @@ return {
 		m("[2", "ToggleTermLazyDocker", modes),
 		m("[3", "ToggleTermLazyGit", modes),
 		m("[4", "ToggleTermFish", modes),
+		m("[5", "ToggleTermWeeChat", modes),
 		m("[8", "ToggleTermRepl", modes),
 		m("[0", "ToggleTermPowershell", modes),
-		-- ToggleTasks
-		m("[5", "5ToggleTerm", modes),
-		m("[9", "9ToggleTerm", modes),
 	},
 	branch = "main",
 }
