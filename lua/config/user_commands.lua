@@ -12,10 +12,18 @@ c("SpectreOpen", f.spectre_open)
 c("SpectreOpenWord", f.spectre_open_word)
 c("SpectreOpenCwd", f.spectre_open_cwd)
 c("SpotifyNext", function()
-	f.run_system_command({ cmd = "spt playback -n", notify = true, title = "Spotify" })
+	f.run_system_command({
+		cmd = "spt playback -n",
+		notify = true,
+		notify_config = { title = "Spotify", render = "compact" },
+	})
 end)
 c("SpotifyPrev", function()
-	f.run_system_command({ cmd = "spt playback -p", notify = true, title = "Spotify" })
+	f.run_system_command({
+		cmd = "spt playback -p",
+		notify = true,
+		notify_config = { title = "Spotify", render = "compact" },
+	})
 end)
 c("TagStackDown", function()
 	f.tagstack_navigate({ direction = "down" })

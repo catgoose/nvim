@@ -88,16 +88,14 @@ M.run_system_command = function(config)
 	if not config or not config.cmd then
 		return
 	end
+	config.notify_config = config.notify_config or { title = "System Command" }
 	vim.defer_fn(function()
 		local handle = io.popen(config.cmd)
 		if handle then
 			local result = handle:read("*a")
 			handle:close()
 			if config.notify == true then
-				config.title = config.title or "System Command"
-				require("notify").notify(result, vim.log.levels.INFO, {
-					title = config.title,
-				})
+				require("notify").notify(result, vim.log.levels.INFO, config.notify_config)
 			end
 		end
 	end, 0)
