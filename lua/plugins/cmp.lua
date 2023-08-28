@@ -68,35 +68,35 @@ local config = function()
 				end,
 			},
 			{
-				name = "codeium",
-				group_index = 1,
-			},
-			{
 				name = "nvim_lsp",
 				group_index = 2,
 			},
 			{
+				name = "codeium",
+				group_index = 3,
+			},
+			{
 				name = "nvim_lua",
-				group_index = 2,
+				group_index = 3,
 			},
 			{
 				name = "crates",
-				group_index = 2,
+				group_index = 3,
 			},
 			{
 				name = "treesitter",
-				keyword_length = 3,
-				group_index = 3,
+				keyword_length = 4,
+				group_index = 4,
 			},
 			{
 				name = "path",
-				keyword_length = 3,
-				group_index = 3,
+				keyword_length = 4,
+				group_index = 4,
 			},
 			{
 				name = "buffer",
 				keyword_length = 3,
-				group_index = 4,
+				group_index = 5,
 				option = {
 					get_bufnrs = function()
 						local bufs = {}
@@ -110,12 +110,12 @@ local config = function()
 			{
 				name = "emoji",
 				keyword_length = 2,
-				group_index = 5,
+				group_index = 6,
 			},
 			{
 				name = "nerdfont",
 				keyword_length = 2,
-				group_index = 5,
+				group_index = 6,
 			},
 		}),
 		formatting = {
@@ -168,6 +168,7 @@ local config = function()
 		notify_callback = function(msg)
 			require("notify").notify(msg, vim.log.levels.INFO, {
 				title = "OpenAI",
+				render = "compact",
 			})
 		end,
 		run_on_every_keystroke = true,
@@ -179,4 +180,26 @@ return {
 	"hrsh7th/nvim-cmp",
 	config = config,
 	event = "InsertEnter",
+	commit = "6c84bc75c64f778e9f1dcb798ed41c7fcb93b639",
+	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-emoji",
+			"chrisgrieser/cmp-nerdfont",
+			"ray-x/cmp-treesitter",
+			"saadparwaiz1/cmp_luasnip",
+			"roobert/tailwindcss-colorizer-cmp.nvim",
+			{
+				-- "tzachar/cmp-ai",
+				"catgoose/cmp-ai",
+				dependencies = "nvim-lua/plenary.nvim",
+			},
+			"jcdickinson/codeium.nvim",
+		},
+	},
 }

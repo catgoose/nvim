@@ -41,10 +41,8 @@ local opts = {
 		neorepl = false,
 		["dap-repl"] = false,
 		sh = function()
-			if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
-				return false
-			end
-			return true
+			---@diagnostic disable-next-line: param-type-mismatch
+			return not string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*")
 		end,
 		["."] = false,
 	},

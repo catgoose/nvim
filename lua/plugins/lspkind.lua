@@ -39,27 +39,6 @@ return {
 	config = config,
 	event = "BufReadPre",
 	dependencies = {
-		{
-			"hrsh7th/cmp-nvim-lsp",
-			dependencies = {
-				"L3MON4D3/LuaSnip",
-				"hrsh7th/cmp-buffer",
-				"hrsh7th/cmp-path",
-				"hrsh7th/cmp-cmdline",
-				"hrsh7th/cmp-nvim-lua",
-				"hrsh7th/cmp-emoji",
-				"chrisgrieser/cmp-nerdfont",
-				"ray-x/cmp-treesitter",
-				"saadparwaiz1/cmp_luasnip",
-				"roobert/tailwindcss-colorizer-cmp.nvim",
-				{
-					-- "tzachar/cmp-ai",
-					"catgoose/cmp-ai",
-					dependencies = "nvim-lua/plenary.nvim",
-				},
-				"jcdickinson/codeium.nvim",
-			},
-		},
 		"hrsh7th/nvim-cmp",
 	},
 }

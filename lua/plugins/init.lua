@@ -76,7 +76,7 @@ return {
 		config = true,
 		lazy = true,
 		keys = {
-			{ "<leader>rl", "<cmd>lua require('lazy-reload').feed()<cr>" },
+			m("<leader>rl", [[lua require('lazy-reload').feed()]]),
 		},
 	},
 	{
@@ -91,21 +91,19 @@ return {
 		build = function()
 			require("fundo").install()
 		end,
+		event = "BufReadPre",
 		config = true,
-		lazy = true,
 	},
 	{
 		"jcdickinson/codeium.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			-- "hrsh7th/nvim-cmp",
 			{
 				"jcdickinson/http.nvim",
 				build = "cargo build --workspace --release",
 			},
 		},
-		lazy = true,
+		event = "InsertEnter",
 		config = true,
-		cmd = { "Codeium" },
 	},
 }
