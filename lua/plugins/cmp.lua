@@ -195,8 +195,7 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"roobert/tailwindcss-colorizer-cmp.nvim",
 			{
-				-- "tzachar/cmp-ai",
-				"catgoose/cmp-ai",
+				"tzachar/cmp-ai",
 				dependencies = "nvim-lua/plenary.nvim",
 			},
 			"jcdickinson/codeium.nvim",
