@@ -26,6 +26,7 @@ local config = function()
 	capabilities.offsetEncoding = { "utf-16" }
 
 	local _snippet_capabilities = l.protocol.make_client_capabilities()
+	---@diagnostic disable-next-line: inject-field
 	_snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
 	local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
 

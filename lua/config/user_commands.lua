@@ -65,6 +65,8 @@ c("MakeRun", f.make_run)
 c("TerminalSendCmd", function()
 	f.terminal_send_cmd("ls")
 end)
+--  TODO: 2023-08-29 - this may no longer be needed in .10
+-- See: https://github.com/neovim/neovim/commit/cffdf102d4f01fe5675c389eb80bf55daa62697a
 c("OpenTerminalRightScale", function()
 	f.terminal_open_split({ direction = "right", scale = 0.25 })
 end)
