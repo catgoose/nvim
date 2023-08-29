@@ -73,7 +73,7 @@ local config = function()
 			},
 			{
 				name = "codeium",
-				group_index = 3,
+				group_index = 2,
 			},
 			{
 				name = "nvim_lua",
@@ -122,12 +122,12 @@ local config = function()
 			format = lspkind.cmp_format({
 				mode = "symbol_text",
 				maxwidth = 50,
-				-- before = function(entry, vim_item)
-				-- 	entry = entry
-				-- 	return vim_item
-				-- end,
+				ellipsis_char = "...",
+				before = function(entry, vim_item)
+					cmp_tailwind.formatter(entry, vim_item)
+					return vim_item
+				end,
 				menu = source_mapping,
-				before = cmp_tailwind.formatter,
 			}),
 		},
 		sorting = {
