@@ -53,8 +53,6 @@ console.groupEnd();
 		"vue",
 		fmt(
 			[[
-<style></style>
-
 <template>
 <div></div>
 </template>
