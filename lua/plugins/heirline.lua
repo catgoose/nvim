@@ -444,5 +444,5 @@ return {
 	"rebelot/heirline.nvim",
 	config = config,
 	event = "BufReadPre",
-	dependencies = "kyazdani42/nvim-web-devicons",
+	dependencies = "nvim-tree/nvim-web-devicons",
 }

@@ -115,7 +115,7 @@ return {
 	config = config,
 	event = "CmdlineEnter",
 	dependencies = {
-		"kyazdani42/nvim-web-devicons",
+		"nvim-tree/nvim-web-devicons",
 		{
 			"romgrk/fzy-lua-native",
 			build = "make",
