@@ -1,3 +1,4 @@
+--  TODO: 2023-08-30 - hl warns may not be showing up
 local hl = {
 	error = "DiagnosticSignError",
 	warn = "DiagnosticSignWarn",
