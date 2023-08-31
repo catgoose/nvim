@@ -27,7 +27,6 @@ opt.shortmess = "filnxtToOFWIcC"
 opt.lazyredraw = true
 opt.updatetime = 100
 opt.splitkeep = "screen"
-opt.cursorline = true
 
 -- Window
 opt.splitright = true
@@ -106,4 +105,4 @@ opt.shada = "!,'1000,f1,<1000,s100,:1000,/1000,h"
 opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Sessions
-opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages"
+opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal"
