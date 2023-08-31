@@ -37,7 +37,7 @@ end
 return {
 	"onsails/lspkind-nvim",
 	config = config,
-	event = "BufReadPre",
+	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/nvim-cmp",
 	},
