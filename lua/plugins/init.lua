@@ -85,46 +85,4 @@ return {
 		cmd = { "Hardtime" },
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 	},
-	{
-		"kevinhwang91/nvim-fundo",
-		dependencies = "kevinhwang91/promise-async",
-		build = function()
-			require("fundo").install()
-		end,
-		event = "BufReadPre",
-		config = true,
-	},
-	{
-		"jcdickinson/codeium.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"jcdickinson/http.nvim",
-				build = "cargo build --workspace --release",
-			},
-		},
-		event = "InsertEnter",
-		config = true,
-	},
-	{
-		"luckasRanarison/nvim-devdocs",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = true,
-		cmd = {
-			"DevdocsFetch",
-			"DevdocsInstall",
-			"DevdocsUninstall",
-			"DevdocsOpen",
-			"DevdocsOpenFloat",
-			"DevdocsOpenCurrent",
-			"DevdocsOpenCurrentFloat",
-			"DevdocsUpdate",
-			"DevdocsUpdateAll",
-		},
-		event = "VeryLazy",
-	},
 }

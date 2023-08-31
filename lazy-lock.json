@@ -123,5 +123,6 @@
   "wilder.nvim": { "branch": "master", "commit": "679f348dc90d80ff9ba0e7c470c40a4d038dcecf" },
   "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" },
   "workspaces.nvim": { "branch": "master", "commit": "a6fb4995333f927cc6f707890800fa7f7c476043" },
+  "wtf.nvim": { "branch": "main", "commit": "e83199a4c5151b2abe498ea392f924b292787914" },
   "yanky.nvim": { "branch": "main", "commit": "ef70e4e44095a17ab8611cb6630b727ccee0a271" }
 }
