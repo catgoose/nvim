@@ -63,8 +63,8 @@ return {
 		"NeoAIShortcut",
 	},
 	keys = {
-		m("<leader>ga", [[NeoAIToggle]]),
-		m("<leader>gg", [[NeoAIContext]]),
+		m("<leader>ga", [[NeoAIToggle]], { "n", "v" }),
+		m("<leader>gg", [[NeoAIContext]], { "n", "v" }),
 	},
 	opts = opts,
 }

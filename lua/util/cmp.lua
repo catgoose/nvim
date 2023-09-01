@@ -10,6 +10,7 @@ local is_not_buftype = function()
 	local bt = vim.bo.buftype
 	local exclude_bt = {
 		"prompt",
+		"nofile",
 	}
 	for _, v in pairs(exclude_bt) do
 		if bt == v then

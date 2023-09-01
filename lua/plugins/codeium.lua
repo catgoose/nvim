@@ -6,7 +6,10 @@ return {
 			"jcdickinson/http.nvim",
 			build = "cargo build --workspace --release",
 		},
+		"hrsh7th/nvim-cmp",
 	},
 	event = "InsertEnter",
-	config = true,
+	config = function()
+		require("codeium").setup({})
+	end,
 }
