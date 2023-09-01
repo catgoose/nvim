@@ -17,7 +17,7 @@ if dev == true then
 		dev = true,
 		lazy = false,
 		keys = {
-			m("<leader>rl", [[Lazy reload gypsy.nvim]]),
+			m("<leader>z", [[Lazy reload gypsy.nvim]]),
 		},
 	})
 else
