@@ -72,14 +72,6 @@ return {
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
 	},
 	{
-		"MaximilianLloyd/lazy-reload.nvim",
-		config = true,
-		lazy = true,
-		keys = {
-			m("<leader>rl", [[lua require('lazy-reload').feed()]]),
-		},
-	},
-	{
 		"m4xshen/hardtime.nvim",
 		opts = {},
 		cmd = { "Hardtime" },

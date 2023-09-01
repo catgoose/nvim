@@ -9,7 +9,7 @@ local config = function()
 			"c",
 			"cpp",
 			"css",
-			"csv",
+			-- "csv",
 			"dockerfile",
 			"fish",
 			"git_config",
