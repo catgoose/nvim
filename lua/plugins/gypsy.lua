@@ -3,12 +3,15 @@ local e = vim.tbl_extend
 local m = require("util").lazy_map
 
 local opts = {
-	log_level = "debug",
+	log_level = "info",
 	dev = dev,
 }
 
 local setup = {
 	opts = opts,
+	dependencies = {
+		"MunifTanjim/nui.nvim",
+	},
 }
 
 if dev == true then

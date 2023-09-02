@@ -4,6 +4,7 @@ local s, t, i, c, r, f, sn =
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local u = require("util.luasnip")
+local smn = u.same_node
 
 local snippets = {
 	s(
@@ -138,6 +139,31 @@ end
 				t("if"),
 				t("if not"),
 			}), i(2), i(0) }
+		)
+	),
+	s(
+
+		"mt",
+		fmta(
+			[[
+local <> = {}
+<>.__index = <>
+
+function <>.new()
+	local self = setmetatable({}, <>)
+	return self
+end
+
+return <>
+  ]],
+			{
+				i(1, "class_name"),
+				smn(1),
+				smn(1),
+				smn(1),
+				smn(1),
+				smn(1),
+			}
 		)
 	),
 }
