@@ -9,7 +9,7 @@ local opts = {
 local setup = {
 	opts = opts,
 	dependencies = {
-		"MunifTanjim/nui.nvim",
+		"nvim-lua/plenary.nvim",
 	},
 }
 
