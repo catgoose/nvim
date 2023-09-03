@@ -1,7 +1,7 @@
 local dev = false
 local e = vim.tbl_extend
 local m = require("util").lazy_map
-vim.g.tmux_tasks_log_level = "debug"
+vim.g_do_the_needful_log_level = "debug"
 
 local opts = {
 	tasks = {},
