@@ -10,6 +10,7 @@ local setup = {
 	opts = opts,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"MunifTanjim/nui.nvim",
 	},
 }
 
@@ -20,6 +21,7 @@ if dev == true then
 		lazy = false,
 		keys = {
 			m("<leader>z", [[Lazy reload gypsy.nvim]]),
+			m("<leader>x", [[lua require("gypsy").run()]]),
 		},
 	})
 else

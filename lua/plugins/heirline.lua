@@ -23,11 +23,12 @@ local config = function()
 			"startuptime",
 			"mason.nvim",
 			"terminal",
+			"gypsy",
 		},
 	}
 	local winbar_inactive = {
 		buftype = { "nofile", "prompt", "quickfix", "terminal" },
-		filetype = { "toggleterm", "qf", "terminal" },
+		filetype = { "toggleterm", "qf", "terminal", "gypsy" },
 	}
 	local cmdtype_inactive = {
 		":",
