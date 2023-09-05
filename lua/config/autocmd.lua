@@ -58,13 +58,13 @@ autocmd({ "FileType" }, {
 		opt_local.formatoptions = opt_local.formatoptions - "t" + "c" - "r" - "o" - "q" - "a" + "n" - "2" + "l" + "j"
 	end,
 })
-autocmd({ "FileType" }, {
-	group = all_filetypes,
-	pattern = { "*" },
-	callback = function()
-		u.restore_cmdheight()
-	end,
-})
+-- autocmd({ "FileType" }, {
+-- 	group = all_filetypes,
+-- 	pattern = { "*" },
+-- 	callback = function()
+-- 		u.restore_cmdheight()
+-- 	end,
+-- })
 
 local markdown = augroup("MarkdownWrap")
 autocmd({ "FileType" }, {

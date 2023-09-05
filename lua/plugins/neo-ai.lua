@@ -1,6 +1,13 @@
 local m = require("util").lazy_map
 
 local opts = {
+	ui = {
+		output_popup_text = "NeoAI",
+		input_popup_text = "Prompt",
+		width = 50, -- As percentage eg. 30%
+		output_popup_height = 80, -- As percentage eg. 80%
+		submit = "<Enter>", -- Key binding to submit the prompt
+	},
 	models = {
 		{
 			name = "openai",

@@ -21,7 +21,7 @@ if dev == true then
 		lazy = false,
 		keys = {
 			m("<leader>z", [[Lazy reload gypsy.nvim]]),
-			m("<leader>x", [[lua require("gypsy").run()]]),
+			-- m("<leader>x", [[lua require("gypsy").run()]]),
 		},
 	})
 else
