@@ -180,7 +180,6 @@ return {
 	"hrsh7th/nvim-cmp",
 	config = config,
 	event = "InsertEnter",
-	commit = "6c84bc75c64f778e9f1dcb798ed41c7fcb93b639",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		dependencies = {
