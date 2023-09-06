@@ -4,6 +4,12 @@ local m = require("util").lazy_map
 
 local opts = {
 	dev = dev,
+	log_level = "debug",
+	ui = {
+		prompt = {
+			start_insert = true,
+		},
+	},
 }
 
 local setup = {
@@ -21,7 +27,7 @@ if dev == true then
 		lazy = false,
 		keys = {
 			m("<leader>z", [[Lazy reload gypsy.nvim]]),
-			m("<leader>x", [[lua require("gypsy").run()]]),
+			m("<leader>x", [[lua require("gypsy").toggle()]]),
 		},
 	})
 else
