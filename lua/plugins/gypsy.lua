@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 
@@ -18,6 +18,11 @@ local setup = {
 		"nvim-lua/plenary.nvim",
 		"MunifTanjim/nui.nvim",
 	},
+	keys = {
+		m("<leader>z", [[Lazy reload gypsy.nvim]]),
+		m("<leader>x", [[lua require("gypsy").toggle()]]),
+	},
+	cmd = { "GypsyToggle" },
 }
 
 if dev == true then
@@ -25,10 +30,6 @@ if dev == true then
 		dir = "~/git/gypsy.nvim",
 		dev = true,
 		lazy = false,
-		keys = {
-			m("<leader>z", [[Lazy reload gypsy.nvim]]),
-			m("<leader>x", [[lua require("gypsy").toggle()]]),
-		},
 	})
 else
 	return e("keep", setup, {
