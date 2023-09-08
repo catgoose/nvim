@@ -37,7 +37,7 @@ local config = function()
 		},
 		mapping = cmp.mapping.preset.insert({
 			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.confirm({ select = true }),
+				behavior = cmp.ConfirmBehavior.Replace,
 				select = true,
 			}),
 			["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),

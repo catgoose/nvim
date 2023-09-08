@@ -16,7 +16,5 @@ return {
 		keys = {
 			m("<leader>A", [[lua require('nvim-js-actions').js_arrow_fn.toggle()]]),
 		},
-		-- dev = true,
-		-- dir = "~/git/nvim-js-actions",
 	},
 }
