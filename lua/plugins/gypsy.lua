@@ -10,6 +10,17 @@ local opts = {
 			start_insert = true,
 		},
 	},
+	hooks = {
+		request = {
+			start = function(--[[content]]) end,
+			chunk = function(--[[chunk]]) end,
+			complete = function(
+				response --[[response]]
+			)
+				vim.print(response)
+			end,
+		},
+	},
 }
 
 local setup = {
