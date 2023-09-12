@@ -415,28 +415,25 @@ local config = function()
 			local empty_buffer = function()
 				return bo.ft == "" and bo.buftype == ""
 			end
-			return not conditions.buffer_matches(winbar_inactive) and not empty_buffer()
+			-- return not conditions.buffer_matches(winbar_inactive) and not empty_buffer()
+			return not empty_buffer()
 		end,
 		Align,
 		u.insert(ActiveBlock, FileNameBlock),
 	}
 
-	HiddenWinbar = {
-		condition = function()
-			return conditions.buffer_matches(winbar_inactive)
-		end,
-		init = function()
-			vim.opt_local.winbar = nil
-		end,
-	}
 	local WinBars = {
-		u.insert(ActiveWindow, HiddenWinbar),
 		u.insert(ActiveWindow, ActiveWinbar),
 	}
 
 	heirline.setup({
 		statusline = StatusLines,
 		winbar = WinBars,
+		opts = {
+			disable_winbar_cb = function(args)
+				return conditions.buffer_matches(winbar_inactive, args.buf)
+			end,
+		},
 	})
 	vim.opt.winbar = "%{%v:lua.require'heirline'.eval_winbar()%}"
 end
