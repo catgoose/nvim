@@ -30,8 +30,8 @@ local setup = {
 		"MunifTanjim/nui.nvim",
 	},
 	keys = {
-		m("<leader>z", [[Lazy reload gypsy.nvim]]),
-		m("<leader>x", [[lua require("gypsy").toggle()]]),
+		m("<leader>z", [[Lazy reload chat-gypsy.nvim]]),
+		m("<leader>x", [[lua require("chat-gypsy").toggle()]]),
 	},
 	cmd = { "GypsyToggle" },
 }
