@@ -39,7 +39,7 @@ local opts = {
 		DressingSelect = false,
 		harpoon = false,
 		neorepl = false,
-		lua = true,
+		lua = false,
 		["dap-repl"] = false,
 		sh = function()
 			---@diagnostic disable-next-line: param-type-mismatch

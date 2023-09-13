@@ -38,12 +38,12 @@ local setup = {
 
 if dev == true then
 	return e("keep", setup, {
-		dir = "~/git/gypsy.nvim",
+		dir = "~/git/chat-gypsy.nvim",
 		dev = true,
 		lazy = false,
 	})
 else
 	return e("keep", setup, {
-		"catgoose/gypsy.nvim",
+		"catgoose/chat-gypsy.nvim",
 	})
 end
