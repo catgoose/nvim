@@ -21,6 +21,22 @@ local opts = {
 			end,
 		},
 	},
+	openai_params = {
+		model = "gpt-3.5-turbo",
+		temperature = 0.7,
+		messages = {
+			{
+				role = "system",
+				content = "You are gypsy",
+			},
+		},
+	},
+	dev_opts = {
+		prompt = {
+			user_prompt = "Insert new lines",
+			enabled = false,
+		},
+	},
 }
 
 local setup = {

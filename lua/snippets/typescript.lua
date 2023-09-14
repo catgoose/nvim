@@ -731,6 +731,17 @@ catchError((err) =>> {
 			}
 		)
 	),
+	s(
+		"eaf",
+		fmta(
+			[[
+export async function <>(<>) {
+  <>
+}
+    ]],
+			{ i(1), i(2), i(0) }
+		)
+	),
 }
 
 return snippets
