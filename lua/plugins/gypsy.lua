@@ -7,7 +7,7 @@ local opts = {
 	log_level = "debug",
 	ui = {
 		prompt = {
-			start_insert = true,
+			start_insert = false,
 		},
 	},
 	hooks = {
