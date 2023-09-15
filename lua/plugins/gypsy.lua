@@ -27,13 +27,13 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "You are a haiku master.  Write a haiku about the seasons.",
+				content = "You are a haiku master.  Skilled in the art of combing haikus from different topics.",
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "Write 3 haikus in a numbered list with each number on it's own line.  Make each haiku about a different season.",
+			user_prompt = "Write 3 haikus in a numbered list with each number on it's own line.  Make one haiku about Slackware linux, one about mycology, and another about fighting games.  Actually make each haiku about the other two.",
 			enabled = true,
 		},
 	},
