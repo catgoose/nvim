@@ -34,7 +34,7 @@ local opts = {
 	dev_opts = {
 		prompt = {
 			user_prompt = "Write 3 haikus in a numbered list with each number on it's own line.  Make each haiku about a different season.",
-			enabled = false,
+			enabled = true,
 		},
 	},
 }
