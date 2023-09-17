@@ -14,11 +14,7 @@ local opts = {
 		request = {
 			start = function(--[[content]]) end,
 			chunk = function(--[[chunk]]) end,
-			complete = function(
-				response --[[response]]
-			)
-				vim.print(response)
-			end,
+			complete = function( --[[response]]) end,
 		},
 	},
 	openai_params = {
@@ -27,13 +23,13 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "You are a haiku master.  Skilled in the art of combing haikus from different topics.",
+				content = "I am building a plugin to send code textext to openai and get back a response.  I am using the neovim editor.  I am using the gpt-3.5-turbo model.  I am using the lua language.",
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "Write 3 haikus in a numbered list with each number on it's own line.  Make one haiku about Slackware linux, one about mycology, and another about fighting games.  Actually make each haiku about the other two.",
+			user_prompt = "Give me some ideas about how the plugin can use the code in the editor as context to generate text.",
 			enabled = true,
 		},
 	},
