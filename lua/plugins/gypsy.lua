@@ -23,13 +23,13 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "I am building a plugin to send code textext to openai and get back a response.  I am using the neovim editor.  I am using the gpt-3.5-turbo model.  I am using the lua language.",
+				content = "You write haikus",
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "Give me some ideas about how the plugin can use the code in the editor as context to generate text.",
+			user_prompt = "Write 10 haiku in a numbered list",
 			enabled = true,
 		},
 	},
