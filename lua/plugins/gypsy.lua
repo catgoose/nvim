@@ -9,6 +9,14 @@ local opts = {
 		prompt = {
 			start_insert = false,
 		},
+		layout = {
+			float = {
+				size = {
+					width = "70%",
+					height = "70%",
+				},
+			},
+		},
 	},
 	hooks = {
 		request = {
@@ -23,13 +31,13 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "You write haikus",
+				content = "You write long sentences.",
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "Write 10 haiku in a numbered list",
+			user_prompt = "Write story that is 10 paragraphs long",
 			enabled = true,
 		},
 	},
