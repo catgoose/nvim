@@ -31,13 +31,13 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "You write long sentences.",
+				content = "You are a programming assistant for " .. vim.bo.filetype,
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "Write story that is 10 paragraphs long",
+			user_prompt = "Write a function to sort through a lua table",
 			enabled = true,
 		},
 	},
