@@ -37,7 +37,7 @@ local opts = {
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "Write a function to sort through a lua table",
+			user_prompt = "Write a table reduce/fold function in lua",
 			enabled = true,
 		},
 	},
