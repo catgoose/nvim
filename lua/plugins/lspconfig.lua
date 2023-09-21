@@ -119,7 +119,7 @@ local config = function()
 		keys_on_attach(client, bufnr)
 		format_on_attach(client, bufnr)
 		virtual_types_on_attach(client, bufnr)
-		vim.lsp.inlay_hint(bufnr, true)
+		-- vim.lsp.inlay_hint(bufnr, true)
 	end
 	local on_attach = function(client, bufnr)
 		base_on_attach(client, bufnr)
