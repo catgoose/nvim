@@ -9,7 +9,6 @@ local config = function()
 
 	local lspconfig = require("lspconfig")
 	local ts = require("typescript")
-	local ih = require("inlay-hints")
 	local cmp = require("cmp_nvim_lsp")
 	local clangd_ext = require("clangd_extensions")
 	local vt = require("virtualtypes")
@@ -187,7 +186,6 @@ local config = function()
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
 				on_attach(client, bufnr)
-				ih.on_attach(client, bufnr)
 			end,
 			settings = {
 				Lua = {
