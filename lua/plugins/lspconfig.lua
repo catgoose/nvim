@@ -120,6 +120,7 @@ local config = function()
 		keys_on_attach(client, bufnr)
 		format_on_attach(client, bufnr)
 		virtual_types_on_attach(client, bufnr)
+		vim.lsp.inlay_hint(bufnr, true)
 	end
 	local on_attach = function(client, bufnr)
 		base_on_attach(client, bufnr)
@@ -128,7 +129,6 @@ local config = function()
 		base_on_attach(client, bufnr)
 		m("<leader>rn", "AnglerRenameSymbol", "n", { noremap = true, silent = true, buffer = bufnr })
 		client.server_capabilities.renameProvider = true
-		vim.lsp.inlay_hint(bufnr, true)
 	end
 	local volar_on_attach = function(client, bufnr)
 		ts_on_attach(client, bufnr)
