@@ -38,7 +38,7 @@ local opts = {
 	dev_opts = {
 		prompt = {
 			user_prompt = "write hello world in lua",
-			enabled = true,
+			enabled = false,
 		},
 	},
 }
