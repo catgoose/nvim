@@ -24,10 +24,6 @@ an issue or send me a message!
 
 ## Todo
 
-- [ ] Refactor lspconfig.
-  - [ ] Refactor hover handler. Is there a way to scroll the popup?
-    - I don't think forcing the popup to markdown is necessary
-    - `lspconfig.util.trim_empty_lines` is deprecated.
 - [ ] Migrate from `null-ls` (RIP).
 - [ ] Look at [ultimate-autopairs]
       (<https://github.com/altermo/ultimate-autopair.nvim>).
