@@ -122,7 +122,7 @@ end
 local open_help_tab = function(help_cmd, topic)
 	cmd.tabe()
 	local winnr = api.nvim_get_current_win()
-	cmd(help_cmd .. " " .. topic)
+	cmd("silent! " .. help_cmd .. " " .. topic)
 	api.nvim_win_close(winnr, false)
 end
 
@@ -142,11 +142,13 @@ end
 
 M.help_grep = function()
 	ui.input({ prompt = "Grep help for: " }, function(input)
-		if input == "" then
+		if input == "" or not input then
 			return
 		end
 		open_help_tab("helpgrep", input)
-		cmd.copen()
+		if #vim.fn.getqflist() > 0 then
+			cmd.copen()
+		end
 	end)
 end
 
