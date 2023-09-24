@@ -1,6 +1,6 @@
 # catgoose neovim
 
-neovim config for Typescript development, always WIP
+Neovim config for Typescript, Lua plugin development, always WIP
 
 <!--toc:start-->
 
