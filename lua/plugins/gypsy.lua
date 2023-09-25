@@ -22,7 +22,6 @@ local opts = {
 		request = {
 			start = function(--[[content]]) end,
 			chunk = function(--[[chunk]]) end,
-			-- complete = function( --[[response]]) end,
 			complete = function(response)
 				-- require("notify")(response)
 			end,
