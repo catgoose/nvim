@@ -10,6 +10,10 @@ local config = function()
 			"help",
 			"coderunner",
 		},
+		should_enable = function()
+			local exclude = { "nofile" }
+			return not vim.tbl_contains(exclude, vim.bo.buftype)
+		end,
 		filetypes_allowlist = {},
 		modes_denylist = {},
 		modes_allowlist = {},

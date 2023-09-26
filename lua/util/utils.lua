@@ -246,6 +246,20 @@ M.treesitter_is_css_class_under_cursor = function()
 	end
 end
 
+--  TODO: 2023-09-26 - Is there a better way to get diagnostics for current
+--  position?
+local is_diag_for_cur_pos = function()
+	local diagnostics = vim.diagnostic.get(0)
+	local pos = api.nvim_win_get_cursor(0)
+	if #diagnostics == 0 then
+		return false
+	end
+	local message = vim.tbl_filter(function(d)
+		return d.col == pos[2] and d.lnum == pos[1] - 1
+	end, diagnostics)
+	return #message > 0
+end
+
 M.hover_handler = function()
 	local winid = require("ufo").peekFoldedLinesUnderCursor()
 	if winid then
@@ -260,6 +274,8 @@ M.hover_handler = function()
 		cmd("silent! Man " .. fn.expand("<cword>"))
 	elseif fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
 		require("crates").show_popup()
+	elseif is_diag_for_cur_pos() then
+		vim.diagnostic.open_float()
 	else
 		vim.lsp.buf.hover()
 	end
