@@ -48,28 +48,12 @@ local config = function()
 	})
 
 	-- Handlers
+	l.handlers["textDocument/hover"] = l.with(l.handlers.hover, {
+		border = "rounded",
+	})
 	l.handlers["textDocument/signatureHelp"] = l.with(l.handlers.signature_help, {
 		border = "rounded",
 	})
-	-- markdown hover with rounded corners
-	---@diagnostic disable-next-line: duplicate-set-field
-	l.handlers["textDocument/hover"] = function(_, result, ctx, config)
-		config = config or { border = "rounded", focusable = true }
-		config.focus_id = ctx.method
-		if not (result and result.contents) then
-			return
-		end
-		local markdown_lines = l.util.convert_input_to_markdown_lines(result.contents)
-		markdown_lines = vim.tbl_filter(function(line)
-			return line ~= ""
-		end, markdown_lines)
-		if vim.tbl_isempty(markdown_lines) then
-			return
-		end
-		return l.util.open_floating_preview(markdown_lines, "markdown", config)
-	end
-
-	-- LSP settings (for overriding per client)
 
 	-- global keybindings
 	local opts = { noremap = true, silent = true }
@@ -88,6 +72,7 @@ local config = function()
 		k({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
 	end
 
+	--  TODO: 2023-09-26 - Migrate away from null-ls
 	local lsp_formatting = function(bufnr)
 		vim.lsp.buf.format({
 			filter = function(client)
