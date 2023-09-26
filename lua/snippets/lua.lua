@@ -149,8 +149,8 @@ end
 local <> = {}
 <>.__index = <>
 
-function <>.new()
-	local self = setmetatable({}, <>)
+function <>:new()
+	setmetatable(self, <>)
 	return self
 end
 
