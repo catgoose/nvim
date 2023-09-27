@@ -6,8 +6,14 @@ local opts = {
 	dev = dev,
 	log_level = "debug",
 	ui = {
-		prompt = {
-			start_insert = false,
+		behavior = {
+			mount = true,
+			prompt = {
+				start_insert = false,
+			},
+			layout = {
+				type = "float",
+			},
 		},
 		layout = {
 			float = {
@@ -55,6 +61,7 @@ local setup = {
 	keys = {
 		m("<leader>z", [[Lazy reload chat-gypsy.nvim]]),
 		m("<leader>x", [[lua require("chat-gypsy").toggle()]]),
+		-- m("<leader>x", [[lua require("chat-gypsy").history()]]),
 	},
 	cmd = { "GypsyToggle" },
 }

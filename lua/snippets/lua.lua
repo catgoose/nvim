@@ -166,6 +166,17 @@ return <>
 			}
 		)
 	),
+	s(
+		"af",
+		fmt(
+			[[
+  function({})
+    {}
+  end
+  ]],
+			{ i(1), i(0) }
+		)
+	),
 }
 
 return snippets
