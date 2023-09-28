@@ -1,4 +1,5 @@
 --  TODO: 2023-09-28 - :help ibl.config
+-- https://www.reddit.com/r/neovim/comments/16uiops/how_do_i_change_the_brightness_of_the/
 local opts = {
 	-- filetype_exclude = { "checkhealth", "help", "terminal", "markdown" },
 	-- buftype_exclude = { "terminal", "nofile" },
