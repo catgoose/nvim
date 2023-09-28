@@ -171,6 +171,13 @@ local config = function()
 				"CursorHold",
 			},
 		},
+		incremental_selection = {
+			enable = true,
+			keymaps = {
+				node_incremental = "v",
+				node_decremental = "V",
+			},
+		},
 	}
 
 	require("nvim-treesitter.configs").setup(opts)
