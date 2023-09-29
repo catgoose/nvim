@@ -12,7 +12,7 @@ local opts = {
 				start_insert = false,
 			},
 			layout = {
-				type = "float",
+				direction = "center",
 			},
 		},
 		layout = {
