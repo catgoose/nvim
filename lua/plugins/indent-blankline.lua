@@ -1,37 +1,30 @@
---  TODO: 2023-09-28 - :help ibl.config
--- https://www.reddit.com/r/neovim/comments/16uiops/how_do_i_change_the_brightness_of_the/
+local char = { "│", "┃" }
+
 local opts = {
-	-- filetype_exclude = { "checkhealth", "help", "terminal", "markdown" },
-	-- buftype_exclude = { "terminal", "nofile" },
-	-- show_first_indent_level = false,
-	-- show_current_context = true,
-	-- show_current_context_start = false,
-	-- use_treesitter = true,
-	-- use_treesitter_scope = true,
-	-- show_trailing_blankline_indent = false,
-	-- context_patterns = {
-	-- 	"class",
-	-- 	"^func",
-	-- 	"method",
-	-- 	"^if",
-	-- 	"while",
-	-- 	"for",
-	-- 	"with",
-	-- 	"try",
-	-- 	"except",
-	-- 	"arguments",
-	-- 	"argument_list",
-	-- 	"object",
-	-- 	"dictionary",
-	-- 	"element",
-	-- 	"table",
-	-- 	"tuple",
-	-- 	"do_block",
-	-- },
+	indent = {
+		highlight = { "LineNr" },
+		char = char[1],
+		tab_char = char[1],
+	},
+	scope = {
+		char = char[2],
+		show_start = false,
+		show_end = false,
+		highlight = { "IndentBlanklineContextChar" },
+	},
 }
+
+local config = function()
+	local hooks = require("ibl.hooks")
+	hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+	hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
+	require("ibl").setup(opts)
+end
+
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	opts = opts,
+	config = config,
 	event = "BufReadPre",
 	main = "ibl",
 }

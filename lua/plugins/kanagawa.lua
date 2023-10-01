@@ -87,6 +87,9 @@ local overrides = function(colors)
 			bg = p.waveBlue1,
 			bold = true,
 		},
+		IdentScope = {
+			fg = p.oniViolet2,
+		},
 	}
 end
 
