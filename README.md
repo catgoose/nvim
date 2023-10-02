@@ -24,7 +24,6 @@ an issue or send me a message!
 
 ## Todo
 
-- [ ] Migrate from `null-ls` (RIP).
 - [ ] Look at [ultimate-autopairs]
       (<https://github.com/altermo/ultimate-autopair.nvim>).
 - [ ] Figure out why in the `cmp` setup, lua lsp is complaining about undefined
@@ -32,3 +31,7 @@ an issue or send me a message!
 - [ ] After .10 release `OpenTerminal...` scaling user commands by not be
       necessary.
 - [ ] Create `cmp` source for `primeflex`
+- Diffview
+  - [ ] Create function using vim.input or similar to ask for a commit hash
+        to pass into `DiffviewOpen {hash}`
+  - [ ] Look at keymaps and hooks
