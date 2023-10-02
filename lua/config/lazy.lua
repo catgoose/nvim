@@ -44,9 +44,9 @@ require("lazy").setup("plugins", {
 				"zipPlugin",
 			},
 		},
-		change_detection = {
-			enabled = true,
-			notify = true,
-		},
+	},
+	change_detection = {
+		enabled = true,
+		notify = false,
 	},
 })

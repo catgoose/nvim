@@ -22,8 +22,8 @@ local cr_str = [[lua require("coderunner").run]]
 local plugin = {
 	opts = opts,
 	keys = {
-		m("<leader>cc", cr_str .. [[({split = "horizontal"})]]),
-		m("<leader>cv", cr_str .. [[({split = "vertical"})]]),
+		-- m("<leader>cc", cr_str .. [[({split = "horizontal"})]]),
+		-- m("<leader>cv", cr_str .. [[({split = "vertical"})]]),
 	},
 }
 
