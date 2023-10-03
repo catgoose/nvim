@@ -2,15 +2,14 @@ local char = { "│", "┃" }
 
 local opts = {
 	indent = {
-		highlight = { "LineNr" },
 		char = char[1],
 		tab_char = char[1],
 	},
 	scope = {
+		enabled = false,
 		char = char[2],
 		show_start = false,
 		show_end = false,
-		highlight = { "IndentBlanklineContextChar" },
 	},
 }
 
