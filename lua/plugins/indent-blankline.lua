@@ -1,4 +1,4 @@
-local char = { "│", "┃" }
+local char = { "▏", "▎", "▍" }
 
 local opts = {
 	indent = {

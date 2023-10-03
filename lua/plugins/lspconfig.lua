@@ -72,7 +72,6 @@ local config = function()
 		k({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
 	end
 
-	--  TODO: 2023-09-26 - Migrate away from null-ls
 	local lsp_formatting = function(bufnr)
 		vim.lsp.buf.format({
 			filter = function(client)

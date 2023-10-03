@@ -6,5 +6,8 @@ return {
 	"jay-babu/mason-null-ls.nvim",
 	opts = opts,
 	event = "BufReadPre",
-	dependencies = "williamboman/mason.nvim",
+	dependencies = {
+		"williamboman/mason.nvim",
+		"nvimtools/none-ls.nvim",
+	},
 }
