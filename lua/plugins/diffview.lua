@@ -5,7 +5,7 @@ return {
 	config = true,
 	cmd = { "DiffviewOpen" },
 	keys = {
-		m("<leader>dv", [[DiffviewOpen]]),
-		m("<leader>dc", [[DiffviewClose]]),
+		m("<leader>do", [[DiffviewOpen]]),
+		m("<leader>dq", [[DiffviewClose]]),
 	},
 }
