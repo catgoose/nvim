@@ -13,7 +13,12 @@ return {
 			"s",
 			mode = { "n", "x", "o" },
 			function()
-				require("flash").jump()
+				require("flash").jump({
+					remote_op = {
+						restore = true,
+						motion = nil,
+					},
+				})
 			end,
 			desc = "Flash",
 		},

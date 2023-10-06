@@ -198,8 +198,8 @@ local config = function()
 	vim.treesitter.language.register("markdown", "octo")
 
 	local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-	k({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-	k({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+	-- k({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+	-- k({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
 end
 
 return {
