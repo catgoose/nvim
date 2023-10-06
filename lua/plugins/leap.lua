@@ -24,4 +24,5 @@ return {
 	end,
 	event = "BufReadPre",
 	dependencies = "tpope/vim-repeat",
+	enabled = false,
 }
