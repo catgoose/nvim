@@ -16,10 +16,10 @@ local opts = {
 			},
 		},
 		layout = {
-			float = {
+			center = {
 				size = {
 					width = "70%",
-					height = "70%",
+					height = "20%",
 				},
 			},
 		},
