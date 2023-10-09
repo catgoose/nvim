@@ -19,7 +19,7 @@ local opts = {
 			center = {
 				size = {
 					width = "70%",
-					height = "20%",
+					height = "70%",
 				},
 			},
 		},
@@ -40,7 +40,7 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "You are a programming assistant for " .. vim.bo.filetype,
+				content = "You are a programming assistant for lua",
 			},
 		},
 	},
