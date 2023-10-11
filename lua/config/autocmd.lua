@@ -58,13 +58,13 @@ autocmd({ "FileType" }, {
 		opt_local.formatoptions = opt_local.formatoptions - "t" + "c" - "r" - "o" - "q" - "a" + "n" - "2" + "l" + "j"
 	end,
 })
--- autocmd({ "FileType" }, {
--- 	group = all_filetypes,
--- 	pattern = { "*" },
--- 	callback = function()
--- 		u.restore_cmdheight()
--- 	end,
--- })
+autocmd({ "FileType" }, {
+	group = all_filetypes,
+	pattern = { "*" },
+	callback = function()
+		u.restore_cmdheight()
+	end,
+})
 
 local markdown = augroup("MarkdownWrap")
 autocmd({ "FileType" }, {
@@ -187,14 +187,18 @@ autocmd({ "WinEnter", "BufWinEnter" }, {
 	group = cursor_line,
 	pattern = file_pattern,
 	callback = function()
-		opt_local.cursorline = true
+		if bo.filetype ~= "nofile" then
+			opt_local.cursorline = true
+		end
 	end,
 })
 autocmd({ "WinLeave" }, {
 	group = cursor_line,
 	pattern = file_pattern,
 	callback = function()
-		opt_local.cursorline = false
+		if bo.filetype ~= "nofile" then
+			opt_local.cursorline = false
+		end
 	end,
 })
 

@@ -226,6 +226,18 @@ console.groupEnd();
 			i(1)
 		)
 	),
+	s(
+		"props",
+		fmta(
+			[[
+
+const props = defineProps<<{
+  <>
+}>>();
+]],
+			i(1)
+		)
+	),
 }
 
 return snippets
