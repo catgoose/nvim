@@ -44,6 +44,36 @@ an issue or send me a message!
 
 ![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim5.png)
 
+### Hover handler
+
+- Uses `K` to display different hover implementations depending on the content
+
+![image](https://github.com/catgoose/nvim/blob/6159ac96f7a725a79d5ee5767c3d3ec8d1ece0ed/neovim6.png)
+
+```lua
+M.hover_handler = function()
+ local winid = require("ufo").peekFoldedLinesUnderCursor()
+ if winid then
+  return
+ end
+ local ft = bo.filetype
+ if tbl_contains({ "vim", "help" }, ft) then
+  cmd("silent! h " .. fn.expand("<cword>"))
+ elseif M.treesitter_is_css_class_under_cursor() then
+  cmd("TWValues")
+ elseif tbl_contains({ "man" }, ft) then
+  cmd("silent! Man " .. fn.expand("<cword>"))
+ elseif fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+  require("crates").show_popup()
+ elseif is_diag_for_cur_pos() then
+  vim.diagnostic.open_float()
+ else
+  vim.lsp.buf.hover()
+ end
+end
+
+```
+
 ## Todo
 
 - [ ] Look at [ultimate-autopairs]
