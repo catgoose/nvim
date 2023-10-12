@@ -415,7 +415,6 @@ local config = function()
 			local empty_buffer = function()
 				return bo.ft == "" and bo.buftype == ""
 			end
-			-- return not conditions.buffer_matches(winbar_inactive) and not empty_buffer()
 			return not empty_buffer()
 		end,
 		Align,
