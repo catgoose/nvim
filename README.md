@@ -20,7 +20,29 @@ an issue or send me a message!
 
 ## Screenshot
 
-![image](https://github.com/catgoose/nvim/blob/e0b13d7dd57fe3a957099928e6658c79c2f7398b/neovim1.png)
+### Heirline
+
+![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim1.png)
+
+### Wilder
+
+#### Search
+
+![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim2.png)
+
+#### Command
+
+![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim3.png)
+
+### Help grep
+
+#### ui.prompt
+
+![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim4.png)
+
+#### Results in quickfix
+
+![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim5.png)
 
 ## Todo
 
