@@ -174,5 +174,6 @@ return {
 		"ThePrimeagen/harpoon",
 		"jedrzejboczar/toggletasks.nvim",
 		"tsakirist/telescope-lazy.nvim",
+		"catgoose/chat-gypsy.nvim",
 	},
 }

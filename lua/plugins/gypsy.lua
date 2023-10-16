@@ -53,10 +53,14 @@ local opts = {
 }
 
 local setup = {
-	opts = opts,
+	-- opts = opts,
+	config = function()
+		require("chat-gypsy").setup(opts)
+	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"MunifTanjim/nui.nvim",
+		"kkharji/sqlite.lua",
 	},
 	keys = {
 		m("<leader>z", [[Lazy reload chat-gypsy.nvim]]),
@@ -70,7 +74,7 @@ if dev == true then
 	return e("keep", setup, {
 		dir = "~/git/chat-gypsy.nvim",
 		dev = true,
-		lazy = false,
+		lazy = true,
 	})
 else
 	return e("keep", setup, {
