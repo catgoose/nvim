@@ -73,7 +73,6 @@ local setup = {
 if dev == true then
 	return e("keep", setup, {
 		dir = "~/git/chat-gypsy.nvim",
-		dev = true,
 		lazy = true,
 	})
 else

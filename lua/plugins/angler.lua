@@ -30,7 +30,6 @@ local plugin = {
 if dev == true then
 	return e("keep", plugin, {
 		dir = "~/git/angler.nvim",
-		dev = true,
 		lazy = false,
 	})
 else

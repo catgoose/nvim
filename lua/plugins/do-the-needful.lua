@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 vim.g.do_the_needful_log_level = "debug"
@@ -21,7 +21,6 @@ local plugin = {
 if dev == true then
 	return e("keep", plugin, {
 		dir = "~/git/do-the-needful",
-		dev = true,
 		lazy = false,
 	})
 else
