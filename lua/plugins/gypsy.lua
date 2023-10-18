@@ -40,13 +40,13 @@ local opts = {
 		messages = {
 			{
 				role = "system",
-				content = "You are a programming assistant for lua",
+				content = "Reply with the next number",
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "write hello world in lua",
+			user_prompt = "1",
 			enabled = true,
 		},
 	},
