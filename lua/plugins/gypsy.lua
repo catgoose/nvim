@@ -34,13 +34,15 @@ local opts = {
 			error = function( --[[source, error_tbl]]) end,
 		},
 	},
-	openai_params = {
-		model = "gpt-3.5-turbo",
-		temperature = 0.7,
-		messages = {
-			{
-				role = "system",
-				content = "Reply with the next number",
+	openai = {
+		openai_params = {
+			model = "gpt-3.5-turbo",
+			temperature = 0.7,
+			messages = {
+				{
+					role = "system",
+					content = "Reply with the next number",
+				},
 			},
 		},
 	},
