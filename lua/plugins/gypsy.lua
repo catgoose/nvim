@@ -6,15 +6,10 @@ local opts = {
 	dev = dev,
 	log_level = "debug",
 	ui = {
-		behavior = {
-			mount = true,
-			prompt = {
-				start_insert = false,
-			},
-			layout = {
-				direction = "right",
-			},
+		prompt = {
+			start_insert = false,
 		},
+		layout_placement = "center",
 		layout = {
 			center = {
 				size = {
