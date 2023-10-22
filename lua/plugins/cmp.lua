@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local source_mapping = {
 	nvim_lsp = "[LSP]",
 	nvim_lua = "[LUA]",
@@ -11,7 +12,6 @@ local source_mapping = {
 local config = function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
-	local luasnip = require("luasnip")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	local cmp_is_enabled = require("util.cmp").cmp_is_enabled
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
@@ -25,7 +25,7 @@ local config = function()
 		keyword_length = 2,
 		snippet = {
 			expand = function(args)
-				luasnip.lsp_expand(args.body)
+				vim.snippet.expand(args.body)
 			end,
 		},
 		window = {
@@ -46,6 +46,7 @@ local config = function()
 			["<C-f>"] = cmp.mapping.scroll_docs(5),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-q>"] = cmp.mapping.abort(),
+			["<Esc>"] = cmp.mapping.abort(),
 			["<C-x>"] = cmp.mapping(
 				cmp.mapping.complete({
 					config = {
