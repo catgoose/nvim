@@ -10,6 +10,7 @@ local opts = {
 			start_insert = false,
 		},
 		layout_placement = "center",
+		-- layout_placement = "right",
 		layout = {
 			center = {
 				size = {
@@ -32,6 +33,7 @@ local opts = {
 	openai = {
 		openai_params = {
 			model = "gpt-3.5-turbo",
+			-- model = "gpt-4",
 			temperature = 0.7,
 			messages = {
 				{
