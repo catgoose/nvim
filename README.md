@@ -14,7 +14,7 @@ This repo was formerly a [Github gist](https://gist.github.com/nonamed01).
 2022-2023 by: Toni Castillo Girona (@Disbauxes) 
 
 [*] Detected distro: Debian, version: 12 
-[*] Auto-detected firefox profile: /home/tonicas/.mozilla/firefox/vujtoola.default/sessionstore-backups 
+[*] Auto-detected firefox profile: /home/user/.mozilla/firefox/vujtoola.default/sessionstore-backups 
 [*] Openfortivpn version: 1.20.5 
 [*] Openfortivpn installed from: GITHUB 
 
