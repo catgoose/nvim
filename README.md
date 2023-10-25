@@ -6,7 +6,7 @@ This repo was formerly a [Github gist](https://gist.github.com/nonamed01).
 # Why?
 
 Well, because the official Forticlient for GNU/Linux is total crap! \
-When I wrote this script, the main idea was to solve a problem that I though temporary... and, well, one year in and the official Forticlient GNU/Linux client is still total crap... so, heck, it look like we'll be using this for quite a long time...
+When I wrote this script, the main idea was to solve a problem that I though temporary... and, well, one year in and the official Forticlient GNU/Linux client is still total crap... so, heck, it looks like we'll be using this for quite a long time...
 
 # Usage
 
