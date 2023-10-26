@@ -109,6 +109,10 @@ DISTROV=`lsb_release -r|awk '{print $2}'`
 # No debug by default (use -D to change it)
 DEBUG=0
 
+# Try to auto-detect openfortivpn full path.
+# Override with OPENFORTIVPN="/path/to/openfortivpn"
+OPENFORTIVPN="$(type -p openfortivpn)"
+
 #####################################################################################
 # Colors
 #####################################################################################
@@ -331,7 +335,7 @@ sanityCheck(){
 	# Test for openfortivpn:
 	type openfortivpn >/dev/null 2>&1|| return 1
 	# Make sure openfortivpn supports "--cookie-on-stdin":
-	/usr/local/bin/openfortivpn --help|grep cookie >/dev/null|| return 1
+	"${OPENFORTIVPN}" --help|grep cookie >/dev/null|| return 1
 	# Make sure we have Firefox installed:
 	type firefox >/dev/null 2>&1 || return 1
 	# Make sure the user running this script belongs to the sudo group:
@@ -616,7 +620,7 @@ while getopts "Licshut:p:PvdDS:" opt; do
 				cookie=$HOME/.${USER}.svpncookie
 				# We connect to the vpn now:
                 test $DEBUG -eq 1 && dbg="-vvv"
-				sudo /usr/local/bin/openfortivpn $SERVER:443 --cookie-on-stdin < ${cookie} ${dbg} ${FUCKFORTICLIENT_OPTS}
+				sudo "${OPENFORTIVPN}" $SERVER:443 --cookie-on-stdin < ${cookie} ${dbg} ${FUCKFORTICLIENT_OPTS}
 				if [ ! $? -eq 0 ]; then
 					echo "${clRed}[!] Error, expired cookie probably...${clNone}"
 					echo "[!] Close Firefox and re-lanch the script using -c"
@@ -659,7 +663,7 @@ while getopts "Licshut:p:PvdDS:" opt; do
 				cookie=$HOME/.${USER}.svpncookie
 				# We connect to the vpn now:
                 test $DEBUG -eq 1 && dbg="-vvv"
-				sudo /usr/local/bin/openfortivpn ${SERVER}:443 --cookie-on-stdin < ${cookie} ${dbg} ${FUCKFORTICLIENT_OPTS}
+				sudo "${OPENFORTIVPN}" ${SERVER}:443 --cookie-on-stdin < ${cookie} ${dbg} ${FUCKFORTICLIENT_OPTS}
 				if [ ! $? -eq 0 ]; then
 					echo -e "${clRed}[!] Error, expired cookie probably...${clNone}"
 					echo "[!] Close Firefox and re-lanch the script using -c"
