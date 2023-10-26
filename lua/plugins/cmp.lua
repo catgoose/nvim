@@ -12,7 +12,7 @@ local source_mapping = {
 local config = function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
-	-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	local cmp_is_enabled = require("util.cmp").cmp_is_enabled
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
 	local cmp_ai = require("cmp_ai.config")
@@ -150,8 +150,8 @@ local config = function()
 			ghost_text = false,
 		},
 	})
-	---@diagnostic disable-next-line: undefined-field
-	-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+	--@diagnostic disable-next-line: undefined-field
+	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 	-- require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
 	-- 	sources = {
