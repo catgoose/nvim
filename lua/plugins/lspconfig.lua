@@ -282,7 +282,7 @@ return {
 	end,
 	config = config,
 	dependencies = {
-		"windwp/nvim-autopairs",
+		-- "windwp/nvim-autopairs",
 		"jose-elias-alvarez/typescript.nvim",
 		"williamboman/mason.nvim",
 		"b0o/schemastore.nvim",

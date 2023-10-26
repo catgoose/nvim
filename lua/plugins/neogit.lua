@@ -20,6 +20,5 @@ return {
 	keys = {
 		m("<leader>go", "Neogit"),
 		m("<leader>gl", "Neogit kind=vsplit"),
-		m("<leader>gc", "Neogit commit"),
 	},
 }

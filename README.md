@@ -76,10 +76,8 @@ end
 
 ## Todo
 
-- [ ] Look at [ultimate-autopairs]
+- [x] Look at [ultimate-autopairs]
       (<https://github.com/altermo/ultimate-autopair.nvim>).
-- [ ] Figure out why in the `cmp` setup, lua lsp is complaining about undefined
-      fields. I think it has something to do with `null-ls`.
 - [ ] After .10 release `OpenTerminal...` scaling user commands by not be
       necessary.
 - [ ] Create `cmp` source for `primeflex`
