@@ -73,9 +73,7 @@ return {
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
 	},
 	{
-		"m4xshen/hardtime.nvim",
-		opts = {},
-		cmd = { "Hardtime" },
-		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+		"tpope/vim-fugitive",
+		cmd = { "Git", "G" },
 	},
 }

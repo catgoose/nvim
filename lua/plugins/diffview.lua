@@ -7,5 +7,6 @@ return {
 	keys = {
 		m("<leader>do", [[DiffviewOpen]]),
 		m("<leader>dq", [[DiffviewClose]]),
+		m("<leader>dm", [[DiffviewOpen origin/main...HEAD]]),
 	},
 }
