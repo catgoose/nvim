@@ -286,7 +286,6 @@ return {
 		"jose-elias-alvarez/typescript.nvim",
 		"williamboman/mason.nvim",
 		"b0o/schemastore.nvim",
-		"onsails/lspkind-nvim",
 		"litao91/lsp_lines",
 		"kevinhwang91/nvim-ufo",
 		"p00f/clangd_extensions.nvim",

@@ -107,7 +107,6 @@ autocmd({ "FileType" }, {
 		"dapui_breakpoints",
 		"dapui_scopes",
 		"dapui_console",
-		"fugitive",
 	},
 	callback = function(event)
 		q_to_quit(event)

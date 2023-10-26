@@ -15,6 +15,7 @@ return {
 	version = "*",
 	opts = opts,
 	event = "BufReadPre",
+	cmd = { "NoNeckPain" },
 	keys = {
 		m("<leader>v", [[NoNeckPain]]),
 	},

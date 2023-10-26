@@ -12,7 +12,6 @@ local source_mapping = {
 local config = function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
-	local luasnip = require("luasnip")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	local cmp_is_enabled = require("util.cmp").cmp_is_enabled
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
@@ -122,7 +121,6 @@ local config = function()
 		formatting = {
 			format = lspkind.cmp_format({
 				mode = "symbol_text",
-				-- maxwidth = 50,
 				ellipsis_char = "...",
 				before = function(entry, vim_item)
 					cmp_tailwind.formatter(entry, vim_item)

@@ -14,7 +14,6 @@ return {
 		"litao91/lsp_lines",
 		priority = 900,
 		config = true,
-		enabled = false,
 	},
 	{
 		"axelvc/template-string.nvim",
@@ -71,9 +70,5 @@ return {
 		config = true,
 		lazy = true,
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
-	},
-	{
-		"tpope/vim-fugitive",
-		cmd = { "Git", "G" },
 	},
 }

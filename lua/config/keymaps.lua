@@ -25,6 +25,7 @@ m("<leader>-", "resize -10")
 m("<leader>+", "resize +10")
 m("]q", "silent! cnext")
 m("[q", "silent! cprev")
+m("<leader><Tab>", "tabprevious")
 
 -- User commands
 m("<leader>cz", "ToggleCmdHeight")
@@ -39,4 +40,3 @@ m("<leader>hw", "HelpWord")
 m("<leader>hg", "HelpGrep")
 m("<leader>hh", "Help")
 m("K", "HoverHandler")
-m("<leader><Tab>", "tabprevious")

@@ -5,6 +5,7 @@ local opts = {
 	auto_session_enabled = true,
 	bypass_session_save_file_types = {
 		"dashboard",
+		"NeogitStatus",
 	},
 }
 
