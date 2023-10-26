@@ -24,6 +24,7 @@ local is_not_filetype = function()
 	local exclude_ft = {
 		"neorepl",
 		"neoai-input",
+		"NeogitCommitMessage",
 	}
 	for _, v in pairs(exclude_ft) do
 		if ft == v then
@@ -37,7 +38,7 @@ local is_not_luasnip = function()
 	return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
 end
 
-CMP.cmp_is_enabled = function()
+CMP.is_enabled = function()
 	return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
 end
 

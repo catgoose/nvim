@@ -13,13 +13,12 @@ local config = function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-	local cmp_is_enabled = require("util.cmp").cmp_is_enabled
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
 	local cmp_ai = require("cmp_ai.config")
 
 	cmp.setup({
 		enabled = function()
-			return cmp_is_enabled()
+			return require("util.cmp").is_enabled()
 		end,
 		preselect = cmp.PreselectMode.Item,
 		keyword_length = 2,
