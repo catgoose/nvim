@@ -38,14 +38,14 @@ local opts = {
 			messages = {
 				{
 					role = "system",
-					content = "You are a lua coding assistant",
+					content = "respond with the next number",
 				},
 			},
 		},
 	},
 	dev_opts = {
 		prompt = {
-			user_prompt = "write 3 hello world statements in lua",
+			user_prompt = "1",
 			enabled = true,
 		},
 	},
@@ -64,7 +64,8 @@ local setup = {
 	keys = {
 		m("<leader>z", [[Lazy reload chat-gypsy.nvim]]),
 		m("<leader>x", [[lua require("chat-gypsy").toggle()]]),
-		m("<leader>cc", [[lua require("chat-gypsy").history()]]),
+		-- m("<leader>cc", [[lua require("chat-gypsy").history()]]),
+		m("<leader>cc", [[lua require("chat-gypsy").models()]]),
 	},
 	cmd = { "GypsyToggle" },
 }

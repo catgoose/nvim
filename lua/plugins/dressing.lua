@@ -61,7 +61,7 @@ local opts = {
 				filetype = "DressingSelect",
 			},
 			win_options = {
-				winblend = 10,
+				winblend = 2,
 			},
 			max_width = 80,
 			max_height = 40,
@@ -72,7 +72,7 @@ local opts = {
 			border = "rounded",
 			relative = "editor",
 			win_options = {
-				winblend = 10,
+				winblend = 2,
 				winhighlight = "",
 			},
 			width = nil,

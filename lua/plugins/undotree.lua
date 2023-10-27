@@ -5,7 +5,7 @@ local opts = {
 	layout = "left_bottom", -- "left_bottom", "left_left_bottom"
 	ignore_filetype = { "Undotree", "UndotreeDiff", "qf", "TelescopePrompt", "spectre_panel", "tsplayground" },
 	window = {
-		winblend = 4,
+		winblend = 2,
 	},
 	keymaps = {
 		["j"] = "move_next",

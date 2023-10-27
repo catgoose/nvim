@@ -23,7 +23,7 @@ opt.fillchars = {
 	foldopen = "▼",
 }
 opt.confirm = true
-opt.shortmess = "filnxtToOFWIcC"
+opt.shortmess = "aoOstTWAIcCFS"
 opt.lazyredraw = true
 opt.updatetime = 100
 opt.splitkeep = "screen"

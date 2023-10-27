@@ -1,25 +1,26 @@
-local cmd, api = vim.cmd, vim.api
+local utils = require("util.utils")
 
 local M = {}
 
 M.toggleterm_opts = function(added_opts)
+	local scale = 0.85
+	local width, height = utils.screen_scale({ width = scale, height = scale })
 	local toggleterm_opts = {
 		auto_scroll = true,
 		direction = "float",
 		float_opts = {
 			border = "curved",
-			width = 145,
-			height = 32,
-			winblend = 10,
+			width = width,
+			height = height,
+			winblend = 2,
 		},
 		winbar = {
 			enabled = false,
 		},
-		shade_terminals = false,
+		shade_terminals = true,
 		hide_numbers = false,
 		on_open = function(term)
-			-- cmd.startinsert()
-			api.nvim_buf_set_keymap(term.bufnr, "n", "q", [[<cmd>close<cr>]], { noremap = true, silent = true })
+			vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", [[<cmd>close<cr>]], { noremap = true, silent = true })
 		end,
 		on_close = function() end,
 	}

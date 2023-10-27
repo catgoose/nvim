@@ -71,4 +71,11 @@ return {
 		lazy = true,
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
 	},
+	{
+		"tpope/vim-fugitive",
+		cmd = { "Git" },
+		keys = {
+			m("<leader>gi", "Git"),
+		},
+	},
 }

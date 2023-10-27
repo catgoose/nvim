@@ -26,6 +26,7 @@ m("<leader>+", "resize +10")
 m("]q", "silent! cnext")
 m("[q", "silent! cprev")
 m("<leader><Tab>", "tabprevious")
+m("<leader><S-Tab>", "tabnext")
 
 -- User commands
 m("<leader>cz", "ToggleCmdHeight")

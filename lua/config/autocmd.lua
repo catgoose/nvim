@@ -108,6 +108,7 @@ autocmd({ "FileType" }, {
 		"dapui_scopes",
 		"dapui_console",
 		"NeogitCommitMessage",
+		"fugitive",
 	},
 	callback = function(event)
 		q_to_quit(event)

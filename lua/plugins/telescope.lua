@@ -109,7 +109,7 @@ local config = function()
 			},
 			["ui-select"] = {
 				require("telescope.themes").get_dropdown({
-					winblend = 10,
+					winblend = 2,
 				}),
 			},
 			workspaces = {

@@ -121,4 +121,5 @@ return {
 			build = "make",
 		},
 	},
+	enabled = false,
 }
