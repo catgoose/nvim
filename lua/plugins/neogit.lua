@@ -2,23 +2,20 @@ local m = require("util").lazy_map
 
 local opts = {
 	disable_insert_on_commit = false,
-	integrations = {
-		telescope = true,
-	},
 }
 
 return {
 	"NeogitOrg/neogit",
 	opts = opts,
+	lazy = true,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"nvim-telescope/telescope.nvim",
 		"sindrets/diffview.nvim",
-		-- "ibhagwan/fzf-lua",
+		"ibhagwan/fzf-lua",
 	},
 	cmd = { "Neogit" },
 	keys = {
-		m("<leader>go", "Neogit"),
+		m("<leader>G", "Neogit"),
 		m("<leader>gl", "Neogit kind=vsplit"),
 	},
 }
