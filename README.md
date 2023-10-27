@@ -76,8 +76,6 @@ end
 
 ## Todo
 
-- [x] Look at [ultimate-autopairs]
-      (<https://github.com/altermo/ultimate-autopair.nvim>).
 - [ ] After .10 release `OpenTerminal...` scaling user commands by not be
       necessary.
 - [ ] Create `cmp` source for `primeflex`
