@@ -227,3 +227,28 @@ autocmd({ "BufWritePost" }, {
 		end
 	end,
 })
+
+-- Neogit
+local neogit_files = { "NeogitStatus", "NeogitPopup" }
+local neogit = augroup("NeogitCustom")
+autocmd({ "WinEnter", "FileType" }, {
+	group = neogit,
+	pattern = neogit_files,
+	callback = function()
+		vim.o.cmdheight = 1
+	end,
+})
+autocmd({ "WinLeave" }, {
+	group = neogit,
+	pattern = neogit_files,
+	callback = function()
+		u.restore_cmdheight()
+	end,
+})
+autocmd({ "User" }, {
+	pattern = "NeogitPushComplete",
+	group = neogit,
+	callback = function()
+		require("neogit").close()
+	end,
+})

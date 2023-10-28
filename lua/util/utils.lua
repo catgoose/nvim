@@ -201,6 +201,7 @@ end
 M.reload_lua = function()
 	for _, file in ipairs(M.get_config_modules()) do
 		R("config." .. file)
+		R("util.functions")
 	end
 	cmd.nohlsearch()
 end

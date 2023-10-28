@@ -51,13 +51,17 @@ return snippets
 		"M",
 		fmta(
 			[[
-  local M = {}
+  local <> = {}
 
   <>
 
   return M
   ]],
-			i(1)
+			{
+
+				i(1),
+				i(2),
+			}
 		)
 	),
 	s(
