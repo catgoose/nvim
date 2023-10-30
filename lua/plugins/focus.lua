@@ -2,7 +2,7 @@ local m = require("util").lazy_map
 
 local opts = {
 	autoresize = {
-		enable = false,
+		enable = true,
 		quickfixheight = 60,
 	},
 	excluded_buftypes = { "nofile", "prompt", "popup", "quickfix" },
@@ -48,6 +48,7 @@ return {
 		"FocusEqualise",
 		"FocusToggle",
 	},
+	--  TODO: 2023-10-29 - Is FocusMaximise working?
 	keys = {
 		m("<leader>ss", [[FocusSplitDown]]),
 		m("<leader>sv", [[FocusSplitRight]]),

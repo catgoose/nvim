@@ -53,14 +53,20 @@ return snippets
 			[[
   local <> = {}
 
-  <>
+  function <>.<>(<>)
+    <>
+  end
 
-  return M
+  return <>
   ]],
 			{
 
 				i(1),
+				smn(1),
 				i(2),
+				i(3),
+				i(0),
+				smn(1),
 			}
 		)
 	),
@@ -124,11 +130,16 @@ end
 		"mfunc",
 		fmt(
 			[[
-  function M.{}({})
+  function {}.{}({})
     {}
   end
   ]],
-			{ i(1, "func_name"), i(2), i(3) }
+			{
+				i(1, "func_name"),
+				i(2),
+				i(3),
+				i(4),
+			}
 		)
 	),
 	s(
