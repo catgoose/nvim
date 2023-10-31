@@ -310,33 +310,4 @@ M.terminal_send_cmd = function(cmd_text)
 	return true
 end
 
-M.terminal_open_split = function(cfg)
-	local defaults = {
-		direction = "right",
-		scale = nil,
-		tab = false,
-	}
-	cfg = vim.tbl_extend("keep", cfg, defaults)
-	if cfg.tab == false then
-		if cfg.direction == "right" then
-			cmd.FocusSplitRight()
-		else
-			cmd.FocusSplitDown()
-		end
-	else
-		cmd.tabe()
-		cmd.terminal()
-		return
-	end
-	cmd.terminal()
-	if cfg.scale then
-		local winnr = api.nvim_get_current_win()
-		if cfg.direction == "right" then
-			api.nvim_win_set_width(winnr, math.floor(o.columns * cfg.scale))
-		else
-			api.nvim_win_set_height(winnr, math.floor(o.lines * cfg.scale))
-		end
-	end
-end
-
 return M
