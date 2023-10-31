@@ -150,11 +150,11 @@ autocmd({ "TermOpen" }, {
 				api.nvim_feedkeys(code_term_esc .. code_dir, "t", true)
 			end, { noremap = true })
 		end
-		vim.keymap.set("t", "<leader><Tab>", function()
+		vim.keymap.set("t", "<C-[>", function()
 			api.nvim_feedkeys(code_term_esc, "t", true)
 			cmd.tabprevious()
 		end, { noremap = true })
-		vim.keymap.set("t", "<leader><S-Tab>", function()
+		vim.keymap.set("t", "<C-]>", function()
 			api.nvim_feedkeys(code_term_esc, "t", true)
 			cmd.tabnext()
 		end, { noremap = true })
