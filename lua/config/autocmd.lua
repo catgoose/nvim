@@ -143,15 +143,32 @@ autocmd({ "TermOpen" }, {
 		opt_local.cursorline = false
 		opt_local.signcolumn = "no"
 		opt_local.statuscolumn = ""
+		local code_term_esc = api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
 		for _, key in ipairs({ "h", "j", "k", "l" }) do
 			vim.keymap.set("t", "<C-" .. key .. ">", function()
-				local code_term_esc = api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
 				local code_dir = api.nvim_replace_termcodes("<C-" .. key .. ">", true, true, true)
 				api.nvim_feedkeys(code_term_esc .. code_dir, "t", true)
 			end, { noremap = true })
 		end
+		vim.keymap.set("t", "<leader><Tab>", function()
+			api.nvim_feedkeys(code_term_esc, "t", true)
+			cmd.tabprevious()
+		end, { noremap = true })
+		vim.keymap.set("t", "<leader><S-Tab>", function()
+			api.nvim_feedkeys(code_term_esc, "t", true)
+			cmd.tabnext()
+		end, { noremap = true })
 		if bo.filetype == "" then
 			api.nvim_buf_set_option(event.buf, "filetype", "terminal")
+			cmd.startinsert()
+		end
+	end,
+})
+autocmd({ "WinEnter" }, {
+	group = terminal,
+	pattern = { "*" },
+	callback = function()
+		if bo.filetype == "terminal" then
 			cmd.startinsert()
 		end
 	end,
