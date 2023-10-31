@@ -76,10 +76,4 @@ end
 
 ## Todo
 
-- [ ] After .10 release `OpenTerminal...` scaling user commands by not be
-      necessary.
 - [ ] Create `cmp` source for `primeflex`
-- Diffview
-  - [ ] Create function using vim.input or similar to ask for a commit hash
-        to pass into `DiffviewOpen {hash}`
-  - [ ] Look at keymaps and hooks
