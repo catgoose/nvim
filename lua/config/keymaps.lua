@@ -27,6 +27,11 @@ m("]q", "silent! cnext")
 m("[q", "silent! cprev")
 m("<leader><Tab>", "tabprevious")
 m("<leader><S-Tab>", "tabnext")
+m("<leader>tv", [[OpenTerminalRightScale]])
+m("<leader>ts", [[OpenTerminalDownScale]])
+m("<leader>tl", [[OpenTerminalRight]])
+m("<leader>tj", [[OpenTerminalDown]])
+m("<leader>tt", [[tab term]])
 
 -- User commands
 m("<leader>cz", "ToggleCmdHeight")

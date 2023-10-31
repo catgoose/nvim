@@ -48,17 +48,11 @@ return {
 		"FocusEqualise",
 		"FocusToggle",
 	},
-	--  TODO: 2023-10-29 - Is FocusMaximise working?
 	keys = {
 		m("<leader>ss", [[FocusSplitDown]]),
 		m("<leader>sv", [[FocusSplitRight]]),
 		m("<leader>sm", [[FocusMaximise]]),
 		m("<leader>se", [[FocusEqualise]]),
 		m("<leader>st", [[FocusToggle]]),
-		m("<leader>tv", [[OpenTerminalRightScale]]),
-		m("<leader>ts", [[OpenTerminalDownScale]]),
-		m("<leader>tl", [[OpenTerminalRight]]),
-		m("<leader>tj", [[OpenTerminalDown]]),
-		m("<leader>tt", [[OpenTerminalTab]]),
 	},
 }

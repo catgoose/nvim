@@ -52,10 +52,7 @@ local opts = {
 }
 
 local setup = {
-	-- opts = opts,
-	config = function()
-		require("chat-gypsy").setup(opts)
-	end,
+	opts = opts,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"MunifTanjim/nui.nvim",
