@@ -381,7 +381,6 @@ export class <>Entity {
 			}),
 		}),
 	}),
-	--  TODO: 2023-04-12 - get context servicename from TS query
 	s(
 		"#debug",
 		fmta(
@@ -395,7 +394,10 @@ export class <>Entity {
     this.logger.debug()
   }
   ]],
-			{ i(1, "ClassName"), i(2, "AppName") }
+			{
+				f(u.nest_classname),
+				i(1, "AppName"),
+			}
 		)
 	),
 	s("debserv", t("private winstonDebugService: WinstonDebugService")),
@@ -633,7 +635,6 @@ catchError((err) =>> {
 			}
 		)
 	),
-	--  TODO: 2023-03-29 - make this more better
 	s(
 		"switchmap",
 		fmt(
@@ -647,7 +648,6 @@ catchError((err) =>> {
 						[[
           {}: {}
           ]],
-						--  TODO: 2023-03-29 - add restore node
 						{ i(1), i(2) }
 					),
 				}),

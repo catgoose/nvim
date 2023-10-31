@@ -247,8 +247,6 @@ M.treesitter_is_css_class_under_cursor = function()
 	end
 end
 
---  TODO: 2023-09-26 - Is there a better way to get diagnostics for current
---  position?
 local is_diag_for_cur_pos = function()
 	local diagnostics = vim.diagnostic.get(0)
 	local pos = api.nvim_win_get_cursor(0)

@@ -14,7 +14,7 @@ return {
 		"litao91/lsp_lines",
 		priority = 900,
 		config = true,
-		enabled = false,
+		enabled = true,
 	},
 	{
 		"axelvc/template-string.nvim",
