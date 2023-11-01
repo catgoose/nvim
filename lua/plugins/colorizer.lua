@@ -1,6 +1,11 @@
 local opts = {
 	filetypes = {
 		"*",
+		ps1 = {
+			RGB = false,
+			css = false,
+			names = false,
+		},
 		typescript = {
 			css = false,
 			names = true,

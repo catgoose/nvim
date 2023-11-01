@@ -208,6 +208,7 @@ local config = function()
 		end
 	end
 
+	--  TODO: 2023-11-01 - which ones of these can be moved into mason-lspconfg?
 	local lang_servers = {
 		"awk_ls",
 		"bashls",
@@ -217,7 +218,6 @@ local config = function()
 		"dockerls",
 		"jedi_language_server",
 		"marksman",
-		"powershell_es",
 		"sqlls",
 		"tailwindcss",
 		"yamlls",

@@ -178,6 +178,7 @@ expect({}).toHaveBeenCalled();
 		fmta(
 			[[
   constructor(private logger: WinstonLoggerService) { }
+
   #error(error: any, ...args: any) {
     this.logger.error(error, {
       context: <>.name,
@@ -740,6 +741,17 @@ export async function <>(<>) {
 }
     ]],
 			{ i(1), i(2), i(0) }
+		)
+	),
+	s(
+		"trans",
+		fmta(
+			[[
+await this.entityManager.transaction(async (manager) =>> {
+  <>
+});
+  ]],
+			{ i(1) }
 		)
 	),
 }

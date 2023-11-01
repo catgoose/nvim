@@ -224,8 +224,8 @@ M.update_all = function()
 		"Lazy sync",
 	}
 	for _, c in ipairs(cmds) do
-		print("Running: " .. c)
 		cmd(c)
+		print("Running: " .. c)
 	end
 end
 

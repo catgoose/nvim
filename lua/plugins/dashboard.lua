@@ -53,34 +53,22 @@ local opts = {
 				action = "Neogit",
 			},
 			{
+				icon = "",
+				desc = "DiffView main",
+				key = "d",
+				action = "DiffviewOpen origin/main...HEAD",
+			},
+			{
 				icon = "",
 				desc = "Mason",
 				key = "m",
 				action = "Mason",
 			},
 			{
-				icon = "",
-				desc = "Telescope",
-				key = "t",
-				action = "Telescope",
-			},
-			{
-				icon = "",
-				desc = "Harpoon",
-				key = "h",
-				action = "require('harpoon.ui').toggle_quick_menu()",
-			},
-			{
 				icon = "",
 				desc = "Restore session",
 				key = "r",
 				action = "SessionRestore",
-			},
-			{
-				icon = "",
-				desc = "Workspaces",
-				key = "w",
-				action = "Telescope workspaces",
 			},
 			{
 				icon = "",
