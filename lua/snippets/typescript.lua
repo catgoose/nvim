@@ -391,7 +391,7 @@ export class <>Entity {
       label: '<>',
       ...args,
     });
-    this.logger.debug()
+    this.logger.debug(message, args)
   }
   ]],
 			{
