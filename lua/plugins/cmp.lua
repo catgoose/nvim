@@ -7,6 +7,7 @@ local source_mapping = {
 	path = "[PATH]",
 	treesitter = "[TREE]",
 	cmp_ai = "[AI]",
+	cmp_yanky = "[YANK]",
 }
 
 local config = function()
@@ -107,6 +108,13 @@ local config = function()
 				},
 			},
 			{
+				name = "cmp_yanky",
+				group_index = 5,
+				option = {
+					onlyCurrentFiletype = true,
+				},
+			},
+			{
 				name = "emoji",
 				keyword_length = 2,
 				group_index = 6,
@@ -196,6 +204,9 @@ return {
 				dependencies = "nvim-lua/plenary.nvim",
 			},
 			"jcdickinson/codeium.nvim",
+			{
+				"chrisgrieser/cmp_yanky",
+			},
 		},
 	},
 }
