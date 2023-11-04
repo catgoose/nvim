@@ -6,19 +6,6 @@ local ufo = require("util.ufo")
 
 local M = {}
 
-M.telescope_fd_opts = function(opts)
-	opts = opts or {}
-	cmd([[lua require('telescope.builtin').fd(opts)]])
-end
-
-M.telescope_find_files_cwd = function()
-	M.telescope_fd_opts({ search_dirs = { fn.expand("%:h") } })
-end
-
-M.telescope_find_files_no_ignore = function()
-	M.telescope_fd_opts({ no_ignore = true })
-end
-
 M.comment_yank_paste = function()
 	local win = api.nvim_get_current_win()
 	local cur = api.nvim_win_get_cursor(win)
@@ -126,30 +113,9 @@ local open_help_tab = function(help_cmd, topic)
 	api.nvim_win_close(winnr, false)
 end
 
-M.help_select = function()
-	ui.input({ prompt = "Open help for> " }, function(input)
-		if not input then
-			return
-		end
-		open_help_tab("help", input)
-	end)
-end
-
 M.help_word = function()
 	local current_word = u.current_word()
 	open_help_tab("help", current_word)
-end
-
-M.help_grep = function()
-	ui.input({ prompt = "Grep help for: " }, function(input)
-		if input == "" or not input then
-			return
-		end
-		open_help_tab("helpgrep", input)
-		if #vim.fn.getqflist() > 0 then
-			cmd.copen()
-		end
-	end)
 end
 
 M.tagstack_navigate = function(config)
@@ -308,6 +274,11 @@ M.terminal_send_cmd = function(cmd_text)
 		send_to_terminal(terminal, cmd_text)
 	end
 	return true
+end
+
+M.netrw = function()
+	cmd.tabe()
+	cmd([[silent! Explore]])
 end
 
 return M

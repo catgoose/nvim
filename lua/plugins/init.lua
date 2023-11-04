@@ -79,4 +79,9 @@ return {
 			m("<leader>gi", "Git"),
 		},
 	},
+	{
+		"prichrd/netrw.nvim",
+		lazy = false,
+		config = true,
+	},
 }

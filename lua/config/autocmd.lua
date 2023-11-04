@@ -1,6 +1,6 @@
 local u = require("util")
 local api, fn, bo, opt_local, cmd = vim.api, vim.fn, vim.bo, vim.opt_local, vim.cmd
-local augroup, q_to_quit, q_to_fclose = u.create_augroup, u.map_q_to_quit, u.map_q_to_fclose
+local augroup, q_to_quit = u.create_augroup, u.map_q_to_quit
 local autocmd = api.nvim_create_autocmd
 local file_pattern = {
 	"*.css",
@@ -109,6 +109,7 @@ autocmd({ "FileType" }, {
 		"dapui_console",
 		"NeogitCommitMessage",
 		"fugitive",
+		"netrw",
 	},
 	callback = function(event)
 		q_to_quit(event)

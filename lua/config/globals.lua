@@ -5,6 +5,10 @@ g.mapleader = " "
 g.maplocalleader = " "
 g.suda_smart_edit = 1
 
+g.netrw_browse_split = 0
+g.netrw_banner = 0
+g.netrw_winsize = 25
+
 if is_x_display() then
 	g.clipboard = { -- install xclip
 		name = "xclip",
