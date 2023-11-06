@@ -754,6 +754,35 @@ await this.entityManager.transaction(async (manager) =>> {
 			{ i(1) }
 		)
 	),
+	s("useapi", t("const { apiFetch } = useApiFetch();")),
+	s(
+		"apifetch",
+		fmta(
+			[[
+  const { error, data } = await apiFetch('<>').<>(<>).json();
+
+  if (error.value) {
+    <>
+  } else {
+    const response = data.value;
+    <>
+    return response
+  }
+  ]],
+			{
+				i(1),
+				c(2, {
+					t("get"),
+					t("post"),
+					t("put"),
+					t("delete"),
+				}),
+				i(3),
+				i(4, "console.log(error);"),
+				i(5, "console.log(response);"),
+			}
+		)
+	),
 }
 
 return snippets
