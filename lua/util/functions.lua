@@ -31,11 +31,15 @@ M.comment_yank_paste = function()
 	end
 end
 
-M.buf_only_window_only = function()
+M.buf_only = function(cb)
+	cb = cb or nil
 	if #api.nvim_list_wins() > 1 then
 		cmd.only()
 	end
 	cmd.BufOnly()
+	if cb then
+		cb()
+	end
 end
 
 M.toggle_cmdheight = function()

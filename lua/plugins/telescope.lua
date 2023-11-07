@@ -118,11 +118,11 @@ local config = function()
 				override_file_sorter = true,
 				case_mode = "smart_case",
 			},
-			-- ["ui-select"] = {
-			-- 	require("telescope.themes").get_dropdown({
-			-- 		winblend = 2,
-			-- 	}),
-			-- },
+			["ui-select"] = {
+				require("telescope.themes").get_dropdown({
+					winblend = 2,
+				}),
+			},
 			workspaces = {
 				keep_insert = false,
 			},
@@ -150,7 +150,7 @@ local config = function()
 
 	local extensions = {
 		"fzf",
-		-- "ui-select",
+		"ui-select",
 		"harpoon",
 		"do-the-needful",
 		"chat-gypsy",
@@ -188,15 +188,15 @@ return {
 		m("<leader>J", [[TelescopeFindFilesNoIgnore]]),
 		m("<leader>bb", [[Telescope buffers]]),
 		m("<leader>hg", [[Telescope helpgrep]]),
-		{
-			"<leader>z",
-			function()
-				vim.cmd([[Lazy reload telescope-helpgrep.nvim]])
-				vim.cmd([[Lazy reload telescope.nvim]])
-				vim.cmd([[Telescope helpgrep]])
-			end,
-			{ "n" },
-		},
+		-- {
+		-- 	"<leader>z",
+		-- 	function()
+		-- 		vim.cmd([[Lazy reload telescope-helpgrep.nvim]])
+		-- 		vim.cmd([[Lazy reload telescope.nvim]])
+		-- 		vim.cmd([[Telescope helpgrep]])
+		-- 	end,
+		-- 	{ "n" },
+		-- },
 	},
 	dependencies = {
 		{
@@ -204,7 +204,7 @@ return {
 			build = "make",
 		},
 		"natecraddock/workspaces.nvim",
-		-- "nvim-telescope/telescope-ui-select.nvim",
+		"nvim-telescope/telescope-ui-select.nvim",
 		"ThePrimeagen/harpoon",
 		"tsakirist/telescope-lazy.nvim",
 		"catgoose/chat-gypsy.nvim",
