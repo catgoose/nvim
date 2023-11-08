@@ -204,7 +204,11 @@ return {
 			build = "make",
 		},
 		"natecraddock/workspaces.nvim",
-		"nvim-telescope/telescope-ui-select.nvim",
+		{
+			"nvim-telescope/telescope-ui-select.nvim",
+			-- until https://github.com/nvim-telescope/telescope-ui-select.nvim/issues/28 is merged
+			commit = "6c2aeb566d54ab98aca5127dd8a9e7eda5f66c92",
+		},
 		"ThePrimeagen/harpoon",
 		"tsakirist/telescope-lazy.nvim",
 		"catgoose/chat-gypsy.nvim",

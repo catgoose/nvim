@@ -48,7 +48,7 @@ return snippets
 	s("p", fmt([[print({})]], i(1))),
 	s("P", fmt([[P({})]], i(1))),
 	s(
-		"M",
+		"module",
 		fmta(
 			[[
   local <> = {}

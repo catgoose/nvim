@@ -84,8 +84,4 @@ return {
 		lazy = false,
 		config = true,
 	},
-	{
-		"kelly-lin/ranger.nvim",
-		config = true,
-	},
 }

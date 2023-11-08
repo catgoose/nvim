@@ -281,7 +281,7 @@ M.terminal_send_cmd = function(cmd_text)
 end
 
 M.netrw = function()
-	cmd.tabe()
+	cmd.tabnew("%")
 	cmd([[silent! Explore]])
 end
 

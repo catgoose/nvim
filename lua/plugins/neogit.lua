@@ -2,6 +2,9 @@ local m = require("util").lazy_map
 
 local opts = {
 	disable_insert_on_commit = false,
+	commit_editor = {
+		kind = "vsplit",
+	},
 }
 
 return {
