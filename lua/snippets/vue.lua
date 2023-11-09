@@ -35,7 +35,9 @@ console.groupEnd();
       {}
       </script>
       ]],
-			{ i(1) }
+			{
+				i(1),
+			}
 		)
 	),
 	s(
@@ -56,7 +58,6 @@ console.groupEnd();
 <template>
 <div></div>
 </template>
-
 <script setup lang="ts">
 {}
 </script>
@@ -230,12 +231,48 @@ console.groupEnd();
 		"props",
 		fmta(
 			[[
-
 const props = defineProps<<{
   <>
 }>>();
 ]],
 			i(1)
+		)
+	),
+	s(
+		"style",
+		c(1, {
+			fmt(
+				[[
+  <style lang="scss">
+  {}
+  </style>
+  ]],
+				i(1)
+			),
+			fmt(
+				[[
+  <style lang="scss" scoped>
+  {}
+  </style>
+  ]],
+				i(1)
+			),
+		})
+	),
+	s(
+		"sfc",
+		fmt(
+			[[
+<template>
+  <div></div>
+</template>
+<style lang="scss">
+</style>
+<script setup lang="ts">
+{}
+</script>
+  ]],
+			{ i(1) }
 		)
 	),
 }

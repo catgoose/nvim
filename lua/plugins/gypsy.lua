@@ -38,7 +38,7 @@ local opts = {
 			messages = {
 				{
 					role = "system",
-					content = "respond with the next number",
+					content = "You are a programming assistant",
 				},
 			},
 		},
@@ -65,7 +65,7 @@ local setup = {
 		m("<leader>cv", [[lua require("chat-gypsy").models()]]),
 	},
 	cmd = { "GypsyToggle" },
-	enabled = false,
+	-- enabled = false,
 }
 
 if dev == true then
