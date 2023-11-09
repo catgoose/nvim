@@ -1,7 +1,7 @@
 local opts = {
 	auto_enable = true,
 	auto_resize_height = true,
-	func_map = {
+	key_map = {
 		open = "<cr>",
 		openc = "o",
 		vsplit = "v",

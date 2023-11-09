@@ -11,7 +11,7 @@ M.cmd_map = function(lhs, rhs, modes, opts)
 	end
 end
 
-M.func_map = function(lhs, rhs, modes, opts)
+M.key_map = function(lhs, rhs, modes, opts)
 	modes = M.str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do

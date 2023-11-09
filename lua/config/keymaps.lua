@@ -1,5 +1,5 @@
 local u = require("util")
-local m, f = u.cmd_map, u.func_map
+local m, f = u.cmd_map, u.key_map
 
 -- Normal maps
 f("0", "^")
@@ -11,8 +11,10 @@ m("<leader>W", "wa")
 m("<leader>qa", "qa")
 m("<leader>qq", "q")
 m("<leader>qo", "WinOnly")
-m("<leader>qv", "WinOnlyVSplit")
-m("<leader>qs", "WinOnlySplit")
+m("<leader>ql", "WinOnlyFocusLeft")
+m("<leader>qh", "WinOnlyFocusRight")
+m("<leader>qj", "WinOnlyFocusDown")
+m("<leader>qk", "WinOnlyFocusUp")
 m("<leader>qf", "cwindow")
 m("<leader>bn", "bn")
 m("<leader>bp", "bp")
