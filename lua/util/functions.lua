@@ -31,12 +31,18 @@ M.comment_yank_paste = function()
 	end
 end
 
-M.buf_only = function(cb)
-	cb = cb or nil
+M.buf_only = function()
 	if #api.nvim_list_wins() > 1 then
 		cmd.only()
 	end
 	cmd.BufOnly()
+end
+
+M.win_only = function(cb)
+	cb = cb or nil
+	if #api.nvim_list_wins() > 1 then
+		cmd.only()
+	end
 	if cb then
 		cb()
 	end

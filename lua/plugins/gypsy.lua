@@ -65,6 +65,7 @@ local setup = {
 		m("<leader>cv", [[lua require("chat-gypsy").models()]]),
 	},
 	cmd = { "GypsyToggle" },
+	enabled = false,
 }
 
 if dev == true then

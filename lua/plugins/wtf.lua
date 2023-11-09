@@ -18,4 +18,5 @@ return {
 		m("gw", [[lua require("wtf").ai()]]),
 		m("gW", [[lua require("wtf").search()]]),
 	},
+	enabled = false,
 }

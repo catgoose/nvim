@@ -153,7 +153,7 @@ local config = function()
 		"ui-select",
 		"harpoon",
 		"do-the-needful",
-		"chat-gypsy",
+		-- "chat-gypsy",
 		"workspaces",
 		"lazy",
 		"helpgrep",
