@@ -8,7 +8,25 @@ local smn = u.same_node
 local low = u.lower
 
 local snippets = {
-	s("cl", u.typescript_snippet("cl")),
+	s(
+		"cl",
+		c(1, {
+			fmt(
+				[[
+      console.log({});
+      ]],
+				r(1, "console_log")
+			),
+			fmt(
+				[[
+console.group('{}');
+console.log({});
+console.groupEnd();
+  ]],
+				{ i(1), r(2, "console_log") }
+			),
+		})
+	),
 	s(
 		"setup",
 		fmt(

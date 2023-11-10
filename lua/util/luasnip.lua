@@ -115,25 +115,4 @@ M.nest_classname = function()
 	end
 end
 
-M.typescript_snippet = function(key)
-	if key == "cl" then
-		return c(1, {
-			fmt(
-				[[
-      console.log({});
-      ]],
-				r(1, "console_log")
-			),
-			fmt(
-				[[
-console.group('{}');
-console.log({});
-console.groupEnd();
-  ]],
-				{ i(1), r(2, "console_log") }
-			),
-		})
-	end
-end
-
 return M
