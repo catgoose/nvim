@@ -18,20 +18,30 @@ local comment_close = {
 }
 
 M.comment_open = function()
-	local ft = vim.bo.filetype
-	local ext = vim.fn.expand("%:e")
-	if comment_open[ft] then
-		return comment_open[ft]
-	end
-	if ft == "query" and ext == "scm" then
-		return "; "
+	local ok, ts_context = pcall(require, "ts_context_commentstring")
+	if ok then
+		return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[1]
+	else
+		local ft = vim.bo.filetype
+		local ext = vim.fn.expand("%:e")
+		if comment_open[ft] then
+			return comment_open[ft]
+		end
+		if ft == "query" and ext == "scm" then
+			return "; "
+		end
 	end
 end
 
 M.comment_close = function()
-	local ft = vim.bo.filetype
-	if comment_close[ft] then
-		return comment_close[ft]
+	local ok, ts_context = pcall(require, "ts_context_commentstring")
+	if ok then
+		return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[2]
+	else
+		local ft = vim.bo.filetype
+		if comment_close[ft] then
+			return comment_close[ft]
+		end
 	end
 end
 

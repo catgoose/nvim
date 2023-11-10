@@ -56,8 +56,10 @@ console.groupEnd();
 		fmt(
 			[[
 <template>
-<div></div>
+  <div></div>
 </template>
+<style lang="scss">
+</style>
 <script setup lang="ts">
 {}
 </script>
@@ -258,22 +260,6 @@ const props = defineProps<<{
 				i(1)
 			),
 		})
-	),
-	s(
-		"sfc",
-		fmt(
-			[[
-<template>
-  <div></div>
-</template>
-<style lang="scss">
-</style>
-<script setup lang="ts">
-{}
-</script>
-  ]],
-			{ i(1) }
-		)
 	),
 }
 

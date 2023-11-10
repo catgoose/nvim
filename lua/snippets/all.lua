@@ -28,8 +28,8 @@ for _, todo in ipairs(todos) do
 		s(
 			todo,
 			fmt([[
-      {} ]] .. string.upper(todo) .. [[: {} - {}{}
-      ]], {
+		    {} ]] .. string.upper(todo) .. [[: {} - {}{}
+		    ]], {
 				f(comment_open),
 				f(today),
 				i(1),

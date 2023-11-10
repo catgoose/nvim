@@ -192,6 +192,17 @@ return <>
 			{ i(1), i(0) }
 		)
 	),
+	s(
+		"config",
+		fmt(
+			[[
+config = function()
+  {}
+end,
+  ]],
+			{ i(1) }
+		)
+	),
 }
 
 return snippets
