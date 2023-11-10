@@ -1,4 +1,7 @@
-local f = require("luasnip").function_node
+local ls = require("luasnip")
+local s, t, i, c, r, f, sn =
+	ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.restore_node, ls.function_node, ls.snippet_node
+local fmt = require("luasnip.extras.fmt").fmt
 local M = {}
 
 local comment_open = {
@@ -109,6 +112,27 @@ M.nest_classname = function()
 	---@diagnostic disable-next-line: missing-parameter
 	for _, class_name in query:iter_captures(node, 0) do
 		return vim.treesitter.get_node_text(class_name, 0)
+	end
+end
+
+M.typescript_snippet = function(key)
+	if key == "cl" then
+		return c(1, {
+			fmt(
+				[[
+      console.log({});
+      ]],
+				r(1, "console_log")
+			),
+			fmt(
+				[[
+console.group('{}');
+console.log({});
+console.groupEnd();
+  ]],
+				{ i(1), r(2, "console_log") }
+			),
+		})
 	end
 end
 

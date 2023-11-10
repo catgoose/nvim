@@ -45,7 +45,6 @@ local snippets = {
 					i_counter = i_counter + 1
 					table.insert(nodes, t("| "))
 					table.insert(nodes, i(i_counter))
-					print(i_counter)
 					table.insert(nodes, t(" "))
 				end
 				table.insert(nodes, t({ "|", "" }))
