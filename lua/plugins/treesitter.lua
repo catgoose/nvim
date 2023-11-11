@@ -189,6 +189,8 @@ local config = function()
 			keymaps = {
 				node_incremental = "v",
 				node_decremental = "V",
+				init_selection = "<C-v>",
+				scope_incremental = "<C-v>",
 			},
 		},
 	}
