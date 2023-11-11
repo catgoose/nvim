@@ -170,7 +170,11 @@ return {
 	init = function()
 		local create_cmd = require("util").create_cmd
 		create_cmd("TelescopeFindFiles", function()
-			require("telescope.builtin").find_files()
+			require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
+				layout_config = {
+					prompt_position = "bottom",
+				},
+			}))
 		end)
 		create_cmd("TelescopeFindFilesNoIgnore", function()
 			require("telescope.builtin").fd({ no_ignore = true })
@@ -183,7 +187,7 @@ return {
 	keys = {
 		m("<leader>tk", [[Telescope keymaps]]),
 		m("<leader>hh", [[Telescope help_tags]]),
-		m("<leader>f", [[Telescope find_files theme=dropdown layout_config={"prompt_position":"bottom"} ]]),
+		m("<leader>f", [[TelescopeFindFiles]]),
 		m("<leader>F", [[Telescope find_files]]),
 		m("<leader>j", [[Telescope live_grep]]),
 		m("<leader>J", [[TelescopeFindFilesNoIgnore]]),

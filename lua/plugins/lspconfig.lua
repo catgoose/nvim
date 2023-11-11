@@ -1,4 +1,4 @@
-local k, l, api = vim.keymap.set, vim.lsp, vim.api
+local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
 
 local server_enabled = function(server)
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -57,20 +57,20 @@ local config = function()
 
 	-- global keybindings
 	local opts = { noremap = true, silent = true }
-	k("n", "[g", vim.diagnostic.goto_prev, opts)
-	k("n", "]g", vim.diagnostic.goto_next, opts)
-	k("n", "<leader>dd", vim.diagnostic.setqflist, opts)
-	k("n", "<leader>rn", vim.lsp.buf.rename, opts)
+	keybinding("n", "[g", vim.diagnostic.goto_prev, opts)
+	keybinding("n", "]g", vim.diagnostic.goto_next, opts)
+	keybinding("n", "<leader>dd", vim.diagnostic.setqflist, opts)
 
 	-- buf keybindings
 	local keys_on_attach = function(_, bufnr)
 		local bufopts = { noremap = true, silent = true, buffer = bufnr }
-		k("n", "gD", l.buf.declaration, bufopts)
-		k("n", "gd", l.buf.definition, bufopts)
-		k("n", "gi", l.buf.implementation, bufopts)
-		k("n", "<leader>D", l.buf.type_definition, bufopts)
-		k("n", "gr", l.buf.references, bufopts)
-		k({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
+		keybinding("n", "gD", l.buf.declaration, bufopts)
+		keybinding("n", "gd", l.buf.definition, bufopts)
+		keybinding("n", "gi", l.buf.implementation, bufopts)
+		keybinding("n", "<leader>D", l.buf.type_definition, bufopts)
+		keybinding("n", "gr", l.buf.references, bufopts)
+		keybinding({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
+		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	end
 
 	local lsp_formatting = function(bufnr)
@@ -114,8 +114,8 @@ local config = function()
 	end
 	local ts_on_attach = function(client, bufnr)
 		base_on_attach(client, bufnr)
-		m("<leader>rn", "AnglerRenameSymbol", "n", { noremap = true, silent = true, buffer = bufnr })
-		client.server_capabilities.renameProvider = true
+		-- m("<leader>rn", "AnglerRenameSymbol", "n", { noremap = true, silent = true, buffer = bufnr })
+		-- client.server_capabilities.renameProvider = true
 	end
 	local volar_on_attach = function(client, bufnr)
 		ts_on_attach(client, bufnr)

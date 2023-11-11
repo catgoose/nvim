@@ -24,10 +24,13 @@ M.cmd_string = function(cmd_arg)
 end
 
 M.lazy_map = function(lhs, rhs, modes)
+	if type(rhs) == "string" then
+		rhs = M.cmd_string(rhs)
+	end
 	modes = M.str_to_tbl(modes) or { "n" }
 	return {
 		lhs,
-		M.cmd_string(rhs),
+		rhs,
 		mode = modes,
 	}
 end

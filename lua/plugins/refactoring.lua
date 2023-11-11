@@ -1,3 +1,5 @@
+local m = require("util").lazy_map
+
 local opts = {
 	prompt_func_return_type = {
 		go = false,
@@ -21,22 +23,22 @@ local opts = {
 	print_var_statements = {},
 }
 
-local config = function()
-	local map = vim.api.nvim_set_keymap
-	local map_opts = { noremap = true, silent = true, expr = false }
-	map("v", "<leader>rr", ":lua require('refactoring').select_refactor()<CR>", map_opts)
-	map("v", "<leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]], map_opts)
-	map("n", "<leader>rb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]], map_opts)
-	-- map("v", "<leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], map_opts)
-	-- map("v", "<leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]], map_opts)
-	-- map("v", "<leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], map_opts)
-	-- map("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]], map_opts)
-	-- map("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], map_opts)
-end
-
 return {
 	"ThePrimeagen/refactoring.nvim",
 	opts = opts,
-	config = config,
+	keys = {
+		m("<leader>rv", [[Refactor extract_var]], { "n", "x" }),
+		m("<leader>ri", [[Refactor inline_var]], { "n", "x" }),
+		m("<leader>rI", [[Refactor inline_func]], { "n", "x" }),
+		m("<leader>rt", function()
+			require("telescope").extensions.refactoring.refactors()
+		end, { "n", "x" }),
+		m("<leader>rb", function()
+			require("refactoring").refactor("Extract Block")
+		end, { "n", "x" }),
+		m("<leader>rf", function()
+			require("refactoring").refactor("Extract Function")
+		end, { "n", "x" }),
+	},
 	event = "BufReadPre",
 }
