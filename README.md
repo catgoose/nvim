@@ -78,6 +78,3 @@ end
 ## Todo
 
 - Create `cmp` source for `primeflex`
-- Create function to rename current file and references to that file in
-  typescript/vue files
-- Figure out what is using `gnn` mapping
