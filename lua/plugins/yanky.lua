@@ -24,8 +24,6 @@ return {
 		{ "y", "<Plug>(YankyYank)", mode = { "n", "x" } },
 		{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" } },
 		{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" } },
-		{ "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" } },
-		{ "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" } },
 		{ "<c-p>", "<Plug>(YankyCycleForward)" },
 		{ "<c-n>", "<Plug>(YankyCycleBackward)" },
 		{ "<leader>pp", "<cmd>YankyRingHistory<cr>" },

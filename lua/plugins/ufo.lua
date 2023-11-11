@@ -1,13 +1,13 @@
 local u = require("util")
 local m = u.lazy_map
 
-local _, maxheight = u.screen_scale({ height = 0.65 })
+local scale = u.screen_scale({ height = 0.65 })
 
 local opts = {
 	fold_virt_text_handler = require("util.ufo").handler,
 	preview = {
 		win_config = {
-			maxheight = maxheight,
+			maxheight = scale.height,
 			winhighlight = "Normal:Folded",
 			winblend = 0,
 		},

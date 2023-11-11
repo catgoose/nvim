@@ -28,7 +28,7 @@ local config = function()
 	}
 	local winbar_inactive = {
 		buftype = { "nofile", "prompt", "quickfix", "terminal" },
-		filetype = { "toggleterm", "qf", "terminal", "gypsy" },
+		filetype = { "toggleterm", "qf", "terminal", "gypsy", "oil" },
 	}
 	local cmdtype_inactive = {
 		":",

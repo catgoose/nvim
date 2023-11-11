@@ -1,11 +1,8 @@
 local u = require("util")
 local m = u.lazy_map
-local width, height = u.screen_scale({ width = 1 / 2, height = 1 / 3 })
+local scale = u.screen_scale({ width = 1 / 2, height = 1 / 3 })
 local opts = {
-	menu = {
-		width = width,
-		height = height,
-	},
+	menu = scale,
 	save_on_toggle = true,
 	save_on_change = true,
 	enter_on_sendcmd = true,

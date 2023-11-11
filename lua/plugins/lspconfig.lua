@@ -60,6 +60,7 @@ local config = function()
 	k("n", "[g", vim.diagnostic.goto_prev, opts)
 	k("n", "]g", vim.diagnostic.goto_next, opts)
 	k("n", "<leader>dd", vim.diagnostic.setqflist, opts)
+	k("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
 	-- buf keybindings
 	local keys_on_attach = function(_, bufnr)

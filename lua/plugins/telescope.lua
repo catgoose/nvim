@@ -182,8 +182,9 @@ return {
 	cmd = "Telescope",
 	keys = {
 		m("<leader>tk", [[Telescope keymaps]]),
-		m("<leader>ht", [[Telescope help_tags]]),
-		m("<leader>f", [[Telescope find_files]]),
+		m("<leader>hh", [[Telescope help_tags]]),
+		m("<leader>f", [[Telescope find_files theme=dropdown layout_config={"prompt_position":"bottom"} ]]),
+		m("<leader>F", [[Telescope find_files]]),
 		m("<leader>j", [[Telescope live_grep]]),
 		m("<leader>J", [[TelescopeFindFilesNoIgnore]]),
 		m("<leader>bb", [[Telescope buffers]]),
@@ -206,8 +207,6 @@ return {
 		"natecraddock/workspaces.nvim",
 		{
 			"nvim-telescope/telescope-ui-select.nvim",
-			-- until https://github.com/nvim-telescope/telescope-ui-select.nvim/issues/28 is merged
-			commit = "6c2aeb566d54ab98aca5127dd8a9e7eda5f66c92",
 		},
 		"ThePrimeagen/harpoon",
 		"tsakirist/telescope-lazy.nvim",

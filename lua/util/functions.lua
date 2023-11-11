@@ -291,4 +291,19 @@ M.netrw = function()
 	cmd([[silent! Explore]])
 end
 
+M.tabnavigate = function(cfg)
+	cfg = cfg or {
+		navto = "next",
+	}
+	if cfg.navto ~= "next" and cfg.navto ~= "prev" then
+		return
+	end
+	local nav = cfg.navto == "next" and cmd.tabnext or cmd.tabprev
+	local term_escape = api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
+	if vim.bo.filetype == "terminal" then
+		api.nvim_feedkeys(term_escape, "t", true)
+	end
+	nav()
+end
+
 return M

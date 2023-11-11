@@ -4,14 +4,14 @@ local M = {}
 
 M.toggleterm_opts = function(added_opts)
 	local scale = 0.85
-	local width, height = utils.screen_scale({ width = scale, height = scale })
+	local scale = utils.screen_scale({ width = scale, height = scale })
 	local toggleterm_opts = {
 		auto_scroll = true,
 		direction = "float",
 		float_opts = {
 			border = "curved",
-			width = width,
-			height = height,
+			width = scale.width,
+			height = scale.height,
 			winblend = 2,
 		},
 		winbar = {

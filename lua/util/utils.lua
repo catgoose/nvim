@@ -167,7 +167,7 @@ M.screen_scale = function(config)
 	config.height = config.height or defaults.height
 	local width = fn.round(o.columns * config.width)
 	local height = fn.round(o.lines * config.height)
-	return width, height
+	return { width = width, height = height }
 end
 
 M.load_configs = function()

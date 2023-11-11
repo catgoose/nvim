@@ -1,0 +1,46 @@
+local m = require("util").lazy_map
+
+local factor = { width = 0.5, height = 0.5 }
+local scale = require("util").screen_scale(factor)
+
+local opts = {
+	keymaps = {
+		["g?"] = "actions.show_help",
+		["<CR>"] = "actions.select",
+		["<C-s>"] = "actions.select_split",
+		["<C-v>"] = "actions.select_vsplit",
+		["<C-t>"] = "actions.select_tab",
+		["<C-p>"] = "actions.preview",
+		["q"] = "actions.close",
+		["<C-c>"] = "actions.close",
+		["<C-r>"] = "actions.refresh",
+		["-"] = "actions.parent",
+		["_"] = "actions.open_cwd",
+		["`"] = "actions.cd",
+		["~"] = "actions.tcd",
+		["gs"] = "actions.change_sort",
+		["gx"] = "actions.open_external",
+		["g."] = "actions.toggle_hidden",
+		["g\\"] = "actions.toggle_trash",
+	},
+	win_options = {
+		cursorline = true,
+	},
+	use_default_keymaps = false,
+	float = {
+		padding = 8,
+		max_width = scale.width,
+		max_height = scale.height,
+	},
+}
+
+return {
+	"stevearc/oil.nvim",
+	opts = opts,
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
+	keys = {
+		m("<leader>O", [[lua require("oil").toggle_float()]]),
+	},
+}

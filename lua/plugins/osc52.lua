@@ -8,7 +8,7 @@ return {
 	"ojroques/nvim-osc52",
 	event = "BufReadPre",
 	opts = opts,
-	enabled = true,
+	enabled = false,
 	init = function()
 		local au_copy = function()
 			if v.event.operator == "y" and v.event.regname == "+" then

@@ -110,6 +110,7 @@ autocmd({ "FileType" }, {
 		"NeogitCommitMessage",
 		"fugitive",
 		"netrw",
+		"dbout",
 	},
 	callback = function(event)
 		q_to_quit(event)
@@ -151,10 +152,6 @@ autocmd({ "TermOpen" }, {
 				api.nvim_feedkeys(code_term_esc .. code_dir, "t", true)
 			end, { noremap = true })
 		end
-		vim.keymap.set("t", "<C-]>", function()
-			api.nvim_feedkeys(code_term_esc, "t", true)
-			cmd.tabnext()
-		end, { noremap = true })
 		if bo.filetype == "" then
 			api.nvim_buf_set_option(event.buf, "filetype", "terminal")
 			cmd.startinsert()
