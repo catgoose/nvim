@@ -72,6 +72,12 @@ local opts = {
 				action = "SessionRestore",
 			},
 			{
+				icon = "",
+				desc = "Oil",
+				key = "o",
+				action = "Oil",
+			},
+			{
 				icon = "",
 				desc = "Empty buffer",
 				key = "e",

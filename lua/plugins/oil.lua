@@ -43,4 +43,5 @@ return {
 	keys = {
 		m("<leader>O", [[lua require("oil").toggle_float()]]),
 	},
+	lazy = false,
 }

@@ -129,7 +129,6 @@ local config = function()
 			helpgrep = {
 				ignore_paths = {
 					vim.fn.stdpath("state") .. "/lazy/readme",
-					vim.fn.stdpath("data") .. "/lazy/indent-blankline.nvim",
 				},
 			},
 			lazy = {
