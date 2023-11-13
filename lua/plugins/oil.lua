@@ -39,6 +39,7 @@ return {
 	opts = opts,
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
+		"antosha417/nvim-lsp-file-operations",
 	},
 	keys = {
 		m("<leader>O", [[lua require("oil").toggle_float()]]),
