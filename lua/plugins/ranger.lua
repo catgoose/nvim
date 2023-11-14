@@ -21,7 +21,7 @@ return {
 	end,
 	event = { "BufReadPre" },
 	keys = {
-		-- m("<leader>R", "Ranger"),
+		m("<leader>R", "Ranger"),
 	},
 	cmd = { "Ranger" },
 }

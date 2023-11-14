@@ -42,7 +42,7 @@ return {
 		"antosha417/nvim-lsp-file-operations",
 	},
 	keys = {
-		m("<leader>O", [[lua require("oil").toggle_float()]]),
+		m("<leader>O", [[tab Oil]]),
 	},
 	lazy = false,
 }
