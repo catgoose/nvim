@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 
@@ -18,8 +18,10 @@ local plugin = {
 		m("<leader>gd", angler_str .. [[.open({extension = "scss"})]]),
 		m("<leader>gs", angler_str .. [[.open({extension = "scss", split = true})]]),
 		m("<leader>gf", angler_str .. [[.open({extension = "spec.ts"})]]),
-		m("gn", [[AnglerOpenNext]]),
-		m("gp", [[AnglerOpenPrev]]),
+		-- m("gn", [[AnglerOpenNext]]),
+		-- m("gp", [[AnglerOpenPrev]]),
+		m("gn", angler_str .. [[.open_cwd({order = "next"})]]),
+		m("gp", angler_str .. [[.open_cwd({order = "prev"})]]),
 		m("<leader>tc", [[AnglerCompile]]),
 		m("<leader>tf", [[AnglerRenameFile]]),
 		m("<leader>k", [[AnglerFixAll]]),

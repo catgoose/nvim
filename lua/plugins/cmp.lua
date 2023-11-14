@@ -7,6 +7,7 @@ local source_mapping = {
 	path = "[PATH]",
 	treesitter = "[TREE]",
 	cmp_ai = "[AI]",
+	["vim-dadbod-completion"] = "[DB]",
 }
 
 local config = function()
@@ -15,6 +16,15 @@ local config = function()
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
 	local cmp_ai = require("cmp_ai.config")
+
+	local autocomplete_group = vim.api.nvim_create_augroup("dadbod-autocomplete", { clear = true })
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = { "sql", "mysql", "plsql" },
+		callback = function()
+			cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+		end,
+		group = autocomplete_group,
+	})
 
 	cmp.setup({
 		enabled = function()
