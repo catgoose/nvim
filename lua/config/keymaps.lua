@@ -35,6 +35,7 @@ m("<leader>tl", "vertical term")
 m("<leader>ts", "horizontal term")
 m("<leader>tj", "botright term")
 m("<leader>tt", "tab term")
+m("<leader>tq", "tabclose")
 m("<leader>n", "Explore")
 
 -- User commands
