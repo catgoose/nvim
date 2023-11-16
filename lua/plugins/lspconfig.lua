@@ -110,14 +110,6 @@ local config = function()
 	local on_attach = function(client, bufnr)
 		base_on_attach(client, bufnr)
 	end
-	local ts_on_attach = function(client, bufnr)
-		base_on_attach(client, bufnr)
-		-- m("<leader>rn", "AnglerRenameSymbol", "n", { noremap = true, silent = true, buffer = bufnr })
-		-- client.server_capabilities.renameProvider = true
-	end
-	local volar_on_attach = function(client, bufnr)
-		ts_on_attach(client, bufnr)
-	end
 
 	-- LSP config
 	if server_enabled("tsserver") then
@@ -125,12 +117,25 @@ local config = function()
 			capabilities = capabilities,
 			debug = false,
 			server = {
-				on_attach = ts_on_attach,
+				on_attach = on_attach,
 			},
 		})
 	end
 
 	local lspconfig_setups = {
+		language_servers = {
+			"awk_ls",
+			"bashls",
+			"csharp_ls",
+			"docker_compose_language_service",
+			"dockerls",
+			"emmet_ls",
+			"jedi_language_server",
+			"marksman",
+			"sqlls",
+			"tailwindcss",
+			"yamlls",
+		},
 		cssls = {
 			capabilities = snippet_capabilities,
 			on_attach = on_attach,
@@ -148,7 +153,7 @@ local config = function()
 		},
 		volar = {
 			capabilities = capabilities,
-			on_attach = volar_on_attach,
+			on_attach = on_attach,
 			filetypes = { "typescript", "javascript", "vue" },
 		},
 		jsonls = {
@@ -217,33 +222,18 @@ local config = function()
 	}
 
 	for srv, cfg in pairs(lspconfig_setups) do
-		if server_enabled(srv) then
+		if srv == "language_servers" then
+			for _, ls in ipairs(cfg) do
+				lspconfig[ls].setup({
+					capabilities = capabilities,
+					on_attach = on_attach,
+				})
+			end
+		elseif server_enabled(srv) then
 			lspconfig[srv].setup(cfg)
 		end
 	end
 
-	--  TODO: 2023-11-01 - which ones of these can be moved into mason-lspconfg?
-	local lang_servers = {
-		"awk_ls",
-		"bashls",
-		"csharp_ls",
-		"docker_compose_language_service",
-		"dockerls",
-		"emmet_ls",
-		"jedi_language_server",
-		"marksman",
-		"sqlls",
-		"tailwindcss",
-		"yamlls",
-	}
-	for _, srv in pairs(lang_servers) do
-		if server_enabled(srv) then
-			lspconfig[srv].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-		end
-	end
 	if server_enabled("diagnosticls") then
 		lspconfig.diagnosticls.setup({
 			capabilities = capabilities,
