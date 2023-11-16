@@ -40,6 +40,7 @@ local opts = {
 		harpoon = false,
 		neorepl = false,
 		lua = true,
+		oil = false,
 		["dap-repl"] = false,
 		sh = function()
 			---@diagnostic disable-next-line: param-type-mismatch

@@ -27,6 +27,7 @@ return {
 		vim.g.db_ui_table_helpers = {
 			sqlserver = {
 				List = "select * from {table}",
+				Database = "select * from sys.databases",
 			},
 		}
 	end,

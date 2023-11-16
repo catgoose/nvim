@@ -190,7 +190,7 @@ return {
 		m("<leader>f", [[TelescopeFindFiles]]),
 		m("<leader>F", [[Telescope find_files]]),
 		m("<leader>j", [[Telescope live_grep]]),
-		m("<leader>J", [[TelescopeLiveGrepNoIgnore]]),
+		m("<leader>J", [[TelescopeLiveGrepHidden]]),
 		m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
 		m("<leader>bb", [[Telescope buffers]]),
 		m("<leader>hg", [[Telescope helpgrep]]),
