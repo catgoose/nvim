@@ -32,6 +32,9 @@ local opts = {
 		max_width = scale.width,
 		max_height = scale.height,
 	},
+	view_options = {
+		show_hidden = true,
+	},
 }
 
 return {
@@ -42,9 +45,9 @@ return {
 		"antosha417/nvim-lsp-file-operations",
 	},
 	keys = {
-		m("<leader>o", [[lua require("oil").toggle_float()]]),
-		-- m("<leader>o", [[tab Oil]]),
-		-- m("<leader>o", [[Oil]]),
+		m("<leader>O", [[lua require("oil").toggle_float()]]),
+		-- m("<leader>O", [[tab Oil]]),
+		-- m("<leader>O", [[Oil]]),
 	},
 	lazy = false,
 }

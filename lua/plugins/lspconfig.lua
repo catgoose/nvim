@@ -5,8 +5,6 @@ local server_enabled = function(server)
 end
 
 local config = function()
-	local m = require("util").cmd_map
-
 	local lspconfig = require("lspconfig")
 	local ts = require("typescript")
 	local cmp = require("cmp_nvim_lsp")
@@ -133,6 +131,21 @@ local config = function()
 	end
 
 	local lspconfig_setups = {
+		cssls = {
+			capabilities = snippet_capabilities,
+			on_attach = on_attach,
+			filetypes = { "css", "scss", "less", "sass", "vue" },
+		},
+		html = {
+			capabilities = snippet_capabilities,
+			on_attach = on_attach,
+			filetypes = { "html", "vue" },
+		},
+		cssmodules_ls = {
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+		},
 		volar = {
 			capabilities = capabilities,
 			on_attach = volar_on_attach,
@@ -214,9 +227,9 @@ local config = function()
 		"awk_ls",
 		"bashls",
 		"csharp_ls",
-		"cssmodules_ls",
 		"docker_compose_language_service",
 		"dockerls",
+		"emmet_ls",
 		"jedi_language_server",
 		"marksman",
 		"sqlls",
@@ -260,19 +273,6 @@ local config = function()
 				on_attach = on_attach,
 			},
 		})
-	end
-
-	local lang_servers_snippet_support = {
-		"html",
-		"cssls",
-	}
-	for _, lang in pairs(lang_servers_snippet_support) do
-		if server_enabled(lang) then
-			lspconfig[lang].setup({
-				capabilities = snippet_capabilities,
-				on_attach = on_attach,
-			})
-		end
 	end
 end
 

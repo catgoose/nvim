@@ -37,15 +37,15 @@ c("SpectreOpenWord", f.spectre_open_word)
 c("SpectreOpenCwd", f.spectre_open_cwd)
 c("SpotifyNext", function()
 	f.run_system_command({
-		cmd = "spt playback -n",
-		notify = true,
+		cmd = "spotify_player playback previous",
+		notify = false,
 		notify_config = { title = "Spotify", render = "compact" },
 	})
 end)
 c("SpotifyPrev", function()
 	f.run_system_command({
-		cmd = "spt playback -p",
-		notify = true,
+		cmd = "spotify_player playback next",
+		notify = false,
 		notify_config = { title = "Spotify", render = "compact" },
 	})
 end)

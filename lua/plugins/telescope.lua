@@ -152,7 +152,7 @@ local config = function()
 		"ui-select",
 		"harpoon",
 		"do-the-needful",
-		-- "chat-gypsy",
+		"chat-gypsy",
 		"workspaces",
 		"lazy",
 		"helpgrep",
@@ -190,7 +190,8 @@ return {
 		m("<leader>f", [[TelescopeFindFiles]]),
 		m("<leader>F", [[Telescope find_files]]),
 		m("<leader>j", [[Telescope live_grep]]),
-		m("<leader>J", [[TelescopeLiveGrepHidden]]),
+		m("<leader>J", [[TelescopeLiveGrepNoIgnore]]),
+		m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
 		m("<leader>bb", [[Telescope buffers]]),
 		m("<leader>hg", [[Telescope helpgrep]]),
 		-- {
