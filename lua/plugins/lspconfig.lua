@@ -1,4 +1,4 @@
-local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
+local keybinding, l, api, u = vim.keymap.set, vim.lsp, vim.api, require("util.utils")
 
 local server_enabled = function(server)
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -7,19 +7,35 @@ end
 local config = function()
 	local lspconfig = require("lspconfig")
 	local ts = require("typescript")
-	local cmp = require("cmp_nvim_lsp")
+	-- local cmp = require("cmp_nvim_lsp")
 	local clangd_ext = require("clangd_extensions")
 	local vt = require("virtualtypes")
 
+	-- mine:
+
 	-- LSP capabilities
-	local capabilities = l.protocol.make_client_capabilities()
+	-- local capabilities = l.protocol.make_client_capabilities()
 	--  cmp
-	capabilities = cmp.default_capabilities(capabilities)
+	-- capabilities = cmp.default_capabilities(capabilities)
+
+	-- theirs:
+	-- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38?notification_referrer_id=NT_kwDOAUCWmLM0NjEyOTQ3MDkxOjIxMDEwMDcy#issuecomment-1815248651
+	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+	-- capabilities.textDocument.completion = require("cmp_nvim_lsp").default_capabilities().textDocument.completion
+
+	-- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38?notification_referrer_id=NT_kwDOAUCWmLM0NjEyOTQ3MDkxOjIxMDEwMDcy#issuecomment-1815265121
+	local capabilities = vim.tbl_deep_extend(
+		"force",
+		vim.lsp.protocol.make_client_capabilities(),
+		require("cmp_nvim_lsp").default_capabilities()
+	)
+
 	--  ufo
 	capabilities.textDocument.foldingRange = {
 		dynamicRegistration = false,
 		lineFoldingOnly = true,
 	}
+	---@diagnostic disable-next-line: inject-field
 	capabilities.offsetEncoding = { "utf-16" }
 
 	local _snippet_capabilities = l.protocol.make_client_capabilities()
@@ -68,7 +84,6 @@ local config = function()
 		keybinding("n", "<leader>D", l.buf.type_definition, bufopts)
 		keybinding("n", "gr", l.buf.references, bufopts)
 		keybinding({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
-		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	end
 
 	local lsp_formatting = function(bufnr)
@@ -107,6 +122,14 @@ local config = function()
 		virtual_types_on_attach(client, bufnr)
 		-- vim.lsp.inlay_hint(bufnr, true)
 	end
+	local ts_on_attach = function(client, bufnr)
+		keybinding("n", "<leader>rn", [[<cmd>AnglerRenameSymbol<cr>]], opts)
+		base_on_attach(client, bufnr)
+	end
+	local rename_on_attach = function(client, bufnr)
+		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		base_on_attach(client, bufnr)
+	end
 	local on_attach = function(client, bufnr)
 		base_on_attach(client, bufnr)
 	end
@@ -117,7 +140,7 @@ local config = function()
 			capabilities = capabilities,
 			debug = false,
 			server = {
-				on_attach = on_attach,
+				on_attach = ts_on_attach,
 			},
 		})
 	end
@@ -126,7 +149,6 @@ local config = function()
 		language_servers = {
 			"awk_ls",
 			"bashls",
-			"csharp_ls",
 			"docker_compose_language_service",
 			"dockerls",
 			"emmet_ls",
@@ -135,6 +157,10 @@ local config = function()
 			"sqlls",
 			"tailwindcss",
 			"yamlls",
+		},
+		csharp_ls = {
+			capabilities = snippet_capabilities,
+			on_attach = rename_on_attach,
 		},
 		cssls = {
 			capabilities = snippet_capabilities,
@@ -153,12 +179,12 @@ local config = function()
 		},
 		volar = {
 			capabilities = capabilities,
-			on_attach = on_attach,
+			on_attach = ts_on_attach,
 			filetypes = { "typescript", "javascript", "vue" },
 		},
 		jsonls = {
 			capabilities = snippet_capabilities,
-			on_attach = on_attach,
+			on_attach = rename_on_attach,
 			settings = {
 				json = {
 					schemas = require("schemastore").json.schemas({
@@ -174,7 +200,7 @@ local config = function()
 		},
 		vimls = {
 			capabilities = capabilities,
-			on_attach = on_attach,
+			on_attach = rename_on_attach,
 			diagnostic = { enable = true },
 			indexes = {
 				count = 3,
@@ -190,9 +216,10 @@ local config = function()
 		},
 		lua_ls = {
 			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-			end,
+			-- on_attach = function(client, bufnr)
+			-- 	rename_on_attach(client, bufnr)
+			-- end,
+			on_attach = rename_on_attach,
 			settings = {
 				Lua = {
 					runtime = {
@@ -215,7 +242,7 @@ local config = function()
 		angularls = {
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
+				ts_on_attach(client, bufnr)
 				client.server_capabilities.renameProvider = false
 			end,
 		},

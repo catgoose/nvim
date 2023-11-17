@@ -288,4 +288,14 @@ M.is_x_display = function()
 	return x_display ~= nil and x_display ~= ""
 end
 
+M.is_keymap_set = function(mode, lhs)
+	local km = api.nvim_get_keymap(mode)
+	for _, map in ipairs(km) do
+		if map.lhs == lhs then
+			return true
+		end
+	end
+	return false
+end
+
 return M
