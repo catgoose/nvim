@@ -6,7 +6,7 @@ local opts = {
 		quickfixheight = 60,
 	},
 	excluded_buftypes = { "nofile", "prompt", "popup", "quickfix" },
-	excluded_filetypes = { "harpoon" },
+	excluded_filetypes = { "harpoon", "dbui" },
 	compatible_filetrees = { "neo-tree" },
 }
 
