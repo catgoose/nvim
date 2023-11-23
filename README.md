@@ -55,7 +55,7 @@ Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
 ```
 
 # Alias
-If you do not want to re-type every single time the command to connect to your FortiVPN provider, you can add an this alias to your ~.bashrc file:
+If you do not want to re-type every single time the command to connect to your FortiVPN provider, you can add this alias to your ~.bashrc file:
 
 ```
     alias vpn='FUCKFORTICLIENT_OPTS="--no-dns" fuckForticlient.sh -S VPN_SERVER -c'
