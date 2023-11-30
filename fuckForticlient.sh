@@ -93,7 +93,10 @@ TWITTER="@Disbauxes"
 SERVER=""
 
 # On some instances, /remote/login shows a login form with an additional button
-# "Single SignOn" and it allows to authenticate using username/password too:
+# "Single SignOn" and it allows to authenticate using username/password too. If you
+# see this form, instead of using /remote/login, you will need to use /remote/saml/start?realm=
+# instead. In case your set-up is somehow different, you can overwrite this with the "-U PATH"
+# parameter. For example: ./fuckForticlient.sh -S server -U /remote/mySAML/login -c
 URL="/remote/saml/start?realm="
 #URL="/remote/login"
 
@@ -306,7 +309,7 @@ usage(){
 		 "\t-t SECONDS Sets the timeout to wait for the SVPNCOOKIE cookie to SECONDS.\n" \
 		 "\t-v Shows the SVPNCOOKIE cookie on screen.\n" \
 		 "\t-S SERVER Authenticates against VPN server SERVER .\n" \
-		 "\t-U PATH Overwrites the default PATH to use SAML.\n" \
+		 "\t-U PATH Overwrites the default PATH to use for SAML.\n" \
 		 "\t-L Lists all Firefox profiles detected and exits.\n" \
 		 "\t-d Removes Forticlient from the system and exits.\n" \
 		 "\t-u Updates openfortivpn and exits.\n" \
@@ -321,6 +324,7 @@ usage(){
 		 "\t`basename $0` -p /home/u1/.mozilla/firefox/myprofile -P -S vpnsrv -c\n" \
 		 "\t`basename $0` -p /home/u1/.mozilla/firefox/myprofile -S vpnsrv -s\n" \
 		 "\t`basename $0` -t 200 -p /home/u1/.mozilla/firefox/myprofile -S vpnsrv -c\n" \
+		 "\t`basename $0` -S vpnsrv -U /remote/SAML/login -c\n" \
          "\n" \
          "Extra options for openfortivpn \n" \
          "\t FUCKFORTICLIENT_OPTS=\"--op1 --op2 ...\" `basename $0` options ... \n" \
