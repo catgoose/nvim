@@ -92,6 +92,11 @@ TWITTER="@Disbauxes"
 # E.g: /fuckForticlient.sh -S myvpnserver.domain.org -c
 SERVER=""
 
+# On some instances, /remote/login shows a login form with an additional button
+# "Single SignOn" and it allows to authenticate using username/password too:
+URL="/remote/saml/start?realm="
+#URL="/remote/login"
+
 # Default timeout in seconds to wait for the SVPNCOOKIE to appear:
 TIMEOUT=120
 
@@ -301,6 +306,7 @@ usage(){
 		 "\t-t SECONDS Sets the timeout to wait for the SVPNCOOKIE cookie to SECONDS.\n" \
 		 "\t-v Shows the SVPNCOOKIE cookie on screen.\n" \
 		 "\t-S SERVER Authenticates against VPN server SERVER .\n" \
+		 "\t-U PATH Overwrites the default PATH to use SAML.\n" \
 		 "\t-L Lists all Firefox profiles detected and exits.\n" \
 		 "\t-d Removes Forticlient from the system and exits.\n" \
 		 "\t-u Updates openfortivpn and exits.\n" \
@@ -495,9 +501,11 @@ if [ ! -z "$FUCKFORTICLIENT_OPTS" ]; then
     echo -e "[*] Openfortivpn extra args: $clGreen$FUCKFORTICLIENT_OPTS "
     echo -en "${clNone}"
 fi
+echo -e "[*] SAML path: ${clGreen}${URL} "
+echo -en "${clNone}"
 
 # Process arguments:
-while getopts "Licshut:p:PvdDS:" opt; do
+while getopts "Licshut:p:PvdDS:U:" opt; do
 	case "$opt" in
 		# Shows usage message and exits:
 		h)
@@ -583,6 +591,12 @@ while getopts "Licshut:p:PvdDS:" opt; do
 		S)
 			SERVER="$OPTARG"
 		;;
+		# Overwrites the PATH within $SERVER to use for SAML
+		U)
+			URL="$OPTARG"
+			echo -e "[*] Overwritting SAML path: ${clGreen}${URL} "
+			echo -en "${clNone}"
+		;;
 		# Removes Forticlient:
 		d)
 			echo "[*] Removing Forticlient as requested ... "
@@ -642,7 +656,7 @@ while getopts "Licshut:p:PvdDS:" opt; do
 			# FIX: make sure to use the right profile!!!!
 			profName=`dirname ${fProfile}|rev|cut -d"." -f1|rev|cut -d"/" -f1`
 			echo -e "[*] Opening Firefox for SAML login with: ${clGreen}-P ${profName}...${clNone}"
-			firefox -P ${profName} ${OPTIONS} https://${SERVER}/remote/login >/dev/null 2>&1 &
+			firefox -P ${profName} ${OPTIONS} https://${SERVER}${URL} >/dev/null 2>&1 &
 			echo -e "[*] Firefox profile: ${clRed}$fProfile"
             echo -ne "${clNone}"
 			echo -e "[*] Authenticating against ${clRed}https://$SERVER ..."
