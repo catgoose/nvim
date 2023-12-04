@@ -1,4 +1,4 @@
-local keybinding, l, api, u = vim.keymap.set, vim.lsp, vim.api, require("util.utils")
+local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
 
 local server_enabled = function(server)
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
