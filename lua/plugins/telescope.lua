@@ -150,7 +150,7 @@ local config = function()
 	local extensions = {
 		"fzf",
 		"ui-select",
-		"harpoon",
+		-- "harpoon",
 		"do-the-needful",
 		"chat-gypsy",
 		"workspaces",

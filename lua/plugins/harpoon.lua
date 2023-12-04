@@ -13,10 +13,18 @@ local opts = {
 
 return {
 	"ThePrimeagen/harpoon",
-	opts = opts,
+	-- opts = opts,
+	config = function()
+		require("harpoon"):setup()
+	end,
 	keys = {
-		m("<leader>a", [[lua require("harpoon.mark").add_file()]], { "n", "x" }),
-		m("<leader>l", [[lua require("harpoon.ui").toggle_quick_menu()]], { "n", "x" }),
+		m("<leader>a", function()
+			require("harpoon"):list():append()
+		end, { "n", "x" }),
+		m("<leader>l", function()
+			local harpoon = require("harpoon")
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+		end, { "n", "x" }),
 		m("]]", [[lua require("harpoon.ui").nav_next()]], { "n", "x" }),
 		m("[[", [[lua require("harpoon.ui").nav_prev()]], { "n", "x" }),
 	},

@@ -73,7 +73,7 @@ local config = function()
 	local opts = { noremap = true, silent = true }
 	keybinding("n", "[g", vim.diagnostic.goto_prev, opts)
 	keybinding("n", "]g", vim.diagnostic.goto_next, opts)
-	keybinding("n", "<leader>dd", vim.diagnostic.setqflist, opts)
+	-- keybinding("n", "<leader>dd", vim.diagnostic.setqflist, opts)
 
 	-- buf keybindings
 	local keys_on_attach = function(_, bufnr)
