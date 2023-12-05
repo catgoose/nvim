@@ -25,8 +25,13 @@ return {
 			local harpoon = require("harpoon")
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end, { "n", "x" }),
-		m("]]", [[lua require("harpoon.ui").nav_next()]], { "n", "x" }),
-		m("[[", [[lua require("harpoon.ui").nav_prev()]], { "n", "x" }),
+		m("]]", function()
+			require("harpoon"):list():next()
+		end, { "n", "x" }),
+		m("[[", function()
+			require("harpoon"):list():prev()
+		end, { "n", "x" }),
 	},
 	dependencies = "nvim-lua/plenary.nvim",
+	branch = "harpoon2",
 }
