@@ -1,21 +1,16 @@
 local u = require("util")
 local m = u.lazy_map
-local scale = u.screen_scale({ width = 1 / 2, height = 1 / 3 })
 local opts = {
-	menu = scale,
-	save_on_toggle = true,
-	save_on_change = true,
-	enter_on_sendcmd = true,
-	tmux_autoclose_windows = true,
-	excluded_filetypes = { "harpoon" },
-	mark_branch = false,
+	settings = {
+		ui_fallback_width = 39,
+		ui_width_ratio = 0.45,
+	},
 }
 
 return {
 	"ThePrimeagen/harpoon",
-	-- opts = opts,
 	config = function()
-		require("harpoon"):setup()
+		require("harpoon"):setup(opts)
 	end,
 	keys = {
 		m("<leader>a", function()

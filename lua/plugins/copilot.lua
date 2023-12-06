@@ -41,6 +41,7 @@ local opts = {
 		neorepl = false,
 		lua = true,
 		oil = false,
+		typescript = true,
 		["dap-repl"] = false,
 		sh = function()
 			---@diagnostic disable-next-line: param-type-mismatch
