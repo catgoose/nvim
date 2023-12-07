@@ -73,7 +73,7 @@ local config = function()
 	local opts = { noremap = true, silent = true }
 	keybinding("n", "[g", vim.diagnostic.goto_prev, opts)
 	keybinding("n", "]g", vim.diagnostic.goto_next, opts)
-	-- keybinding("n", "<leader>dd", vim.diagnostic.setqflist, opts)
+	keybinding("n", "<leader>dd", vim.diagnostic.setqflist, opts)
 
 	-- buf keybindings
 	local keys_on_attach = function(_, bufnr)
@@ -141,6 +141,27 @@ local config = function()
 			debug = false,
 			server = {
 				on_attach = ts_on_attach,
+				-- format-ts-errors
+				handlers = {
+					["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+						if result.diagnostics == nil then
+							return
+						end
+						local idx = 1
+						while idx <= #result.diagnostics do
+							local entry = result.diagnostics[idx]
+							local formatter = require("format-ts-errors")[entry.code]
+							entry.message = formatter and formatter(entry.message) or entry.message
+							if entry.code == 80001 then
+								table.remove(result.diagnostics, idx)
+							else
+								idx = idx + 1
+							end
+						end
+
+						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+					end,
+				},
 			},
 		})
 	end
@@ -310,5 +331,6 @@ return {
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
+		"davidosomething/format-ts-errors.nvim",
 	},
 }

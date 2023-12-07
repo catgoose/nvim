@@ -80,10 +80,9 @@ return {
 		},
 	},
 	{
-		"OlegGulevskyy/better-ts-errors.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		config = {
-			keymap = "<leader>dd",
-		},
+		"zeioth/garbage-day.nvim",
+		dependencies = "neovim/nvim-lspconfig",
+		event = "VeryLazy",
+		config = true,
 	},
 }

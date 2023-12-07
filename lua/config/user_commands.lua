@@ -37,15 +37,15 @@ c("SpectreOpenWord", f.spectre_open_word)
 c("SpectreOpenCwd", f.spectre_open_cwd)
 c("SpotifyNext", function()
 	f.run_system_command({
-		cmd = "spotify_player playback previous",
-		notify = false,
+		cmd = [[spotify_player playback previous && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
+		notify = true,
 		notify_config = { title = "Spotify", render = "compact" },
 	})
 end)
 c("SpotifyPrev", function()
 	f.run_system_command({
-		cmd = "spotify_player playback next",
-		notify = false,
+		cmd = [[spotify_player playback next && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
+		notify = true,
 		notify_config = { title = "Spotify", render = "compact" },
 	})
 end)
