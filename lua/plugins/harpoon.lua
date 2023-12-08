@@ -9,9 +9,7 @@ local opts = {
 
 return {
 	"ThePrimeagen/harpoon",
-	config = function()
-		require("harpoon"):setup(opts)
-	end,
+	opts = opts,
 	keys = {
 		m("<leader>a", function()
 			require("harpoon"):list():append()
