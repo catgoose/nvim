@@ -25,6 +25,7 @@ local is_not_filetype = function()
 		"neorepl",
 		"neoai-input",
 		"NeogitCommitMessage",
+		"oil",
 	}
 	for _, v in pairs(exclude_ft) do
 		if ft == v then
