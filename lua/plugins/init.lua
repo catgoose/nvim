@@ -1,4 +1,5 @@
 local m = require("util").lazy_map
+local leet_arg = "leetcode.nvim"
 
 return {
 	{
@@ -6,15 +7,10 @@ return {
 		lazy = false,
 	},
 	{
-		"jamessan/vim-gnupg",
-		lazy = false,
-		ft = "markdown",
-	},
-	{
 		"litao91/lsp_lines",
 		priority = 900,
 		config = true,
-		enabled = false,
+		-- enabled = true,
 	},
 	{
 		"axelvc/template-string.nvim",
@@ -46,27 +42,6 @@ return {
 		cmd = { "BufOnly", "Bdelete" },
 	},
 	{
-		"lukas-reineke/virt-column.nvim",
-		config = true,
-		event = "BufReadPre",
-		ft = { "markdown" },
-	},
-	{
-		"ellisonleao/glow.nvim",
-		config = true,
-		cmd = "Glow",
-		ft = { "markdown" },
-	},
-	{
-		"folke/neodev.nvim",
-		config = true,
-		lazy = true,
-	},
-	{
-		"folke/neoconf.nvim",
-		lazy = true,
-	},
-	{
 		"MaximilianLloyd/tw-values.nvim",
 		config = true,
 		lazy = true,
@@ -84,5 +59,48 @@ return {
 		dependencies = "neovim/nvim-lspconfig",
 		event = "VeryLazy",
 		config = true,
+	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
+	{
+		"kawre/leetcode.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"rcarriga/nvim-notify",
+			"nvim-tree/nvim-web-devicons",
+			"3rd/image.nvim",
+		},
+		opts = {
+			image = true,
+			lang = "typescript",
+			--[[
+      Run inside of ~/.local/share/nvim/leetcode
+      npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser
+      add to .eslintrc.json:
+        {
+          "root": true,
+          "overrides": [
+            {
+              "files": [
+                "*.ts",
+                "*.js"
+              ],
+              "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended"
+              ],
+              "parser": "@typescript-eslint/parser"
+            }
+          ]
+        }
+      ]]
+		},
+		lazy = false,
 	},
 }
