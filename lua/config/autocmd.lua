@@ -18,6 +18,15 @@ local file_pattern = {
 	"docker-compose.yaml",
 	"*.cpp",
 }
+
+local conceal_level_ft = {
+	"markdown",
+}
+
+local colorcolumn_ft = {
+	"markdown",
+}
+
 -- Filetype
 local buf_event = { "BufReadPre", "BufNewFile" }
 local set_filetype = augroup("SetFileTypeOptLocalOptions")
@@ -44,9 +53,17 @@ autocmd(buf_event, {
 })
 autocmd({ "FileType" }, {
 	group = set_filetype,
-	pattern = { "markdown" },
+	pattern = colorcolumn_ft,
 	callback = function()
 		opt_local.colorcolumn = "80"
+	end,
+})
+
+autocmd({ "FileType" }, {
+	group = set_filetype,
+	pattern = conceal_level_ft,
+	callback = function()
+		opt_local.conceallevel = 2
 	end,
 })
 

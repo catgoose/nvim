@@ -107,6 +107,3 @@ opt.completeopt = { "menu", "menuone", "noselect" }
 -- Sessions
 -- opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal"
 opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos"
-
--- Conceal
-opt.conceallevel = 2
