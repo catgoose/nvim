@@ -105,5 +105,4 @@ opt.shada = "!,'1000,f1,<1000,s100,:1000,/1000,h"
 opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Sessions
--- opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal"
 opt.sessionoptions = "buffers,curdir,folds,help,winsize,winpos"
