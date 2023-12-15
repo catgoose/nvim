@@ -1,3 +1,5 @@
+local leet_arg = "leetcode.nvim"
+
 local opts = {
 	image = true,
 	lang = "typescript",
@@ -23,6 +25,10 @@ local opts = {
         }
       ]]
 	directory = "/home/jtye/git/dotfiles/leetcode",
+	lazy = leet_arg ~= vim.fn.argv()[1],
+	opts = {
+		arg = leet_arg,
+	},
 }
 
 return {
@@ -37,5 +43,4 @@ return {
 		"3rd/image.nvim",
 	},
 	opts = opts,
-	lazy = false,
 }
