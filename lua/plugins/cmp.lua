@@ -83,6 +83,10 @@ local config = function()
 			{
 				name = "codeium",
 				group_index = 2,
+				option = { use_show_condition = true },
+				entry_filter = function()
+					return not vim.g.leetcode
+				end,
 			},
 			{
 				name = "nvim_lua",

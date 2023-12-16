@@ -39,6 +39,10 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"3rd/image.nvim",
 	},
-	opts = opts,
+	config = function()
+		require("leetcode").setup(opts)
+		vim.cmd([[silent! Copilot disable]])
+		vim.g.leetcode = true
+	end,
 	lazy = leet_arg ~= vim.fn.argv()[1],
 }

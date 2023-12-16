@@ -5,7 +5,6 @@ local config = function()
 	local types = require("luasnip.util.types")
 
 	ls.config.set_config({
-		history = false,
 		updateevents = "TextChanged,TextChangedI",
 		delete_check_events = "TextChanged",
 		enable_autosnippets = false,
@@ -49,6 +48,6 @@ return {
 	config = config,
 	event = "InsertEnter",
 	keys = {
-		m("<leader>sn", [[lua require("luasnip.loaders.from_lua").edit_snippet_files()]]),
+		m("<leader>sn", [[lua require("luasnip.loaders").edit_snippet_files()]]),
 	},
 }
