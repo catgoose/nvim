@@ -59,7 +59,7 @@ local setup = {
 		"kkharji/sqlite.lua",
 	},
 	keys = {
-		m("<leader>z", [[Lazy reload chat-gypsy.nvim]]),
+		-- m("<leader>z", [[Lazy reload chat-gypsy.nvim]]),
 		m("<leader>x", [[lua require("chat-gypsy").toggle()]], { "n", "x" }),
 		m("<leader>cc", [[lua require("chat-gypsy").history()]]),
 		m("<leader>cv", [[lua require("chat-gypsy").models()]]),

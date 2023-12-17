@@ -14,6 +14,9 @@ local opts = {
 			{ "clear" },
 			{ "dotnet run" },
 		},
+		typescript = {
+			{ "ts-node", "[#file]" },
+		},
 	},
 }
 
@@ -22,15 +25,20 @@ local cr_str = [[lua require("coderunner").run]]
 local plugin = {
 	opts = opts,
 	keys = {
+		-- m("<leader>z", [[Lazy reload coderunner]]),
 		-- m("<leader>cc", cr_str .. [[({split = "horizontal"})]]),
 		-- m("<leader>cv", cr_str .. [[({split = "vertical"})]]),
+	},
+	cmd = {
+		"Coderunner",
+		"CoderunnerHorizontal",
+		"CoderunnerVertical",
 	},
 }
 
 if dev == true then
 	return e("keep", plugin, {
 		dir = "~/git/coderunner.nvim",
-		dev = true,
 		lazy = false,
 	})
 else
