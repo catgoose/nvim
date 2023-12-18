@@ -35,6 +35,11 @@ local opts = {
 		terminal = {
 			names = false,
 		},
+		lazy = {
+			RGB = false,
+			css = false,
+			names = false,
+		},
 	},
 	user_default_options = {
 		RGB = true,
