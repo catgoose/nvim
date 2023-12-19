@@ -4,6 +4,8 @@ local opts = {
 	settings = {
 		ui_fallback_width = 39,
 		ui_width_ratio = 0.45,
+		sync_on_ui_close = true,
+		save_on_toggle = true,
 	},
 }
 

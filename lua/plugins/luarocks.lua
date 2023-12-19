@@ -8,4 +8,5 @@ return {
 			"magick",
 		},
 	},
+	lazy = false,
 }

@@ -37,14 +37,6 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"rcarriga/nvim-notify",
 		"nvim-tree/nvim-web-devicons",
-		{
-			"3rd/image.nvim",
-			config = function()
-				require("image").setup()
-				package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
-				package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
-			end,
-		},
 	},
 	config = function()
 		require("leetcode").setup(opts)
