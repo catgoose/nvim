@@ -24,11 +24,12 @@ local config = function()
 			"mason.nvim",
 			"terminal",
 			"gypsy",
+			"no-neck-pain",
 		},
 	}
 	local winbar_inactive = {
 		buftype = { "nofile", "prompt", "quickfix", "terminal" },
-		filetype = { "toggleterm", "qf", "terminal", "gypsy", "oil", "harpoon" },
+		filetype = { "toggleterm", "qf", "terminal", "gypsy", "oil", "harpoon", "no-neck-pain" },
 	}
 	local cmdtype_inactive = {
 		":",
@@ -434,7 +435,6 @@ local config = function()
 			end,
 		},
 	})
-	vim.opt.winbar = "%{%v:lua.require'heirline'.eval_winbar()%}"
 end
 
 return {
