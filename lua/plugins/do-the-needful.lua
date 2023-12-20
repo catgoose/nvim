@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 vim.g.do_the_needful_log_level = "debug"
