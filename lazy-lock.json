@@ -19,7 +19,7 @@
   "codeium.nvim": { "branch": "main", "commit": "445dca5efbbfa4c5fad7e5ffda46b1cb21028d2c" },
   "coderunner.nvim": { "branch": "main", "commit": "dc479eb1482cedf5b5d6d3042cee663ffe05328f" },
   "copilot.lua": { "branch": "master", "commit": "dcaaed5b58e6c2d395bca18d25d34e6384856722" },
-  "crates.nvim": { "branch": "main", "commit": "8da3bae1f0f8892b42e9596299ec09bc055e5507" },
+  "crates.nvim": { "branch": "main", "commit": "81c6325b7f8875857ec09e5d24f3b6d7986f29e2" },
   "dashboard-nvim": { "branch": "master", "commit": "63df28409d940f9cac0a925df09d3dc369db9841" },
   "diffview.nvim": { "branch": "main", "commit": "3dc498c9777fe79156f3d32dddd483b8b3dbd95f" },
   "dressing.nvim": { "branch": "master", "commit": "8b7ae53d7f04f33be3439a441db8071c96092d19" },
