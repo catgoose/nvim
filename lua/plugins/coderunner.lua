@@ -23,6 +23,7 @@ local opts = {
 			{ "node", "[#file]" },
 		},
 	},
+	scale = 0.25,
 }
 
 local plugin = {
@@ -31,6 +32,9 @@ local plugin = {
 		"Coderunner",
 		"CoderunnerHorizontal",
 		"CoderunnerVertical",
+	},
+	keys = {
+		m("<leader>C", [[Coderunner]]),
 	},
 }
 

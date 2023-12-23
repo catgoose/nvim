@@ -1,7 +1,6 @@
 local leet_arg = "leetcode.nvim"
 
 local opts = {
-	image = true,
 	lang = "typescript",
 	--[[
       Run inside of ~/.local/share/nvim/leetcode
@@ -26,6 +25,7 @@ local opts = {
       ]]
 	directory = vim.fn.expand("$HOME") .. "/git/dotfiles/leetcode",
 	arg = leet_arg,
+	toggle_key = { "<Esc>" },
 }
 
 return {
