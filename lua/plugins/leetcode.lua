@@ -25,7 +25,14 @@ local opts = {
       ]]
 	directory = vim.fn.expand("$HOME") .. "/git/dotfiles/leetcode",
 	arg = leet_arg,
-	toggle_key = { "<Esc>" },
+	keys = {
+		toggle = { "q" },
+		confirm = { "<CR>" },
+		reset_testcases = "r",
+		use_testcase = "U",
+		focus_testcases = "H",
+		focus_result = "L",
+	},
 }
 
 return {
