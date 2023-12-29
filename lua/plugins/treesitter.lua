@@ -4,12 +4,12 @@ local k = vim.keymap.set
 local config = function()
 	local opts = {
 		ensure_installed = {
+			"angular",
 			"awk",
 			"bash",
 			"c",
 			"cpp",
 			"css",
-			-- "csv",
 			"dockerfile",
 			"fish",
 			"git_config",
@@ -40,6 +40,7 @@ local config = function()
 			"vim",
 			"vue",
 			"yaml",
+			-- "csv",
 		},
 		highlight = {
 			enable = true,
@@ -211,10 +212,10 @@ return {
 		lazy = false,
 		build = ":TSUpdate",
 		dependencies = {
-			{
-				"elgiano/nvim-treesitter-angular",
-				branch = "topic/jsx-fix",
-			},
+			-- {
+			-- 	"elgiano/nvim-treesitter-angular",
+			-- 	branch = "topic/jsx-fix",
+			-- },
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"RRethy/nvim-treesitter-textsubjects",
 			"windwp/nvim-ts-autotag",
