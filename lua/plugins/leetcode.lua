@@ -1,7 +1,8 @@
 local leet_arg = "leetcode.nvim"
 
 local opts = {
-	lang = "typescript",
+	-- lang = "typescript",
+	lang = "javascript",
 	--[[
       Run inside of ~/.local/share/nvim/leetcode
       npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser
