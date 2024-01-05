@@ -21,7 +21,11 @@ local opts = {
               ],
               "parser": "@typescript-eslint/parser"
             }
-          ]
+          ],
+          "env": {
+            "browser": true,
+            "node": true
+          }
         }
       ]]
 	directory = vim.fn.expand("$HOME") .. "/git/dotfiles/leetcode",
