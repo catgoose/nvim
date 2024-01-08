@@ -2,8 +2,6 @@ local u = require("util")
 local m = u.lazy_map
 local opts = {
 	settings = {
-		ui_fallback_width = 39,
-		ui_width_ratio = 0.45,
 		sync_on_ui_close = true,
 		save_on_toggle = true,
 	},
@@ -21,10 +19,14 @@ return {
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end, { "n", "x" }),
 		m("]]", function()
-			require("harpoon"):list():next()
+			require("harpoon"):list():next({
+				ui_nav_wrap = true,
+			})
 		end, { "n", "x" }),
 		m("[[", function()
-			require("harpoon"):list():prev()
+			require("harpoon"):list():prev({
+				ui_nav_wrap = true,
+			})
 		end, { "n", "x" }),
 	},
 	dependencies = "nvim-lua/plenary.nvim",
