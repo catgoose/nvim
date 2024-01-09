@@ -78,6 +78,7 @@ local config = function()
 					["]a"] = "@attribute.inner",
 					["]m"] = "@this_method_call",
 					["]s"] = { query = "@scope", query_group = "locals" },
+					--  TODO: 2024-01-08 - this is not working in typescript files
 					["]c"] = "@method_object_call",
 					["]o"] = "@object_declaration",
 					["]k"] = "@object_key",
@@ -212,10 +213,6 @@ return {
 		lazy = false,
 		build = ":TSUpdate",
 		dependencies = {
-			-- {
-			-- 	"elgiano/nvim-treesitter-angular",
-			-- 	branch = "topic/jsx-fix",
-			-- },
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"RRethy/nvim-treesitter-textsubjects",
 			"windwp/nvim-ts-autotag",
