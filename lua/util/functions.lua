@@ -286,11 +286,6 @@ M.terminal_send_cmd = function(cmd_text)
 	return true
 end
 
-M.netrw = function()
-	cmd.tabnew("%")
-	cmd([[silent! Explore]])
-end
-
 M.tabnavigate = function(cfg)
 	cfg = cfg or {
 		navto = "next",
