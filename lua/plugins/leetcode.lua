@@ -38,6 +38,7 @@ local opts = {
 		focus_testcases = "H",
 		focus_result = "L",
 	},
+	image_support = true,
 }
 
 return {
