@@ -52,11 +52,7 @@
   "neo-tree.nvim": { "branch": "v2.x", "commit": "80dc74d081823649809f78370fa5b204aa9a853a" },
   "neoai.nvim": { "branch": "main", "commit": "248c2001d0b24e58049eeb6884a79860923cfe13" },
   "neoconf.nvim": { "branch": "main", "commit": "64437787dba70fce50dad7bfbb97d184c5bc340f" },
-<<<<<<< HEAD
-  "neodev.nvim": { "branch": "main", "commit": "be8d4d4cab6c13c6a572269c9d6a63774baba9a0" },
-=======
   "neodev.nvim": { "branch": "main", "commit": "34b93b809b781b8a1ad862142e40b11bae1dc0e9" },
->>>>>>> 76496df2 (Updating dotfiles)
   "neogit": { "branch": "master", "commit": "e43e6824c6ccf1d1d246f0cda7870c4a8d9d6dad" },
   "neorepl.nvim": { "branch": "master", "commit": "e60b114217248907a3a1d27bab9988a092865ee0" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "b305821ca45897db6276e9ae5893747bb24040c7" },
