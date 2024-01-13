@@ -26,5 +26,5 @@ return {
 	config = config,
 	event = "BufReadPre",
 	main = "ibl",
-	enabled = false
+	enabled = true,
 }
