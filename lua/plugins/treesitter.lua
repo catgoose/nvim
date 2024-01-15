@@ -10,6 +10,7 @@ local config = function()
 			"c",
 			"cpp",
 			"css",
+			"csv",
 			"dockerfile",
 			"fish",
 			"git_config",
@@ -38,9 +39,9 @@ local config = function()
 			"toml",
 			"typescript",
 			"vim",
+			"vimdoc",
 			"vue",
 			"yaml",
-			-- "csv",
 		},
 		highlight = {
 			enable = true,
