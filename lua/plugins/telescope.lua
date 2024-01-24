@@ -194,6 +194,7 @@ return {
 		m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
 		m("<leader>bb", [[Telescope buffers]]),
 		m("<leader>hg", [[Telescope helpgrep]]),
+		m("<leader>tg", [[Telescope git_status]]),
 		-- {
 		-- 	"<leader>z",
 		-- 	function()
