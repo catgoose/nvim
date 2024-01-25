@@ -304,7 +304,10 @@ return {
 		"jose-elias-alvarez/typescript.nvim",
 		"williamboman/mason.nvim",
 		"b0o/schemastore.nvim",
-		"litao91/lsp_lines",
+		{
+			"litao91/lsp_lines",
+			enabled = false,
+		},
 		"kevinhwang91/nvim-ufo",
 		"p00f/clangd_extensions.nvim",
 		"VidocqH/lsp-lens.nvim",

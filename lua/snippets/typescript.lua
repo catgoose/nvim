@@ -783,6 +783,17 @@ await this.entityManager.transaction(async (manager) =>> {
 			}
 		)
 	),
+	s(
+		"ntrans",
+		fmt(
+			[[
+      await entityManager.transaction(async (manager) => {{
+        {} 
+      }});
+    ]],
+			{ i(1) }
+		)
+	),
 }
 
 return snippets
