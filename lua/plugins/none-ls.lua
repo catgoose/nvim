@@ -18,7 +18,7 @@ local config = function()
 			"typescriptreact",
 			"vue",
 		},
-		disabled_filetypes = { "lua", "yaml" },
+		disabled_filetypes = { "lua", "yaml", "csharp" },
 	}
 	local rustywind_ft = {
 		filetypes = {

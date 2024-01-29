@@ -787,10 +787,21 @@ await this.entityManager.transaction(async (manager) =>> {
 		"ntrans",
 		fmt(
 			[[
-      await entityManager.transaction(async (manager) => {{
+      await this.entityManager.transaction(async (manager) => {{
         {} 
       }});
     ]],
+			{ i(1) }
+		)
+	),
+	s(
+		"query",
+		fmt(
+			[[
+      const query = /* sql */ `
+        {}
+      `
+     ]],
 			{ i(1) }
 		)
 	),
