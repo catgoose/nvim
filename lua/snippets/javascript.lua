@@ -26,6 +26,26 @@ console.groupEnd();
 			),
 		})
 	),
+	s(
+		"t",
+		fmt(
+			[[
+      test('{}', () => {{
+        {}
+      }});
+      ]],
+			{ i(1), i(2) }
+		)
+	),
+	s(
+		"exp",
+		fmt(
+			[[
+      expect({}).{}
+      ]],
+			{ i(1), i(2) }
+		)
+	),
 }
 
 return snippets

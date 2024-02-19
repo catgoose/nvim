@@ -805,6 +805,16 @@ await this.entityManager.transaction(async (manager) =>> {
 			{ i(1) }
 		)
 	),
+	s(
+		"vt",
+		fmta(
+			[[import { expect, test } from 'vitest'
+
+ <> 
+  ]],
+			{ i(0) }
+		)
+	),
 }
 
 return snippets
