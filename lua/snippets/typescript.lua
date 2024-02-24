@@ -36,15 +36,6 @@ console.groupEnd();
 	),
 	s("exp", fmt("expect({}).{}", { i(1), i(2) })),
 	s(
-		"de",
-		fmta(
-			[[describe('<>', () =>> {
-   <> 
-  });]],
-			{ i(1), i(2) }
-		)
-	),
-	s(
 		"nspy",
 		fmt([[const {} = jest.spyOn({}, '{}');]], {
 			i(1, "spy"),
@@ -59,36 +50,6 @@ console.groupEnd();
 expect({}).toHaveBeenCalled();
   ]],
 			i(1, "spy")
-		)
-	),
-	s(
-		"it",
-		fmta(
-			[[it('<>', <>() =>> {
-    <>
-  })]],
-			{
-				i(1),
-				c(2, {
-					t(" "),
-					t("async"),
-				}),
-				i(3),
-			}
-		)
-	),
-	s(
-		"be",
-		fmta(
-			[[
-      beforeEach(<> () =>> {
-  <>
-})
-  ]],
-			{ c(1, {
-				t(" "),
-				t("async"),
-			}), i(2) }
 		)
 	),
 	s(
@@ -813,6 +774,47 @@ await this.entityManager.transaction(async (manager) =>> {
  <> 
   ]],
 			{ i(0) }
+		)
+	),
+	s(
+		"de",
+		fmta(
+			[[
+     describe('<>', () =>> {
+       <>
+     })
+     ]],
+			{ i(1), i(2) }
+		)
+	),
+	s(
+		"be",
+		fmta(
+			[[beforeEach(() =>> {
+          <>
+        })
+        ]],
+			{ i(1) }
+		)
+	),
+	s(
+		"it",
+		fmta(
+			[[it('<>', () =>> {
+     <>
+   })
+   ]],
+			{ i(1), i(2) }
+		)
+	),
+	s(
+		"tt",
+		fmta(
+			[[test('<>', () =>> {
+     <>
+   })
+   ]],
+			{ i(1), i(2) }
 		)
 	),
 }
