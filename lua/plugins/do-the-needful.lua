@@ -12,6 +12,7 @@ local plugin = {
 	keys = {
 		m("<leader>;", [[Telescope do-the-needful please]]),
 		m("<leader>:", [[Telescope do-the-needful]]),
+		m("<leader>x", [[Lazy reload do-the-needful]]),
 	},
 	dependencies = "nvim-lua/plenary.nvim",
 	opts = opts,
