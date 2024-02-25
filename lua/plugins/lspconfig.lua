@@ -7,23 +7,9 @@ end
 local config = function()
 	local lspconfig = require("lspconfig")
 	local ts = require("typescript")
-	-- local cmp = require("cmp_nvim_lsp")
 	local clangd_ext = require("clangd_extensions")
 	local vt = require("virtualtypes")
 
-	-- mine:
-
-	-- LSP capabilities
-	-- local capabilities = l.protocol.make_client_capabilities()
-	--  cmp
-	-- capabilities = cmp.default_capabilities(capabilities)
-
-	-- theirs:
-	-- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38?notification_referrer_id=NT_kwDOAUCWmLM0NjEyOTQ3MDkxOjIxMDEwMDcy#issuecomment-1815248651
-	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-	-- capabilities.textDocument.completion = require("cmp_nvim_lsp").default_capabilities().textDocument.completion
-
-	-- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38?notification_referrer_id=NT_kwDOAUCWmLM0NjEyOTQ3MDkxOjIxMDEwMDcy#issuecomment-1815265121
 	local capabilities = vim.tbl_deep_extend(
 		"force",
 		vim.lsp.protocol.make_client_capabilities(),
@@ -89,7 +75,11 @@ local config = function()
 	local lsp_formatting = function(bufnr)
 		vim.lsp.buf.format({
 			filter = function(client)
-				return client.name == "null-ls"
+				local clients = {
+					"null-ls",
+					"jsonls",
+				}
+				return vim.tbl_contains(clients, client.name)
 			end,
 			bufnr = bufnr,
 		})

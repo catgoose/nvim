@@ -48,13 +48,6 @@ return {
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
 	},
 	{
-		"tpope/vim-fugitive",
-		cmd = { "Git" },
-		keys = {
-			m("<leader>gi", "Git"),
-		},
-	},
-	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},

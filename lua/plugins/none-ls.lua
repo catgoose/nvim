@@ -34,33 +34,21 @@ local config = function()
 	}
 
 	local sources = {
-		ca.eslint_d,
-		ca.refactoring,
-		ca.shellcheck,
+		require("none-ls.diagnostics.eslint_d"),
 		d.codespell.with(cs_ignore),
-		d.clang_check,
-		d.eslint_d,
 		d.fish,
 		d.hadolint,
-		d.jsonlint,
 		d.markdownlint.with(md_ft),
-		d.misspell,
-		d.shellcheck,
-		d.tsc,
-		f.autopep8,
-		f.beautysh,
-		f.black,
+		f.shfmt,
 		f.cbfmt.with(md_ft),
+		require("none-ls.formatting.beautysh"),
 		f.markdownlint.with(md_ft),
 		f.codespell.with(cs_ignore),
 		f.prettierd.with(prettier_ft),
 		f.rustywind.with(rustywind_ft),
 		f.stylua.with({ filetypes = { "lua" } }),
 		f.yamlfmt.with({ filetypes = { "yaml" } }),
-		f.clang_format,
 		f.fish_indent,
-		f.fixjson,
-		f.reorder_python_imports,
 		f.shellharden,
 		f.erb_format,
 		require("typescript.extensions.null-ls.code-actions"),
@@ -76,10 +64,17 @@ local config = function()
 		end,
 		temp_dir = "/tmp",
 	})
+
+	null_ls.register(require("none-ls-shellcheck.diagnostics"))
+	null_ls.register(require("none-ls-shellcheck.code_actions"))
 end
 
 return {
 	"nvimtools/none-ls.nvim",
 	config = config,
 	event = "BufReadPre",
+	dependencies = {
+		"gbprod/none-ls-shellcheck.nvim",
+		"nvimtools/none-ls-extras.nvim",
+	},
 }

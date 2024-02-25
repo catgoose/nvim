@@ -4,7 +4,7 @@ local opts = {
 		"awk_ls",
 		"bashls",
 		"clangd",
-		"csharp_ls",
+		-- "csharp_ls",
 		"cssls",
 		"cssmodules_ls",
 		"diagnosticls",
