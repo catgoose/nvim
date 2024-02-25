@@ -170,7 +170,7 @@ autocmd({ "TermOpen" }, {
 			end, { noremap = true })
 		end
 		if bo.filetype == "" then
-			api.nvim_buf_set_option(event.buf, "filetype", "terminal")
+			api.nvim_buf_set_option_value(event.buf, "filetype", "terminal")
 			cmd.startinsert()
 		end
 	end,
@@ -251,6 +251,7 @@ autocmd({ "BufWritePost" }, {
 	pattern = "*/nvim/lua/snippets/*.lua",
 	callback = function()
 		if not u.diag_error() then
+			---@diagnostic disable-next-line: assign-type-mismatch
 			require("luasnip.loaders.from_lua").load({ paths = fn.stdpath("config") .. "/lua/snippets" })
 		end
 	end,

@@ -1,7 +1,6 @@
 local config = function()
 	local null_ls = require("null-ls")
 
-	local ca = null_ls.builtins.code_actions
 	local d = null_ls.builtins.diagnostics
 	local f = null_ls.builtins.formatting
 	local md_ft = { filetypes = { "markdown", "vimwiki" } }
