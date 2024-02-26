@@ -170,7 +170,7 @@ autocmd({ "TermOpen" }, {
 			end, { noremap = true })
 		end
 		if bo.filetype == "" then
-			api.nvim_buf_set_option_value(event.buf, "filetype", "terminal")
+			api.nvim_set_option_value("filetype", "terminal", { buf = event.bufnr })
 			cmd.startinsert()
 		end
 	end,
