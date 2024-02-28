@@ -14,7 +14,7 @@ local opts = {
 		{
 			name = "eza from opts", -- name of task
 			-- cmd = "eza ${dir}", -- command to run
-			cmd = "eza ${do-the-needful} ${cwd} ${dir}", -- command to run
+			cmd = "eza ${do-the-needful} ${cwd} ${dir} ${cur_file} ${dir} ${cur_file}", -- command to run
 			cwd = "~", -- working directory to run task
 			tags = { "eza", "home", "files" }, -- task metadata used for searching
 			ask = { -- Used to prompt for input to be passed into task
@@ -23,6 +23,11 @@ local opts = {
 					type = "function",
 					default = "get_cwd", -- defaults to "".  A function can be supplied to
 					-- evaluate the default
+				},
+				["${cur_file}"] = {
+					title = "Which file to search",
+					type = "function",
+					default = "current_file",
 				},
 			},
 			window = { -- all window options are optional
@@ -35,6 +40,14 @@ local opts = {
 		},
 	},
 	config = ".tasks.json",
+	ask_functions = {
+		["get_cwd"] = function()
+			return vim.fn.getcwd()
+		end,
+		["current_file"] = function()
+			return vim.fn.expand("%")
+		end,
+	},
 }
 
 local plugin = {
