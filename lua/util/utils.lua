@@ -274,8 +274,6 @@ M.hover_handler = function()
 	-- 	cmd("TWValues")
 	elseif tbl_contains({ "man" }, ft) then
 		cmd("silent! Man " .. fn.expand("<cword>"))
-	elseif fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
-		require("crates").show_popup()
 	elseif is_diag_for_cur_pos() then
 		vim.diagnostic.open_float()
 	else
