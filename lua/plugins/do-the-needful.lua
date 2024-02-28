@@ -14,13 +14,14 @@ local opts = {
 		{
 			name = "eza from opts", -- name of task
 			-- cmd = "eza ${dir}", -- command to run
-			cmd = "eza ${do-the-needful} ${cwd}", -- command to run
+			cmd = "eza ${do-the-needful} ${cwd} ${dir}", -- command to run
 			cwd = "~", -- working directory to run task
 			tags = { "eza", "home", "files" }, -- task metadata used for searching
-			ask_tokens = { -- Used to prompt for input to be passed into task
+			ask = { -- Used to prompt for input to be passed into task
 				["${dir}"] = {
-					ask = "Which directory to search", -- defaults to the name of token
-					default = "", -- defaults to "".  A function can be supplied to
+					title = "Which directory to search", -- defaults to the name of token
+					type = "function",
+					default = "get_cwd", -- defaults to "".  A function can be supplied to
 					-- evaluate the default
 				},
 			},
