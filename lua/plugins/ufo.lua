@@ -44,7 +44,7 @@ return {
 		m("zm", lua_ufo("closeFoldsWith")),
 		m("]z", lua_ufo("goNextClosedFold")),
 		m("[z", lua_ufo("goPreviousClosedFold")),
-		m("<leader>o", "UfoToggleFold"),
+		m("<leader>O", "UfoToggleFold"),
 		m("\\", "FoldParagraph"),
 	},
 	enabled = true,
