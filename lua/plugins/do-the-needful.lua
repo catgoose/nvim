@@ -1,13 +1,20 @@
 local dev = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
-vim.g.do_the_needful_log_level = "debug"
 
 local opts = {
+	dev = dev,
+	log_level = "debug",
+	config_order = {
+		"opts",
+		"project",
+		"global",
+	},
 	tasks = {
 		{
-			name = "eza", -- name of task
-			cmd = "eza ${dir}", -- command to run
+			name = "eza from opts", -- name of task
+			-- cmd = "eza ${dir}", -- command to run
+			cmd = "eza ${needful} ${cwd}", -- command to run
 			cwd = "~", -- working directory to run task
 			tags = { "eza", "home", "files" }, -- task metadata used for searching
 			ask_tokens = { -- Used to prompt for input to be passed into task
@@ -27,7 +34,6 @@ local opts = {
 		},
 	},
 	config = ".tasks.json",
-	log_level = "warn",
 }
 
 local plugin = {
