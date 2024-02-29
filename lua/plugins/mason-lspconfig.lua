@@ -13,7 +13,6 @@ local opts = {
 		"emmet_ls",
 		"eslint",
 		"html",
-		"jedi_language_server",
 		"jsonls",
 		"lua_ls",
 		"marksman",
