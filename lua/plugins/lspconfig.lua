@@ -142,7 +142,7 @@ local config = function()
 			"docker_compose_language_service",
 			"dockerls",
 			"emmet_ls",
-			"marksman",
+			-- "marksman",
 			"sqlls",
 			"tailwindcss",
 			"yamlls",
