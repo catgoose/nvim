@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 
@@ -39,7 +39,7 @@ local opts = {
 			},
 		},
 	},
-	config = ".tasks.json",
+	config_file = ".tasks.json",
 	ask_functions = {
 		["get_cwd"] = function()
 			return vim.fn.getcwd()
