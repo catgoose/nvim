@@ -75,7 +75,7 @@ local config = function()
 
 	local format_on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
-			f.enable_lsp_formatting(client, bufnr)
+			f.enable_lsp_formatting(bufnr)
 		end
 	end
 

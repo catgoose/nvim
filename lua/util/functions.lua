@@ -314,7 +314,7 @@ local lsp_formatting = function(bufnr)
 	})
 end
 
-M.enable_lsp_formatting = function(client, bufnr)
+M.enable_lsp_formatting = function(bufnr)
 	local augroup = u.create_augroup("LspFormatting")
 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 	vim.api.nvim_create_autocmd("BufWritePre", {
