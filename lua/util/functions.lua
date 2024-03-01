@@ -301,4 +301,35 @@ M.tabnavigate = function(cfg)
 	nav()
 end
 
+local lsp_formatting = function(bufnr)
+	vim.lsp.buf.format({
+		filter = function(client)
+			local clients = {
+				"null-ls",
+				"jsonls",
+			}
+			return vim.tbl_contains(clients, client.name)
+		end,
+		bufnr = bufnr,
+	})
+end
+
+M.enable_lsp_formatting = function(client, bufnr)
+	local augroup = u.create_augroup("LspFormatting")
+	vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = augroup,
+		buffer = bufnr,
+		callback = function()
+			lsp_formatting(bufnr)
+		end,
+	})
+end
+
+M.disable_lsp_formatting = function()
+	local augroup
+	u.create_augroup("LspFormatting")
+	vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
+end
+
 return M

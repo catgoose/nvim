@@ -15,7 +15,7 @@ local opts = {
 		"html",
 		"jsonls",
 		"lua_ls",
-		-- "marksman",
+		"marksman",
 		"powershell_es",
 		"sqlls",
 		"tailwindcss",

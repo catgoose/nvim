@@ -22,6 +22,10 @@ local opts = {
 			{ "clear" },
 			{ "node", "[#file]" },
 		},
+		fish = {
+			{ "clear" },
+			{ "fish", "[#file]" },
+		},
 	},
 	scale = 0.25,
 }

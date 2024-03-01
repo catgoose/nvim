@@ -1,4 +1,5 @@
 local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
+local f = require("util.functions")
 
 local server_enabled = function(server)
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -72,29 +73,9 @@ local config = function()
 		keybinding({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
 	end
 
-	local lsp_formatting = function(bufnr)
-		vim.lsp.buf.format({
-			filter = function(client)
-				local clients = {
-					"null-ls",
-					"jsonls",
-				}
-				return vim.tbl_contains(clients, client.name)
-			end,
-			bufnr = bufnr,
-		})
-	end
-	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	local format_on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					lsp_formatting(bufnr)
-				end,
-			})
+			f.enable_lsp_formatting(client, bufnr)
 		end
 	end
 
@@ -142,7 +123,7 @@ local config = function()
 			"docker_compose_language_service",
 			"dockerls",
 			"emmet_ls",
-			-- "marksman",
+			"marksman",
 			"sqlls",
 			"tailwindcss",
 			"yamlls",

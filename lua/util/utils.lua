@@ -45,6 +45,7 @@ M.nonrelative_win_count = function()
 	local non_relative = 0
 	for _, win in ipairs(wins) do
 		local config = api.nvim_win_get_config(win)
+		---@diagnostic disable-next-line: undefined-field
 		if config.relative == "" then
 			non_relative = non_relative + 1
 		end
