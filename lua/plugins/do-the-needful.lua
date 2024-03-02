@@ -5,7 +5,6 @@ local m = require("util").lazy_map
 local opts = {
 	dev = dev,
 	log_level = "debug",
-	tasks = {}
 }
 
 local plugin = {
