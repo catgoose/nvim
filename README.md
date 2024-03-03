@@ -75,3 +75,4 @@ end
 ## Todo
 
 - Create `cmp` source for `primeflex`
+- `<leader>o` should unfold if fold is present, otherwise open `oil`
