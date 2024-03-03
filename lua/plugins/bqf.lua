@@ -1,17 +1,23 @@
 local opts = {
 	auto_enable = true,
 	auto_resize_height = true,
-	key_map = {
+	func_map = {
 		open = "<cr>",
 		openc = "o",
 		vsplit = "v",
 		split = "s",
-		fzffilter = "f",
+		tab = "t",
+		tabc = "T",
+		stoggledown = "<Tab>",
+		stoggleup = "<S-Tab>",
+		stogglevm = "<Tab>",
+		sclear = "z<Tab>",
 		pscrollup = "<C-u>",
 		pscrolldown = "<C-d>",
-		ptogglemode = "F",
-		filter = "n",
-		filterr = "N",
+		fzffilter = "zf",
+		ptogglemode = "zp",
+		filter = "zn",
+		filterr = "zr",
 	},
 }
 

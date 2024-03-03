@@ -4,8 +4,21 @@ local m = require("util").lazy_map
 
 local opts = {
 	dev = dev,
-	-- log_level = "debug",
-	log_level = "trace",
+	log_level = "debug",
+	config_order = {
+		"opts",
+		"global",
+		"project",
+	},
+	tasks = {
+		{
+			name = "List directory",
+			cmd = "ls",
+			window = {
+				close = false,
+			},
+		},
+	},
 }
 
 local plugin = {
@@ -26,7 +39,7 @@ if dev == true then
 	})
 else
 	return e("keep", plugin, {
-		"catgoose/do-the-needful",
+		"catgoose/do-the-needful.nvim",
 		event = "BufReadPre",
 	})
 end
