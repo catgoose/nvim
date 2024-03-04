@@ -1,9 +1,0 @@
-{
-  "lsp": {
-    "servers": {
-      "volar": {
-        "disable": true
-      }
-    }
-  }
-}
