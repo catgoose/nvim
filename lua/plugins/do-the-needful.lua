@@ -4,11 +4,11 @@ local m = require("util").lazy_map
 
 local opts = {
 	dev = dev,
-	log_level = "debug",
+	log_level = "trace",
 	config_order = {
+		"project",
 		"opts",
 		"global",
-		"project",
 	},
 	tasks = {
 		{
