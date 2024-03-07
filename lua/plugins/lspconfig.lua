@@ -109,7 +109,9 @@ local config = function()
 		-- vim.lsp.inlay_hint(bufnr, true)
 	end
 	local ts_on_attach = function(client, bufnr)
-		keybinding("n", "<leader>rn", [[<cmd>AnglerRenameSymbol<cr>]], opts)
+		--  TODO: 2024-03-07 - fix AnglerFixAll not renaming
+		-- keybinding("n", "<leader>rn", [[<cmd>AnglerRenameSymbol<cr>]], opts)
+		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
 		base_on_attach(client, bufnr)
 	end
 	local rename_on_attach = function(client, bufnr)
