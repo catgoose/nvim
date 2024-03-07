@@ -9,6 +9,8 @@ local opts = {
 local angler_str = [[lua require("angler")]]
 
 --  TODO: 2024-03-07 - fix AnglerFixAll showing organize imports
+-- use https://github.com/pmizio/typescript-tools.nvim instead of current
+-- dependency
 local plugin = {
 	opts = opts,
 	keys = {
