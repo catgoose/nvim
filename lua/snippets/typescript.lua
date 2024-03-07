@@ -676,9 +676,6 @@ catchError((err) =>> {
 		"pinia",
 		fmta(
 			[[
-  import { defineStore } from "pinia";
-  import { computed, ref } from "vue";
-
   export const use<>Store = defineStore('<>Store', () =>> {
    <> 
     return {

@@ -1,5 +1,4 @@
 local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
-local f = require("util.functions")
 
 local server_enabled = function(server)
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -7,7 +6,7 @@ end
 
 local config = function()
 	local lspconfig = require("lspconfig")
-	local ts = require("typescript")
+	-- local ts = require("typescript")
 	local clangd_ext = require("clangd_extensions")
 	local vt = require("virtualtypes")
 
@@ -42,7 +41,7 @@ local config = function()
 		float = {
 			focusable = true,
 			border = "rounded",
-			source = "always",
+			-- source = "always",
 			header = "",
 			prefix = "",
 		},
@@ -73,9 +72,25 @@ local config = function()
 		keybinding({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
 	end
 
+	local lsp_formatting = function(bufnr)
+		vim.lsp.buf.format({
+			filter = function(client)
+				return client.name == "null-ls"
+			end,
+			bufnr = bufnr,
+		})
+	end
+	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	local format_on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
-			f.enable_lsp_formatting(bufnr)
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					lsp_formatting(bufnr)
+				end,
+			})
 		end
 	end
 
@@ -105,16 +120,14 @@ local config = function()
 		base_on_attach(client, bufnr)
 	end
 
+	local ts_ft = {
+		"javascript",
+		"typescript",
+		"vue",
+	}
 	-- LSP config
-	if server_enabled("tsserver") then
-		ts.setup({
-			capabilities = capabilities,
-			debug = false,
-			server = {
-				on_attach = ts_on_attach,
-			},
-		})
-	end
+	-- if server_enabled("tsserver") then
+	-- end
 
 	local lspconfig_setups = {
 		language_servers = {
@@ -146,6 +159,23 @@ local config = function()
 			capabilities = capabilities,
 			on_attach = on_attach,
 			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+		},
+		tsserver = {
+			capabilities = capabilities,
+			debug = false,
+			server = {
+				on_attach = ts_on_attach,
+			},
+			init_options = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = "node_modules/@vue/typescript-plugin",
+						languages = ts_ft,
+					},
+				},
+			},
+			filetypes = ts_ft,
 		},
 		volar = {
 			capabilities = capabilities,
