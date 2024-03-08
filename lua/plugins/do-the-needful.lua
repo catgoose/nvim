@@ -4,18 +4,64 @@ local m = require("util").lazy_map
 
 local opts = {
 	dev = dev,
-	log_level = "debug",
+	log_level = "warn",
+	edit_mode = "split",
 	config_order = {
 		"project",
-		"opts",
 		"global",
+		"opts",
 	},
 	tasks = {
 		{
-			name = "List directory",
-			cmd = "ls",
+			id = "list1", -- id is used to reference a task in a job
+			name = "List directory 1",
+			cmd = "ls -al",
+			cwd = "${cwd}",
+			tags = { "list", "dir", "open", "pwd" },
 			window = {
 				close = false,
+				keep_current = false,
+			},
+			hidden = true,
+		},
+		{
+			id = "list2",
+			name = "List directory 2",
+			cmd = "ls -al",
+			cwd = "~",
+			tags = { "list", "dir", "close", "home" },
+			window = {
+				close = false,
+				keep_current = false,
+			},
+			hidden = true,
+		},
+	},
+	jobs = {
+		{
+			name = "list directories",
+			tags = { "job", "list", "directories", "ordered" },
+			tasks = { -- task.id to run in order
+				"list1",
+				"list2",
+			},
+			window = {
+				close = true,
+				keep_current = false,
+				open_realtive = true,
+				relative = "before",
+			},
+		},
+		{ -- multiple jobs can be created from the same task ids
+			name = "list directories",
+			tags = { "job", "list", "directories", "reversed" },
+			tasks = {
+				"list2",
+				"list1",
+			},
+			window = {
+				close = false,
+				keep_current = true,
 			},
 		},
 	},

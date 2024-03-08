@@ -18,7 +18,7 @@ return {
 	},
 	cmd = { "Neogit" },
 	keys = {
-		m("<leader>g", "Neogit"),
+		m("<leader>G", "Neogit"),
 		m("<leader>gl", "Neogit kind=vsplit"),
 	},
 }
