@@ -25,7 +25,7 @@
   "dressing.nvim": { "branch": "master", "commit": "6f212262061a2120e42da0d1e87326e8a41c0478" },
   "flash.nvim": { "branch": "main", "commit": "48817af25f51c0590653bbc290866e4890fe1cbe" },
   "focus.nvim": { "branch": "master", "commit": "c9bc6a969c3ff0d682f389129961c9e71ff2c918" },
-  "fzf": { "branch": "master", "commit": "eec557b6aaf318bd20fe8abe3e5d341e1ba08d27" },
+  "fzf": { "branch": "master", "commit": "fa0aa5510d1d78a80363e053f2db5502f9bac416" },
   "fzf-lua": { "branch": "main", "commit": "14228229b8138e4a306bd0f633e3e55a77a58d6e" },
   "fzy-lua-native": { "branch": "master", "commit": "820f745b7c442176bcc243e8f38ef4b985febfaf" },
   "gitsigns.nvim": { "branch": "main", "commit": "2c2463dbd82eddd7dbab881c3a62cfbfbe3c67ae" },

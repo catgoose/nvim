@@ -13,9 +13,9 @@ local config = function()
 			"jsonc",
 			"markdown",
 			"scss",
-			-- "typescript",
-			-- "typescriptreact",
-			-- "vue",
+			"typescript",
+			"typescriptreact",
+			"vue",
 		},
 		disabled_filetypes = {
 			"lua",
@@ -25,11 +25,11 @@ local config = function()
 	}
 	local biome_ft = {
 		filetypes = {
-			"lua",
-			"javascript",
-			"typescript",
-			"typescriptreact",
-			"vue",
+			-- "lua",
+			-- "javascript",
+			-- "typescript",
+			-- "typescriptreact",
+			-- "vue",
 		},
 	}
 	local rustywind_ft = {
@@ -54,7 +54,7 @@ local config = function()
 		f.shfmt,
 		f.cbfmt.with(md_ft),
 		require("none-ls.formatting.beautysh"),
-		f.markdownlint.with(md_ft),
+		-- f.markdownlint.with(md_ft),
 		f.codespell.with(cs_ignore),
 		f.prettierd.with(prettier_ft),
 		f.biome.with(biome_ft),
@@ -63,7 +63,6 @@ local config = function()
 		f.yamlfmt.with({ filetypes = { "yaml" } }),
 		f.fish_indent,
 		f.shellharden,
-		f.erb_format,
 		require("typescript.extensions.null-ls.code-actions"),
 	}
 
