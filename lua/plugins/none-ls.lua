@@ -3,12 +3,12 @@ local config = function()
 
 	local d = null_ls.builtins.diagnostics
 	local f = null_ls.builtins.formatting
-	local md_ft = { filetypes = { "markdown", "vimwiki" } }
+	local md_ft = { filetypes = { "markdown" } }
 	local prettier_ft = {
 		filetypes = {
 			"css",
 			"html",
-			-- "javascript",
+			"javascript",
 			"json",
 			"jsonc",
 			"markdown",
@@ -57,7 +57,7 @@ local config = function()
 		-- f.markdownlint.with(md_ft),
 		f.codespell.with(cs_ignore),
 		f.prettierd.with(prettier_ft),
-		f.biome.with(biome_ft),
+		-- f.biome.with(biome_ft),
 		f.rustywind.with(rustywind_ft),
 		f.stylua.with({ filetypes = { "lua" } }),
 		f.yamlfmt.with({ filetypes = { "yaml" } }),
