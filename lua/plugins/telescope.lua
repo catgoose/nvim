@@ -169,7 +169,17 @@ return {
 	init = function()
 		local create_cmd = require("util").create_cmd
 		create_cmd("TelescopeFindFiles", function()
-			require("telescope.builtin").find_files(require("telescope.themes").get_dropdown())
+			require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
+				layout_strategy = "vertical",
+				layout_config = {
+					width = 0.5,
+					height = 0.9,
+					vertical = {
+						prompt_position = "top",
+					},
+					preview_height = 0.35,
+				},
+			}))
 		end)
 		create_cmd("TelescopeFindFilesNoIgnore", function()
 			require("telescope.builtin").fd({ no_ignore = true })
