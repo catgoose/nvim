@@ -22,8 +22,6 @@ local opts = {
 		"tsserver",
 		"volar",
 		"yamlls",
-		--
-		"biome",
 	},
 	automatic_installation = true,
 }

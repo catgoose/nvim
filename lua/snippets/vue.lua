@@ -272,6 +272,17 @@ const props = defineProps<<{
 			{ i(1), i(2), i(0) }
 		)
 	),
+	s(
+		"props",
+		fmt(
+			[[
+const props = defineProps<{{
+  {}
+}}>();
+     ]],
+			i(1)
+		)
+	),
 }
 
 return snippets

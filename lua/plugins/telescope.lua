@@ -228,7 +228,7 @@ return {
 		"tsakirist/telescope-lazy.nvim",
 		"catgoose/chat-gypsy.nvim",
 		"catgoose/telescope-helpgrep.nvim",
-		"catgoose/do-the-needful",
+		"catgoose/do-the-needful.nvim",
 		-- {
 		-- 	dir = "~/git/telescope-helpgrep.nvim",
 		-- },
