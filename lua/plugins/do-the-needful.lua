@@ -45,12 +45,12 @@ local opts = {
 				"list1",
 				"list2",
 			},
-			window = {
-				close = true,
-				keep_current = false,
-				open_realtive = true,
-				relative = "before",
-			},
+			-- window = {
+			-- 	close = true,
+			-- 	keep_current = false,
+			-- 	open_relative = true,
+			-- 	relative = "before",
+			-- },
 		},
 		{ -- multiple jobs can be created from the same task ids
 			name = "list directories",
@@ -59,10 +59,10 @@ local opts = {
 				"list2",
 				"list1",
 			},
-			window = {
-				close = false,
-				keep_current = true,
-			},
+			-- window = {
+			-- 	close = false,
+			-- 	keep_current = true,
+			-- },
 		},
 	},
 }
