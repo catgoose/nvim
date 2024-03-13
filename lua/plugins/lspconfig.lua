@@ -122,11 +122,6 @@ local config = function()
 		base_on_attach(client, bufnr)
 	end
 
-	local ts_ft = {
-		"javascript",
-		"typescript",
-		"vue",
-	}
 	-- LSP config
 	-- if server_enabled("tsserver") then
 	-- end
@@ -173,11 +168,13 @@ local config = function()
 					{
 						name = "@vue/typescript-plugin",
 						location = "node_modules/@vue/typescript-plugin",
-						languages = ts_ft,
+						languages = {
+							"vue",
+						},
 					},
 				},
 			},
-			filetypes = ts_ft,
+			filetypes = { "typescript", "javascript", "vue" },
 		},
 		volar = {
 			capabilities = capabilities,

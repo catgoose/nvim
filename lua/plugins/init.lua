@@ -57,4 +57,7 @@ return {
 		config = true,
 		enabled = true,
 	},
+	{
+		"rushjs1/nuxt-goto.nvim",
+	},
 }
