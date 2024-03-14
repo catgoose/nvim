@@ -74,7 +74,7 @@ local plugin = {
 		{
 			"<leader>z",
 			function()
-				vim.cmd([[Lazy reload do-the-needful]])
+				vim.cmd([[Lazy reload do-the-needful.nvim]])
 				vim.cmd([[Lazy reload telescope.nvim]])
 			end,
 		},

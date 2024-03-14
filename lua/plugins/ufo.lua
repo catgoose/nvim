@@ -16,9 +16,11 @@ local opts = {
 			scrollD = "<C-d>",
 		},
 	},
-	close_fold_kinds = {
-		"imports",
-		"comment",
+	close_fold_kinds_for_ft = {
+		typescript = {
+			"imports",
+			"comment",
+		},
 	},
 }
 

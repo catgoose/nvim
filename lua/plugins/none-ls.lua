@@ -63,7 +63,7 @@ local config = function()
 		f.yamlfmt.with({ filetypes = { "yaml" } }),
 		f.fish_indent,
 		f.shellharden,
-		require("typescript.extensions.null-ls.code-actions"),
+		-- require("typescript.extensions.null-ls.code-actions"),
 	}
 
 	null_ls.setup({

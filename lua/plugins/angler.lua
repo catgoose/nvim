@@ -29,7 +29,8 @@ local plugin = {
 		m("<leader>k", [[AnglerFixAll]]),
 	},
 	ft = { "typescript", "vue" },
-	dependencies = "jose-elias-alvarez/typescript.nvim",
+	-- dependencies = "jose-elias-alvarez/typescript.nvim",
+	enabled = false,
 }
 
 if dev == true then
