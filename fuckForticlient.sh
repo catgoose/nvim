@@ -168,16 +168,13 @@ getProfilePath(){
 			profilepath="${HOME}/.mozilla/firefox"
 			;;
 		Ubuntu)
-			if [ "$DISTROV" != "20.04" ]; then
-				if [ ! -d ${HOME}/snap/firefox/common/.mozilla/firefox ]; then
-					return -1
-				fi
+			# Ubuntu can be snap or usual path. Check for files, not versions
+			if [ -d ${HOME}/snap/firefox/common/.mozilla/firefox ]; then
 				profilepath="${HOME}/snap/firefox/common/.mozilla/firefox"
-			else
-				if [ ! -d ${HOME}/.mozilla/firefox ]; then
-					return -1
-				fi
+			elif [ -d ${HOME}/.mozilla/firefox ]; then
 				profilepath="${HOME}/.mozilla/firefox"
+			else 
+				return -1
 			fi
 			;;
 		*)
