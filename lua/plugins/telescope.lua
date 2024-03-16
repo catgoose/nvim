@@ -169,18 +169,16 @@ return {
 	init = function()
 		local create_cmd = require("util").create_cmd
 		create_cmd("TelescopeFindFiles", function()
-			require("telescope.builtin").find_files()
-			-- require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
-			-- 	layout_strategy = "vertical",
-			-- 	layout_config = {
-			-- 		width = 0.5,
-			-- 		height = 0.9,
-			-- 		vertical = {
-			-- 			prompt_position = "top",
-			-- 		},
-			-- 		preview_height = 0.35,
-			-- 	},
-			-- }))
+			require("telescope.builtin").find_files({
+				layout_strategy = "vertical",
+				layout_config = {
+					width = 0.5,
+					height = 0.50,
+					vertical = {
+						prompt_position = "bottom",
+					},
+				},
+			})
 		end)
 		create_cmd("TelescopeFindFilesNoIgnore", function()
 			require("telescope.builtin").fd({
@@ -209,15 +207,6 @@ return {
 		m("<leader>bb", [[Telescope buffers]]),
 		m("<leader>hg", [[Telescope helpgrep]]),
 		m("<leader>tg", [[Telescope git_status]]),
-		-- {
-		-- 	"<leader>z",
-		-- 	function()
-		-- 		vim.cmd([[Lazy reload telescope-helpgrep.nvim]])
-		-- 		vim.cmd([[Lazy reload telescope.nvim]])
-		-- 		vim.cmd([[Telescope helpgrep]])
-		-- 	end,
-		-- 	{ "n" },
-		-- },
 	},
 	dependencies = {
 		{
@@ -233,8 +222,5 @@ return {
 		"catgoose/chat-gypsy.nvim",
 		"catgoose/telescope-helpgrep.nvim",
 		"catgoose/do-the-needful.nvim",
-		-- {
-		-- 	dir = "~/git/telescope-helpgrep.nvim",
-		-- },
 	},
 }

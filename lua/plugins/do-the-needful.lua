@@ -71,13 +71,13 @@ local plugin = {
 	keys = {
 		m("<leader>;", [[Telescope do-the-needful please]]),
 		m("<leader>:", [[Telescope do-the-needful]]),
-		{
-			"<leader>z",
-			function()
-				vim.cmd([[Lazy reload do-the-needful.nvim]])
-				vim.cmd([[Lazy reload telescope.nvim]])
-			end,
-		},
+		-- {
+		-- 	"<leader>z",
+		-- 	function()
+		-- 		vim.cmd([[Lazy reload do-the-needful.nvim]])
+		-- 		vim.cmd([[Lazy reload telescope.nvim]])
+		-- 	end,
+		-- },
 	},
 	dependencies = "nvim-lua/plenary.nvim",
 	opts = opts,

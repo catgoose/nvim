@@ -46,19 +46,15 @@ return {
 		lazy = true,
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
 	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
+	-- {
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	opts = {},
+	-- },
 	{
 		"ariel-frischer/bmessages.nvim",
 		event = "CmdlineEnter",
 		config = true,
 		enabled = true,
-	},
-	{
-		"rushjs1/nuxt-goto.nvim",
-		config = true,
 	},
 }

@@ -108,88 +108,15 @@ local config = function()
 		virtual_types_on_attach(client, bufnr)
 		-- vim.lsp.inlay_hint(bufnr, true)
 	end
-	-- local ts_on_attach = function(client, bufnr)
-	-- 	--  TODO: 2024-03-07 - fix AnglerFixAll not renaming
-	-- 	-- keybinding("n", "<leader>rn", [[<cmd>AnglerRenameSymbol<cr>]], opts)
-	keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
-	-- 	base_on_attach(client, bufnr)
-	-- end
 	local rename_on_attach = function(client, bufnr)
-		-- keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
 		base_on_attach(client, bufnr)
 	end
 	local on_attach = function(client, bufnr)
 		base_on_attach(client, bufnr)
 	end
 
-	-- local tsserver_opts = {
-	-- 	capabilities = capabilities,
-	-- 	debug = false,
-	-- 	server = {
-	-- 		on_attach = ts_on_attach,
-	-- 	},
-	-- 	init_options = {
-	-- 		plugins = {
-	-- 			{
-	-- 				name = "@vue/typescript-plugin",
-	-- 				location = "node_modules/@vue/typescript-plugin",
-	-- 				languages = {
-	-- 					"typescript",
-	-- 					"javascript",
-	-- 					"vue",
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- 	filetypes = { "typescript", "javascript", "vue" },
-	-- }
-	-- require("typescript-tools").setup({
-	-- 	on_attach = ts_on_attach,
-	-- 	settings = {
-	-- 		tsserver_plugins = {
-	-- 			{
-	-- 				name = "@vue/typescript-plugin",
-	-- 				location = "node_modules/@vue/typescript-plugin",
-	-- 				languages = {
-	-- 					"typescript",
-	-- 					"javascript",
-	-- 					"vue",
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- 	filetypes = {
-	-- 		"typescript",
-	-- 		"javascript",
-	-- 		"vue",
-	-- 	},
-	-- })
-
 	-- LSP config
-	-- if server_enabled("tsserver") then
-	-- 	ts.setup({
-	-- 		capabilities = capabilities,
-	-- 		debug = false,
-	-- 		server = {
-	-- 			on_attach = ts_on_attach,
-	-- 		},
-	-- 	})
-
-	-- if server_enabled("tsserver") then
-	-- 	local ts_opts = {
-	-- 		capabilities = capabilities,
-	-- 		on_attach = rename_on_attach,
-	-- 		settings = {},
-	-- 	}
-	-- 	if server_enabled("volar") then
-	-- 		vim.tbl_deep_extend("force", ts_opts.settings, {
-	-- 			tsserver_plugins = {
-	-- 				"@vue/typescript-plugin",
-	-- 			},
-	-- 		})
-	-- 	end
-	-- 	require("typescript-tools").setup(ts_opts)
-	-- end
 
 	local lspconfig_setups = {
 		language_servers = {
@@ -222,31 +149,32 @@ local config = function()
 			on_attach = on_attach,
 			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 		},
-		volar = {
-			capabilities = capabilities,
-			-- on_attach = ts_on_attach,
-			on_attach = rename_on_attach,
-			filetypes = { "typescript", "javascript", "vue" },
-		},
+		-- volar = {
+		-- 	capabilities = capabilities,
+		-- 	on_attach = rename_on_attach,
+		-- 	filetypes = { "typescript", "javascript", "vue" },
+		-- },
 		tsserver = {
 			capabilities = capabilities,
-			debug = false,
-			server = {
-				on_attach = rename_on_attach,
-			},
+			on_attach = rename_on_attach,
 			init_options = {
 				plugins = {
 					{
 						name = "@vue/typescript-plugin",
-						-- location = "~/.nvm/versions/node/v20.11.1/lib/node_modules/@vue/typescript-plugin",
 						location = "node_modules/@vue/typescript-plugin",
 						languages = {
+							"typescript",
+							"javascript",
 							"vue",
 						},
 					},
 				},
 			},
-			filetypes = { "typescript", "javascript", "vue" },
+			filetypes = {
+				"typescript",
+				"javascript",
+				"vue",
+			},
 		},
 		jsonls = {
 			capabilities = snippet_capabilities,
@@ -282,9 +210,6 @@ local config = function()
 		},
 		lua_ls = {
 			capabilities = capabilities,
-			-- on_attach = function(client, bufnr)
-			-- 	rename_on_attach(client, bufnr)
-			-- end,
 			on_attach = rename_on_attach,
 			settings = {
 				Lua = {
@@ -367,7 +292,7 @@ return {
 	config = config,
 	dependencies = {
 		"windwp/nvim-autopairs",
-		"jose-elias-alvarez/typescript.nvim",
+		-- "jose-elias-alvarez/typescript.nvim",
 		"williamboman/mason.nvim",
 		"b0o/schemastore.nvim",
 		"litao91/lsp_lines",
