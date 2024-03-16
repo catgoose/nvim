@@ -111,7 +111,7 @@ local config = function()
 	-- local ts_on_attach = function(client, bufnr)
 	-- 	--  TODO: 2024-03-07 - fix AnglerFixAll not renaming
 	-- 	-- keybinding("n", "<leader>rn", [[<cmd>AnglerRenameSymbol<cr>]], opts)
-	-- 	keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
+	keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	-- 	base_on_attach(client, bufnr)
 	-- end
 	local rename_on_attach = function(client, bufnr)
@@ -367,7 +367,7 @@ return {
 	config = config,
 	dependencies = {
 		"windwp/nvim-autopairs",
-		-- "jose-elias-alvarez/typescript.nvim",
+		"jose-elias-alvarez/typescript.nvim",
 		"williamboman/mason.nvim",
 		"b0o/schemastore.nvim",
 		"litao91/lsp_lines",
@@ -376,6 +376,6 @@ return {
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
-		"pmizio/typescript-tools.nvim",
+		-- "pmizio/typescript-tools.nvim",
 	},
 }
