@@ -1,18 +1,19 @@
 local dev = true
 local e = vim.tbl_extend
 
-local opts = {}
+local opts = {
+	filetypes = { "vue" },
+}
 
 local plugin = {
 	keys = {
 		{
 			"<leader>z",
 			function()
-				vim.cmd([[Lazy reload vue-goto-definition]])
+				vim.cmd([[Lazy reload vue-goto-definition.nvim]])
 			end,
 		},
 	},
-	dependencies = "nvim-lua/plenary.nvim",
 	opts = opts,
 	enabled = true,
 }
