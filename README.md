@@ -1,8 +1,8 @@
 # catgoose neovim
 
-<a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/plugins?style=for-the-badge" /></a>
-<a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/leaderkey?style=for-the-badge" /></a>
-<a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/plugin-manager?style=for-the-badge" /></a>
+<a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/plugins?style=flat" /></a>
+<a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/leaderkey?style=flat" /></a>
+<a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/plugin-manager?style=flat" /></a>
 
 Neovim config for Typescript, Lua plugin development, always WIP
 
