@@ -2,7 +2,18 @@ local dev = true
 local e = vim.tbl_extend
 
 local opts = {
+	auto_imports = true,
+	components = true,
 	filetypes = { "vue" },
+	detection = {
+		nuxt = function()
+			return vim.fn.glob(".nuxt/") ~= ""
+		end,
+		vue3 = function()
+			return vim.fn.filereadable("vite.config.ts") == 1
+		end,
+		priority = { "nuxt", "vue3" },
+	},
 }
 
 local plugin = {

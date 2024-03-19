@@ -149,11 +149,6 @@ local config = function()
 			on_attach = on_attach,
 			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 		},
-		-- volar = {
-		-- 	capabilities = capabilities,
-		-- 	on_attach = rename_on_attach,
-		-- 	filetypes = { "typescript", "javascript", "vue" },
-		-- },
 		tsserver = {
 			capabilities = capabilities,
 			on_attach = rename_on_attach,
@@ -163,8 +158,6 @@ local config = function()
 						name = "@vue/typescript-plugin",
 						location = "node_modules/@vue/typescript-plugin",
 						languages = {
-							"typescript",
-							"javascript",
 							"vue",
 						},
 					},
