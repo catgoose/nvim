@@ -51,10 +51,4 @@ return {
 	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 	-- 	opts = {},
 	-- },
-	{
-		"ariel-frischer/bmessages.nvim",
-		event = "CmdlineEnter",
-		config = true,
-		enabled = true,
-	},
 }

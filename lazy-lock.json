@@ -64,6 +64,7 @@
   "nvim-bqf": { "branch": "main", "commit": "b51a37fcd808edafd52511458467c8c9a701ea8d" },
   "nvim-cmp": { "branch": "main", "commit": "04e0ca376d6abdbfc8b52180f8ea236cbfddf782" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "85855b38011114929f4058efc97af1059ab3e41d" },
+  "nvim-dadbod-bg": { "branch": "main", "commit": "2730afe2e6de23afb04e9e783bbd42bb06402908" },
   "nvim-devdocs": { "branch": "master", "commit": "521d24661ffe6d1ba025debea2675c765a9c1ee1" },
   "nvim-fundo": { "branch": "main", "commit": "e236d66943349e026c1d42b23cc4fbd9f9c90af3" },
   "nvim-hlslens": { "branch": "main", "commit": "e4c811a401b06f86a7bb042b1d64a5cba21729a9" },
