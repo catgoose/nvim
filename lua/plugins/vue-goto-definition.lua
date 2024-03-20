@@ -2,8 +2,12 @@ local dev = true
 local e = vim.tbl_extend
 
 local opts = {
-	auto_imports = true,
-	components = true,
+	filter = {
+		auto_imports = true,
+		auto_components = true,
+		same_file = true,
+		declaration = true,
+	},
 	filetypes = { "vue" },
 	detection = {
 		nuxt = function()
