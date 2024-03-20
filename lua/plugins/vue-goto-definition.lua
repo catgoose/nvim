@@ -8,7 +8,7 @@ local opts = {
 		same_file = true,
 		declaration = true,
 	},
-	filetypes = { "vue" },
+	filetypes = { "vue", "typescript" },
 	detection = {
 		nuxt = function()
 			return vim.fn.glob(".nuxt/") ~= ""
@@ -18,6 +18,7 @@ local opts = {
 		end,
 		priority = { "nuxt", "vue3" },
 	},
+	defer = 100,
 }
 
 local plugin = {

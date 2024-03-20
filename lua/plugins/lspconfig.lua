@@ -158,6 +158,9 @@ local config = function()
 						name = "@vue/typescript-plugin",
 						location = "node_modules/@vue/typescript-plugin",
 						languages = {
+							--  TODO: 2024-03-20 - build this based on neoconf vue detection
+							"typescript",
+							"javascript",
 							"vue",
 						},
 					},
