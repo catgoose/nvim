@@ -49,6 +49,19 @@ local config = function()
 	l.handlers["textDocument/signatureHelp"] = l.with(l.handlers.signature_help, {
 		border = "rounded",
 	})
+	---@diagnostic disable-next-line: duplicate-set-field
+	l.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+		local ts_lsp = { "tsserver", "angularls", "volar" }
+		local clients = l.get_clients({ id = ctx.client_id })
+		if vim.tbl_contains(ts_lsp, clients[1].name) then
+			local diagnostics = vim.tbl_filter(function(d)
+				return d.severity == 1
+			end, result.diagnostics)
+			local filtered_result = { diagnostics = diagnostics }
+			require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
+		end
+		vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+	end
 
 	-- global keybindings
 	local opts = { noremap = true, silent = true }
@@ -127,11 +140,9 @@ local config = function()
 			on_attach = rename_on_attach,
 			filetypes = ts_ft,
 			settings = {
-				code_lens = "all",
 				tsserver_file_preferences = {
 					includeInlayParameterNameHints = "all",
 					includeCompletionsForModuleExports = true,
-					quotePreference = "auto",
 				},
 				tsserver_format_options = {
 					allowIncompleteCompletions = false,
