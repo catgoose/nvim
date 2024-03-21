@@ -1,4 +1,4 @@
-local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
+local km, l, api = vim.keymap.set, vim.lsp, vim.api
 local utils = require("util")
 
 local config = function()
@@ -54,10 +54,11 @@ local config = function()
 		local ts_lsp = { "tsserver", "angularls", "volar" }
 		local clients = l.get_clients({ id = ctx.client_id })
 		if vim.tbl_contains(ts_lsp, clients[1].name) then
-			local diagnostics = vim.tbl_filter(function(d)
-				return d.severity == 1
-			end, result.diagnostics)
-			local filtered_result = { diagnostics = diagnostics }
+			local filtered_result = {
+				diagnostics = vim.tbl_filter(function(d)
+					return d.severity == 1
+				end, result.diagnostics),
+			}
 			require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
 		end
 		vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
@@ -65,19 +66,19 @@ local config = function()
 
 	-- global keybindings
 	local opts = { noremap = true, silent = true }
-	keybinding("n", "[g", vim.diagnostic.goto_prev, opts)
-	keybinding("n", "]g", vim.diagnostic.goto_next, opts)
-	keybinding("n", "<leader>dd", vim.diagnostic.setqflist, opts)
+	km("n", "[g", vim.diagnostic.goto_prev, opts)
+	km("n", "]g", vim.diagnostic.goto_next, opts)
+	km("n", "<leader>dd", vim.diagnostic.setqflist, opts)
 
 	-- buf keybindings
 	local keys_on_attach = function(_, bufnr)
 		local bufopts = { noremap = true, silent = true, buffer = bufnr }
-		keybinding("n", "gD", l.buf.declaration, bufopts)
-		keybinding("n", "gd", l.buf.definition, bufopts)
-		keybinding("n", "gi", l.buf.implementation, bufopts)
-		keybinding("n", "<leader>D", l.buf.type_definition, bufopts)
-		keybinding("n", "gr", l.buf.references, bufopts)
-		keybinding({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
+		km("n", "gD", l.buf.declaration, bufopts)
+		km("n", "gd", l.buf.definition, bufopts)
+		km("n", "gi", l.buf.implementation, bufopts)
+		km("n", "<leader>D", l.buf.type_definition, bufopts)
+		km("n", "gr", l.buf.references, bufopts)
+		km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
 	end
 
 	local lsp_formatting = function(bufnr)
@@ -118,7 +119,7 @@ local config = function()
 	end
 	--  TODO: 2024-03-21 - Reimplement angler
 	local rename_on_attach = function(client, bufnr)
-		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		km("n", "<leader>rn", vim.lsp.buf.rename, opts)
 		base_on_attach(client, bufnr)
 	end
 	local on_attach = function(client, bufnr)
@@ -128,7 +129,7 @@ local config = function()
 	-- LSP config
 
 	local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
-	local vue_ft = table.insert(utils.deep_copy(ts_ft), "vue")
+	local vue_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" }
 
 	local server_enabled = function(server)
 		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -145,8 +146,8 @@ local config = function()
 					includeCompletionsForModuleExports = true,
 				},
 				tsserver_format_options = {
-					allowIncompleteCompletions = false,
-					allowRenameOfImportPath = false,
+					allowIncompleteCompletions = true,
+					allowRenameOfImportPath = true,
 				},
 			},
 		}
