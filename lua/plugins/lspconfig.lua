@@ -128,6 +128,8 @@ local config = function()
 	local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
 	local vue_ft = { unpack(ts_ft) }
 	table.insert(vue_ft, "vue")
+	local css_ft = { "css", "scss", "less", "sass", "vue" }
+	local html_ft = { "html", "vue" }
 
 	local server_enabled = function(server)
 		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -182,12 +184,12 @@ local config = function()
 		cssls = {
 			capabilities = snippet_capabilities,
 			on_attach = on_attach,
-			filetypes = { "css", "scss", "less", "sass", "vue" },
+			filetypes = css_ft,
 		},
 		html = {
 			capabilities = snippet_capabilities,
 			on_attach = on_attach,
-			filetypes = { "html", "vue" },
+			filetypes = html_ft,
 		},
 		cssmodules_ls = {
 			capabilities = capabilities,
