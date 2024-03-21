@@ -1,4 +1,5 @@
 local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
+local utils = require("util")
 
 local server_enabled = function(server)
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -118,6 +119,9 @@ local config = function()
 
 	-- LSP config
 
+	local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+	local vue_ft = table.insert(utils.deep_copy(ts_ft), "vue")
+
 	local lspconfig_setups = {
 		language_servers = {
 			"awk_ls",
@@ -147,29 +151,21 @@ local config = function()
 		cssmodules_ls = {
 			capabilities = capabilities,
 			on_attach = on_attach,
-			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+			filetypes = vue_ft,
 		},
 		tsserver = {
 			capabilities = capabilities,
 			on_attach = rename_on_attach,
+			filetypes = ts_ft,
+		},
+		volar = {
+			capabilities = capabilities,
+			on_attach = rename_on_attach,
+			filetypes = vue_ft,
 			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = "node_modules/@vue/typescript-plugin",
-						languages = {
-							--  TODO: 2024-03-20 - build this based on neoconf vue detection
-							"typescript",
-							"javascript",
-							"vue",
-						},
-					},
+				vue = {
+					hybridMode = false,
 				},
-			},
-			filetypes = {
-				"typescript",
-				"javascript",
-				"vue",
 			},
 		},
 		jsonls = {

@@ -171,7 +171,10 @@ M.screen_scale = function(config)
 	config.height = config.height or defaults.height
 	local width = fn.round(o.columns * config.width)
 	local height = fn.round(o.lines * config.height)
-	return { width = width, height = height }
+	return {
+		width = width,
+		height = height,
+	}
 end
 
 M.load_configs = function()
@@ -287,14 +290,18 @@ M.is_x_display = function()
 	return x_display ~= nil and x_display ~= ""
 end
 
-M.is_keymap_set = function(mode, lhs)
-	local km = api.nvim_get_keymap(mode)
-	for _, map in ipairs(km) do
-		if map.lhs == lhs then
-			return true
+M.deep_copy = function(orig)
+	local t = type(orig)
+	local copy
+	if t == "table" then
+		copy = {}
+		for k, v in pairs(orig) do
+			copy[k] = M.deep_copy(v)
 		end
+	else
+		copy = orig
 	end
-	return false
+	return copy
 end
 
 return M
