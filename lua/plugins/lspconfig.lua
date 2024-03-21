@@ -2,6 +2,11 @@ local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
 local utils = require("util")
 
 local server_enabled = function(server)
+	if server == "volar" then
+		return vim.fn.filereadable("vite.config.ts") == 1
+			or vim.fn.filereadable("src/App.vue") == 1
+			or vim.fn.glob(".nuxt/") ~= ""
+	end
 	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
 end
 

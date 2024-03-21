@@ -1,5 +1,4 @@
 local g = vim.g
-local is_x_display = require("util").is_x_display
 
 g.mapleader = " "
 g.maplocalleader = " "
@@ -9,7 +8,8 @@ g.netrw_browse_split = 0
 g.netrw_banner = 0
 g.netrw_winsize = 25
 
-if is_x_display() then
+local x_display = os.getenv("DISPLAY")
+if x_display ~= nil and x_display ~= "" then
 	g.clipboard = { -- install xclip
 		name = "xclip",
 		copy = {

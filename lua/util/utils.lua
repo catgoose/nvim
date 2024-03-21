@@ -285,11 +285,6 @@ M.hover_handler = function()
 	end
 end
 
-M.is_x_display = function()
-	local x_display = os.getenv("DISPLAY")
-	return x_display ~= nil and x_display ~= ""
-end
-
 M.deep_copy = function(orig)
 	local t = type(orig)
 	local copy
