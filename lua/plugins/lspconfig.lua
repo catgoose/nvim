@@ -1,5 +1,4 @@
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
-local utils = require("util")
 
 local config = function()
 	local lspconfig = require("lspconfig")
@@ -64,15 +63,12 @@ local config = function()
 		vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 	end
 
-	-- global keybindings
-	local opts = { noremap = true, silent = true }
-	km("n", "[g", vim.diagnostic.goto_prev, opts)
-	km("n", "]g", vim.diagnostic.goto_next, opts)
-	km("n", "<leader>dd", vim.diagnostic.setqflist, opts)
-
 	-- buf keybindings
 	local keys_on_attach = function(_, bufnr)
 		local bufopts = { noremap = true, silent = true, buffer = bufnr }
+		km("n", "[g", vim.diagnostic.goto_prev, bufopts)
+		km("n", "]g", vim.diagnostic.goto_next, bufopts)
+		km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
 		km("n", "gD", l.buf.declaration, bufopts)
 		km("n", "gd", l.buf.definition, bufopts)
 		km("n", "gi", l.buf.implementation, bufopts)
@@ -119,7 +115,8 @@ local config = function()
 	end
 	--  TODO: 2024-03-21 - Reimplement angler
 	local rename_on_attach = function(client, bufnr)
-		km("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		local bufopts = { noremap = true, silent = true, buffer = bufnr }
+		km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
 		base_on_attach(client, bufnr)
 	end
 	local on_attach = function(client, bufnr)
@@ -129,7 +126,8 @@ local config = function()
 	-- LSP config
 
 	local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
-	local vue_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" }
+	local vue_ft = { unpack(ts_ft) }
+	table.insert(vue_ft, "vue")
 
 	local server_enabled = function(server)
 		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -140,10 +138,21 @@ local config = function()
 			capabilities = capabilities,
 			on_attach = rename_on_attach,
 			filetypes = ts_ft,
+			separate_diagnostic_server = true,
+			tsserver_max_memory = "auto",
+			code_lens = "all",
 			settings = {
 				tsserver_file_preferences = {
 					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = false,
+					includeInlayVariableTypeHints = false,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
 					includeCompletionsForModuleExports = true,
+					quotePreference = "auto",
 				},
 				tsserver_format_options = {
 					allowIncompleteCompletions = true,
@@ -191,7 +200,7 @@ local config = function()
 			filetypes = vue_ft,
 			init_options = {
 				vue = {
-					hybridMode = false,
+					hybridMode = true,
 				},
 			},
 		},
