@@ -4,7 +4,6 @@ local utils = require("util")
 local config = function()
 	local lspconfig = require("lspconfig")
 	local vt = require("virtualtypes")
-	-- local ts = require("typescript")
 
 	local capabilities = vim.tbl_deep_extend(
 		"force",
@@ -126,6 +125,7 @@ local config = function()
 		local ts_config = {
 			capabilities = capabilities,
 			on_attach = rename_on_attach,
+			filetypes = ts_ft,
 			settings = {
 				code_lens = "all",
 				tsserver_file_preferences = {
@@ -140,11 +140,6 @@ local config = function()
 			},
 		}
 		require("typescript-tools").setup(ts_config)
-		-- lspconfig.tsserver.setup({
-		--     capabilities = capabilities,
-		--     on_attach = rename_on_attach,
-		--     filetypes = ts_ft,
-		-- })
 	end
 
 	local lspconfig_setups = {
@@ -304,5 +299,6 @@ return {
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
 		"pmizio/typescript-tools.nvim",
+		"dmmulroy/ts-error-translator.nvim",
 	},
 }

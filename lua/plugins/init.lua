@@ -1,5 +1,4 @@
 local m = require("util").lazy_map
-local leet_arg = "leetcode.nvim"
 
 return {
 	{
@@ -46,9 +45,9 @@ return {
 		lazy = true,
 		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
 	},
-	-- {
-	-- 	"pmizio/typescript-tools.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-	-- 	opts = {},
-	-- },
+	{
+		"dmmulroy/ts-error-translator.nvim",
+		config = true,
+		ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+	},
 }
