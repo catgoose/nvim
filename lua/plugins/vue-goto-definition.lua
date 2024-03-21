@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local e = vim.tbl_extend
 
 local opts = {
@@ -7,16 +7,6 @@ local opts = {
 		auto_components = true,
 		same_file = true,
 		declaration = true,
-	},
-	filetypes = { "vue", "typescript" },
-	detection = {
-		nuxt = function()
-			return vim.fn.glob(".nuxt/") ~= ""
-		end,
-		vue3 = function()
-			return vim.fn.filereadable("vite.config.ts") == 1
-		end,
-		priority = { "nuxt", "vue3" },
 	},
 }
 

@@ -15,7 +15,6 @@ local config = function()
 	local lspkind = require("lspkind")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	local cmp_tailwind = require("tailwindcss-colorizer-cmp")
-	local cmp_ai = require("cmp_ai.config")
 
 	local autocomplete_group = vim.api.nvim_create_augroup("dadbod-autocomplete", { clear = true })
 	vim.api.nvim_create_autocmd("FileType", {
@@ -145,12 +144,10 @@ local config = function()
 		sorting = {
 			priority_weight = 2,
 			comparators = {
-				require("cmp_ai.compare"),
 				cmp.config.compare.offset,
 				cmp.config.compare.exact,
 				cmp.config.compare.score,
 				cmp.config.compare.recently_used,
-				require("clangd_extensions.cmp_scores"),
 				cmp.config.compare.locality,
 				cmp.config.compare.kind,
 				cmp.config.compare.sort_text,
@@ -171,21 +168,6 @@ local config = function()
 	-- 		{ name = "dap" },
 	-- 	},
 	-- })
-
-	cmp_ai:setup({
-		max_lines = 1000,
-		provider = "OpenAI",
-		model = "gpt-3.5-turbo",
-		notify = true,
-		notify_callback = function(msg)
-			require("notify").notify(msg, vim.log.levels.INFO, {
-				title = "OpenAI",
-				render = "compact",
-			})
-		end,
-		run_on_every_keystroke = true,
-		ignored_file_types = {},
-	})
 end
 
 return {
@@ -205,10 +187,6 @@ return {
 			"ray-x/cmp-treesitter",
 			"saadparwaiz1/cmp_luasnip",
 			"roobert/tailwindcss-colorizer-cmp.nvim",
-			{
-				"tzachar/cmp-ai",
-				dependencies = "nvim-lua/plenary.nvim",
-			},
 			"jcdickinson/codeium.nvim",
 		},
 	},

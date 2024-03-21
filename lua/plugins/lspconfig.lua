@@ -1,18 +1,8 @@
 local keybinding, l, api = vim.keymap.set, vim.lsp, vim.api
 local utils = require("util")
 
-local server_enabled = function(server)
-	if server == "volar" then
-		return vim.fn.filereadable("vite.config.ts") == 1
-			or vim.fn.filereadable("src/App.vue") == 1
-			or vim.fn.glob(".nuxt/") ~= ""
-	end
-	return not require("neoconf").get("lsp.servers." .. server .. ".disable")
-end
-
 local config = function()
 	local lspconfig = require("lspconfig")
-	local clangd_ext = require("clangd_extensions")
 	local vt = require("virtualtypes")
 	-- local ts = require("typescript")
 
@@ -114,6 +104,7 @@ local config = function()
 		virtual_types_on_attach(client, bufnr)
 		-- vim.lsp.inlay_hint(bufnr, true)
 	end
+	--  TODO: 2024-03-21 - Reimplement angler
 	local rename_on_attach = function(client, bufnr)
 		keybinding("n", "<leader>rn", vim.lsp.buf.rename, opts)
 		base_on_attach(client, bufnr)
@@ -126,6 +117,35 @@ local config = function()
 
 	local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
 	local vue_ft = table.insert(utils.deep_copy(ts_ft), "vue")
+
+	local server_enabled = function(server)
+		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
+	end
+
+	if server_enabled("tsserver") then
+		local ts_config = {
+			capabilities = capabilities,
+			on_attach = rename_on_attach,
+			settings = {
+				code_lens = "all",
+				tsserver_file_preferences = {
+					includeInlayParameterNameHints = "all",
+					includeCompletionsForModuleExports = true,
+					quotePreference = "auto",
+				},
+				tsserver_format_options = {
+					allowIncompleteCompletions = false,
+					allowRenameOfImportPath = false,
+				},
+			},
+		}
+		require("typescript-tools").setup(ts_config)
+		-- lspconfig.tsserver.setup({
+		--     capabilities = capabilities,
+		--     on_attach = rename_on_attach,
+		--     filetypes = ts_ft,
+		-- })
+	end
 
 	local lspconfig_setups = {
 		language_servers = {
@@ -157,11 +177,6 @@ local config = function()
 			capabilities = capabilities,
 			on_attach = on_attach,
 			filetypes = vue_ft,
-		},
-		tsserver = {
-			capabilities = capabilities,
-			on_attach = rename_on_attach,
-			filetypes = ts_ft,
 		},
 		volar = {
 			capabilities = capabilities,
@@ -271,14 +286,6 @@ local config = function()
 			end,
 		})
 	end
-	if server_enabled("clangd") then
-		clangd_ext.setup({
-			server = {
-				capabilities = capabilities,
-				on_attach = on_attach,
-			},
-		})
-	end
 end
 
 return {
@@ -289,15 +296,13 @@ return {
 	config = config,
 	dependencies = {
 		"windwp/nvim-autopairs",
-		-- "jose-elias-alvarez/typescript.nvim",
 		"williamboman/mason.nvim",
 		"b0o/schemastore.nvim",
 		"litao91/lsp_lines",
 		"kevinhwang91/nvim-ufo",
-		"p00f/clangd_extensions.nvim",
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
-		-- "pmizio/typescript-tools.nvim",
+		"pmizio/typescript-tools.nvim",
 	},
 }
