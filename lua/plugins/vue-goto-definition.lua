@@ -8,6 +8,16 @@ local opts = {
 		same_file = true,
 		declaration = true,
 	},
+	filetypes = { "vue", "typescript" },
+	detection = {
+		nuxt = function()
+			return vim.fn.glob(".nuxt/") ~= ""
+		end,
+		vue3 = function()
+			return vim.fn.filereadable("vite.config.ts") == 1
+		end,
+		priority = { "nuxt", "vue3" },
+	},
 }
 
 local plugin = {
