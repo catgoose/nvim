@@ -207,6 +207,15 @@ return {
 		m("<leader>bb", [[Telescope buffers]]),
 		m("<leader>hg", [[Telescope helpgrep]]),
 		m("<leader>tg", [[Telescope git_status]]),
+		{
+			"<leader>z",
+			function()
+				vim.cmd([[Lazy reload telescope-helpgrep.nvim]])
+				vim.cmd([[Lazy reload telescope.nvim]])
+				vim.cmd([[Telescope helpgrep]])
+			end,
+			{ "n" },
+		},
 	},
 	dependencies = {
 		{
@@ -221,6 +230,9 @@ return {
 		"tsakirist/telescope-lazy.nvim",
 		"catgoose/chat-gypsy.nvim",
 		"catgoose/telescope-helpgrep.nvim",
-		"catgoose/do-the-needful.nvim",
+		-- "catgoose/do-the-needful.nvim",
+		{
+			dir = "~/git/telescope-helpgrep.nvim",
+		},
 	},
 }

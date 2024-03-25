@@ -12,12 +12,12 @@ local opts = {
 
 local plugin = {
 	keys = {
-		{
-			"<leader>z",
-			function()
-				vim.cmd([[Lazy reload vue-goto-definition.nvim]])
-			end,
-		},
+		-- {
+		-- 	"<leader>z",
+		-- 	function()
+		-- 		vim.cmd([[Lazy reload vue-goto-definition.nvim]])
+		-- 	end,
+		-- },
 	},
 	opts = opts,
 	enabled = false,
