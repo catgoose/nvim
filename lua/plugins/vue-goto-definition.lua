@@ -20,7 +20,7 @@ local plugin = {
 		},
 	},
 	opts = opts,
-	enabled = true,
+	enabled = false,
 }
 
 if dev == true then

@@ -41,10 +41,15 @@ local config = function()
 		},
 	})
 
-	-- Handlers
-	l.handlers["textDocument/hover"] = l.with(l.handlers.hover, {
-		border = "rounded",
-	})
+	---@diagnostic disable-next-line: duplicate-set-field
+	vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+		if not (result and result.contents) then
+			return
+		end
+		config = config or {}
+		config.border = "rounded"
+		l.handlers.hover(_, result, ctx, config)
+	end
 	l.handlers["textDocument/signatureHelp"] = l.with(l.handlers.signature_help, {
 		border = "rounded",
 	})
@@ -135,35 +140,38 @@ local config = function()
 		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
 	end
 
-	if server_enabled("tsserver") then
-		local ts_config = {
-			capabilities = capabilities,
-			on_attach = rename_on_attach,
-			filetypes = ts_ft,
-			separate_diagnostic_server = true,
-			tsserver_max_memory = "auto",
-			code_lens = "all",
-			settings = {
-				tsserver_file_preferences = {
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = false,
-					includeInlayVariableTypeHints = false,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-					includeCompletionsForModuleExports = true,
-					quotePreference = "auto",
-				},
-				tsserver_format_options = {
-					allowIncompleteCompletions = true,
-					allowRenameOfImportPath = true,
-				},
-			},
-		}
-		require("typescript-tools").setup(ts_config)
-	end
+	-- if server_enabled("tsserver") then
+	-- 	local ts_config = {
+	-- 		capabilities = capabilities,
+	-- 		on_attach = rename_on_attach,
+	-- 		filetypes = ts_ft,
+	-- 		separate_diagnostic_server = true,
+	-- 		tsserver_max_memory = "auto",
+	-- 		code_lens = "all",
+	-- 		settings = {
+	-- 			tsserver_file_preferences = {
+	-- 				includeInlayParameterNameHints = "all",
+	-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+	-- 				includeInlayFunctionParameterTypeHints = false,
+	-- 				includeInlayVariableTypeHints = false,
+	-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+	-- 				includeInlayPropertyDeclarationTypeHints = true,
+	-- 				includeInlayFunctionLikeReturnTypeHints = true,
+	-- 				includeInlayEnumMemberValueHints = true,
+	-- 				includeCompletionsForModuleExports = true,
+	-- 				quotePreference = "auto",
+	-- 			},
+	-- 			tsserver_format_options = {
+	-- 				allowIncompleteCompletions = true,
+	-- 				allowRenameOfImportPath = true,
+	-- 			},
+	-- 			tsserver_plugins = {
+	-- 				"@vue/typescript-plugin",
+	-- 			},
+	-- 		},
+	-- 	}
+	-- 	require("typescript-tools").setup(ts_config)
+	-- end
 
 	local lspconfig_setups = {
 		language_servers = {
@@ -202,9 +210,23 @@ local config = function()
 			filetypes = vue_ft,
 			init_options = {
 				vue = {
-					hybridMode = true,
+					hybridMode = false,
 				},
 			},
+		},
+		tsserver = {
+			capabilities = capabilities,
+			on_attach = rename_on_attach,
+			filetypes = vue_ft,
+			-- init_options = {
+			-- 	plugins = {
+			-- 		{
+			-- 			"@vue/typescript-plugin",
+			-- 			location = "node_modules/@vue/typescript-plugin",
+			-- 			languages = vue_ft,
+			-- 		},
+			-- 	},
+			-- },
 		},
 		jsonls = {
 			capabilities = snippet_capabilities,
