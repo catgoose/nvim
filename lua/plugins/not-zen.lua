@@ -21,7 +21,7 @@ local plugin = {
 	opts = opts,
 	keys = {
 		m("<leader>v", [[NotZenToggleNoCb]]),
-		m("<leader>z", [[NotZenToggle]]),
+		-- m("<leader>z", [[NotZenToggle]]),
 	},
 }
 

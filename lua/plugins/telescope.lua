@@ -1,4 +1,5 @@
 local m = require("util").lazy_map
+local project = require("util.project")
 
 local config = function()
 	local telescope = require("telescope")
@@ -163,6 +164,36 @@ local config = function()
 	end
 end
 
+--  TODO: 2024-03-26 - How to handle multiple local projects?
+local keys = {
+	m("<leader>tk", [[Telescope keymaps]]),
+	m("<leader>hh", [[Telescope help_tags]]),
+	m("<leader>f", [[TelescopeFindFiles]]),
+	m("<leader>F", [[Telescope find_files]]),
+	m("<leader>j", [[Telescope live_grep]]),
+	m("<leader>J", [[TelescopeLiveGrepHidden]]),
+	m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
+	m("<leader>bb", [[Telescope buffers]]),
+	m("<leader>hg", [[Telescope helpgrep]]),
+	m("<leader>tg", [[Telescope git_status]]),
+}
+keys = project.get_keys("helpgrep", keys)
+local dependencies = {
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
+	},
+	"natecraddock/workspaces.nvim",
+	{
+		"nvim-telescope/telescope-ui-select.nvim",
+	},
+	"ThePrimeagen/harpoon",
+	"tsakirist/telescope-lazy.nvim",
+	"catgoose/chat-gypsy.nvim",
+	-- "catgoose/do-the-needful.nvim",
+}
+dependencies = project.get_dependencies("helpgrep", dependencies)
+
 return {
 	"nvim-telescope/telescope.nvim",
 	config = config,
@@ -196,43 +227,6 @@ return {
 		end)
 	end,
 	cmd = "Telescope",
-	keys = {
-		m("<leader>tk", [[Telescope keymaps]]),
-		m("<leader>hh", [[Telescope help_tags]]),
-		m("<leader>f", [[TelescopeFindFiles]]),
-		m("<leader>F", [[Telescope find_files]]),
-		m("<leader>j", [[Telescope live_grep]]),
-		m("<leader>J", [[TelescopeLiveGrepHidden]]),
-		m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
-		m("<leader>bb", [[Telescope buffers]]),
-		m("<leader>hg", [[Telescope helpgrep]]),
-		m("<leader>tg", [[Telescope git_status]]),
-		{
-			"<leader>z",
-			function()
-				vim.cmd([[Lazy reload telescope-helpgrep.nvim]])
-				vim.cmd([[Lazy reload telescope.nvim]])
-				vim.cmd([[Telescope helpgrep]])
-			end,
-			{ "n" },
-		},
-	},
-	dependencies = {
-		{
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-		},
-		"natecraddock/workspaces.nvim",
-		{
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
-		"ThePrimeagen/harpoon",
-		"tsakirist/telescope-lazy.nvim",
-		"catgoose/chat-gypsy.nvim",
-		"catgoose/telescope-helpgrep.nvim",
-		-- "catgoose/do-the-needful.nvim",
-		{
-			dir = "~/git/telescope-helpgrep.nvim",
-		},
-	},
+	keys = keys,
+	dependencies = dependencies,
 }
