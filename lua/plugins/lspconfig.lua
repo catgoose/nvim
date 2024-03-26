@@ -204,29 +204,49 @@ local config = function()
 			on_attach = on_attach,
 			filetypes = vue_ft,
 		},
-		volar = {
-			capabilities = capabilities,
-			on_attach = rename_on_attach,
-			filetypes = vue_ft,
-			init_options = {
-				vue = {
-					hybridMode = false,
-				},
-			},
-		},
+		-- volar = {
+		-- 	capabilities = capabilities,
+		-- 	on_attach = rename_on_attach,
+		-- 	filetypes = vue_ft,
+		-- 	init_options = {
+		-- 		vue = {
+		-- 			hybridMode = false,
+		-- 		},
+		-- 	},
+		-- },
 		tsserver = {
 			capabilities = capabilities,
 			on_attach = rename_on_attach,
-			filetypes = vue_ft,
+			filetypes = ts_ft,
 			-- init_options = {
 			-- 	plugins = {
 			-- 		{
 			-- 			"@vue/typescript-plugin",
 			-- 			location = "node_modules/@vue/typescript-plugin",
-			-- 			languages = vue_ft,
+			-- 			languages = { "vue" },
 			-- 		},
 			-- 	},
 			-- },
+		},
+		volar = {
+			capabilities = capabilities,
+			on_attach = rename_on_attach,
+			-- 			filetypes = { "vue" },
+			-- 			init_options = {
+			-- 				vue = {
+			-- 					hybridMode = true,
+			-- 				},
+			-- 			},
+			-- {
+			filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+			init_options = {
+				vue = {
+					hybridMode = false,
+				},
+				typescript = {
+					tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+				},
+			},
 		},
 		jsonls = {
 			capabilities = snippet_capabilities,

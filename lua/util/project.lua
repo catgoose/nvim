@@ -23,9 +23,21 @@ local projects = {
 			"catgoose/telescope-helpgrep.nvim",
 		},
 	},
+	["vue-goto-definition"] = {
+		keys = {},
+		dev_keys = {
+			{
+				"<leader>z",
+				function()
+					vim.cmd([[Lazy reload vue-goto-definition.nvim]])
+				end,
+			},
+		},
+	},
 }
 
-M.current_project = projects.helpgrep
+-- M.current_project = projects.helpgrep
+M.current_project = projects["vue-goto-definition"]
 
 local function get_project_property(project_name, property_type)
 	local project = projects[project_name]

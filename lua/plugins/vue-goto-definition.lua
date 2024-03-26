@@ -1,5 +1,7 @@
-local dev = false
+local dev = true
+local enabled = false
 local e = vim.tbl_extend
+local project = require("util.project")
 
 local opts = {
 	filters = {
@@ -10,17 +12,12 @@ local opts = {
 	},
 }
 
+local keys = project.get_keys("vue-goto-definition")
+
 local plugin = {
-	keys = {
-		-- {
-		-- 	"<leader>z",
-		-- 	function()
-		-- 		vim.cmd([[Lazy reload vue-goto-definition.nvim]])
-		-- 	end,
-		-- },
-	},
+	keys = keys,
 	opts = opts,
-	enabled = false,
+	enabled = enabled,
 }
 
 if dev == true then
