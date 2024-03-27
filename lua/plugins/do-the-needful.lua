@@ -15,25 +15,12 @@ local opts = {
 	},
 	tasks = {
 		{
-			name = "Nvim repo sync",
-			cmd = "fish -c 'nvim_repo_sync'",
-			tags = {
-				"nvim",
-				"repo",
-				"sync",
-			},
-			window = {
-				keep_current = true,
-				close = true,
-			},
-		},
-		{
 			name = "git push dotfiles",
-			cmd = "fish -c 'ggup'",
+			cmd = "fish -c 'dotfiles_push'",
 			cwd = "~/git/dotfiles",
 			tags = { "dotfiles", "git", "update" },
 			window = {
-				close = true,
+				close = false,
 				keep_current = true,
 			},
 		},
