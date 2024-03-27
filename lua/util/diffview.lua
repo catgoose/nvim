@@ -1,5 +1,7 @@
 local M = {}
 
+local default_branches = { "main", "master" }
+
 local function git_branches()
 	local branches = {}
 	local handle = io.popen("git branch --format='%(refname:short)'")
@@ -13,22 +15,26 @@ local function git_branches()
 	return branches
 end
 
+local open_diff_view = function(branch)
+	local diff = string.format("DiffviewOpen %s...HEAD", branch)
+	pcall(vim.cmd, diff)
+end
+
 function M.open()
 	local branches = git_branches()
-	if not branches then
+	if not branches or #branches == 0 then
 		return
 	end
 
-	local open_diff_view = function(branch)
-		local diff = string.format("DiffviewOpen %s...HEAD", branch)
-		pcall(vim.cmd, diff)
-	end
-
-	if #branches == 0 then
-		return
-	end
 	if #branches == 1 then
 		open_diff_view(branches[1])
+	end
+
+	for _, branch in ipairs(default_branches) do
+		if vim.tbl_contains(branches, branch) then
+			open_diff_view(branch)
+			return
+		end
 	end
 
 	vim.ui.select(branches, {
