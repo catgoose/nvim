@@ -3,7 +3,7 @@ local fn, api, cmd, diag, o, g, tbl_contains, bo, keymap =
 
 local M = {}
 
-M.cmd_map = function(lhs, rhs, modes, opts)
+function M.cmd_map(lhs, rhs, modes, opts)
 	modes = M.str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do
@@ -11,7 +11,7 @@ M.cmd_map = function(lhs, rhs, modes, opts)
 	end
 end
 
-M.key_map = function(lhs, rhs, modes, opts)
+function M.key_map(lhs, rhs, modes, opts)
 	modes = M.str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do
@@ -19,11 +19,11 @@ M.key_map = function(lhs, rhs, modes, opts)
 	end
 end
 
-M.cmd_string = function(cmd_arg)
+function M.cmd_string(cmd_arg)
 	return [[<cmd>]] .. cmd_arg .. [[<cr>]]
 end
 
-M.lazy_map = function(lhs, rhs, modes)
+function M.lazy_map(lhs, rhs, modes)
 	if type(rhs) == "string" then
 		rhs = M.cmd_string(rhs)
 	end
@@ -35,12 +35,12 @@ M.lazy_map = function(lhs, rhs, modes)
 	}
 end
 
-M.create_augroup = function(group, opts)
+function M.create_augroup(group, opts)
 	opts = opts or { clear = true }
 	return api.nvim_create_augroup(group, opts)
 end
 
-M.nonrelative_win_count = function()
+function M.nonrelative_win_count()
 	local wins = api.nvim_list_wins()
 	local non_relative = 0
 	for _, win in ipairs(wins) do
@@ -53,19 +53,19 @@ M.nonrelative_win_count = function()
 	return non_relative
 end
 
-M.current_word = function()
+function M.current_word()
 	local current_word = fn.expand("<cword>")
 	return current_word
 end
 
-M.str_to_tbl = function(v)
+function M.str_to_tbl(v)
 	if type(v) == "string" then
 		v = { v }
 	end
 	return v
 end
 
-M.tbl_index = function(tbl, value)
+function M.tbl_index(tbl, value)
 	for i, v in ipairs(tbl) do
 		if v == value then
 			return i
@@ -74,7 +74,7 @@ M.tbl_index = function(tbl, value)
 	return nil
 end
 
-M.tbl_foreach = function(tbl, f)
+function M.tbl_foreach(tbl, f)
 	local t = {}
 	for key, value in ipairs(tbl) do
 		t[key] = f(value)
@@ -82,7 +82,7 @@ M.tbl_foreach = function(tbl, f)
 	return t
 end
 
-M.tbl_filter = function(tbl, f)
+function M.tbl_filter(tbl, f)
 	if not tbl or tbl == {} then
 		return {}
 	end
@@ -95,7 +95,7 @@ M.tbl_filter = function(tbl, f)
 	return t
 end
 
-M.list_concat = function(A, B)
+function M.list_concat(A, B)
 	local t = {}
 	for _, value in ipairs(A) do
 		table.insert(t, value)
@@ -106,7 +106,7 @@ M.list_concat = function(A, B)
 	return t
 end
 
-M.tbl_system_cmd = function(command)
+function M.tbl_system_cmd(command)
 	local stdout = {}
 	local handle = io.popen(command .. " 2>&1 ; echo $?", "r")
 	if handle then
@@ -119,26 +119,26 @@ M.tbl_system_cmd = function(command)
 	return stdout
 end
 
-M.map_q_to_quit = function(event)
+function M.map_q_to_quit(event)
 	bo[event.buf].buflisted = false
 	M.cmd_map("q", "close", "n", { silent = true, noremap = true, buffer = true })
 end
 
-M.is_qf_empty = function()
+function M.is_qf_empty()
 	return vim.tbl_isempty(fn.getqflist())
 end
 
-local is_lsp_diag_error = function()
+local function is_lsp_diag_error()
 	return #diag.get(0, { severity = diag.severity.ERROR }) > 0
 end
-local is_lsp_diag_warning = function()
+local function is_lsp_diag_warning()
 	return #diag.get(0, { severity = diag.severity.WARN }) > 0
 end
-local is_lsp_diag_info = function()
+local function is_lsp_diag_info()
 	return #diag.get(0, { severity = diag.severity.INFO }) > 0
 end
 
-M.lsp_diag = function(level)
+function M.lsp_diag(level)
 	if level == "error" then
 		return is_lsp_diag_error()
 	elseif level == "warning" then
@@ -148,7 +148,7 @@ M.lsp_diag = function(level)
 	end
 end
 
-M.restore_cmdheight = function()
+function M.restore_cmdheight()
 	if g.CMDHEIGHTZERO == 1 then
 		o.cmdheight = 0
 	else
@@ -156,12 +156,12 @@ M.restore_cmdheight = function()
 	end
 end
 
-M.create_cmd = function(command, f, opts)
+function M.create_cmd(command, f, opts)
 	opts = opts or {}
 	api.nvim_create_user_command(command, f, opts)
 end
 
-M.screen_scale = function(config)
+function M.screen_scale(config)
 	local defaults = {
 		width = 0.5,
 		height = 0.5,
@@ -177,14 +177,14 @@ M.screen_scale = function(config)
 	}
 end
 
-M.load_configs = function()
+function M.load_configs()
 	for _, file in ipairs(M.get_config_modules()) do
 		require("config." .. file)
 	end
 	require("config.lazy")
 end
 
-M.get_config_modules = function(exclude_map)
+function M.get_config_modules(exclude_map)
 	exclude_map = exclude_map or {
 		"lazy",
 		"init",
@@ -205,7 +205,7 @@ M.get_config_modules = function(exclude_map)
 	return files
 end
 
-M.reload_lua = function()
+function M.reload_lua()
 	for _, file in ipairs(M.get_config_modules()) do
 		R("config." .. file)
 		R("util.functions")
@@ -213,11 +213,11 @@ M.reload_lua = function()
 	cmd.nohlsearch()
 end
 
-M.diag_error = function()
+function M.diag_error()
 	return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
-M.treesitter_is_css_class_under_cursor = function()
+function M.treesitter_is_css_class_under_cursor()
 	local ft = bo.filetype
 	if not tbl_contains({ "typescript", "typescriptreact", "vue", "html", "svelt", "astro" }, ft) then
 		return false
@@ -254,7 +254,7 @@ M.treesitter_is_css_class_under_cursor = function()
 	end
 end
 
-local is_diag_for_cur_pos = function()
+local function is_diag_for_cur_pos()
 	local diagnostics = vim.diagnostic.get(0)
 	local pos = api.nvim_win_get_cursor(0)
 	if #diagnostics == 0 then
@@ -266,7 +266,7 @@ local is_diag_for_cur_pos = function()
 	return #message > 0
 end
 
-M.hover_handler = function()
+function M.hover_handler()
 	local winid = require("ufo").peekFoldedLinesUnderCursor()
 	if winid then
 		return
@@ -285,7 +285,7 @@ M.hover_handler = function()
 	end
 end
 
-M.deep_copy = function(orig)
+function M.deep_copy(orig)
 	local t = type(orig)
 	local copy
 	if t == "table" then

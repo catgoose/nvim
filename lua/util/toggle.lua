@@ -2,7 +2,7 @@ local utils = require("util.utils")
 
 local M = {}
 
-M.toggleterm_opts = function(added_opts)
+function M.toggleterm_opts(added_opts)
 	local scale = 0.85
 	local scale = utils.screen_scale({ width = scale, height = scale })
 	local toggleterm_opts = {

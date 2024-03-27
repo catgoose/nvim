@@ -20,7 +20,7 @@ local comment_close = {
 	html = " -->",
 }
 
-M.comment_open = function()
+function M.comment_open()
 	local ok, ts_context = pcall(require, "ts_context_commentstring")
 	if ok then
 		return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[1]
@@ -36,7 +36,7 @@ M.comment_open = function()
 	end
 end
 
-M.comment_close = function()
+function M.comment_close()
 	local ok, ts_context = pcall(require, "ts_context_commentstring")
 	if ok then
 		return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[2]
@@ -48,36 +48,36 @@ M.comment_close = function()
 	end
 end
 
-M.today = function()
+function M.today()
 	return os.date("%Y-%m-%d")
 end
 
-M.capitalize = function(node_index)
+function M.capitalize(node_index)
 	return f(function(args)
 		local str = args[1][1]
 		return str:sub(1, 1):upper() .. str:sub(2)
 	end, node_index)
 end
 
-M.lower = function(node_index)
+function M.lower(node_index)
 	return f(function(args)
 		local str = args[1][1]
 		return str:sub(1, 1):lower() .. str:sub(2)
 	end, node_index)
 end
 
-M.lua_require = function(arg)
+function M.lua_require(arg)
 	local parts = vim.split(arg[1][1], ".", { plain = true })
 	return parts[#parts] or ""
 end
 
-M.same_node = function(arg)
+function M.same_node(arg)
 	return f(function(args)
 		return args[1]
 	end, arg)
 end
 
-M.nest_method_args = function(_, snip, _)
+function M.nest_method_args(_, snip, _)
 	local ts_query = "(required_parameter pattern: (identifier) @param )"
 	local method_args = ""
 	local pos_begin = snip.nodes[3].mark:pos_begin()
@@ -103,7 +103,7 @@ M.nest_method_args = function(_, snip, _)
 	return method_args
 end
 
-M.nest_classname = function()
+function M.nest_classname()
 	local ts_query = "(class_declaration name: (type_identifier) @class_name)"
 	local parser = vim.treesitter.get_parser(0, "typescript")
 	local tstree = parser:parse()[1]

@@ -2,7 +2,7 @@ local fn, cmd = vim.fn, vim.cmd
 
 local M = {}
 
-M.toggle_fold = function()
+function M.toggle_fold()
 	local foldclosed = vim.fn.foldclosed(vim.fn.line("."))
 	if foldclosed == -1 then
 		cmd("silent! normal! zc")
@@ -11,7 +11,7 @@ M.toggle_fold = function()
 	end
 end
 
-M.handler = function(virtText, lnum, endLnum, width, truncate)
+function M.handler(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}
 	local suffix = ("  %d "):format(endLnum - lnum)
 	local sufWidth = fn.strdisplaywidth(suffix)

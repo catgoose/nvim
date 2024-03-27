@@ -6,7 +6,7 @@ local ufo = require("util.ufo")
 
 local M = {}
 
-M.comment_yank_paste = function()
+function M.comment_yank_paste()
 	local win = api.nvim_get_current_win()
 	local cur = api.nvim_win_get_cursor(win)
 	local vstart = fn.getpos("v")[2]
@@ -31,14 +31,14 @@ M.comment_yank_paste = function()
 	end
 end
 
-M.buf_only = function()
+function M.buf_only()
 	if #api.nvim_list_wins() > 1 then
 		cmd.only()
 	end
 	cmd.BufOnly()
 end
 
-M.win_only = function(cb)
+function M.win_only(cb)
 	cb = cb or nil
 	if #api.nvim_list_wins() > 1 then
 		cmd.only()
@@ -48,7 +48,7 @@ M.win_only = function(cb)
 	end
 end
 
-M.toggle_cmdheight = function()
+function M.toggle_cmdheight()
 	if o.cmdheight == 1 then
 		o.cmdheight = 0
 		g.CMDHEIGHTZERO = 1
@@ -59,7 +59,7 @@ M.toggle_cmdheight = function()
 end
 
 -- line for git testing
-M.toggle_term_cmd = function(config)
+function M.toggle_term_cmd(config)
 	if not config or not config.count then
 		return
 	end
@@ -81,7 +81,7 @@ M.toggle_term_cmd = function(config)
 	end
 end
 
-M.run_system_command = function(config)
+function M.run_system_command(config)
 	if not config or not config.cmd then
 		return
 	end
@@ -98,13 +98,13 @@ M.run_system_command = function(config)
 	end, 0)
 end
 
-M.load_previous_buffer = function()
+function M.load_previous_buffer()
 	if #fn.expand("#") > 0 then
 		cmd.edit(fn.expand("#"))
 	end
 end
 
-M.populate_qf = function(lines, mode)
+function M.populate_qf(lines, mode)
 	if mode == nil or type(mode) == "table" then
 		lines = u.tbl_foreach(lines, function(item)
 			return { filename = item, lnum = 1, col = 1, text = item }
@@ -116,19 +116,19 @@ M.populate_qf = function(lines, mode)
 	cmd([[wincmd p]])
 end
 
-local open_help_tab = function(help_cmd, topic)
+local function open_help_tab(help_cmd, topic)
 	cmd.tabe()
 	local winnr = api.nvim_get_current_win()
 	cmd("silent! " .. help_cmd .. " " .. topic)
 	api.nvim_win_close(winnr, false)
 end
 
-M.help_word = function()
+function M.help_word()
 	local current_word = u.current_word()
 	open_help_tab("help", current_word)
 end
 
-M.tagstack_navigate = function(config)
+function M.tagstack_navigate(config)
 	if not config or not config.direction then
 		return
 	end
@@ -151,7 +151,7 @@ M.tagstack_navigate = function(config)
 	end
 end
 
-M.wilder_update_remote_plugins = function()
+function M.wilder_update_remote_plugins()
 	local update = function()
 		cmd([[silent! UpdateRemotePlugins]])
 	end
@@ -173,27 +173,27 @@ M.wilder_update_remote_plugins = function()
 	end
 end
 
-M.spectre_open = function()
+function M.spectre_open()
 	cmd([[lua require("spectre").open()]])
 end
 
-M.spectre_open_word = function()
+function M.spectre_open_word()
 	cmd([[lua require("spectre").open_visual({select_word = true})]])
 end
 
-M.spectre_open_cwd = function()
+function M.spectre_open_cwd()
 	cmd([[lua require("spectre").open_file_search()]])
 end
 
-M.reload_dev = function()
+function M.reload_dev()
 	u.reload_dev()
 end
 
-M.reload_lua = function()
+function M.reload_lua()
 	u.reload_lua()
 end
 
-M.update_all = function()
+function M.update_all()
 	local cmds = {
 		"MasonToolsUpdate",
 		"TSUpdate",
@@ -205,11 +205,11 @@ M.update_all = function()
 	end
 end
 
-M.ufo_toggle_fold = function()
+function M.ufo_toggle_fold()
 	return ufo.toggle_fold()
 end
 
-M.fold_paragraph = function()
+function M.fold_paragraph()
 	local foldclosed = fn.foldclosed(fn.line("."))
 	if foldclosed == -1 then
 		cmd([[silent! normal! zfip]])
@@ -218,7 +218,7 @@ M.fold_paragraph = function()
 	end
 end
 
-M.make_run = function()
+function M.make_run()
 	if M.terminal_send_cmd("") then
 		local file_name = fn.expand("%:t:r")
 		M.terminal_send_cmd("make " .. file_name)
@@ -231,7 +231,7 @@ M.make_run = function()
 end
 
 u.create_augroup("MakeOnSave")
-M.auto_make_toggle = function()
+function M.auto_make_toggle()
 	local autocmds = api.nvim_get_autocmds({ group = "MakeOnSave" })
 	if #autocmds > 0 then
 		u.create_augroup("MakeOnSave")
@@ -247,7 +247,7 @@ M.auto_make_toggle = function()
 	end
 end
 
-M.terminal_send_cmd = function(cmd_text)
+function M.terminal_send_cmd(cmd_text)
 	local function get_first_terminal()
 		local terminal_chans = {}
 		for _, chan in pairs(api.nvim_list_chans()) do
@@ -286,7 +286,7 @@ M.terminal_send_cmd = function(cmd_text)
 	return true
 end
 
-M.tabnavigate = function(cfg)
+function M.tabnavigate(cfg)
 	cfg = cfg or {
 		navto = "next",
 	}
@@ -301,7 +301,7 @@ M.tabnavigate = function(cfg)
 	nav()
 end
 
-local lsp_formatting = function(bufnr)
+local function lsp_formatting(bufnr)
 	vim.lsp.buf.format({
 		filter = function(client)
 			local clients = {
@@ -314,7 +314,7 @@ local lsp_formatting = function(bufnr)
 	})
 end
 
-M.enable_lsp_formatting = function(bufnr)
+function M.enable_lsp_formatting(bufnr)
 	local augroup = u.create_augroup("LspFormatting")
 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 	vim.api.nvim_create_autocmd("BufWritePre", {
@@ -326,7 +326,7 @@ M.enable_lsp_formatting = function(bufnr)
 	})
 end
 
-M.disable_lsp_formatting = function()
+function M.disable_lsp_formatting()
 	local augroup
 	u.create_augroup("LspFormatting")
 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
