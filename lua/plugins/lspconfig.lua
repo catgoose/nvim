@@ -217,7 +217,8 @@ local config = function()
 		tsserver = {
 			capabilities = capabilities,
 			on_attach = rename_on_attach,
-			filetypes = ts_ft,
+			-- filetypes = ts_ft,
+			filetypes = vue_ft,
 			-- init_options = {
 			-- 	plugins = {
 			-- 		{
