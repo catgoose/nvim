@@ -332,4 +332,8 @@ function M.disable_lsp_formatting()
 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
 end
 
+function M.testing_function()
+	--
+end
+
 return M

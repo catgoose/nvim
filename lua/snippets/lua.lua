@@ -141,15 +141,14 @@ end
 		"mfunc",
 		fmt(
 			[[
-  {}.{} = function({})
+  function M.{}({})
     {}
   end
   ]],
 			{
-				i(1, "M"),
-				i(2, "func_name"),
+				i(1, "func_name"),
+				i(2),
 				i(3),
-				i(4),
 			}
 		)
 	),

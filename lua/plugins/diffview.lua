@@ -3,10 +3,10 @@ local m = require("util").lazy_map
 return {
 	"sindrets/diffview.nvim",
 	config = true,
-	cmd = { "DiffviewOpen" },
+	cmd = { "DiffviewOpen", "DiffviewPrompt" },
 	keys = {
 		m("<leader>do", [[DiffviewOpen]]),
 		m("<leader>dq", [[DiffviewClose]]),
-		m("<leader>dm", [[DiffviewOpen origin/main...HEAD]]),
+		m("<leader>dm", [[DiffviewPrompt]]),
 	},
 }
