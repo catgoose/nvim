@@ -20,7 +20,7 @@ local opts = {
 			cwd = "~/git/dotfiles",
 			tags = { "dotfiles", "git", "update" },
 			window = {
-				close = false,
+				close = true,
 				keep_current = true,
 			},
 		},
