@@ -15,6 +15,9 @@ end
 
 function M.open()
 	local branches = git_branches()
+	if not branches then
+		return
+	end
 
 	local open_diff_view = function(branch)
 		local diff = string.format("DiffviewOpen %s...HEAD", branch)
