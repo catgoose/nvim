@@ -14,4 +14,5 @@ return {
 	lazy = false,
 	opts = opts,
 	cmd = { "SessionRestore" },
+	enabled = false,
 }

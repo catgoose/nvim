@@ -57,6 +57,7 @@ local opts = {
 				icon = "",
 				desc = "DiffView main",
 				key = "d",
+				--  TODO: 2024-03-27 - Prompt for branch to diff against
 				action = "DiffviewOpen origin/main...HEAD",
 			},
 			{
@@ -69,7 +70,8 @@ local opts = {
 				icon = "",
 				desc = "Restore session",
 				key = "r",
-				action = "SessionRestore",
+				-- action = "SessionRestore",
+				action = "PersistenceLoad",
 			},
 			{
 				icon = "",

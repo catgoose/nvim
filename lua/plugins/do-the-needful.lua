@@ -15,23 +15,26 @@ local opts = {
 	},
 	tasks = {
 		{
-			name = "List directory 1",
-			cmd = "ls -al",
-			cwd = "${cwd}",
-			tags = { "list", "dir", "open", "pwd" },
+			name = "Nvim repo sync",
+			cmd = "fish -c 'nvim_repo_sync'",
+			tags = {
+				"nvim",
+				"repo",
+				"sync",
+			},
 			window = {
-				close = false,
-				keep_current = false,
+				keep_current = true,
+				close = true,
 			},
 		},
 		{
-			name = "List directory 2",
-			cmd = "ls -al",
-			cwd = "~",
-			tags = { "list", "dir", "close", "home" },
+			name = "git push dotfiles",
+			cmd = "fish -c 'ggup'",
+			cwd = "~/git/dotfiles",
+			tags = { "dotfiles", "git", "update" },
 			window = {
-				close = false,
-				keep_current = false,
+				close = true,
+				keep_current = true,
 			},
 		},
 	},
