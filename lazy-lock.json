@@ -22,7 +22,11 @@
   "dressing.nvim": { "branch": "master", "commit": "18e5beb3845f085b6a33c24112b37988f3f93c06" },
   "flash.nvim": { "branch": "main", "commit": "48817af25f51c0590653bbc290866e4890fe1cbe" },
   "focus.nvim": { "branch": "master", "commit": "c9bc6a969c3ff0d682f389129961c9e71ff2c918" },
+<<<<<<< Updated upstream
   "fzf": { "branch": "master", "commit": "b6bfd4a5cbd829e7c59894673fa9eaf4544af928" },
+=======
+  "fzf": { "branch": "master", "commit": "8a74976c1f02730cfd1b83fc38a57b737a24ac9a" },
+>>>>>>> Stashed changes
   "fzf-lua": { "branch": "main", "commit": "618c4de7d36b6c2a2f46794845e631fa6007bbfc" },
   "fzy-lua-native": { "branch": "master", "commit": "820f745b7c442176bcc243e8f38ef4b985febfaf" },
   "gitsigns.nvim": { "branch": "main", "commit": "078041e9d060a386b0c9d3a8c7a7b019a35d3fb0" },
@@ -33,7 +37,11 @@
   "http.nvim": { "branch": "main", "commit": "a9927ed4a7d01ce239c05f101f40c1fc9fe8938e" },
   "indent-blankline.nvim": { "branch": "master", "commit": "3d08501caef2329aba5121b753e903904088f7e6" },
   "kanagawa.nvim": { "branch": "master", "commit": "bfa818c7bf6259152f1d89cf9fbfba3554c93695" },
+<<<<<<< Updated upstream
   "lazy.nvim": { "branch": "main", "commit": "e753eb602539bdad9f0709066d5893a788cb5db9" },
+=======
+  "lazy.nvim": { "branch": "main", "commit": "ba58b87ed9c95da9d61e1b8b4da7bf7904e39986" },
+>>>>>>> Stashed changes
   "leetcode.nvim": { "branch": "master", "commit": "765cc76df77072e3ff4c3fdc256b9a244af73b6d" },
   "lsp-lens.nvim": { "branch": "main", "commit": "48bb1a7e271424c15f3d588d54adc9b7c319d977" },
   "lsp_lines": { "branch": "main", "commit": "fc695807ae66c8b89b04e4c124d3227333add330" },
@@ -51,7 +59,11 @@
   "neogit": { "branch": "master", "commit": "09dde52915db71280fe33f72c92e3a3576754e1c" },
   "neorepl.nvim": { "branch": "master", "commit": "e60b114217248907a3a1d27bab9988a092865ee0" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "b2423cf17f7b359db4d70ee132e0bf46a924a475" },
+<<<<<<< Updated upstream
   "none-ls-extras.nvim": { "branch": "main", "commit": "4f6ba0c4a317a630157bc02fad110fcd826e9494" },
+=======
+  "none-ls-extras.nvim": { "branch": "main", "commit": "4d1b26b963edb82c45ed261d988f9e72253c3469" },
+>>>>>>> Stashed changes
   "none-ls-shellcheck.nvim": { "branch": "main", "commit": "0f84461241e76e376a95fb7391deac82dc3efdbf" },
   "none-ls.nvim": { "branch": "main", "commit": "18910d09d21d7df339805343bfe4a2b2e41c057b" },
   "nui.nvim": { "branch": "main", "commit": "cbd2668414331c10039278f558630ed19b93e69b" },

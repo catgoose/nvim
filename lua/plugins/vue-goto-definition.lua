@@ -1,5 +1,5 @@
 local dev = true
-local enabled = false
+local enabled = true
 local e = vim.tbl_extend
 local project = require("util.project")
 
