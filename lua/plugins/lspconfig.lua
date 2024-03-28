@@ -11,10 +11,10 @@ local config = function()
 	)
 
 	--  ufo
-	capabilities.textDocument.foldingRange = {
-		dynamicRegistration = false,
-		lineFoldingOnly = true,
-	}
+	-- capabilities.textDocument.foldingRange = {
+	-- 	dynamicRegistration = false,
+	-- 	lineFoldingOnly = true,
+	-- }
 	---@diagnostic disable-next-line: inject-field
 	capabilities.offsetEncoding = { "utf-16" }
 
