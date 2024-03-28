@@ -16,12 +16,12 @@ local opts = {
 			scrollD = "<C-d>",
 		},
 	},
-	-- close_fold_kinds_for_ft = {
-	-- 	typescript = {
-	-- 		"imports",
-	-- 		"comment",
-	-- 	},
-	-- },
+	close_fold_kinds_for_ft = {
+		typescript = {
+			"imports",
+			"comment",
+		},
+	},
 }
 
 local lua_ufo = function(ufo_cmd)
@@ -49,5 +49,5 @@ return {
 		m("<leader>O", "UfoToggleFold"),
 		m("\\", "FoldParagraph"),
 	},
-	enabled = false,
+	enabled = true,
 }

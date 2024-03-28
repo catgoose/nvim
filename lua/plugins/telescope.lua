@@ -133,7 +133,7 @@ local config = function()
 				},
 			},
 			["do-the-needful"] = {
-				winblend = 2,
+				winblend = 20,
 			},
 			lazy = {
 				theme = "ivy",
