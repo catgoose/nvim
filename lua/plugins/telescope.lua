@@ -132,6 +132,9 @@ local config = function()
 					vim.fn.stdpath("state") .. "/lazy/readme",
 				},
 			},
+			["do-the-needful"] = {
+				winblend = 100,
+			},
 			lazy = {
 				theme = "ivy",
 				show_icon = true,
