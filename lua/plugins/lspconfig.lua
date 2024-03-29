@@ -146,21 +146,17 @@ local config = function()
 		},
 		csharp_ls = {
 			capabilities = snippet_capabilities,
-			on_attach = on_attach,
 		},
 		cssls = {
 			capabilities = snippet_capabilities,
-			on_attach = on_attach,
 			filetypes = css_ft,
 		},
 		html = {
 			capabilities = snippet_capabilities,
-			on_attach = on_attach,
 			filetypes = html_ft,
 		},
 		cssmodules_ls = {
 			capabilities = capabilities,
-			on_attach = on_attach,
 			filetypes = vue_ft,
 		},
 		-- volar = {
