@@ -58,7 +58,6 @@ function M.toggle_cmdheight()
 	end
 end
 
--- line for git testing
 function M.toggle_term_cmd(config)
 	if not config or not config.count then
 		return
@@ -102,18 +101,6 @@ function M.load_previous_buffer()
 	if #fn.expand("#") > 0 then
 		cmd.edit(fn.expand("#"))
 	end
-end
-
-function M.populate_qf(lines, mode)
-	if mode == nil or type(mode) == "table" then
-		lines = u.tbl_foreach(lines, function(item)
-			return { filename = item, lnum = 1, col = 1, text = item }
-		end)
-		mode = "r"
-	end
-	fn.setqflist(lines, mode)
-	cmd.cwindow()
-	cmd([[wincmd p]])
 end
 
 local function open_help_tab(help_cmd, topic)
@@ -185,10 +172,6 @@ function M.spectre_open_cwd()
 	cmd([[lua require("spectre").open_file_search()]])
 end
 
-function M.reload_dev()
-	u.reload_dev()
-end
-
 function M.reload_lua()
 	u.reload_lua()
 end
@@ -215,35 +198,6 @@ function M.fold_paragraph()
 		cmd([[silent! normal! zfip]])
 	else
 		cmd("silent! normal! zo")
-	end
-end
-
-function M.make_run()
-	if M.terminal_send_cmd("") then
-		local file_name = fn.expand("%:t:r")
-		M.terminal_send_cmd("make " .. file_name)
-		M.terminal_send_cmd("clear && ./" .. file_name)
-	else
-		cmd.make([[%<]])
-		cmd([[!./%<]])
-		cmd.cwindow()
-	end
-end
-
-u.create_augroup("MakeOnSave")
-function M.auto_make_toggle()
-	local autocmds = api.nvim_get_autocmds({ group = "MakeOnSave" })
-	if #autocmds > 0 then
-		u.create_augroup("MakeOnSave")
-	else
-		local make_on_save = u.create_augroup("MakeOnSave")
-		api.nvim_create_autocmd({ "BufWritePost" }, {
-			group = make_on_save,
-			pattern = { "*.cpp" },
-			callback = function()
-				M.make_run()
-			end,
-		})
 	end
 end
 
