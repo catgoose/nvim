@@ -68,19 +68,22 @@ local config = function()
 		vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 	end
 
-	-- buf keybindings
-	local keys_on_attach = function(_, bufnr)
-		local bufopts = { noremap = true, silent = true, buffer = bufnr }
-		km("n", "[g", vim.diagnostic.goto_prev, bufopts)
-		km("n", "]g", vim.diagnostic.goto_next, bufopts)
-		km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
-		km("n", "gD", l.buf.declaration, bufopts)
-		km("n", "gd", l.buf.definition, bufopts)
-		km("n", "gi", l.buf.implementation, bufopts)
-		km("n", "<leader>D", l.buf.type_definition, bufopts)
-		km("n", "gr", l.buf.references, bufopts)
-		km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
-	end
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+		callback = function(event)
+			local bufopts = { noremap = true, silent = true, buffer = event.bufnr }
+			km("n", "[g", vim.diagnostic.goto_prev, bufopts)
+			km("n", "]g", vim.diagnostic.goto_next, bufopts)
+			km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
+			km("n", "gD", l.buf.declaration, bufopts)
+			km("n", "gd", l.buf.definition, bufopts)
+			km("n", "gi", l.buf.implementation, bufopts)
+			km("n", "<leader>D", l.buf.type_definition, bufopts)
+			km("n", "gr", l.buf.references, bufopts)
+			km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
+			km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+		end,
+	})
 
 	local lsp_formatting = function(bufnr)
 		vim.lsp.buf.format({
@@ -112,20 +115,9 @@ local config = function()
 			end
 		end
 	end
-	local base_on_attach = function(client, bufnr)
-		keys_on_attach(client, bufnr)
+	local on_attach = function(client, bufnr)
 		format_on_attach(client, bufnr)
 		virtual_types_on_attach(client, bufnr)
-		-- vim.lsp.inlay_hint(bufnr, true)
-	end
-	--  TODO: 2024-03-21 - Reimplement angler
-	local rename_on_attach = function(client, bufnr)
-		local bufopts = { noremap = true, silent = true, buffer = bufnr }
-		km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-		base_on_attach(client, bufnr)
-	end
-	local on_attach = function(client, bufnr)
-		base_on_attach(client, bufnr)
 	end
 
 	-- LSP config
@@ -139,39 +131,6 @@ local config = function()
 	local server_enabled = function(server)
 		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
 	end
-
-	-- if server_enabled("tsserver") then
-	-- 	local ts_config = {
-	-- 		capabilities = capabilities,
-	-- 		on_attach = rename_on_attach,
-	-- 		filetypes = ts_ft,
-	-- 		separate_diagnostic_server = true,
-	-- 		tsserver_max_memory = "auto",
-	-- 		code_lens = "all",
-	-- 		settings = {
-	-- 			tsserver_file_preferences = {
-	-- 				includeInlayParameterNameHints = "all",
-	-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-	-- 				includeInlayFunctionParameterTypeHints = false,
-	-- 				includeInlayVariableTypeHints = false,
-	-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-	-- 				includeInlayPropertyDeclarationTypeHints = true,
-	-- 				includeInlayFunctionLikeReturnTypeHints = true,
-	-- 				includeInlayEnumMemberValueHints = true,
-	-- 				includeCompletionsForModuleExports = true,
-	-- 				quotePreference = "auto",
-	-- 			},
-	-- 			tsserver_format_options = {
-	-- 				allowIncompleteCompletions = true,
-	-- 				allowRenameOfImportPath = true,
-	-- 			},
-	-- 			tsserver_plugins = {
-	-- 				"@vue/typescript-plugin",
-	-- 			},
-	-- 		},
-	-- 	}
-	-- 	require("typescript-tools").setup(ts_config)
-	-- end
 
 	local lspconfig_setups = {
 		language_servers = {
@@ -187,7 +146,7 @@ local config = function()
 		},
 		csharp_ls = {
 			capabilities = snippet_capabilities,
-			on_attach = rename_on_attach,
+			on_attach = on_attach,
 		},
 		cssls = {
 			capabilities = snippet_capabilities,
@@ -216,7 +175,6 @@ local config = function()
 		-- },
 		tsserver = {
 			capabilities = capabilities,
-			on_attach = rename_on_attach,
 			-- filetypes = ts_ft,
 			filetypes = vue_ft,
 			-- init_options = {
@@ -231,7 +189,6 @@ local config = function()
 		},
 		volar = {
 			capabilities = capabilities,
-			on_attach = rename_on_attach,
 			filetypes = { "vue" },
 			init_options = {
 				vue = {
@@ -244,7 +201,6 @@ local config = function()
 		},
 		jsonls = {
 			capabilities = snippet_capabilities,
-			on_attach = rename_on_attach,
 			settings = {
 				json = {
 					schemas = require("schemastore").json.schemas({
@@ -260,7 +216,6 @@ local config = function()
 		},
 		vimls = {
 			capabilities = capabilities,
-			on_attach = rename_on_attach,
 			diagnostic = { enable = true },
 			indexes = {
 				count = 3,
@@ -276,7 +231,6 @@ local config = function()
 		},
 		lua_ls = {
 			capabilities = capabilities,
-			on_attach = rename_on_attach,
 			settings = {
 				Lua = {
 					runtime = {
@@ -298,8 +252,7 @@ local config = function()
 		},
 		angularls = {
 			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				rename_on_attach(client, bufnr)
+			on_attach = function(client, _)
 				client.server_capabilities.renameProvider = false
 			end,
 		},
@@ -314,7 +267,14 @@ local config = function()
 				})
 			end
 		elseif server_enabled(srv) then
-			lspconfig[srv].setup(cfg)
+			if not srv[on_attach] then
+				cfg.on_attach = on_attach
+			else
+				srv[on_attach] = function(client, bufnr)
+					cfg[on_attach](client, bufnr)
+					on_attach(client, bufnr)
+				end
+			end
 		end
 	end
 

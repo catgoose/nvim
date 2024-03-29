@@ -267,22 +267,25 @@ local function is_diag_for_cur_pos()
 end
 
 function M.hover_handler()
-	local winid = require("ufo").peekFoldedLinesUnderCursor()
-	if winid then
-		return
-	end
-	local ft = bo.filetype
-	if tbl_contains({ "vim", "help" }, ft) then
-		cmd("silent! h " .. fn.expand("<cword>"))
-	-- elseif M.treesitter_is_css_class_under_cursor() then
-	-- 	cmd("TWValues")
-	elseif tbl_contains({ "man" }, ft) then
-		cmd("silent! Man " .. fn.expand("<cword>"))
-	elseif is_diag_for_cur_pos() then
-		vim.diagnostic.open_float()
-	else
-		vim.lsp.buf.hover()
-	end
+	-- local winid = require("ufo").peekFoldedLinesUnderCursor()
+	-- if winid then
+	-- 	return
+	-- end
+	-- local ft = bo.filetype
+	-- if tbl_contains({ "vim", "help" }, ft) then
+	-- 	cmd("silent! h " .. fn.expand("<cword>"))
+	-- -- elseif M.treesitter_is_css_class_under_cursor() then
+	-- -- 	cmd("TWValues")
+	-- elseif tbl_contains({ "man" }, ft) then
+	-- 	cmd("silent! Man " .. fn.expand("<cword>"))
+	-- elseif is_diag_for_cur_pos() then
+	-- 	vim.diagnostic.open_float()
+	-- else
+	-- 	vim.lsp.buf.hover()
+	-- end
+	local a
+	vim.diagnostic.open_float()
+	vim.lsp.buf.hover()
 end
 
 function M.deep_copy(orig)
