@@ -35,7 +35,6 @@ local config = function()
 		float = {
 			focusable = true,
 			border = "rounded",
-			-- source = "always",
 			header = "",
 			prefix = "",
 		},
