@@ -2,7 +2,7 @@ local M = {}
 
 M.const = {
 	opt = {
-		sessionoptions = "buffers,curdir,folds,help,winsize,winpos",
+		sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal",
 	},
 }
 

@@ -131,6 +131,18 @@ local config = function()
 				ignore_paths = {
 					vim.fn.stdpath("state") .. "/lazy/readme",
 				},
+				mappings = {
+					i = {
+						["<CR>"] = actions.select_tab,
+						["<C-v>"] = actions.select_vertical,
+						["<C-s>"] = actions.select_horizontal,
+					},
+					n = {
+						["<CR>"] = actions.select_tab,
+						["<C-v>"] = actions.select_vertical,
+						["<C-s>"] = actions.select_horizontal,
+					},
+				},
 			},
 			["do-the-needful"] = {
 				winblend = 2,
