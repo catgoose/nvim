@@ -103,6 +103,7 @@ local config = function()
 			})
 		end
 	end
+	vim.g.lsp_formatting_enabled = true
 
 	-- on_attach definitions
 	local virtual_types_on_attach = function(client, bufnr)

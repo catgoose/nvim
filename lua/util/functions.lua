@@ -324,6 +324,10 @@ function M.enable_lsp_formatting(bufnr)
 			lsp_formatting(bufnr)
 		end,
 	})
+	if vim.g.lsp_formatting_enabled == true then
+		return
+	end
+	vim.g.lsp_formatting_enabled = true
 	require("notify").notify("LSP formatting enabled", vim.log.levels.info, { title = "LSP Formatting" })
 end
 
@@ -331,6 +335,10 @@ function M.disable_lsp_formatting()
 	local augroup
 	u.create_augroup("LspFormatting")
 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
+	if vim.g.lsp_formatting_enabled == false then
+		return
+	end
+	vim.g.lsp_formatting_enabled = false
 	require("notify").notify("LSP formatting disabled", vim.log.levels.info, { title = "LSP Formatting" })
 end
 
