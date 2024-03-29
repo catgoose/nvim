@@ -4,6 +4,7 @@ local project = require("util.project")
 local config = function()
 	local telescope = require("telescope")
 	local actions = require("telescope.actions")
+	local builtin = require("telescope.builtin")
 	telescope.setup({
 		defaults = {
 			prompt_prefix = "> ",
@@ -143,6 +144,7 @@ local config = function()
 						["<C-s>"] = actions.select_horizontal,
 					},
 				},
+				default_grep = builtin.live_grep,
 			},
 			["do-the-needful"] = {
 				winblend = 2,
