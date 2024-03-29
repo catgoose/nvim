@@ -82,6 +82,7 @@ local config = function()
 			km("n", "gr", l.buf.references, bufopts)
 			km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
 			km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+			km("n", "L", vim.lsp.buf.hover, bufopts)
 		end,
 	})
 
@@ -227,6 +228,7 @@ local config = function()
 		},
 		lua_ls = {
 			capabilities = capabilities,
+			on_attach = on_attach,
 			settings = {
 				Lua = {
 					runtime = {
@@ -267,6 +269,7 @@ local config = function()
 			if not srv[on_attach] then
 				cfg.on_attach = on_attach
 			end
+			lspconfig[srv].setup(cfg)
 		end
 	end
 
