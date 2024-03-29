@@ -159,29 +159,9 @@ local config = function()
 			capabilities = capabilities,
 			filetypes = vue_ft,
 		},
-		-- volar = {
-		-- 	capabilities = capabilities,
-		-- 	on_attach = rename_on_attach,
-		-- 	filetypes = vue_ft,
-		-- 	init_options = {
-		-- 		vue = {
-		-- 			hybridMode = false,
-		-- 		},
-		-- 	},
-		-- },
 		tsserver = {
 			capabilities = capabilities,
-			-- filetypes = ts_ft,
 			filetypes = vue_ft,
-			-- init_options = {
-			-- 	plugins = {
-			-- 		{
-			-- 			"@vue/typescript-plugin",
-			-- 			location = "node_modules/@vue/typescript-plugin",
-			-- 			languages = { "vue" },
-			-- 		},
-			-- 	},
-			-- },
 		},
 		volar = {
 			capabilities = capabilities,
