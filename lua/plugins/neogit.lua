@@ -5,6 +5,10 @@ local opts = {
 	commit_editor = {
 		kind = "vsplit",
 	},
+	integrations = {
+		diffview = true,
+		telescope = true,
+	},
 }
 
 return {
