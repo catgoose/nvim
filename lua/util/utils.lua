@@ -3,31 +3,74 @@ local fn, api, cmd, diag, o, g, tbl_contains, bo, keymap =
 
 local M = {}
 
+local function get_config_modules(exclude_map)
+	exclude_map = exclude_map or {
+		"lazy",
+		"init",
+		"statuscol",
+	}
+	local files = {}
+	for _, file in ipairs(fn.glob(fn.stdpath("config") .. "/lua/config/*.lua", true, true)) do
+		table.insert(files, fn.fnamemodify(file, ":t:r"))
+	end
+	files = vim.tbl_filter(function(file)
+		for _, pattern in ipairs(exclude_map) do
+			if file:match(pattern) then
+				return false
+			end
+		end
+		return true
+	end, files)
+	return files
+end
+
+function M.load_configs()
+	for _, file in ipairs(get_config_modules()) do
+		require("config." .. file)
+	end
+	require("config.lazy")
+end
+
+function M.reload_lua()
+	for _, file in ipairs(get_config_modules()) do
+		R("config." .. file)
+		R("util.functions")
+	end
+	cmd.nohlsearch()
+end
+
+local function cmd_string(cmd_arg)
+	return [[<cmd>]] .. cmd_arg .. [[<cr>]]
+end
+
+local function str_to_tbl(v)
+	if type(v) == "string" then
+		v = { v }
+	end
+	return v
+end
+
 function M.cmd_map(lhs, rhs, modes, opts)
-	modes = M.str_to_tbl(modes) or { "n" }
+	modes = str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do
-		keymap.set(mode, lhs, M.cmd_string(rhs), opts)
+		keymap.set(mode, lhs, cmd_string(rhs), opts)
 	end
 end
 
 function M.key_map(lhs, rhs, modes, opts)
-	modes = M.str_to_tbl(modes) or { "n" }
+	modes = str_to_tbl(modes) or { "n" }
 	opts = opts or { silent = true, noremap = true }
 	for _, mode in ipairs(modes) do
 		keymap.set(mode, lhs, rhs, opts)
 	end
 end
 
-function M.cmd_string(cmd_arg)
-	return [[<cmd>]] .. cmd_arg .. [[<cr>]]
-end
-
 function M.lazy_map(lhs, rhs, modes)
 	if type(rhs) == "string" then
-		rhs = M.cmd_string(rhs)
+		rhs = cmd_string(rhs)
 	end
-	modes = M.str_to_tbl(modes) or { "n" }
+	modes = str_to_tbl(modes) or { "n" }
 	return {
 		lhs,
 		rhs,
@@ -40,29 +83,9 @@ function M.create_augroup(group, opts)
 	return api.nvim_create_augroup(group, opts)
 end
 
-function M.nonrelative_win_count()
-	local wins = api.nvim_list_wins()
-	local non_relative = 0
-	for _, win in ipairs(wins) do
-		local config = api.nvim_win_get_config(win)
-		---@diagnostic disable-next-line: undefined-field
-		if config.relative == "" then
-			non_relative = non_relative + 1
-		end
-	end
-	return non_relative
-end
-
 function M.current_word()
 	local current_word = fn.expand("<cword>")
 	return current_word
-end
-
-function M.str_to_tbl(v)
-	if type(v) == "string" then
-		v = { v }
-	end
-	return v
 end
 
 function M.tbl_index(tbl, value)
@@ -106,46 +129,9 @@ function M.list_concat(A, B)
 	return t
 end
 
-function M.tbl_system_cmd(command)
-	local stdout = {}
-	local handle = io.popen(command .. " 2>&1 ; echo $?", "r")
-	if handle then
-		for line in handle:lines() do
-			stdout[#stdout + 1] = line
-		end
-		stdout[#stdout] = nil
-		handle:close()
-	end
-	return stdout
-end
-
 function M.map_q_to_quit(event)
 	bo[event.buf].buflisted = false
 	M.cmd_map("q", "close", "n", { silent = true, noremap = true, buffer = true })
-end
-
-function M.is_qf_empty()
-	return vim.tbl_isempty(fn.getqflist())
-end
-
-local function is_lsp_diag_error()
-	return #diag.get(0, { severity = diag.severity.ERROR }) > 0
-end
-local function is_lsp_diag_warning()
-	return #diag.get(0, { severity = diag.severity.WARN }) > 0
-end
-local function is_lsp_diag_info()
-	return #diag.get(0, { severity = diag.severity.INFO }) > 0
-end
-
-function M.lsp_diag(level)
-	if level == "error" then
-		return is_lsp_diag_error()
-	elseif level == "warning" then
-		return is_lsp_diag_warning()
-	elseif level == "info" then
-		return is_lsp_diag_info()
-	end
 end
 
 function M.restore_cmdheight()
@@ -177,47 +163,12 @@ function M.screen_scale(config)
 	}
 end
 
-function M.load_configs()
-	for _, file in ipairs(M.get_config_modules()) do
-		require("config." .. file)
-	end
-	require("config.lazy")
-end
-
-function M.get_config_modules(exclude_map)
-	exclude_map = exclude_map or {
-		"lazy",
-		"init",
-		"statuscol",
-	}
-	local files = {}
-	for _, file in ipairs(fn.glob(fn.stdpath("config") .. "/lua/config/*.lua", true, true)) do
-		table.insert(files, fn.fnamemodify(file, ":t:r"))
-	end
-	files = vim.tbl_filter(function(file)
-		for _, pattern in ipairs(exclude_map) do
-			if file:match(pattern) then
-				return false
-			end
-		end
-		return true
-	end, files)
-	return files
-end
-
-function M.reload_lua()
-	for _, file in ipairs(M.get_config_modules()) do
-		R("config." .. file)
-		R("util.functions")
-	end
-	cmd.nohlsearch()
-end
-
 function M.diag_error()
 	return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
-function M.treesitter_is_css_class_under_cursor()
+---@diagnostic disable-next-line: unused-local, unused-function
+local function treesitter_is_css_class_under_cursor()
 	local ft = bo.filetype
 	if not tbl_contains({ "typescript", "typescriptreact", "vue", "html", "svelt", "astro" }, ft) then
 		return false
