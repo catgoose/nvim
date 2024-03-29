@@ -278,6 +278,7 @@ function M.lsp_formatting(config)
 	if (config.enable and #found > 0) or (not config.enable and #found == 0) then
 		return
 	end
+	vim.print(config)
 	local augroup = u.create_augroup("LspFormatting")
 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = config.bufnr })
 	if config.enable then
@@ -290,7 +291,7 @@ function M.lsp_formatting(config)
 		})
 	end
 	require("notify").notify(
-		string.format("LSP formatting %s", config.enabled and "enabled" or "disabled"),
+		string.format("LSP formatting %s", config.enable and "enabled" or "disabled"),
 		vim.log.levels.info,
 		{ title = "LSP Formatting" }
 	)
