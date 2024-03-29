@@ -248,7 +248,8 @@ local config = function()
 		},
 		angularls = {
 			capabilities = capabilities,
-			on_attach = function(client, _)
+			on_attach = function(client, bufnr)
+				on_attach(client, bufnr)
 				client.server_capabilities.renameProvider = false
 			end,
 		},
@@ -265,11 +266,6 @@ local config = function()
 		elseif server_enabled(srv) then
 			if not srv[on_attach] then
 				cfg.on_attach = on_attach
-			else
-				srv[on_attach] = function(client, bufnr)
-					cfg[on_attach](client, bufnr)
-					on_attach(client, bufnr)
-				end
 			end
 		end
 	end
