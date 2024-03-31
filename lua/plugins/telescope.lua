@@ -106,9 +106,11 @@ local config = function()
 				mappings = {
 					i = {
 						["<CR>"] = actions.select_tab,
+						["<S-CR>"] = actions.select_default,
 					},
 					n = {
 						["<CR>"] = actions.select_tab,
+						["<S-CR>"] = actions.select_default,
 					},
 				},
 			},

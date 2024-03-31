@@ -50,8 +50,8 @@ local projects = {
 
 -- M.current_project = nil
 -- M.current_project = projects.helpgrep
--- M.current_project = projects["vue-goto-definition"]
-M.current_project = projects["do-the-needful"]
+M.current_project = projects["vue-goto-definition"]
+-- M.current_project = projects["do-the-needful"]
 
 local function get_project_property(project_name, property_type)
 	local project = projects[project_name]
