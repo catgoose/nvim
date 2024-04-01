@@ -10,6 +10,9 @@ local opts = {
 		same_file = true,
 		declaration = true,
 	},
+	lsp = {
+		override_definition = false,
+	},
 }
 
 local keys = project.get_keys("vue-goto-definition")

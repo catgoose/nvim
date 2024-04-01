@@ -29,8 +29,13 @@ local projects = {
 			{
 				"<leader>z",
 				function()
-					-- vim.cmd([[Lazy reload vue-goto-definition.nvim]])
-					require("vue-goto-definition").reload()
+					vim.cmd([[Lazy reload vue-goto-definition.nvim]])
+				end,
+			},
+			{
+				"gd",
+				function()
+					require("vue-goto-definition").goto_definition()
 				end,
 			},
 		},

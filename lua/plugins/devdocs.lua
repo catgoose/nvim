@@ -23,5 +23,5 @@ return {
 	keys = {
 		m("<leader>dv", [[DevdocsOpen]]),
 	},
-	enabled = true,
+	enabled = false,
 }

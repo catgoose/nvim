@@ -41,7 +41,11 @@ local config = function()
 			documentation = cmp.config.window.bordered(),
 		},
 		view = {
-			entries = { name = "custom", selection_order = "near_cursor" },
+			entries = {
+				name = "custom",
+				selection_order = "near_cursor",
+				follow_cursor = true,
+			},
 		},
 		mapping = cmp.mapping.preset.insert({
 			["<CR>"] = cmp.mapping.confirm({
