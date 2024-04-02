@@ -54,10 +54,10 @@ local projects = {
 	},
 }
 
--- M.current_project = nil
--- M.current_project = projects.helpgrep
-M.current_project = projects["vue-goto-definition"]
--- M.current_project = projects["do-the-needful"]
+-- local current_project = nil
+-- local current_project = projects.helpgrep
+-- local current_project = projects["do-the-needful"]
+local current_project = projects["vue-goto-definition"]
 
 local function get_project_property(project_name, property_type)
 	local project = projects[project_name]
@@ -65,7 +65,7 @@ local function get_project_property(project_name, property_type)
 		return nil
 	end
 	local property = nil
-	if project == M.current_project then
+	if project == current_project then
 		property = project["dev_" .. property_type] or {}
 	else
 		property = project[property_type] or {}
@@ -93,6 +93,10 @@ function M.get_keys(project_name, keys)
 		end
 	end
 	return keys
+end
+
+function M.is_project(project_name)
+	return current_project == projects[project_name]
 end
 
 return M
