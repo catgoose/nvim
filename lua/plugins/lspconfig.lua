@@ -170,9 +170,9 @@ local config = function()
 				vue = {
 					hybridMode = false,
 				},
-				typescript = {
-					tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-				},
+				-- typescript = {
+				-- 	tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+				-- },
 			},
 		},
 		jsonls = {
