@@ -76,9 +76,7 @@ local config = function()
 			km("n", "]g", vim.diagnostic.goto_next, bufopts)
 			km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
 			km("n", "gD", l.buf.declaration, bufopts)
-			if not project.is_project("vue-goto-definition") then
-				km("n", "gd", l.buf.definition, bufopts)
-			end
+			km("n", "gd", l.buf.definition, bufopts)
 			km("n", "gi", l.buf.implementation, bufopts)
 			km("n", "<leader>D", l.buf.type_definition, bufopts)
 			km("n", "gr", l.buf.references, bufopts)
