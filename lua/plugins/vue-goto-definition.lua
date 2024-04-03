@@ -4,7 +4,7 @@ local e = vim.tbl_extend
 local project = require("util.project")
 
 local opts = {
-	log_level = "warn",
+	log_level = "trace",
 	filters = {
 		auto_imports = true,
 		auto_components = true,
