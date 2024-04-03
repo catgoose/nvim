@@ -42,7 +42,7 @@ local config = function()
 
 	---@diagnostic disable-next-line: duplicate-set-field
 	vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-		if not (result and #result.contents > 0) then
+		if not (result and result.contents) then
 			return
 		end
 		config = config or {}
