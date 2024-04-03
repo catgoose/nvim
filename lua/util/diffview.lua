@@ -17,6 +17,7 @@ end
 
 local open_diff_view = function(branch)
 	local diff = string.format("DiffviewOpen %s...HEAD", branch)
+	---@diagnostic disable-next-line: param-type-mismatch
 	pcall(vim.cmd, diff)
 end
 

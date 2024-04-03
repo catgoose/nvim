@@ -836,6 +836,20 @@ await this.entityManager.transaction(async (manager) =>> {
 			}
 		)
 	),
+	s(
+		"func",
+		fmt(
+			[[
+    function {}() {{
+      {}
+    }}
+    ]],
+			{
+				i(1),
+				i(0),
+			}
+		)
+	),
 }
 
 return snippets

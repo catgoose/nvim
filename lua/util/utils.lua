@@ -218,9 +218,12 @@ local function is_diag_for_cur_pos()
 end
 
 function M.hover_handler()
-	local winid = require("ufo").peekFoldedLinesUnderCursor()
-	if winid then
-		return
+	local ok, ufo = pcall(require, "ufo")
+	if ok then
+		local winid = ufo.peekFoldedLinesUnderCursor()
+		if winid then
+			return
+		end
 	end
 	local ft = bo.filetype
 	if tbl_contains({ "vim", "help" }, ft) then
