@@ -4,7 +4,7 @@ local e = vim.tbl_extend
 local project = require("util.project")
 
 local opts = {
-	loglevel = "warn",
+	log_level = "warn",
 	filters = {
 		auto_imports = true,
 		auto_components = true,
@@ -19,6 +19,7 @@ local opts = {
 local keys = project.get_keys("vue-goto-definition")
 
 local plugin = {
+	dependencies = "nvim-lua/plenary.nvim",
 	keys = keys,
 	opts = opts,
 	enabled = enabled,
