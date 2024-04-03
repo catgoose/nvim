@@ -6,6 +6,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local u = require("util.luasnip")
 local smn = u.same_node
 local low = u.lower
+local filename = u.filename
 
 local snippets = {
 	s(
@@ -812,6 +813,27 @@ await this.entityManager.transaction(async (manager) =>> {
    })
    ]],
 			{ i(1), i(2) }
+		)
+	),
+	s(
+		"comp",
+		fmt(
+			[[
+    export function {}() {{
+
+      {}
+
+      return {{
+
+      }}
+    }}
+    ]],
+			{
+				f(function()
+					return vim.fn.expand("%:t:r")
+				end),
+				i(1),
+			}
 		)
 	),
 }
