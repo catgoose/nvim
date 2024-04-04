@@ -12,7 +12,7 @@ return {
 	opts = opts,
 	keys = {
 		m("<leader>a", function()
-			require("harpoon"):list():append()
+			require("harpoon"):list():add()
 		end, { "n", "x" }),
 		m("<leader>l", function()
 			local harpoon = require("harpoon")

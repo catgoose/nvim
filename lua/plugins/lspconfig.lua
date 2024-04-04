@@ -75,7 +75,7 @@ local config = function()
 			km("n", "]g", vim.diagnostic.goto_next, bufopts)
 			km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
 			km("n", "gD", l.buf.declaration, bufopts)
-			km("n", "gd", l.buf.definition, bufopts)
+			-- km("n", "gd", l.buf.definition, bufopts)
 			km("n", "gi", l.buf.implementation, bufopts)
 			km("n", "<leader>D", l.buf.type_definition, bufopts)
 			km("n", "gr", l.buf.references, bufopts)
@@ -168,11 +168,11 @@ local config = function()
 			filetypes = { "vue" },
 			init_options = {
 				vue = {
-					hybridMode = false,
+					hybridMode = true,
 				},
-				-- typescript = {
-				-- 	tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-				-- },
+				typescript = {
+					tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+				},
 			},
 		},
 		jsonls = {
