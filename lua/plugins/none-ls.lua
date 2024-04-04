@@ -23,6 +23,15 @@ local config = function()
 			-- "csharp"
 		},
 	}
+	local biome_ft = {
+		filetypes = {
+			-- "lua",
+			-- "javascript",
+			-- "typescript",
+			-- "typescriptreact",
+			-- "vue",
+		},
+	}
 	local rustywind_ft = {
 		filetypes = {
 			"html",
@@ -48,6 +57,7 @@ local config = function()
 		-- f.markdownlint.with(md_ft),
 		f.codespell.with(cs_ignore),
 		f.prettierd.with(prettier_ft),
+		-- f.biome.with(biome_ft),
 		f.rustywind.with(rustywind_ft),
 		f.stylua.with({ filetypes = { "lua" } }),
 		f.yamlfmt.with({ filetypes = { "yaml" } }),

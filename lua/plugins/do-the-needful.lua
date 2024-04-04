@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local enabled = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
@@ -6,7 +6,7 @@ local project = require("util.project")
 
 local opts = {
 	dev = dev,
-	log_level = "warn",
+	log_level = "info",
 	edit_mode = "split",
 	config_order = {
 		"project",
