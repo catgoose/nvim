@@ -303,6 +303,17 @@ end,
 			{ i(1) }
 		)
 	),
+	s(
+		"ipairs",
+		fmt(
+			[[
+     for {}, {} in ipairs({}) do
+       {}
+     end
+     ]],
+			{ i(1, "k"), i(2, "v"), i(3, "var"), i(0) }
+		)
+	),
 }
 
 return snippets
