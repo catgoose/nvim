@@ -168,23 +168,9 @@ local config = function()
 				plugins = {
 					{
 						name = "@vue/typescript-plugin",
-						-- location = "/path/to/global/node_modules/@vue/typescript-plugin",
-						-- location = "node_modules/@vue/typescript-plugin",
 						location = "~/.local/mason/bin/vue-language-server",
-						languages = { "javascript", "typescript", "vue" },
+						languages = vue_ft,
 					},
-				},
-			},
-		},
-		volar = {
-			capabilities = capabilities,
-			filetypes = { "vue" },
-			init_options = {
-				vue = {
-					hybridMode = true,
-				},
-				typescript = {
-					tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
 				},
 			},
 		},
