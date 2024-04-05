@@ -115,9 +115,4 @@ function M.nest_classname()
 	end
 end
 
-function M.filename()
-	vim.print(vim.fn.expand("%:t:r"))
-	return vim.fn.expand("%:t:r")
-end
-
 return M
