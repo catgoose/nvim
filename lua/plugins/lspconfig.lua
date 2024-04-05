@@ -162,6 +162,17 @@ local config = function()
 		tsserver = {
 			capabilities = capabilities,
 			filetypes = vue_ft,
+			init_options = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						-- location = "/path/to/global/node_modules/@vue/typescript-plugin",
+						-- location = "node_modules/@vue/typescript-plugin",
+						location = "~/.local/mason/bin/vue-language-server",
+						languages = { "javascript", "typescript", "vue" },
+					},
+				},
+			},
 		},
 		volar = {
 			capabilities = capabilities,
