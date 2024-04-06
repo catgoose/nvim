@@ -837,7 +837,7 @@ await this.entityManager.transaction(async (manager) =>> {
 		)
 	),
 	s(
-		"func",
+		"fun",
 		fmt(
 			[[
     function {}() {{

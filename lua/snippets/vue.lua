@@ -262,7 +262,7 @@ const props = defineProps<<{
 		})
 	),
 	s(
-		"func",
+		"fun",
 		fmta(
 			[[
   function <>(<>) {
