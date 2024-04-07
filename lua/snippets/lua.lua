@@ -250,7 +250,7 @@ end,
 		"fun",
 		fmt(
 			[[
-  function {}({})
+  local function {}({})
     {}
   end
   ]],
