@@ -79,6 +79,17 @@ console.groupEnd();
 		)
 	),
 	s(
+		"watch",
+		fmt(
+			[[
+     watch({}, ({}) => {{
+       {}
+     }})
+     ]],
+			{ i(1), i(2), i(0) }
+		)
+	),
+	s(
 		"pdate",
 		fmt(
 			[[

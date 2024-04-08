@@ -168,7 +168,7 @@ local config = function()
 				plugins = {
 					{
 						name = "@vue/typescript-plugin",
-						location = "~/.local/mason/bin/vue-language-server",
+						location = "~/.local/share/nvim/mason/bin/vue-language-server",
 						languages = vue_ft,
 					},
 				},
