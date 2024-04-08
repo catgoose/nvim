@@ -68,10 +68,21 @@ console.groupEnd();
 		)
 	),
 	s(
-		"onmount",
+		"mount",
 		fmt(
 			[[
     onMounted(() => {{
+      {}
+    }})
+    ]],
+			{ i(1) }
+		)
+	),
+	s(
+		"unmount",
+		fmt(
+			[[
+    onUnMounted(() => {{
       {}
     }})
     ]],
