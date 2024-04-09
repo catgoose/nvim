@@ -158,15 +158,12 @@ local config = function()
 			filetypes = html_ft,
 		},
 		cssmodules_ls = {
-			capabilities = capabilities,
 			filetypes = vue_ft,
 		},
 		tsserver = {
-			capabilities = capabilities,
 			filetypes = ts_ft,
 		},
 		volar = {
-			capabilities = capabilities,
 			filetypes = { "vue" },
 			init_options = {
 				vue = {
@@ -190,7 +187,6 @@ local config = function()
 			},
 		},
 		vimls = {
-			capabilities = capabilities,
 			diagnostic = { enable = true },
 			indexes = {
 				count = 3,
@@ -205,8 +201,6 @@ local config = function()
 			vimruntime = "",
 		},
 		lua_ls = {
-			capabilities = capabilities,
-			on_attach = on_attach,
 			settings = {
 				Lua = {
 					runtime = {
@@ -227,7 +221,6 @@ local config = function()
 			},
 		},
 		angularls = {
-			capabilities = capabilities,
 			on_attach = function(client, bufnr)
 				on_attach(client, bufnr)
 				client.server_capabilities.renameProvider = false
@@ -246,6 +239,9 @@ local config = function()
 		elseif server_enabled(srv) then
 			if not srv[on_attach] then
 				cfg.on_attach = on_attach
+			end
+			if not srv[capabilities] then
+				cfg.capabilities = capabilities
 			end
 			lspconfig[srv].setup(cfg)
 		end
