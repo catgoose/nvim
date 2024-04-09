@@ -168,17 +168,18 @@ local config = function()
 				plugins = {
 					{
 						name = "@vue/typescript-plugin",
-						-- location = "~/.local/share/nvim/mason/bin/vue-language-server",
-						location = "node_modules/@vue/typescript-plugin",
+						location = "~/.local/share/nvim/mason/bin/vue-language-server",
+						-- location = "node_modules/@vue/typescript-plugin",
+						-- location = "~/.nvm/versions/node/v20.11.1/lib/node_modules/@vue/typescript-plugin",
 						languages = vue_ft,
 					},
 				},
 			},
 		},
-		volar = {
-			capabilities = capabilities,
-			filetypes = vue_ft,
-		},
+		-- volar = {
+		-- 	capabilities = capabilities,
+		-- 	filetypes = vue_ft,
+		-- },
 		jsonls = {
 			capabilities = snippet_capabilities,
 			settings = {
