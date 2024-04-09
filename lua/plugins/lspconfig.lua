@@ -163,23 +163,17 @@ local config = function()
 		},
 		tsserver = {
 			capabilities = capabilities,
-			filetypes = vue_ft,
+			filetypes = ts_ft,
+		},
+		volar = {
+			capabilities = capabilities,
+			filetypes = { "vue" },
 			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = "~/.local/share/nvim/mason/bin/vue-language-server",
-						-- location = "node_modules/@vue/typescript-plugin",
-						-- location = "~/.nvm/versions/node/v20.11.1/lib/node_modules/@vue/typescript-plugin",
-						languages = vue_ft,
-					},
+				vue = {
+					hybridMode = false,
 				},
 			},
 		},
-		-- volar = {
-		-- 	capabilities = capabilities,
-		-- 	filetypes = vue_ft,
-		-- },
 		jsonls = {
 			capabilities = snippet_capabilities,
 			settings = {
