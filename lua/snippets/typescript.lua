@@ -397,7 +397,7 @@ export class <>Entity {
 		)
 	),
 	s(
-		"store",
+		"ngrxstore",
 		fmta(
 			[[
 import { Injectable } from "@angular/core";
@@ -848,6 +848,18 @@ await this.entityManager.transaction(async (manager) =>> {
 				i(1),
 				i(0),
 			}
+		)
+	),
+	s(
+		"bepinia",
+		fmt(
+			[[
+  beforeEach(() => {{
+    setActivePinia(createPinia());
+  }});
+  {}
+     ]],
+			{ i(1) }
 		)
 	),
 }
