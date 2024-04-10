@@ -1,6 +1,6 @@
 local fn = vim.fn
 
-CMP = {}
+local M = {}
 
 local is_not_comment = function()
 	local context = require("cmp.config.context")
@@ -39,8 +39,8 @@ local is_not_luasnip = function()
 	return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
 end
 
-CMP.is_enabled = function()
+M.is_enabled = function()
 	return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
 end
 
-return CMP
+return M

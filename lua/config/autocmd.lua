@@ -124,8 +124,6 @@ autocmd({ "FileType" }, {
 		"dapui_breakpoints",
 		"dapui_scopes",
 		"dapui_console",
-		"NeogitCommitMessage",
-		"fugitive",
 		"netrw",
 		"dbout",
 	},
