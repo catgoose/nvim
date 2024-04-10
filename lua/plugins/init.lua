@@ -54,5 +54,11 @@ return {
 		"chrisgrieser/nvim-origami",
 		config = true,
 		event = "BufReadPost",
+		enabled = true,
 	},
+	-- {
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	config = true,
+	-- },
 }

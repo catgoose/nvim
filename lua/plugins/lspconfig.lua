@@ -162,19 +162,9 @@ local config = function()
 		},
 		tsserver = {
 			filetypes = ts_ft,
-			init_opts = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = "node_modules/@vue/typescript-plugin",
-						languages = vue_ft,
-					},
-				},
-			},
 		},
 		volar = {
 			filetypes = { "vue" },
-			-- filetypes = vue_ft,
 			init_options = {
 				vue = {
 					hybridMode = false,
@@ -247,10 +237,10 @@ local config = function()
 				})
 			end
 		elseif server_enabled(srv) then
-			if not srv[on_attach] then
+			if not cfg.on_attach then
 				cfg.on_attach = on_attach
 			end
-			if not srv[capabilities] then
+			if not cfg.capabilities then
 				cfg.capabilities = capabilities
 			end
 			lspconfig[srv].setup(cfg)
@@ -296,7 +286,7 @@ return {
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
-		"pmizio/typescript-tools.nvim",
+		-- "pmizio/typescript-tools.nvim",
 		"dmmulroy/ts-error-translator.nvim",
 	},
 }

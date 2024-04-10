@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 
@@ -26,7 +26,7 @@ local plugin = {
 		m("<leader>tc", [[AnglerCompile]]),
 		m("<leader>tf", [[AnglerRenameFile]]),
 		m("<leader>rn", [[AnglerRenameSymbol]]),
-		m("<leader>k", [[AnglerFixAll]]),
+		-- m("<leader>k", [[AnglerFixAll]]),
 	},
 	ft = { "typescript", "vue" },
 	dependencies = "jose-elias-alvarez/typescript.nvim",
