@@ -7,7 +7,7 @@ local project = require("util.project")
 local opts = {
 	dev = dev,
 	log_level = "info",
-	edit_mode = "split",
+	edit_mode = "tab",
 	config_order = {
 		"project",
 		"global",
@@ -21,6 +21,15 @@ local opts = {
 			tags = { "dotfiles", "update", "nvim", "repo", "sync" },
 			window = {
 				close = true,
+				keep_current = true,
+			},
+		},
+		{
+			name = "pull main",
+			cmd = "fish -c 'pm'",
+			tags = { "git", "pull", "main" },
+			window = {
+				close = false,
 				keep_current = true,
 			},
 		},
