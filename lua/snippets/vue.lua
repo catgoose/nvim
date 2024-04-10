@@ -58,13 +58,20 @@ console.groupEnd();
 <template>
   <div></div>
 </template>
-<style lang="scss">
-</style>
 <script setup lang="ts">
 {}
 </script>
   ]],
 			{ i(1) }
+		)
+	),
+	s(
+		"vstyle",
+		fmt(
+			[[
+<style lang="scss">{}</style>
+   ]],
+			i(1)
 		)
 	),
 	s(

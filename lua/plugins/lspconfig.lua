@@ -162,9 +162,19 @@ local config = function()
 		},
 		tsserver = {
 			filetypes = ts_ft,
+			init_opts = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = "node_modules/@vue/typescript-plugin",
+						languages = vue_ft,
+					},
+				},
+			},
 		},
 		volar = {
 			filetypes = { "vue" },
+			-- filetypes = vue_ft,
 			init_options = {
 				vue = {
 					hybridMode = false,
