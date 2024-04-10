@@ -129,6 +129,9 @@ local config = function()
 	table.insert(vue_ft, "vue")
 	local css_ft = { "css", "scss", "less", "sass", "vue" }
 	local html_ft = { "html", "vue" }
+	local tsdk = function()
+		return vim.fn.getcwd() .. "/node_modules/typescript/lib"
+	end
 
 	local server_enabled = function(server)
 		return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -164,7 +167,7 @@ local config = function()
 			filetypes = ts_ft,
 			init_options = {
 				typescript = {
-					tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+					tsdk = tsdk(),
 				},
 			},
 		},
@@ -175,7 +178,7 @@ local config = function()
 					hybridMode = false,
 				},
 				typescript = {
-					tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+					tsdk = tsdk(),
 				},
 			},
 		},
