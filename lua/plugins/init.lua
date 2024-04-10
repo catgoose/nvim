@@ -50,4 +50,9 @@ return {
 		config = true,
 		ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
 	},
+	{
+		"chrisgrieser/nvim-origami",
+		config = true,
+		event = "BufReadPost",
+	},
 }
