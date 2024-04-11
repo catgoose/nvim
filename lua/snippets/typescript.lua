@@ -863,6 +863,25 @@ await this.entityManager.transaction(async (manager) =>> {
 		)
 	),
 	s("sc", fmt([[structuredClone({})]], { i(0) })),
+	s(
+		"testpinia",
+		fmta(
+			[[
+describe('<>', () =>> {
+  let store: ReturnType<<typeof <>>>;
+  beforeEach(() =>> {
+    setActivePinia(createPinia());
+    store = <>();
+  });
+
+  it('', () =>> {
+    <>
+  })
+});
+]],
+			{ i(1), i(2), smn(2), i(0) }
+		)
+	),
 }
 
 return snippets
