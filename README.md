@@ -22,6 +22,10 @@ Angular, NestJS, and now Vue.
 If you have any questions about how something works, don't hesitate to open
 an issue or send me a message!
 
+## Current WIP
+
+Migrating from none-ls to conform and nvim-lint
+
 ## Screenshot
 
 ### Heirline

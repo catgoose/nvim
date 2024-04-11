@@ -79,4 +79,5 @@ return {
 		"gbprod/none-ls-shellcheck.nvim",
 		"nvimtools/none-ls-extras.nvim",
 	},
+	enabled = false,
 }
