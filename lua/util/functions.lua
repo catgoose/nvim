@@ -269,27 +269,26 @@ local function lsp_formatting(bufnr)
 end
 
 function M.lsp_formatting(config)
-	config = config or { enable = true }
-	config.bufnr = config.bufnr or vim.api.nvim_get_current_buf()
-	local found = vim.api.nvim_get_autocmds({
-		group = "LspFormatting",
-		buffer = config.bufnr,
-	})
-	if (config.enable and #found > 0) or (not config.enable and #found == 0) then
-		return
-	end
-	vim.print(config)
-	local augroup = u.create_augroup("LspFormatting")
-	vim.api.nvim_clear_autocmds({ group = augroup, buffer = config.bufnr })
-	if config.enable then
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = augroup,
-			buffer = config.bufnr,
-			callback = function()
-				lsp_formatting(config.bufnr)
-			end,
-		})
-	end
+	-- config = config or { enable = true }
+	-- config.bufnr = config.bufnr or vim.api.nvim_get_current_buf()
+	-- local found = vim.api.nvim_get_autocmds({
+	-- 	group = "LspFormatting",
+	-- 	buffer = config.bufnr,
+	-- })
+	-- if (config.enable and #found > 0) or (not config.enable and #found == 0) then
+	-- 	return
+	-- end
+	-- local augroup = u.create_augroup("LspFormatting")
+	-- vim.api.nvim_clear_autocmds({ group = augroup, buffer = config.bufnr })
+	-- if config.enable then
+	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
+	-- 		group = augroup,
+	-- 		buffer = config.bufnr,
+	-- 		callback = function()
+	-- 			lsp_formatting(config.bufnr)
+	-- 		end,
+	-- 	})
+	-- end
 	require("notify").notify(
 		string.format("LSP formatting %s", config.enable and "enabled" or "disabled"),
 		vim.log.levels.info,
