@@ -862,6 +862,7 @@ await this.entityManager.transaction(async (manager) =>> {
 			{ i(1) }
 		)
 	),
+	s("sc", fmt([[structuredClone({})]], { i(0) })),
 }
 
 return snippets
