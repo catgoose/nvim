@@ -1,11 +1,13 @@
 local M = {}
 
+local dev_key = "<leader>z"
+
 local projects = {
 	helpgrep = {
 		keys = {},
 		dev_keys = {
 			{
-				"<leader>z",
+				dev_key,
 				function()
 					vim.cmd([[Lazy reload telescope-helpgrep.nvim]])
 					vim.cmd([[Lazy reload telescope.nvim]])
@@ -27,7 +29,7 @@ local projects = {
 		keys = {},
 		dev_keys = {
 			{
-				"<leader>z",
+				dev_key,
 				function()
 					vim.cmd([[Lazy reload vue-goto-definition.nvim]])
 				end,
@@ -44,7 +46,7 @@ local projects = {
 		keys = {},
 		dev_keys = {
 			{
-				"<leader>z",
+				dev_key,
 				function()
 					vim.cmd([[Lazy reload do-the-needful.nvim]])
 					vim.cmd([[Lazy reload telescope.nvim]])
@@ -52,9 +54,19 @@ local projects = {
 			},
 		},
 	},
+	angler = {
+		keys = {},
+		dev_keys = {
+			dev_key,
+			function()
+				vim.cmd([[Lazy reload angler.nvim]])
+			end,
+		},
+	},
 }
 
-local current_project = nil
+-- local current_project = nil
+local current_project = projects.angler
 -- local current_project = projects.helpgrep
 -- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]
