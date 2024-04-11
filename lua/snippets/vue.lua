@@ -89,7 +89,7 @@ console.groupEnd();
 		"unmount",
 		fmt(
 			[[
-    onUnMounted(() => {{
+    onUnmounted(() => {{
       {}
     }})
     ]],
