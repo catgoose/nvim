@@ -7,6 +7,9 @@ local opts = {
 		"shellcheck",
 		"misspell",
 		"eslint_d",
+		"beautysh",
+		"jsonlint",
+		"hadolint",
 	},
 }
 
