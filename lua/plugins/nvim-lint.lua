@@ -19,7 +19,7 @@ return {
 			-- env = { "dotenv-linter" },
 			json = { "jsonlint" },
 			-- markdown = { "markdownlint", "vale", "write-good", "cbfmt" },
-			markdown = { "markdownlint" },
+			markdown = { "markdownlint", "vale" },
 			editorconfig = { "editorconfig-checker" },
 			sh = linters.sh,
 			bash = linters.sh,

@@ -12,9 +12,10 @@ local opts = {
 		typescript = { "prettierd" },
 		vue = { "prettierd" },
 		fish = { "fish_indent" },
+		--  TODO: 2024-04-12 - test beautysh
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
-		markdown = { "marksman" },
+		markdown = { "cbfmt", "prettierd" },
 		["*"] = { "codespell" },
 	},
 	format_on_save = function(bufnr)
