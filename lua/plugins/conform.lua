@@ -37,10 +37,11 @@ local function init()
 		return args.bang and "g" or "b"
 	end
 	local function notify(args)
+		local level = get_level(args)
 		require("notify").notify(
-			string.format("Auto formatting %s", vim[get_level(args)].disable_autoformat and "enabled" or "disabled"),
+			string.format("Auto formatting %s %s", vim[level].disable_autoformat and "enabled" or "disabled", level == "b" and string.format("for buffer id: %s", vim.api.nvim_get_current_buf()) or "globally"),
 			vim.log.levels.info,
-			{ title = string.format("conform.nvim formatting: %s", args.bang and "global" or "buffer") }
+			{ title = "conform.nvim formatting" }
 		)
 	end
 	c("ConformFormatToggle", function(args)
