@@ -40,6 +40,9 @@ local opts = {
 			css = false,
 			names = false,
 		},
+		dbout = {
+			names = false,
+		},
 	},
 	user_default_options = {
 		RGB = true,
