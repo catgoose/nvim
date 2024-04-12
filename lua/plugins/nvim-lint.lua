@@ -1,6 +1,6 @@
 local linters = {
 	js = { "eslint_d" },
-	sh = { "shellharden", "shellcheck" },
+	sh = { "shellcheck" },
 	all = { "codespell" },
 }
 

@@ -1,23 +1,19 @@
 local c = require("util").create_cmd
 
-local prettier = {
-	"prettierd",
-	"prettier",
-}
 local opts = {
 	formatters_by_ft = {
-		css = { prettier },
-		html = { prettier },
-		javascript = { prettier },
-		json = { prettier },
-		jsonc = { prettier },
+		css = { "prettierd" },
+		html = { "prettierd" },
+		javascript = { "prettierd" },
+		json = { "prettierd" },
+		jsonc = { "prettierd" },
 		lua = { "stylua" },
-		scss = { prettier },
-		typescript = { prettier },
-		vue = { prettier },
+		scss = { "prettierd" },
+		typescript = { "prettierd" },
+		vue = { "prettierd" },
 		fish = { "fish_indent" },
-		sh = { "shfmt" },
-		bash = { "shfmt" },
+		sh = { "shfmt", "shellharden" },
+		bash = { "shfmt", "shellharden" },
 	},
 	format_on_save = function(bufnr)
 		if vim.b[bufnr].disable_autoformat then
@@ -28,6 +24,9 @@ local opts = {
 	formatters = {
 		shfmt = {
 			prepend_args = { "-i", "2" },
+		},
+		shellharden = {
+			prepend_args = { "--transform" },
 		},
 	},
 }
