@@ -14,6 +14,7 @@ local opts = {
 		fish = { "fish_indent" },
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
+		markdown = { "marksman" },
 		["*"] = { "codespell" },
 	},
 	format_on_save = function(bufnr)
@@ -39,7 +40,11 @@ local function init()
 	local function notify(args)
 		local level = get_level(args)
 		require("notify").notify(
-			string.format("Auto formatting %s %s", vim[level].disable_autoformat and "enabled" or "disabled", level == "b" and string.format("for buffer id: %s", vim.api.nvim_get_current_buf()) or "globally"),
+			string.format(
+				"Auto formatting %s %s",
+				vim[level].disable_autoformat and "enabled" or "disabled",
+				level == "b" and string.format("for buffer id: %s", vim.api.nvim_get_current_buf()) or "globally"
+			),
 			vim.log.levels.info,
 			{ title = "conform.nvim formatting" }
 		)
