@@ -4,6 +4,7 @@ local config = function()
 	local ls = require("luasnip")
 	local types = require("luasnip.util.types")
 
+	---@diagnostic disable-next-line: undefined-field
 	ls.config.set_config({
 		updateevents = "TextChanged,TextChangedI",
 		delete_check_events = "TextChanged",
@@ -40,7 +41,24 @@ local config = function()
 		end
 	end)
 
-	require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/lua/snippets" })
+	local function load()
+		---@diagnostic disable-next-line: assign-type-mismatch
+		require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/lua/snippets" })
+	end
+	load()
+
+	local u = require("util")
+	local augroup = u.create_augroup
+	local write_source = augroup("LuaSnipWritePostReload")
+	vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+		group = write_source,
+		pattern = "*/nvim/lua/snippets/*.lua",
+		callback = function()
+			if not u.diag_error() then
+				load()
+			end
+		end,
+	})
 end
 
 return {

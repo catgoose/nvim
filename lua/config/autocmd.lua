@@ -1,5 +1,5 @@
 local u = require("util")
-local api, fn, bo, opt_local, cmd = vim.api, vim.fn, vim.bo, vim.opt_local, vim.cmd
+local api, bo, opt_local, cmd = vim.api, vim.bo, vim.opt_local, vim.cmd
 local augroup, q_to_quit = u.create_augroup, u.map_q_to_quit
 local autocmd = api.nvim_create_autocmd
 local file_pattern = {
@@ -35,6 +35,7 @@ autocmd({ "FileType" }, {
 	end,
 })
 
+-- Q to quit
 local quit = augroup("FtQToQuit")
 autocmd({ "FileType" }, {
 	group = quit,
@@ -82,6 +83,7 @@ autocmd({ "BufEnter" }, {
 	end,
 })
 
+-- Terminal
 local terminal = augroup("TerminalLocalOptions")
 autocmd({ "TermOpen" }, {
 	group = terminal,
@@ -115,6 +117,7 @@ autocmd({ "WinEnter" }, {
 	end,
 })
 
+--  TODO: 2024-04-12 - Can this be moved to a ftplugin file?
 local dashboard = augroup("DashboardWinhighlight")
 autocmd({ "FileType" }, {
 	group = dashboard,
@@ -163,7 +166,7 @@ autocmd({ "WinLeave" }, {
 })
 
 -- Lua reload
-local write_source = augroup("WritePostReload")
+local write_source = augroup("ConfigWritePostReload")
 autocmd({ "BufWritePost" }, {
 	group = write_source,
 	pattern = {
@@ -174,40 +177,5 @@ autocmd({ "BufWritePost" }, {
 		if not u.diag_error() then
 			u.reload_lua()
 		end
-	end,
-})
-autocmd({ "BufWritePost" }, {
-	group = write_source,
-	pattern = "*/nvim/lua/snippets/*.lua",
-	callback = function()
-		if not u.diag_error() then
-			---@diagnostic disable-next-line: assign-type-mismatch
-			require("luasnip.loaders.from_lua").load({ paths = fn.stdpath("config") .. "/lua/snippets" })
-		end
-	end,
-})
-
--- Neogit
-local neogit_files = { "NeogitStatus", "NeogitPopup" }
-local neogit = augroup("NeogitCustom")
-autocmd({ "WinEnter", "FileType" }, {
-	group = neogit,
-	pattern = neogit_files,
-	callback = function()
-		vim.o.cmdheight = 1
-	end,
-})
-autocmd({ "WinLeave" }, {
-	group = neogit,
-	pattern = neogit_files,
-	callback = function()
-		u.restore_cmdheight()
-	end,
-})
-autocmd({ "User" }, {
-	pattern = "NeogitPushComplete",
-	group = neogit,
-	callback = function()
-		require("neogit").close()
 	end,
 })
