@@ -275,7 +275,6 @@ return {
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
-		-- "pmizio/typescript-tools.nvim",
 		"dmmulroy/ts-error-translator.nvim",
 	},
 }

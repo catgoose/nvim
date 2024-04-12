@@ -312,6 +312,17 @@ const props = defineProps<{{
 			i(1)
 		)
 	),
+	s(
+		"temp",
+		fmt(
+			[[
+     <template>
+     {}
+     </template>
+     ]],
+			{ i(0) }
+		)
+	),
 }
 
 return snippets

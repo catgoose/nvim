@@ -56,23 +56,4 @@ return {
 		event = "BufReadPost",
 		enabled = true,
 	},
-	-- {
-	-- 	"pmizio/typescript-tools.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-	-- 	config = true,
-	-- },
-	{
-		"nathom/filetype.nvim",
-		event = "BufReadPre",
-		config = function()
-			require("filetype").setup({
-				overrides = {
-					extensions = {
-						env = "dotenv",
-						rasi = "sass",
-					},
-				},
-			})
-		end,
-	},
 }
