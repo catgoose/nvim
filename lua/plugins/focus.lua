@@ -2,7 +2,7 @@ local m = require("util").lazy_map
 
 local opts = {
 	autoresize = {
-		enable = true,
+		enable = false,
 		quickfixheight = 60,
 	},
 	excluded_buftypes = { "nofile", "prompt", "popup", "quickfix" },
