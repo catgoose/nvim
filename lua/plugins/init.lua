@@ -43,7 +43,7 @@ return {
 		"MaximilianLloyd/tw-values.nvim",
 		config = true,
 		lazy = true,
-		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
+		ft = { "typescript", "typescriptreact", "vue", "html", "svelte", "astro" },
 	},
 	{
 		"dmmulroy/ts-error-translator.nvim",
@@ -61,4 +61,18 @@ return {
 	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 	-- 	config = true,
 	-- },
+	{
+		"nathom/filetype.nvim",
+		event = "BufReadPre",
+		config = function()
+			require("filetype").setup({
+				overrides = {
+					extensions = {
+						env = "dotenv",
+						rasi = "sass",
+					},
+				},
+			})
+		end,
+	},
 }

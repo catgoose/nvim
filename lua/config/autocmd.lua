@@ -32,20 +32,6 @@ local buf_event = { "BufReadPre", "BufNewFile" }
 local set_filetype = augroup("SetFileTypeOptLocalOptions")
 autocmd(buf_event, {
 	group = set_filetype,
-	pattern = { "*.i3config" },
-	callback = function()
-		opt_local.filetype = "i3config"
-	end,
-})
-autocmd(buf_event, {
-	group = set_filetype,
-	pattern = { "*.rasi" },
-	callback = function()
-		opt_local.filetype = "sass"
-	end,
-})
-autocmd(buf_event, {
-	group = set_filetype,
 	pattern = { "*.md.gpg" },
 	callback = function()
 		opt_local.filetype = "markdown"
