@@ -16,7 +16,7 @@ return {
 			vue = linters.js,
 			docker = { "hadolint" },
 			fish = { "fish" },
-			env = { "dotenv-linter" },
+			-- env = { "dotenv-linter" },
 			json = { "jsonlint" },
 			-- markdown = { "markdownlint", "vale", "write-good", "cbfmt" },
 			markdown = { "markdownlint" },
