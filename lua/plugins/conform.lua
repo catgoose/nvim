@@ -15,7 +15,9 @@ local opts = {
 		--  TODO: 2024-04-12 - test beautysh for sh and bash
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
-		markdown = { "cbfmt", "prettierd" },
+		--  TODO: 2024-04-12 - cbfmt is complaining about config file
+		-- markdown = { "cbfmt", "marksman", "prettierd" },
+		markdown = { "marksman", "prettierd" },
 		["*"] = { "codespell" },
 	},
 	format_on_save = function(bufnr)
