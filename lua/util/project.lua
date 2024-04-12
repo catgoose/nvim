@@ -57,10 +57,12 @@ local projects = {
 	angler = {
 		keys = {},
 		dev_keys = {
-			dev_key,
-			function()
-				vim.cmd([[Lazy reload angler.nvim]])
-			end,
+			{
+				dev_key,
+				function()
+					vim.cmd([[Lazy reload angler.nvim]])
+				end,
+			},
 		},
 	},
 }
