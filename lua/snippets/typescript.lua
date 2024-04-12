@@ -882,6 +882,7 @@ describe('<>', () =>> {
 			{ i(1), i(2), smn(2), i(0) }
 		)
 	),
+	s("itc", t("const itc = it.concurrent;")),
 }
 
 return snippets
