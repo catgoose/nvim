@@ -1,3 +1,4 @@
+--  TODO: 2024-04-12 - add linters for write-good, dotenv-linter
 local linters = {
 	js = { "eslint_d" },
 	sh = { "shellcheck" },
