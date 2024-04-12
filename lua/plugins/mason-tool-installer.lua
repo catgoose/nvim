@@ -3,13 +3,18 @@ local opts = {
 	run_on_start = true,
 	ensure_installed = {
 		"beautysh",
+		"codespell",
 		"eslint_d",
 		"hadolint",
 		"jsonlint",
+		"markdownlint",
 		"misspell",
 		"prettierd",
 		"shellcheck",
+		"shellharden",
+		"shfmt",
 		"stylua",
+		"yamlfmt",
 	},
 }
 
