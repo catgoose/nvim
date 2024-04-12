@@ -17,7 +17,7 @@ local opts = {
 		["*"] = { "codespell" },
 	},
 	format_on_save = function(bufnr)
-		if vim.b[bufnr].disable_autoformat then
+		if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
 			return
 		end
 		return { timeout_ms = 500, lsp_fallback = true }
@@ -33,25 +33,23 @@ local opts = {
 }
 
 local function init()
-	local function notify()
+	local function get_level(args)
+		return args.bang and "g" or "b"
+	end
+	local function notify(args)
 		require("notify").notify(
-			string.format("Auto formatting %s", vim.b.disable_autoformat and "enabled" or "disabled"),
+			string.format("Auto formatting %s", vim[get_level(args)].disable_autoformat and "enabled" or "disabled"),
 			vim.log.levels.info,
-			{ title = "conform.nvim formatting" }
+			{ title = string.format("conform.nvim formatting: %s", args.bang and "global" or "buffer") }
 		)
 	end
-	c("ConformFormatDisable", function()
-		if not vim.b.disable_autoformat then
-			notify()
-		end
-		vim.b.disable_autoformat = true
-	end)
-	c("ConformFormatEnable", function()
-		if vim.b.disable_autoformat then
-			notify()
-		end
-		vim.b.disable_autoformat = false
-	end)
+	c("ConformFormatToggle", function(args)
+		notify(args)
+		local level = get_level(args)
+		vim[level].disable_autoformat = not vim[level].disable_autoformat
+	end, {
+		bang = true,
+	})
 end
 
 return {
