@@ -14,6 +14,7 @@ local opts = {
 		fish = { "fish_indent" },
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
+		["*"] = { "codespell" },
 	},
 	format_on_save = function(bufnr)
 		if vim.b[bufnr].disable_autoformat then

@@ -5,7 +5,6 @@ local opts = {
 return {
 	-- "rshkarin/mason-nvim-lint",
 	"catgoose/mason-nvim-lint",
-	-- dir = "~/git/mason-nvim-lint",
 	opts = opts,
 	event = "BufReadPre",
 	dependencies = {
