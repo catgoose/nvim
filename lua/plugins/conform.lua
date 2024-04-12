@@ -15,9 +15,8 @@ local opts = {
 		--  TODO: 2024-04-12 - test beautysh for sh and bash
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
-		--  TODO: 2024-04-12 - cbfmt is complaining about config file
-		-- markdown = { "cbfmt", "marksman", "prettierd" },
-		markdown = { "marksman", "prettierd" },
+		--  TODO: 2024-04-12 - marksman and cbfmt is complaining about config file
+		markdown = { "cbfmt", "marksman", "prettierd" },
 		["*"] = { "codespell" },
 	},
 	format_on_save = function(bufnr)
@@ -32,6 +31,9 @@ local opts = {
 		},
 		shellharden = {
 			prepend_args = { "--transform" },
+		},
+		cbfmt = {
+			prepend_args = { "--config", "~/.config/cbfmt/cbfmt.toml" },
 		},
 	},
 }
