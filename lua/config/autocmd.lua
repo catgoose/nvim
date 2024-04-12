@@ -75,7 +75,6 @@ autocmd({ "FileType" }, {
 	pattern = { "gitcommit", "markdown" },
 	callback = function()
 		opt_local.wrap = true
-		opt_local.spell = true
 	end,
 })
 
