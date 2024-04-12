@@ -1,6 +1,6 @@
 vim.filetype.add({
 	extension = {
-		env = "dotenv",
+		env = "env",
 		rasi = "sass",
 	},
 })
