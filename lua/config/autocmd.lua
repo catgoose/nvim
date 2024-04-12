@@ -19,40 +19,6 @@ local file_pattern = {
 	"*.cpp",
 }
 
-local conceal_level_ft = {
-	"markdown",
-}
-
-local colorcolumn_ft = {
-	"markdown",
-}
-
--- Filetype
-local buf_event = { "BufReadPre", "BufNewFile" }
-local set_filetype = augroup("SetFileTypeOptLocalOptions")
-autocmd(buf_event, {
-	group = set_filetype,
-	pattern = { "*.md.gpg" },
-	callback = function()
-		opt_local.filetype = "markdown"
-	end,
-})
-autocmd({ "FileType" }, {
-	group = set_filetype,
-	pattern = colorcolumn_ft,
-	callback = function()
-		opt_local.colorcolumn = "80"
-	end,
-})
-
-autocmd({ "FileType" }, {
-	group = set_filetype,
-	pattern = conceal_level_ft,
-	callback = function()
-		opt_local.conceallevel = 2
-	end,
-})
-
 local all_filetypes = augroup("AllFileTypesLocalOptions")
 autocmd({ "FileType" }, {
 	group = all_filetypes,
@@ -66,25 +32,6 @@ autocmd({ "FileType" }, {
 	pattern = { "*" },
 	callback = function()
 		u.restore_cmdheight()
-	end,
-})
-
-local markdown = augroup("MarkdownWrap")
-autocmd({ "FileType" }, {
-	group = markdown,
-	pattern = { "gitcommit", "markdown" },
-	callback = function()
-		opt_local.wrap = true
-	end,
-})
-
-local harpoon = augroup("HarpoonCursorLine")
-autocmd({ "FileType" }, {
-	group = harpoon,
-	pattern = { "harpoon" },
-	callback = function()
-		opt_local.cursorline = true
-		opt_local.numberwidth = 5
 	end,
 })
 

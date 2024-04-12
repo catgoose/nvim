@@ -3,4 +3,7 @@ vim.filetype.add({
 		env = "env",
 		rasi = "sass",
 	},
+	pattern = {
+		[".*%.md%.gpg"] = "markdown",
+	},
 })

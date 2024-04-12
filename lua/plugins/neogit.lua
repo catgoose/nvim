@@ -6,6 +6,7 @@ local opts = {
 		diffview = true,
 		telescope = true,
 	},
+	graph_style = "unicode",
 }
 
 return {
