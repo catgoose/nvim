@@ -137,12 +137,13 @@ local config = function()
 				mappings = {
 					i = {
 						-- ["<CR>"] = actions.select_tab,
-						["<CR>"] = actions.select_tab,
+						["<CR>"] = actions.select_default,
 						["<C-v>"] = actions.select_vertical,
 						["<C-s>"] = actions.select_horizontal,
 					},
 					n = {
-						["<CR>"] = actions.select_tab,
+						-- ["<CR>"] = actions.select_tab,
+						["<CR>"] = actions.select_default,
 						["<C-v>"] = actions.select_vertical,
 						["<C-s>"] = actions.select_horizontal,
 					},

@@ -1,4 +1,4 @@
---  TODO: 2024-04-12 - add linters for write-good, dotenv-linter
+--  TODO: 2024-04-12 - add linters for dotenv-linter
 
 return {
 	"mfussenegger/nvim-lint",
@@ -13,8 +13,7 @@ return {
 			fish = { "fish" },
 			-- env = { "dotenv-linter" },
 			json = { "jsonlint" },
-			-- markdown = { "markdownlint", "vale", "write-good", "cbfmt" },
-			markdown = { "markdownlint", "vale", "cbfmt" },
+			markdown = { "markdownlint", "vale" },
 			editorconfig = { "editorconfig-checker" },
 			sh = { "shellcheck" },
 			bash = { "shellcheck" },
