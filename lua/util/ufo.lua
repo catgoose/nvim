@@ -39,10 +39,12 @@ function M.handler(virtText, lnum, endLnum, width, truncate)
 end
 
 function M.set_opts()
-	vim.o.foldcolumn = "0"
-	vim.o.foldlevel = 99
-	vim.o.foldlevelstart = 99
-	vim.o.foldenable = true
+	if vim.o.foldlevel ~= 99 then
+		vim.o.foldcolumn = "0"
+		vim.o.foldlevel = 99
+		vim.o.foldlevelstart = 99
+		vim.o.foldenable = true
+	end
 end
 
 return M

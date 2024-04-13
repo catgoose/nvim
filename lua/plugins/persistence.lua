@@ -10,10 +10,8 @@ return {
 	opts = {
 		dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
 		options = const.opt.sessionoptions_tbl,
-		pre_save = nil,
+		pre_save = ufo_u.set_opts,
 		save_empty = false,
-		post_load = function()
-			ufo_u.set_opts()
-		end,
+		post_load = ufo_u.set_opts,
 	},
 }
