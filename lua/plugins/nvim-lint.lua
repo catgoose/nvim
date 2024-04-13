@@ -1,9 +1,4 @@
 --  TODO: 2024-04-12 - add linters for write-good, dotenv-linter
-local linters = {
-	js = { "eslint_d" },
-	sh = { "shellcheck" },
-	all = { "codespell" },
-}
 
 return {
 	"mfussenegger/nvim-lint",
@@ -11,9 +6,9 @@ return {
 	config = function()
 		local lint = require("lint")
 		lint.linters_by_ft = {
-			javascript = linters.js,
-			typescript = linters.js,
-			vue = linters.js,
+			javascript = { "eslint_d" },
+			typescript = { "eslint_d" },
+			vue = { "eslint_d" },
 			docker = { "hadolint" },
 			fish = { "fish" },
 			-- env = { "dotenv-linter" },
@@ -21,8 +16,8 @@ return {
 			-- markdown = { "markdownlint", "vale", "write-good", "cbfmt" },
 			markdown = { "markdownlint", "vale", "cbfmt" },
 			editorconfig = { "editorconfig-checker" },
-			sh = linters.sh,
-			bash = linters.sh,
+			sh = { "shellcheck" },
+			bash = { "shellcheck" },
 		}
 
 		lint.linters.codespell.args = { "--ignore-words=~/.config/codespell/ignore_word" }
@@ -31,7 +26,7 @@ return {
 			group = vim.api.nvim_create_augroup("lint", { clear = true }),
 			callback = function()
 				lint.try_lint()
-				lint.try_lint(linters.all)
+				lint.try_lint({ "codespell" })
 			end,
 		})
 	end,

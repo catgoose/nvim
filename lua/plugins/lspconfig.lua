@@ -96,7 +96,6 @@ local config = function()
 		end
 	end
 	local on_attach = function(client, bufnr)
-		-- format_on_attach(client, bufnr)
 		virtual_types_on_attach(client, bufnr)
 	end
 
@@ -268,7 +267,10 @@ return {
 	config = config,
 	dependencies = {
 		"windwp/nvim-autopairs",
-		"williamboman/mason.nvim",
+		{
+			"williamboman/mason-lspconfig.nvim",
+			dependencies = "williamboman/mason.nvim",
+		},
 		"b0o/schemastore.nvim",
 		"litao91/lsp_lines",
 		"kevinhwang91/nvim-ufo",

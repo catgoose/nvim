@@ -1,5 +1,3 @@
-local opts = {}
-
 return {
 	"zapling/mason-conform.nvim",
 	event = "BufReadPre",

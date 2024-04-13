@@ -178,6 +178,7 @@ end
 
 function M.update_all()
 	local cmds = {
+		"MasonUpdate",
 		"MasonToolsUpdate",
 		"TSUpdate",
 		"Lazy sync",
