@@ -19,7 +19,7 @@ local opts = {
 		sh = { "beautysh", "shellharden" },
 		bash = { "beautysh", "shellharden" },
 		-- markdown = { "prettierd", "cbfmt", "markdownlint" },
-		markdown = { "cbfmt", "prettierd" },
+		markdown = { "cbfmt", "prettierd", "markdownlint" },
 	},
 	format_on_save = function(bufnr)
 		if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
