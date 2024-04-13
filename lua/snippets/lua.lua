@@ -314,6 +314,15 @@ end,
 			{ i(1, "k"), i(2, "v"), i(3, "var"), i(0) }
 		)
 	),
+	s(
+		"sf",
+		fmt(
+			[[
+     string.format("{}",{})
+     ]],
+			{ i(1), i(2) }
+		)
+	),
 }
 
 return snippets
