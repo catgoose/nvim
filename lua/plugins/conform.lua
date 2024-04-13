@@ -14,8 +14,10 @@ local opts = {
 		vue = { "prettierd" },
 		fish = { "fish_indent" },
 		--  TODO: 2024-04-12 - test beautysh for sh and bash
-		sh = { "shfmt", "shellharden" },
-		bash = { "shfmt", "shellharden" },
+		-- sh = { "shfmt", "shellharden" },
+		-- bash = { "shfmt", "shellharden" },
+		sh = { "beautysh", "shellharden" },
+		bash = { "beautysh", "shellharden" },
 		markdown = { "prettierd", "cbfmt", "markdownlint" },
 	},
 	format_on_save = function(bufnr)
