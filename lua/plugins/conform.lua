@@ -17,8 +17,8 @@ local opts = {
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
 		--  TODO: 2024-04-12 - marksman and cbfmt is complaining about config file
-		-- markdown = { "cbfmt", "marksman", "prettierd" },
-		markdown = { "prettierd" },
+		-- markdown = { "cbfmt", "prettierd", "markdownlint" },
+		markdown = { "cbfmt" },
 	},
 	format_on_save = function(bufnr)
 		if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
@@ -33,21 +33,8 @@ local opts = {
 		shellharden = {
 			prepend_args = { "--transform" },
 		},
-		--  TODO: 2024-04-12 - this doesn't work.  make custom formatter
-		-- cbfmt = {
-		-- 	prepend_args = { "--config", "~/.config/cbfmt/cbfmt.toml" },
-		-- },
-		my_cbfmt = {
-			command = "cbfmt",
-			args = {
-				"--config",
-				"~/.config/cbfmt/cbfmt.toml",
-				"--write",
-				"--best-effort",
-				"$FILENAME",
-			},
-			require_cwd = false,
-			stdin = false,
+		cbfmt = {
+			prepend_args = { "--config", os.getenv("HOME") .. "/.config/cbfmt/cbfmt.toml" },
 		},
 	},
 }
