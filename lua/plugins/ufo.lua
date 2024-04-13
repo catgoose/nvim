@@ -1,4 +1,5 @@
 local u = require("util")
+local ufo_u = require("util.ufo")
 local m = u.lazy_map
 
 local scale = u.screen_scale({ height = 0.65 })
@@ -35,10 +36,7 @@ return {
 	event = "VeryLazy",
 	opts = opts,
 	init = function()
-		vim.o.foldcolumn = "0"
-		vim.o.foldlevel = 99
-		vim.o.foldlevelstart = 99
-		vim.o.foldenable = true
+		ufo_u.set_opts()
 	end,
 	keys = {
 		m("zR", lua_ufo("openAllFolds")),

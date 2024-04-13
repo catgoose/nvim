@@ -18,7 +18,6 @@ local opts = {
 		-- bash = { "shfmt", "shellharden" },
 		sh = { "beautysh", "shellharden" },
 		bash = { "beautysh", "shellharden" },
-		-- markdown = { "prettierd", "cbfmt", "markdownlint" },
 		markdown = { "cbfmt", "prettierd", "markdownlint" },
 	},
 	format_on_save = function(bufnr)

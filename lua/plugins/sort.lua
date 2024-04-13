@@ -1,4 +1,4 @@
 return {
 	"sQVe/sort.nvim",
-  cmd = "Sort"
+	cmd = "Sort",
 }

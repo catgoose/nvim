@@ -38,4 +38,11 @@ function M.handler(virtText, lnum, endLnum, width, truncate)
 	return newVirtText
 end
 
+function M.set_opts()
+	vim.o.foldcolumn = "0"
+	vim.o.foldlevel = 99
+	vim.o.foldlevelstart = 99
+	vim.o.foldenable = true
+end
+
 return M

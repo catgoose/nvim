@@ -1,5 +1,5 @@
-local u = require("util")
 local t = require("util.toggle")
+local u = require("util")
 local m = u.lazy_map
 local opts = t.toggleterm_opts
 local modes = { "n", "t" }

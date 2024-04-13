@@ -1,7 +1,7 @@
 local fn, cmd, api, o, g, ui = vim.fn, vim.cmd, vim.api, vim.o, vim.g, vim.ui
 local set_cur = api.nvim_win_set_cursor
-local u = require("util")
 local t = require("util.toggle")
+local u = require("util")
 local ufo = require("util.ufo")
 
 local M = {}
@@ -253,47 +253,6 @@ function M.tabnavigate(cfg)
 		api.nvim_feedkeys(term_escape, "t", true)
 	end
 	nav()
-end
-
-local function lsp_formatting(bufnr)
-	vim.lsp.buf.format({
-		filter = function(client)
-			local clients = {
-				"null-ls",
-				"jsonls",
-			}
-			return vim.tbl_contains(clients, client.name)
-		end,
-		bufnr = bufnr,
-	})
-end
-
-function M.lsp_formatting(config)
-	-- config = config or { enable = true }
-	-- config.bufnr = config.bufnr or vim.api.nvim_get_current_buf()
-	-- local found = vim.api.nvim_get_autocmds({
-	-- 	group = "LspFormatting",
-	-- 	buffer = config.bufnr,
-	-- })
-	-- if (config.enable and #found > 0) or (not config.enable and #found == 0) then
-	-- 	return
-	-- end
-	-- local augroup = u.create_augroup("LspFormatting")
-	-- vim.api.nvim_clear_autocmds({ group = augroup, buffer = config.bufnr })
-	-- if config.enable then
-	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
-	-- 		group = augroup,
-	-- 		buffer = config.bufnr,
-	-- 		callback = function()
-	-- 			lsp_formatting(config.bufnr)
-	-- 		end,
-	-- 	})
-	-- end
-	require("notify").notify(
-		string.format("LSP formatting %s", config.enable and "enabled" or "disabled"),
-		vim.log.levels.info,
-		{ title = "LSP Formatting" }
-	)
 end
 
 function M.testing_function()
