@@ -10,7 +10,16 @@ Neovim config for Typescript, Lua plugin development, always WIP
 
 - [catgoose neovim](#catgoose-neovim)
   - [About](#about)
+  - [Current WIP](#current-wip)
   - [Screenshot](#screenshot)
+    - [Heirline](#heirline)
+    - [Wilder](#wilder)
+      - [Search](#search)
+      - [Command](#command)
+    - [Help grep](#help-grep)
+      - [ui.prompt](#uiprompt)
+      - [Results in quickfix](#results-in-quickfix)
+    - [Hover handler](#hover-handler)
   - [Todo](#todo)
   <!--toc:end-->
 
@@ -77,10 +86,10 @@ M.hover_handler = function()
         vim.lsp.buf.hover()
     end
 end
-
 ```
 
 ## Todo
 
 - Create `cmp` source for `primeflex`
-- `<leader>o` should unfold if fold is present, otherwise open `oil`
+- `<leader>o` should unfold if fold present, otherwise open `oil`
+- find out what is setting foldlevel to 0

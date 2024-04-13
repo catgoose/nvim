@@ -8,6 +8,7 @@ local opts = {
 		javascript = { "prettierd" },
 		json = { "prettierd" },
 		jsonc = { "prettierd" },
+		-- lua = { "stylua" },
 		lua = { "stylua" },
 		scss = { "prettierd" },
 		typescript = { "prettierd" },
@@ -16,9 +17,7 @@ local opts = {
 		--  TODO: 2024-04-12 - test beautysh for sh and bash
 		sh = { "shfmt", "shellharden" },
 		bash = { "shfmt", "shellharden" },
-		--  TODO: 2024-04-12 - marksman and cbfmt is complaining about config file
-		-- markdown = { "cbfmt", "prettierd", "markdownlint" },
-		markdown = { "cbfmt" },
+		markdown = { "prettierd", "cbfmt", "markdownlint" },
 	},
 	format_on_save = function(bufnr)
 		if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
