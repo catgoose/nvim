@@ -19,4 +19,5 @@ return {
 		end
 		api.nvim_create_autocmd("TextYankPost", { callback = au_copy })
 	end,
+	enabled = false,
 }
