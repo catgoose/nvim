@@ -234,6 +234,7 @@ return {
 					"javascript",
 					"typescript",
 				},
+				enabled = true,
 			},
 		},
 	},
