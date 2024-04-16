@@ -132,6 +132,17 @@ local config = function()
 		cssls = {
 			capabilities = snippet_capabilities,
 			filetypes = css_ft,
+			settings = {
+				css = { validate = true, lint = {
+					unknownAtRules = "ignore",
+				} },
+				scss = { validate = true, lint = {
+					unknownAtRules = "ignore",
+				} },
+				less = { validate = true, lint = {
+					unknownAtRules = "ignore",
+				} },
+			},
 		},
 		html = {
 			capabilities = snippet_capabilities,
