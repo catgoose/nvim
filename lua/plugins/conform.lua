@@ -3,7 +3,7 @@ local c = require("util").create_cmd
 
 local opts = {
 	formatters_by_ft = {
-		css = { "prettierd" },
+		css = { "prettierd", "rustywind" },
 		html = { "prettierd" },
 		javascript = { "prettierd" },
 		json = { "prettierd" },
