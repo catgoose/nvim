@@ -4,7 +4,8 @@ local m = require("util").lazy_map
 local project = require("util.project")
 
 local opts = {
-	log_level = "debug",
+	-- log_level = "debug",
+	log_level = "trace",
 }
 
 local angler_str = [[lua require("angler")]]

@@ -4,14 +4,12 @@ local header = {
 	[[]],
 	[[]],
 	[[]],
-	[[]],
 	[[╔══╗ ╔╗   ╔═══╗╔═══╗╔╗╔═╗    ╔═══╗╔═══╗╔═══╗╔═══╗╔═══╗╔═╗ ╔╗    ╔═══╗╔════╗╔╗ ╔╗ ╔═══╗ ╔═══╗]],
 	[[║╔╗║ ║║   ║╔═╗║║╔═╗║║║║╔╝    ║╔═╗║║╔═╗║║╔═╗║║╔══╝║╔══╝║║╚╗║║    ║╔═╗║║╔╗╔╗║║║ ║║ ║╔══╝ ║╔══╝]],
 	[[║╚╝╚╗║║   ║║ ║║║║ ╚╝║╚╝╝     ║╚══╗║║ ╚╝║╚═╝║║╚══╗║╚══╗║╔╗╚╝║    ║╚══╗╚╝║║╚╝║║ ║║ ║╚══╗ ║╚══╗]],
 	[[║╔═╗║║║ ╔╗║╚═╝║║║ ╔╗║╔╗║     ╚══╗║║║ ╔╗║╔╗╔╝║╔══╝║╔══╝║║╚╗║║    ╚══╗║  ║║  ║║ ║║ ║╔══╝ ║╔══╝]],
 	[[║╚═╝║║╚═╝║║╔═╗║║╚═╝║║║║╚╗    ║╚═╝║║╚═╝║║║║╚╗║╚══╗║╚══╗║║ ║║║    ║╚═╝║ ╔╝╚╗ ║╚═╝║╔╝╚╗  ╔╝╚╗  ]],
 	[[╚═══╝╚═══╝╚╝ ╚╝╚═══╝╚╝╚═╝    ╚═══╝╚═══╝╚╝╚═╝╚═══╝╚═══╝╚╝ ╚═╝    ╚═══╝ ╚══╝ ╚═══╝╚══╝  ╚══╝  ]],
-	[[]],
 	[[]],
 	[[]],
 	[[]],
@@ -90,6 +88,12 @@ local opts = {
 				action = "q",
 			},
 		},
+		footer = function()
+			local info = { "", "" }
+			local fortune = require("fortune").get_fortune()
+			local footer = vim.list_extend(info, fortune)
+			return footer
+		end,
 	},
 }
 
@@ -105,5 +109,14 @@ return {
 	"nvimdev/dashboard-nvim",
 	event = "VimEnter",
 	opts = opts,
-	dependencies = "nvim-tree/nvim-web-devicons",
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+		{
+			"rubiin/fortune.nvim",
+			opts = {
+				display_format = "mixed",
+				content_type = "mixed",
+			},
+		},
+	},
 }
