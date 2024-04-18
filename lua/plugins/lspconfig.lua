@@ -123,8 +123,13 @@ local config = function()
 			"emmet_ls",
 			"marksman",
 			"sqlls",
-			"tailwindcss",
 			"yamlls",
+		},
+		tailwindcss = {
+			root_dir = function(fname)
+				local root_pattern = l.util.root_pattern("tailwind.config.js")
+				return root_pattern(fname)
+			end,
 		},
 		csharp_ls = {
 			capabilities = snippet_capabilities,
