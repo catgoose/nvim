@@ -43,6 +43,9 @@ local opts = {
 		dbout = {
 			names = false,
 		},
+		cmp_docs = {
+			always_update = true,
+		},
 	},
 	user_default_options = {
 		RGB = true,
