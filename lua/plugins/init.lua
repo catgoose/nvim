@@ -11,11 +11,6 @@ return {
 		config = true,
 	},
 	{
-		"chentoast/marks.nvim",
-		config = true,
-		event = "BufReadPre",
-	},
-	{
 		"wakatime/vim-wakatime",
 		event = "BufReadPre",
 	},
@@ -32,9 +27,4 @@ return {
 		dependencies = "schickling/vim-bufonly",
 		cmd = { "BufOnly", "Bdelete" },
 	},
-	-- {
-	-- 	"pmizio/typescript-tools.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-	-- 	config = true,
-	-- },
 }
