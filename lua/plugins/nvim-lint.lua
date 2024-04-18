@@ -1,5 +1,7 @@
 --  TODO: 2024-04-12 - add linters for dotenv-linter
 
+--  TODO: 2024-04-17 - Can markdown lint be disabled for 'nofile' buftypes?
+-- Hover floats are being linted
 return {
 	"mfussenegger/nvim-lint",
 	event = "BufReadPre",
