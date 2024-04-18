@@ -228,8 +228,8 @@ function M.hover_handler()
 	local ft = bo.filetype
 	if tbl_contains({ "vim", "help" }, ft) then
 		cmd("silent! h " .. fn.expand("<cword>"))
-	-- elseif M.treesitter_is_css_class_under_cursor() then
-	-- 	cmd("TWValues")
+	elseif treesitter_is_css_class_under_cursor() then
+		cmd("TWValues")
 	elseif tbl_contains({ "man" }, ft) then
 		cmd("silent! Man " .. fn.expand("<cword>"))
 	elseif is_diag_for_cur_pos() then

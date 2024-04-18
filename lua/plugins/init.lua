@@ -39,36 +39,9 @@ return {
 		dependencies = "schickling/vim-bufonly",
 		cmd = { "BufOnly", "Bdelete" },
 	},
-	{
-		"MaximilianLloyd/tw-values.nvim",
-		config = true,
-		lazy = true,
-		ft = { "typescript", "typescriptreact", "vue", "html", "svelt", "astro" },
-	},
-	{
-		"dmmulroy/ts-error-translator.nvim",
-		config = true,
-		ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
-	},
-	{
-		"chrisgrieser/nvim-origami",
-		config = true,
-		event = "BufReadPost",
-		enabled = true,
-	},
 	-- {
 	-- 	"pmizio/typescript-tools.nvim",
 	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 	-- 	config = true,
 	-- },
-	{
-		"Dronakurl/injectme.nvim",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-		-- This is for lazy load and more performance on startup only
-		cmd = { "InjectmeToggle", "InjectmeSave", "InjectmeInfo", "InjectmeLeave" },
-	},
 }

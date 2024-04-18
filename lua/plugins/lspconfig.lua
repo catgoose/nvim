@@ -288,6 +288,10 @@ return {
 		"VidocqH/lsp-lens.nvim",
 		"jubnzv/virtual-types.nvim",
 		"folke/neoconf.nvim",
-		"dmmulroy/ts-error-translator.nvim",
+		{
+			"dmmulroy/ts-error-translator.nvim",
+			config = true,
+			ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+		},
 	},
 }
