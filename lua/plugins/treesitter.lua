@@ -216,8 +216,11 @@ return {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"RRethy/nvim-treesitter-textsubjects",
+			{
+				"JoosepAlviste/nvim-ts-context-commentstring",
+				enable_autocmd = true,
+			},
 			"windwp/nvim-ts-autotag",
-			"JoosepAlviste/nvim-ts-context-commentstring",
 			"CKolkey/ts-node-action",
 			"nvim-treesitter/nvim-treesitter-context",
 			{
