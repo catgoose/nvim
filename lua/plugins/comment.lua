@@ -29,7 +29,7 @@ return {
 		})
 	end,
 	event = "BufReadPre",
-	-- lazy = false,
+	lazy = false,
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"JoosepAlviste/nvim-ts-context-commentstring",
