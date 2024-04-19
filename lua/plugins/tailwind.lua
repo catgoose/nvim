@@ -29,5 +29,6 @@ return {
 			},
 		},
 		ft = { "vue", "html" },
+		event = "BufReadPre",
 	},
 }
