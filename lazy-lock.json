@@ -89,7 +89,6 @@
   "sort.nvim": { "branch": "main", "commit": "c789da6968337d2a61104a929880b5f144e02855" },
   "sqlite.lua": { "branch": "master", "commit": "40701b6151f8883980c1548647116de39b763540" },
   "suda.vim": { "branch": "master", "commit": "04469d855e36fffcda6be036eb7ff005f64fa0d6" },
-  "tailwind-tools.nvim": { "branch": "master", "commit": "1ac7b7af7f5ba2c67bbd8283a159b009207d73d2" },
   "tailwindcss-colorizer-cmp.nvim": { "branch": "main", "commit": "3d3cd95e4a4135c250faf83dd5ed61b8e5502b86" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "9ef21b2e6bb6ebeaf349a0781745549bbb870d27" },
   "telescope-helpgrep.nvim": { "branch": "main", "commit": "a70290897d29d90a9d91ec9c159e917502fe0b6f" },
