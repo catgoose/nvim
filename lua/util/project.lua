@@ -65,10 +65,23 @@ local projects = {
 			},
 		},
 	},
+	classist = {
+		keys = {},
+		dev_keys = {
+			{
+				dev_key,
+				function()
+					vim.cmd([[Lazy reload classist.nvim]])
+					vim.cmd([[ClassistEdit]])
+				end,
+			},
+		},
+	},
 }
 
-local current_project = nil
+-- local current_project = nil
 -- local current_project = projects.angler
+local current_project = projects.classist
 -- local current_project = projects.helpgrep
 -- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]

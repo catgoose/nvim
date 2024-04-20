@@ -48,4 +48,5 @@ return {
 		m("<leader>o", [[lua require("oil").toggle_float()]]),
 	},
 	lazy = false,
+	commit = "8bb35eb81a48f14c4a1ef480c2bbb87ceb7cd8bb",
 }
