@@ -22,12 +22,12 @@ local plugin = {
 
 if dev == true then
 	return e("keep", plugin, {
-		dir = "~/git/class-warfare",
+		dir = "~/git/classist.nvim",
 		lazy = false,
 	})
 else
 	return e("keep", plugin, {
-		"catgoose/class-warfare",
+		"catgoose/classist.nvim",
 		event = "BufReadPre",
 	})
 end
