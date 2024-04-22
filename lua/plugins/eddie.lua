@@ -11,7 +11,7 @@ local opts = {
 local keys = {
 	-- m("<leader>;", [[Telescope do-the-needful please]]),
 }
-keys = project.get_keys("classist", keys)
+keys = project.get_keys("eddie", keys)
 
 local plugin = {
 	dependencies = "nvim-lua/plenary.nvim",
@@ -22,12 +22,12 @@ local plugin = {
 
 if dev == true then
 	return e("keep", plugin, {
-		dir = "~/git/classist.nvim",
+		dir = "~/git/eddie.nvim",
 		lazy = false,
 	})
 else
 	return e("keep", plugin, {
-		"catgoose/classist.nvim",
+		"catgoose/eddie.nvim",
 		event = "BufReadPre",
 	})
 end
