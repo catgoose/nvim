@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local enabled = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
@@ -9,7 +9,7 @@ local opts = {
 }
 
 local keys = {
-	-- m("<leader>;", [[Telescope do-the-needful please]]),
+	-- m("<leader>;", [[]]),
 }
 keys = project.get_keys("eddie", keys)
 
