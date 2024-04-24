@@ -40,7 +40,7 @@
 #
 #	HOW IT WORKS
 #		1. Opens firefox and navigates to https://${SERVER}/remote/login
-#		2. After a succesful authentication, SVPNCOOKIE
+#		2. After a successful authentication, SVPNCOOKIE
 #		   is saved to sessionstore-backups/recovery.jsonlz4 on Firefox's profile.
 #		2. The script will use openfortivpn to start the tunnel providing it 
 #          with SVPNCOOKIE (--cookie-on-stdin < cookie_file) because 
@@ -213,7 +213,7 @@ enumerateProfiles(){
 #####################################################################################
 # getFirefoxProfile()
 #	Returns the path for the default Firefox profile or "" if it cannot determine
-#	where it is. Using -p overrrides this function.
+#	where it is. Using -p overrides this function.
 #   If the user has decided to write the profile-path to use right in the file
 #   ~/.${USER}.fuckforticlient-profile, this functions simply returns the contents
 #   of ~/.${USER}.fuckforticlient-profile.
@@ -532,7 +532,7 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
                 echo -e "\t[>] Running make install ... "
                 sudo make install >/dev/null 2>&1
                 if [ $? -eq 0 ]; then
-                    echo -e "[*] ${clGreen}openfortivpn updated sucessfully!"
+                    echo -e "[*] ${clGreen}openfortivpn updated successfully!"
                     echo -ne "${clNone}"
                 else
                     echo -e "[!] ${clRed}error updating openfortivpn."
@@ -595,7 +595,7 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
 		# Overwrites the PATH within $SERVER to use for SAML
 		U)
 			URL="$OPTARG"
-			echo -e "[*] Overwritting SAML path: ${clGreen}${URL} "
+			echo -e "[*] Overwriting SAML path: ${clGreen}${URL} "
 			echo -en "${clNone}"
 		;;
 		# Removes Forticlient:
@@ -629,7 +629,7 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
 				exit 0
 			else
 				test $SHOWCOOKIE -eq 1 && echo "[*] `cat $HOME/.${USER}.svpncookie`"
-				echo -e "[*] ${clGreen}SVPNCOOKIE sucessfully retrieved!"
+				echo -e "[*] ${clGreen}SVPNCOOKIE successfully retrieved!"
                 echo -ne "${clNone}"
 				# We save the cookie file to a variable first:
 				cookie=$HOME/.${USER}.svpncookie
@@ -663,7 +663,7 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
 			echo -e "[*] Authenticating against ${clRed}https://$SERVER ..."
             echo -ne "${clNone}"
 			# There's some delay before firefox stores the cookie unless it is closed,
-			# in which case it's inmediately there.
+			# in which case it's immediately there.
 			echo -e "[*] Waiting up to ${clRed}$TIMEOUT seconds${clNone} until the cookie appears..."
 			# Gets the cookie:
 			getCookie "$fProfile" "1"
@@ -672,7 +672,7 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
 				exit 0
 			else
 				test $SHOWCOOKIE -eq 1 && echo "[*] `cat $HOME/.${USER}.svpncookie`"
-				echo -e "[*] ${clGreen}SVPNCOOKIE sucessfully retrieved!"
+				echo -e "[*] ${clGreen}SVPNCOOKIE successfully retrieved!"
                 echo -ne "${clNone}"
 				# We save the cookie file to a variable first:
 				cookie=$HOME/.${USER}.svpncookie
