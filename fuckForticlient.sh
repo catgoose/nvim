@@ -163,7 +163,7 @@ getProfilePath(){
 	case $DISTRO in
 		Debian|Raspbian|Parrot)
 			if [ ! -d ${HOME}/.mozilla/firefox ]; then
-				return -1
+				return 1
 			fi
 			profilepath="${HOME}/.mozilla/firefox"
 			;;
@@ -174,7 +174,7 @@ getProfilePath(){
 			elif [ -d ${HOME}/.mozilla/firefox ]; then
 				profilepath="${HOME}/.mozilla/firefox"
 			else 
-				return -1
+				return 1
 			fi
 			;;
 		*)
@@ -206,7 +206,7 @@ enumerateProfiles(){
 		done
 	else
 		echo "[!] Unable to determine Firefox profile PATH!!!"
-		return -1
+		return 1
 	fi
 }
 
@@ -237,11 +237,11 @@ getFirefoxProfile(){
 			return 0
 		else
 			echo ""
-			return -2
+			return 2
 		fi
 	else
 		echo ""
-		return -2
+		return 2
 	fi
 }
 
@@ -542,7 +542,7 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
                 cd .. && rm -rf /tmp/openfortivpn >/dev/null 2>&1
             else
                 echo -e "[!] ${clRed}Unable to clone openfortivpn!"
-                exit -1
+                exit 1
             fi
         ;;
         # Shows current assigned VPN Ip address (if any) and exits:
