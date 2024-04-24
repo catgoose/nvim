@@ -50,8 +50,8 @@
 #		> Firefox will store cookies in sessionstore-backups/recovery.jsonlz4 only when
 #		  the following options within "Privacy&Security/History" are not enabled:
 #		  "Always use private(...)" and "Clear history when Firefox closes".
-#       > SVPNCOOKIE is saved into ~/.${USER}.svpncookie with 0600 perms and removed
-#         when exiting the script (thanks to trap).
+#       > SVPNCOOKIE is saved into ~/.cache/fuckforticilent/svpncookie with 0600 perms
+#         and removed when exiting the script (thanks to trap).
 #       > Remember, this script is a HACK. So if something does not work for you,
 #         change whatever you think needs to be changed and please, READ these notes
 #         BEFORE assuming that it won't work at all!
@@ -121,6 +121,11 @@ DEBUG=0
 # Override with OPENFORTIVPN="/path/to/openfortivpn"
 OPENFORTIVPN="$(type -p openfortivpn)"
 
+CACHE_PATH=$HOME/.cache/fuckforticlient
+mkdir -p "$CACHE_PATH"
+COOKIE_PATH=$CACHE_PATH/svpncookie
+PROFILE_PATH=$CACHE_PATH/profile
+
 #####################################################################################
 # Colors
 #####################################################################################
@@ -134,7 +139,7 @@ clNone='\033[0m'
 #####################################################################################
 cleanup(){
     # Removes SVPNCOOKIE:
-	test -r $HOME/.${USER}.svpncookie && rm $HOME/.${USER}.svpncookie
+	test -r ${COOKIE_PATH} && rm ${COOKIE_PATH}
     test -d /tmp/openfortivpn && rm -rf /tmp/openfortivpn
 }
 
@@ -215,13 +220,13 @@ enumerateProfiles(){
 #	Returns the path for the default Firefox profile or "" if it cannot determine
 #	where it is. Using -p overrides this function.
 #   If the user has decided to write the profile-path to use right in the file
-#   ~/.${USER}.fuckforticlient-profile, this functions simply returns the contents
-#   of ~/.${USER}.fuckforticlient-profile.
+#   ~/.cache/fuckforticlient/profile, this functions simply returns the contents
+#   of ~/.cache/fuckforticlient/profile.
 #####################################################################################
 getFirefoxProfile(){
     # Do we have a saved profile to use?
-    if [ -r ~/.${USER}.fuckforticlient-profile ]; then
-        profilep=`cat -v  ~/.${USER}.fuckforticlient-profile`
+    if [ -r ${PROFILE_PATH} ]; then
+        profilep=`cat -v  ${PROFILE_PATH}`
         # If it's not empty and the directory is valid:
         if [ ! -z "${profilep}" -a -d "${profilep}" ]; then
             echo "${profilep}"
@@ -248,7 +253,7 @@ getFirefoxProfile(){
 #####################################################################################
 # getCookie(profile,waitForIt)
 #	Waits up to TIMEOUT seconds for the SVPNCOOKIE to appear. Stores the cookie in
-#	$HOME/${USER].svpncookie and returns 0; returns 1 otherwise.
+#	$HOME/.cache/fuckforticlient/svpncookie and returns 0; returns 1 otherwise.
 #####################################################################################
 getCookie(){
 	# Storage file where the cookie is stored in firefox:
@@ -261,8 +266,8 @@ getCookie(){
 	# We try to grab the cookie right away:
 	c=`lz4jsoncat ${storage}/recovery.jsonlz4 2>/dev/null|jq '.cookies[]|select(.name!=null)|select(.name|contains("SVPNCOOKIE"))|.value'`
 	if [ ! -z "$c" ]; then
-		echo "SVPNCOOKIE=${c}" > $HOME/.${USER}.svpncookie
-		sed -i 's/\"//g' $HOME/.${USER}.svpncookie
+		echo "SVPNCOOKIE=${c}" > ${COOKIE_PATH}
+		sed -i 's/\"//g' ${COOKIE_PATH}
 		# We restore umask:
 		umask $curUmask
 		return 0
@@ -277,8 +282,8 @@ getCookie(){
 			c=`lz4jsoncat ${storage}/recovery.jsonlz4 2>/dev/null|jq '.cookies[]|select(.name!=null)|select(.name|contains("SVPNCOOKIE"))|.value'`
 			if [ ! -z "$c" ]; then
 				#echo ${c}
-				echo "SVPNCOOKIE=${c}" > $HOME/.${USER}.svpncookie
-				sed -i 's/\"//g' $HOME/.${USER}.svpncookie
+				echo "SVPNCOOKIE=${c}" > ${COOKIE_PATH}
+				sed -i 's/\"//g' ${COOKIE_PATH}
 				# We restore umask
 				umask $curUmask
 				return 0
@@ -578,11 +583,11 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
         P)
             # We do not really care if the fProfile variable has been filled
             # by autodetecting the Firefox profile or because the user has
-            # used the "-p" parameter; we save it to ~/.${USER}-fuckforticlient-profile
+            # used the "-p" parameter; we save it to ~/.cache/fuckforticlient/profile
             # anyways...:
-            echo -e "[+] Saving profile to: ${clGreen}~/.${USER}.fuckforticlient-profile"
+            echo -e "[+] Saving profile to: ${clGreen}${PROFILE_PATH}"
             echo -ne "${clNone}"
-            echo -n "${fProfile}" >  ~/.${USER}.fuckforticlient-profile
+            echo -n "${fProfile}" >  ${PROFILE_PATH}
         ;;
 		# Timeout for the SVPNCOOKIE override:
 		t)
@@ -628,14 +633,12 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
 				echo "[!] Unable to get SVPNCOOKIE; aborting..."
 				exit 0
 			else
-				test $SHOWCOOKIE -eq 1 && echo "[*] `cat $HOME/.${USER}.svpncookie`"
+				test $SHOWCOOKIE -eq 1 && echo "[*] `cat ${COOKIE_PATH}`"
 				echo -e "[*] ${clGreen}SVPNCOOKIE successfully retrieved!"
                 echo -ne "${clNone}"
-				# We save the cookie file to a variable first:
-				cookie=$HOME/.${USER}.svpncookie
 				# We connect to the vpn now:
                 test $DEBUG -eq 1 && dbg="-vvv"
-				sudo "${OPENFORTIVPN}" $SERVER:443 --cookie-on-stdin < ${cookie} ${dbg} ${FUCKFORTICLIENT_OPTS}
+				sudo "${OPENFORTIVPN}" $SERVER:443 --cookie-on-stdin < ${COOKIE_PATH} ${dbg} ${FUCKFORTICLIENT_OPTS}
 				if [ ! $? -eq 0 ]; then
 					echo "${clRed}[!] Error, expired cookie probably...${clNone}"
 					echo "[!] Close Firefox and re-lanch the script using -c"
@@ -671,14 +674,12 @@ while getopts "Licshut:p:PvdDS:U:" opt; do
 				echo "[!] Unable to get SVPNCOOKIE; aborting..."
 				exit 0
 			else
-				test $SHOWCOOKIE -eq 1 && echo "[*] `cat $HOME/.${USER}.svpncookie`"
+				test $SHOWCOOKIE -eq 1 && echo "[*] `cat ${COOKIE_PATH}`"
 				echo -e "[*] ${clGreen}SVPNCOOKIE successfully retrieved!"
                 echo -ne "${clNone}"
-				# We save the cookie file to a variable first:
-				cookie=$HOME/.${USER}.svpncookie
 				# We connect to the vpn now:
                 test $DEBUG -eq 1 && dbg="-vvv"
-				sudo "${OPENFORTIVPN}" ${SERVER}:443 --cookie-on-stdin < ${cookie} ${dbg} ${FUCKFORTICLIENT_OPTS}
+				sudo "${OPENFORTIVPN}" ${SERVER}:443 --cookie-on-stdin < ${COOKIE_PATH} ${dbg} ${FUCKFORTICLIENT_OPTS}
 				if [ ! $? -eq 0 ]; then
 					echo -e "${clRed}[!] Error, expired cookie probably...${clNone}"
 					echo "[!] Close Firefox and re-lanch the script using -c"
