@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local enabled = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
