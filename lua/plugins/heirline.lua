@@ -100,7 +100,8 @@ local config = function()
 		init = function(self)
 			local filename = self.filename
 			local extension = fn.fnamemodify(filename, ":e")
-			self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+			self.icon, self.icon_color =
+				require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
 		end,
 		provider = function(self)
 			if self.filename == "" then
@@ -227,7 +228,9 @@ local config = function()
 		condition = conditions.is_git_repo,
 		init = function(self)
 			self.status_dict = vim.b.gitsigns_status_dict
-			self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+			self.has_changes = self.status_dict.added ~= 0
+				or self.status_dict.removed ~= 0
+				or self.status_dict.changed ~= 0
 		end,
 		{
 			condition = function(self)
@@ -285,7 +288,9 @@ local config = function()
 		init = function(self)
 			self.reg_recording = fn.reg_recording()
 			self.status_dict = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-			self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+			self.has_changes = self.status_dict.added ~= 0
+				or self.status_dict.removed ~= 0
+				or self.status_dict.changed ~= 0
 		end,
 		{
 			condition = function(self)
