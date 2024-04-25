@@ -190,7 +190,7 @@ local keys = {
 	m("<leader>tk", [[Telescope keymaps]]),
 	m("<leader>hh", [[Telescope help_tags]]),
 	m("<leader>f", [[TelescopeFindFiles]]),
-	m("<leader>F", [[Telescope find_files]]),
+	m("<leader>F", [[TelescopeFindFilesPreview]]),
 	m("<leader>j", [[Telescope live_grep]]),
 	m("<leader>J", [[TelescopeLiveGrepHidden]]),
 	m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
@@ -212,7 +212,7 @@ local dependencies = {
 	"ThePrimeagen/harpoon",
 	"tsakirist/telescope-lazy.nvim",
 	"catgoose/chat-gypsy.nvim",
-	-- "catgoose/do-the-needful.nvim",
+	"catgoose/do-the-needful.nvim",
 }
 dependencies = project.get_dependencies("helpgrep", dependencies)
 
@@ -229,6 +229,17 @@ return {
 					height = 0.50,
 					vertical = {
 						prompt_position = "bottom",
+					},
+				},
+			})
+		end)
+		create_cmd("TelescopeFindFilesPreview", function()
+			require("telescope.builtin").find_files({
+				layout_config = {
+					horizontal = {
+						prompt_position = "bottom",
+						preview_width = 0.65,
+						results_width = 0.35,
 					},
 				},
 			})

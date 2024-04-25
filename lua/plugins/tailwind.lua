@@ -16,12 +16,13 @@ return {
 		event = "InsertEnter",
 	},
 	{
-		"luckasRanarison/tailwind-tools.nvim",
+		-- "luckasRanarison/tailwind-tools.nvim",
+		dir = "~/git/tailwind-tools.nvim/",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {
 			conceal = {
 				enabled = true,
-				min_length = 80,
+				min_length = 8,
 				symbol = "󱏿",
 				highlight = {
 					fg = "#38BDF8",
