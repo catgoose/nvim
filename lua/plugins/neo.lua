@@ -1,11 +1,11 @@
 return {
-  {
-    "folke/neodev.nvim",
-    config = true,
-    lazy = true,
-  },
-  {
-    "folke/neoconf.nvim",
-    lazy = true,
-  },
+	{
+		"folke/neodev.nvim",
+		config = true,
+		lazy = true,
+	},
+	{
+		"folke/neoconf.nvim",
+		lazy = true,
+	},
 }

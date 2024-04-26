@@ -8,20 +8,20 @@ opt.numberwidth = 1
 opt.number = true
 opt.relativenumber = true
 opt.fillchars = {
-  horiz = "━",
-  horizup = "┻",
-  horizdown = "┳",
-  vert = "┃",
-  vertleft = "┨",
-  vertright = "┣",
-  verthoriz = "╋",
-  fold = "⠀",
-  eob = " ",
-  diff = "┃",
-  msgsep = "‾",
-  foldsep = "│",
-  foldclose = "▶",
-  foldopen = "▼",
+	horiz = "━",
+	horizup = "┻",
+	horizdown = "┳",
+	vert = "┃",
+	vertleft = "┨",
+	vertright = "┣",
+	verthoriz = "╋",
+	fold = "⠀",
+	eob = " ",
+	diff = "┃",
+	msgsep = "‾",
+	foldsep = "│",
+	foldclose = "▶",
+	foldopen = "▼",
 }
 opt.confirm = true
 opt.shortmess = "aoOstTWAIcCFS"
@@ -72,27 +72,27 @@ opt.textwidth = 80
 opt.wrap = true
 opt.inccommand = "split"
 opt.diffopt = {
-  "internal",
-  "filler",
-  "closeoff",
-  "hiddenoff",
-  "algorithm:minimal",
+	"internal",
+	"filler",
+	"closeoff",
+	"hiddenoff",
+	"algorithm:minimal",
 }
 opt.conceallevel = 0
 
 opt.pumblend = 12
 opt.clipboard = "unnamedplus"
 opt.formatoptions = opt.formatoptions
-  - "t" -- wrap with text width
-  + "c" -- wrap comments
-  - "r" -- insert comment after enter
-  - "o" -- insert comment after o/O
-  - "q" -- allow formatting of comments with gq
-  - "a" -- format paragraphs
-  + "n" -- recognized numbered lists
-  - "2" -- use indent of second line for paragraph
-  + "l" -- long lines are not broken
-  + "j" -- remove comment when joining lines
+	- "t" -- wrap with text width
+	+ "c" -- wrap comments
+	- "r" -- insert comment after enter
+	- "o" -- insert comment after o/O
+	- "q" -- allow formatting of comments with gq
+	- "a" -- format paragraphs
+	+ "n" -- recognized numbered lists
+	- "2" -- use indent of second line for paragraph
+	+ "l" -- long lines are not broken
+	+ "j" -- remove comment when joining lines
 opt.syntax = "off"
 opt.spell = false
 

@@ -1,5 +1,5 @@
 return {
-  "nvim-treesitter/nvim-treesitter-context",
-  config = true,
-  event = "BufReadPre",
+	"nvim-treesitter/nvim-treesitter-context",
+	config = true,
+	event = "BufReadPre",
 }

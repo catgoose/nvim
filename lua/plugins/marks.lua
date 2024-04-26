@@ -1,5 +1,5 @@
 return {
-  "chentoast/marks.nvim",
-  config = true,
-  event = "BufReadPre",
+	"chentoast/marks.nvim",
+	config = true,
+	event = "BufReadPre",
 }
