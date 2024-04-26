@@ -1,116 +1,122 @@
 local ls = require("luasnip")
 local s, t, i, c, r, f, sn =
-	ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.restore_node, ls.function_node, ls.snippet_node
+  ls.snippet,
+  ls.text_node,
+  ls.insert_node,
+  ls.choice_node,
+  ls.restore_node,
+  ls.function_node,
+  ls.snippet_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local u = require("util.luasnip")
 local smn = u.same_node
 
 local snippets = {
-	s(
-		"form",
-		fmt(
-			[[
+  s(
+    "form",
+    fmt(
+      [[
 <form [formGroup]="{}" autocomplete="off">
 {}
 </form>
     ]],
-			{ i(1), i(2) }
-		)
-	),
-	s(
-		"mslider",
-		fmt(
-			[[
+      { i(1), i(2) }
+    )
+  ),
+  s(
+    "mslider",
+    fmt(
+      [[
   <mat-slide-toggle formControlName="{}"
     >{}</mat-slide-toggle
   >
     ]],
-			{ i(1), i(2) }
-		)
-	),
-	s(
-		"stylebg",
-		fmt(
-			[[
+      { i(1), i(2) }
+    )
+  ),
+  s(
+    "stylebg",
+    fmt(
+      [[
   style="background-color: {}"
   ]],
-			{ i(1) }
-		)
-	),
-	s(
-		"ngif",
-		fmt(
-			[[
+      { i(1) }
+    )
+  ),
+  s(
+    "ngif",
+    fmt(
+      [[
   <ng-container *ngIf="{}">
   {}
   </ng-container>
   ]],
-			{
-				c(1, {
-					i(1),
-					{
-						i(1),
-						t(" | async"),
-					},
-				}),
-				i(2),
-			}
-		)
-	),
-	s(
-		"ngfor",
-		fmt(
-			[[
+      {
+        c(1, {
+          i(1),
+          {
+            i(1),
+            t(" | async"),
+          },
+        }),
+        i(2),
+      }
+    )
+  ),
+  s(
+    "ngfor",
+    fmt(
+      [[
   <ng-container *ngFor="let {} of {}">
   {}
   </ng-container>
   ]],
-			{
-				i(1),
-				c(2, {
-					i(1),
-					{
-						i(1),
-						t(" | async"),
-					},
-				}),
-				i(3),
-			}
-		)
-	),
-	s(
-		"mbutton",
-		fmt(
-			[[
+      {
+        i(1),
+        c(2, {
+          i(1),
+          {
+            i(1),
+            t(" | async"),
+          },
+        }),
+        i(3),
+      }
+    )
+  ),
+  s(
+    "mbutton",
+    fmt(
+      [[
       <button {}{}>{}</button>
   ]],
-			{
-				c(1, {
-					t("mat-raised-button"),
-					t("mat-flat-button"),
-					t("mat-stroked-button"),
-					t("mat-icon-button"),
-					t("mat-fab"),
-					t("mat-mini-fab"),
-					t("mat-button"),
-					t(""),
-				}),
-				c(2, {
-					t(' color="primary"'),
-					t(' color="accent"'),
-					t(' color="warn"'),
-					t(""),
-				}),
-				i(3),
-			}
-		)
-	),
+      {
+        c(1, {
+          t("mat-raised-button"),
+          t("mat-flat-button"),
+          t("mat-stroked-button"),
+          t("mat-icon-button"),
+          t("mat-fab"),
+          t("mat-mini-fab"),
+          t("mat-button"),
+          t(""),
+        }),
+        c(2, {
+          t(' color="primary"'),
+          t(' color="accent"'),
+          t(' color="warn"'),
+          t(""),
+        }),
+        i(3),
+      }
+    )
+  ),
 
-	s(
-		"moption",
-		fmt(
-			[[
+  s(
+    "moption",
+    fmt(
+      [[
         <mat-form-field appearance="outline" class="form-control">
           <mat-label>{}</mat-label>
           <mat-select name="{}" formControlName="{}">
@@ -123,41 +129,43 @@ local snippets = {
           </mat-select>
         </mat-form-field>
   ]],
-			{ i(1), i(2), smn(2), i(3), i(4), smn(3), smn(3) }
-		)
-	),
-	s(
-		"minput",
-		fmt(
-			[[
+      { i(1), i(2), smn(2), i(3), i(4), smn(3), smn(3) }
+    )
+  ),
+  s(
+    "minput",
+    fmt(
+      [[
           <mat-form-field appearance="outline" class="form-control">
             <mat-label>{}</mat-label>
             <input matInput name="{}" formControlName="{}" />
           </mat-form-field>
   ]],
-			{ i(1), i(2), smn(2) }
-		)
-	),
-	s(
-		"div",
-		fmt(
-			[[
+      { i(1), i(2), smn(2) }
+    )
+  ),
+  s(
+    "div",
+    fmt(
+      [[
   <div {}>
   {}
   </div>
   ]],
-			{ c(1, {
-				t(""),
-				t([[fxLayout="row"]]),
-				t([[fxLayout="column"]]),
-			}), i(0) }
-		)
-	),
+      { c(1, {
+        t(""),
+        t([[fxLayout="row"]]),
+        t([[fxLayout="column"]]),
+      }), i(
+        0
+      ) }
+    )
+  ),
 
-	s(
-		"mtable",
-		fmt(
-			[[
+  s(
+    "mtable",
+    fmt(
+      [[
   <table mat-table [dataSource]="{}" class="mat-elevation-z3">
   <ng-container
   *ngFor="let column of tableColumns$ | async" 
@@ -203,19 +211,19 @@ local snippets = {
 {{{{ value }}}}
 </ng-template>
   ]],
-			{
-				i(1),
-				i(2),
-				smn(2),
-				smn(2),
-				smn(2),
-			}
-		)
-	),
-	s(
-		"ngswitch",
-		fmt(
-			[[
+      {
+        i(1),
+        i(2),
+        smn(2),
+        smn(2),
+        smn(2),
+      }
+    )
+  ),
+  s(
+    "ngswitch",
+    fmt(
+      [[
   <ng-container [ngSwitch]="{}">
     <ng-container *ngSwitchCase="'{}'">
       {}
@@ -225,24 +233,24 @@ local snippets = {
     </ng-container>
   </ng-container>
   ]],
-			{ i(1), i(2), i(3), i(4) }
-		)
-	),
-	s(
-		"ngcase",
-		fmt(
-			[[
+      { i(1), i(2), i(3), i(4) }
+    )
+  ),
+  s(
+    "ngcase",
+    fmt(
+      [[
     <ng-container *ngSwitchCase="'{}'">
       {}
     </ng-container>
   ]],
-			{ i(1), i(2) }
-		)
-	),
-	s(
-		"ngoutlet",
-		fmt(
-			[[
+      { i(1), i(2) }
+    )
+  ),
+  s(
+    "ngoutlet",
+    fmt(
+      [[
   <ng-container
     [ngTemplateOutlet]="{}"
     [ngTemplateOutletContext]="{{ {} }}"
@@ -250,35 +258,35 @@ local snippets = {
     {}
   </ng-container>
   ]],
-			{ i(1), i(2), i(3) }
-		)
-	),
-	s(
-		"ngtemplate",
-		fmt(
-			[[
+      { i(1), i(2), i(3) }
+    )
+  ),
+  s(
+    "ngtemplate",
+    fmt(
+      [[
   <ng-template #{}>
     {}
   </ng-template>
   ]],
-			{ (i(1)), i(2) }
-		)
-	),
-	s(
-		"async",
-		fmta(
-			[[
+      { (i(1)), i(2) }
+    )
+  ),
+  s(
+    "async",
+    fmta(
+      [[
   {{ <>$ <> }}
   ]],
-			{
-				i(1),
-				c(2, {
-					t("| async"),
-					t("| async | json"),
-				}),
-			}
-		)
-	),
+      {
+        i(1),
+        c(2, {
+          t("| async"),
+          t("| async | json"),
+        }),
+      }
+    )
+  ),
 }
 
 return snippets

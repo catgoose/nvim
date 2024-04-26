@@ -1,5 +1,5 @@
 return {
-	"chrisgrieser/nvim-origami",
-	config = true,
-	event = "BufReadPost",
+  "chrisgrieser/nvim-origami",
+  config = true,
+  event = "BufReadPost",
 }
