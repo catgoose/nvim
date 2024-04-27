@@ -95,7 +95,9 @@ local opts = {
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  init = function() vim.g.neo_tree_remove_legacy_commands = 1 end,
+  init = function()
+    vim.g.neo_tree_remove_legacy_commands = 1
+  end,
   opts = opts,
   branch = "v2.x",
   dependencies = {

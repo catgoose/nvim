@@ -18,7 +18,9 @@ local opts = {
     markdown = { "cbfmt", "prettierd", "markdownlint" },
   },
   format_on_save = function(bufnr)
-    if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then return end
+    if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
+      return
+    end
     return { timeout_ms = 500, lsp_fallback = true }
   end,
   formatters = {
@@ -35,7 +37,9 @@ local opts = {
 }
 
 local function init()
-  local function get_level(args) return args.bang and "g" or "b" end
+  local function get_level(args)
+    return args.bang and "g" or "b"
+  end
   local function notify(args)
     local level = get_level(args)
     require("notify").notify(

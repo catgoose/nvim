@@ -30,7 +30,9 @@ function M.toggleterm_opts(added_opts)
     end,
     on_close = function() end,
   }
-  if not added_opts then return toggleterm_opts end
+  if not added_opts then
+    return toggleterm_opts
+  end
   return vim.tbl_deep_extend("force", toggleterm_opts, added_opts)
 end
 

@@ -27,6 +27,8 @@ return {
   ft = "qf",
   dependencies = {
     "junegunn/fzf",
-    build = function() vim.fn["fzf#install"]() end,
+    build = function()
+      vim.fn["fzf#install"]()
+    end,
   },
 }

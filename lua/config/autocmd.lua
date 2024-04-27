@@ -40,7 +40,9 @@ autocmd({ "FileType" }, {
 autocmd({ "FileType" }, {
   group = all_filetypes,
   pattern = { "*" },
-  callback = function() u.restore_cmdheight() end,
+  callback = function()
+    u.restore_cmdheight()
+  end,
 })
 
 -- Q to quit
@@ -68,20 +70,26 @@ autocmd({ "FileType" }, {
     "netrw",
     "dbout",
   },
-  callback = function(event) q_to_quit(event) end,
+  callback = function(event)
+    q_to_quit(event)
+  end,
 })
 autocmd({ "FileType" }, {
   group = quit,
   pattern = { "*" },
   callback = function(event)
-    if bo.buftype == "nofile" then q_to_quit(event) end
+    if bo.buftype == "nofile" then
+      q_to_quit(event)
+    end
   end,
 })
 autocmd({ "BufEnter" }, {
   group = quit,
   pattern = { "*" },
   callback = function(event)
-    if bo.buftype == "" and bo.filetype == "" then q_to_quit(event) end
+    if bo.buftype == "" and bo.filetype == "" then
+      q_to_quit(event)
+    end
   end,
 })
 
@@ -113,7 +121,9 @@ autocmd({ "WinEnter" }, {
   group = terminal,
   pattern = { "*" },
   callback = function()
-    if bo.filetype == "terminal" then cmd.startinsert() end
+    if bo.filetype == "terminal" then
+      cmd.startinsert()
+    end
   end,
 })
 
@@ -140,7 +150,9 @@ local buffer = augroup("BufferDetectChanges")
 autocmd({ "FocusGained", "BufEnter" }, {
   group = buffer,
   pattern = file_pattern,
-  callback = function() cmd.checktime() end,
+  callback = function()
+    cmd.checktime()
+  end,
 })
 
 local cursor_line = augroup("LocalCursorLine")
@@ -148,14 +160,18 @@ autocmd({ "WinEnter", "BufWinEnter" }, {
   group = cursor_line,
   pattern = file_pattern,
   callback = function()
-    if bo.filetype ~= "nofile" then opt_local.cursorline = true end
+    if bo.filetype ~= "nofile" then
+      opt_local.cursorline = true
+    end
   end,
 })
 autocmd({ "WinLeave" }, {
   group = cursor_line,
   pattern = file_pattern,
   callback = function()
-    if bo.filetype ~= "nofile" then opt_local.cursorline = false end
+    if bo.filetype ~= "nofile" then
+      opt_local.cursorline = false
+    end
   end,
 })
 
@@ -168,6 +184,8 @@ autocmd({ "BufWritePost" }, {
     "*/nvim/lua/util/*.lua",
   },
   callback = function()
-    if not u.diag_error() then u.reload_lua() end
+    if not u.diag_error() then
+      u.reload_lua()
+    end
   end,
 })

@@ -26,14 +26,18 @@ local opts = {
   },
 }
 
-local lua_ufo = function(ufo_cmd) return [[lua require("ufo").]] .. ufo_cmd .. [[()]] end
+local lua_ufo = function(ufo_cmd)
+  return [[lua require("ufo").]] .. ufo_cmd .. [[()]]
+end
 
 return {
   "kevinhwang91/nvim-ufo",
   dependencies = "kevinhwang91/promise-async",
   event = "VeryLazy",
   opts = opts,
-  init = function() ufo_u.set_opts() end,
+  init = function()
+    ufo_u.set_opts()
+  end,
   keys = {
     m("zR", lua_ufo("openAllFolds")),
     m("zM", lua_ufo("closeAllFolds")),

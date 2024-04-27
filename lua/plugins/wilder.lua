@@ -30,11 +30,15 @@ local config = function()
   wilder.set_option("pipeline", {
     wilder.branch(
       {
-        wilder.check(function(ctx, _) return #ctx.input < 2 end),
+        wilder.check(function(ctx, _)
+          return #ctx.input < 2
+        end),
         wilder.subpipeline(function(_, x)
           return {
             wilder.history(),
-            function(ctx, h) return wilder.vim_fuzzy_filt(ctx, {}, h, x) end,
+            function(ctx, h)
+              return wilder.vim_fuzzy_filt(ctx, {}, h, x)
+            end,
           }
         end),
       },

@@ -838,7 +838,9 @@ await this.entityManager.transaction(async (manager) =>> {
     }}
     ]],
       {
-        f(function() return vim.fn.expand("%:t:r") end),
+        f(function()
+          return vim.fn.expand("%:t:r")
+        end),
         i(1),
       }
     )

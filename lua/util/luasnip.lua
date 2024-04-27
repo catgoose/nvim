@@ -33,8 +33,12 @@ function M.comment_open()
   else
     local ft = vim.bo.filetype
     local ext = vim.fn.expand("%:e")
-    if comment_open[ft] then return comment_open[ft] end
-    if ft == "query" and ext == "scm" then return "; " end
+    if comment_open[ft] then
+      return comment_open[ft]
+    end
+    if ft == "query" and ext == "scm" then
+      return "; "
+    end
   end
 end
 
@@ -44,11 +48,15 @@ function M.comment_close()
     return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[2]
   else
     local ft = vim.bo.filetype
-    if comment_close[ft] then return comment_close[ft] end
+    if comment_close[ft] then
+      return comment_close[ft]
+    end
   end
 end
 
-function M.today() return os.date("%Y-%m-%d") end
+function M.today()
+  return os.date("%Y-%m-%d")
+end
 
 function M.capitalize(node_index)
   return f(function(args)
@@ -70,7 +78,9 @@ function M.lua_require(arg)
 end
 
 function M.same_node(arg)
-  return f(function(args) return args[1] end, arg)
+  return f(function(args)
+    return args[1]
+  end, arg)
 end
 
 function M.nest_method_args(_, snip, _)
@@ -83,7 +93,9 @@ function M.nest_method_args(_, snip, _)
   local node =
     tstree:root():named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
 
-  if node == nil then return "" end
+  if node == nil then
+    return ""
+  end
   for child in node:iter_children() do
     local query = vim.treesitter.query.parse("typescript", ts_query)
     ---@diagnostic disable-next-line: missing-parameter
@@ -92,7 +104,9 @@ function M.nest_method_args(_, snip, _)
     end
   end
 
-  if method_args ~= "" then method_args = method_args:sub(1, -3) end
+  if method_args ~= "" then
+    method_args = method_args:sub(1, -3)
+  end
   return method_args
 end
 

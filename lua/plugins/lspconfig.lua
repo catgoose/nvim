@@ -42,7 +42,9 @@ local config = function()
 
   ---@diagnostic disable-next-line: duplicate-set-field
   vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-    if not (result and result.contents) then return end
+    if not (result and result.contents) then
+      return
+    end
     config = config or {}
     config.border = "rounded"
     l.handlers.hover(_, result, ctx, config)
@@ -56,7 +58,9 @@ local config = function()
     local clients = l.get_clients({ id = ctx.client_id })
     if vim.tbl_contains(ts_lsp, clients[1].name) then
       local filtered_result = {
-        diagnostics = vim.tbl_filter(function(d) return d.severity == 1 end, result.diagnostics),
+        diagnostics = vim.tbl_filter(function(d)
+          return d.severity == 1
+        end, result.diagnostics),
       }
       require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
     end
@@ -86,10 +90,14 @@ local config = function()
   -- on_attach definitions
   local virtual_types_on_attach = function(client, bufnr)
     if client.server_capabilities.textDocument then
-      if client.server_capabilities.textDocument.codeLens then vt.on_attach(client, bufnr) end
+      if client.server_capabilities.textDocument.codeLens then
+        vt.on_attach(client, bufnr)
+      end
     end
   end
-  local on_attach = function(client, bufnr) virtual_types_on_attach(client, bufnr) end
+  local on_attach = function(client, bufnr)
+    virtual_types_on_attach(client, bufnr)
+  end
 
   -- LSP config
 
@@ -98,7 +106,9 @@ local config = function()
   table.insert(vue_ft, "vue")
   local css_ft = { "css", "scss", "less", "sass", "vue" }
   local html_ft = { "html", "vue" }
-  local tsdk = function() return vim.fn.getcwd() .. "/node_modules/typescript/lib" end
+  local tsdk = function()
+    return vim.fn.getcwd() .. "/node_modules/typescript/lib"
+  end
 
   local server_enabled = function(server)
     return not require("neoconf").get("lsp.servers." .. server .. ".disable")
@@ -231,8 +241,12 @@ local config = function()
         })
       end
     elseif server_enabled(srv) then
-      if not cfg.on_attach then cfg.on_attach = on_attach end
-      if not cfg.capabilities then cfg.capabilities = capabilities end
+      if not cfg.on_attach then
+        cfg.on_attach = on_attach
+      end
+      if not cfg.capabilities then
+        cfg.capabilities = capabilities
+      end
       lspconfig[srv].setup(cfg)
     end
   end
@@ -263,7 +277,9 @@ end
 
 return {
   "neovim/nvim-lspconfig",
-  init = function() require("neoconf").setup({}) end,
+  init = function()
+    require("neoconf").setup({})
+  end,
   config = config,
   dependencies = {
     "windwp/nvim-autopairs",

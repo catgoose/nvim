@@ -27,7 +27,9 @@ local opts = {
         ["<Down>"] = "HistoryNext",
       },
     },
-    override = function(conf) return conf end,
+    override = function(conf)
+      return conf
+    end,
     get_config = nil,
   },
   select = {
@@ -84,7 +86,9 @@ local opts = {
         ["<C-c>"] = "Close",
         ["<CR>"] = "Confirm",
       },
-      override = function(conf) return conf end,
+      override = function(conf)
+        return conf
+      end,
     },
     format_item_override = {},
     get_config = nil,

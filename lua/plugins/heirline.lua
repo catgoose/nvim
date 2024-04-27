@@ -110,13 +110,17 @@ local config = function()
         return self.icon and (self.icon .. " ")
       end
     end,
-    hl = function(self) return { fg = self.icon_color } end,
+    hl = function(self)
+      return { fg = self.icon_color }
+    end,
   }
 
   local FileName = {
     provider = function(self)
       local filename = fn.fnamemodify(self.filename, ":t")
-      if filename == "" then return "" end
+      if filename == "" then
+        return ""
+      end
       if not conditions.width_percent_below(#filename, 0.1) then
         filename = fn.pathshorten(filename)
       end
@@ -128,13 +132,17 @@ local config = function()
   local FileFlags = {
     {
       provider = function()
-        if bo.modified then return "[+] " end
+        if bo.modified then
+          return "[+] "
+        end
       end,
       hl = { fg = colors.oldWhite, bold = true, italic = true },
     },
     {
       provider = function()
-        if not bo.modifiable or bo.readonly then return " " end
+        if not bo.modifiable or bo.readonly then
+          return " "
+        end
       end,
       hl = { fg = colors.roninYellow, bold = true, italic = true },
     },
@@ -142,7 +150,9 @@ local config = function()
 
   local FileNameModifer = {
     hl = function()
-      if bo.modified then return { italic = true, force = true } end
+      if bo.modified then
+        return { italic = true, force = true }
+      end
     end,
   }
 
@@ -204,7 +214,9 @@ local config = function()
       hl = { fg = colors.dragonBlue },
     },
     {
-      condition = function() return not scrollbar_enabled() end,
+      condition = function()
+        return not scrollbar_enabled()
+      end,
       {
         Space,
       },
@@ -221,9 +233,13 @@ local config = function()
         or self.status_dict.changed ~= 0
     end,
     {
-      condition = function(self) return self.has_changes end,
+      condition = function(self)
+        return self.has_changes
+      end,
       {
-        provider = function(self) return "  " .. self.status_dict.head .. " " end,
+        provider = function(self)
+          return "  " .. self.status_dict.head .. " "
+        end,
         hl = { fg = colors.springViolet1, bold = true, italic = true },
       },
       {
@@ -277,9 +293,13 @@ local config = function()
         or self.status_dict.changed ~= 0
     end,
     {
-      condition = function(self) return self.reg_recording ~= "" end,
+      condition = function(self)
+        return self.reg_recording ~= ""
+      end,
       {
-        condition = function(self) return self.has_changes end,
+        condition = function(self)
+          return self.has_changes
+        end,
         LeftSep,
       },
       {
@@ -287,7 +307,9 @@ local config = function()
         hl = { fg = colors.autumnRed },
       },
       {
-        provider = function(self) return "@" .. self.reg_recording end,
+        provider = function(self)
+          return "@" .. self.reg_recording
+        end,
         hl = { italic = false, bold = true },
       },
       {
@@ -303,13 +325,19 @@ local config = function()
   }
 
   local FileType = {
-    condition = function() return conditions.buffer_matches({ filetype = { "coderunner" } }) end,
-    provider = function() return bo.filetype end,
+    condition = function()
+      return conditions.buffer_matches({ filetype = { "coderunner" } })
+    end,
+    provider = function()
+      return bo.filetype
+    end,
     hl = { fg = colors.oldWhite, bold = true },
   }
 
   local ScrollBar = {
-    condition = function() return scrollbar_enabled() end,
+    condition = function()
+      return scrollbar_enabled()
+    end,
     static = {
       sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
     },
@@ -321,13 +349,17 @@ local config = function()
           local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
           return string.rep(self.sbar[i], 2)
         end,
-        hl = function() return { fg = scrollbar_foreground_color, bg = scrollbar_background_color } end,
+        hl = function()
+          return { fg = scrollbar_foreground_color, bg = scrollbar_background_color }
+        end,
       },
     },
   }
 
   local FileNameBlock = {
-    init = function(self) self.filename = api.nvim_buf_get_name(0) end,
+    init = function(self)
+      self.filename = api.nvim_buf_get_name(0)
+    end,
   }
   local DiagnosticsBlock, GitBlock, MacroRecordingBlock, ScrollBarBlock = {}, {}, {}, {}
 
@@ -346,8 +378,12 @@ local config = function()
   ScrollBarBlock = u.insert(ScrollBarBlock, ScrollBar)
 
   InactiveStatusline = {
-    condition = function() conditions.buffer_matches(status_inactive) end,
-    provider = function() return "%=" end,
+    condition = function()
+      conditions.buffer_matches(status_inactive)
+    end,
+    provider = function()
+      return "%="
+    end,
     hl = function()
       if conditions.is_active() then
         return { bg = active_background_color }
@@ -358,7 +394,9 @@ local config = function()
   }
 
   ActiveStatusline = {
-    condition = function() return not conditions.buffer_matches(status_inactive) end,
+    condition = function()
+      return not conditions.buffer_matches(status_inactive)
+    end,
     GitBlock,
     MacroRecording,
     Align,
@@ -376,7 +414,9 @@ local config = function()
   local StatusLines = {
     condition = function()
       for _, c in ipairs(cmdtype_inactive) do
-        if vim.fn.getcmdtype() == c then return false end
+        if vim.fn.getcmdtype() == c then
+          return false
+        end
       end
       return true
     end,
@@ -386,7 +426,9 @@ local config = function()
 
   ActiveWinbar = {
     condition = function()
-      local empty_buffer = function() return bo.ft == "" and bo.buftype == "" end
+      local empty_buffer = function()
+        return bo.ft == "" and bo.buftype == ""
+      end
       return not empty_buffer()
     end,
     Align,

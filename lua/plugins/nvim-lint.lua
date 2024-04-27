@@ -30,7 +30,9 @@ return {
       callback = function()
         if ignore_buftype[vim.bo.filetype] then
           for _, buftype in ipairs(ignore_buftype[vim.bo.filetype]) do
-            if buftype == vim.bo.buftype then return end
+            if buftype == vim.bo.buftype then
+              return
+            end
           end
         end
         lint.try_lint()

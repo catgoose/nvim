@@ -13,7 +13,9 @@ local config = function()
     return ...
   end
 
-  RELOAD = function(...) return reloader(...) end
+  RELOAD = function(...)
+    return reloader(...)
+  end
 
   R = function(name)
     RELOAD(name)

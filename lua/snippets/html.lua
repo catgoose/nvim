@@ -152,13 +152,14 @@ local snippets = {
   {}
   </div>
   ]],
-      { c(1, {
-        t(""),
-        t([[fxLayout="row"]]),
-        t([[fxLayout="column"]]),
-      }), i(
-        0
-      ) }
+      {
+        c(1, {
+          t(""),
+          t([[fxLayout="row"]]),
+          t([[fxLayout="column"]]),
+        }),
+        i(0),
+      }
     )
   ),
 

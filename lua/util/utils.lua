@@ -15,7 +15,9 @@ local function get_config_modules(exclude_map)
   end
   files = vim.tbl_filter(function(file)
     for _, pattern in ipairs(exclude_map) do
-      if file:match(pattern) then return false end
+      if file:match(pattern) then
+        return false
+      end
     end
     return true
   end, files)
@@ -37,10 +39,14 @@ function M.reload_lua()
   cmd.nohlsearch()
 end
 
-local function cmd_string(cmd_arg) return [[<cmd>]] .. cmd_arg .. [[<cr>]] end
+local function cmd_string(cmd_arg)
+  return [[<cmd>]] .. cmd_arg .. [[<cr>]]
+end
 
 local function str_to_tbl(v)
-  if type(v) == "string" then v = { v } end
+  if type(v) == "string" then
+    v = { v }
+  end
   return v
 end
 
@@ -61,7 +67,9 @@ function M.key_map(lhs, rhs, modes, opts)
 end
 
 function M.lazy_map(lhs, rhs, modes)
-  if type(rhs) == "string" then rhs = cmd_string(rhs) end
+  if type(rhs) == "string" then
+    rhs = cmd_string(rhs)
+  end
   modes = str_to_tbl(modes) or { "n" }
   return {
     lhs,
@@ -82,7 +90,9 @@ end
 
 function M.tbl_index(tbl, value)
   for i, v in ipairs(tbl) do
-    if v == value then return i end
+    if v == value then
+      return i
+    end
   end
   return nil
 end
@@ -96,10 +106,14 @@ function M.tbl_foreach(tbl, f)
 end
 
 function M.tbl_filter(tbl, f)
-  if not tbl or tbl == {} then return {} end
+  if not tbl or tbl == {} then
+    return {}
+  end
   local t = {}
   for key, value in ipairs(tbl) do
-    if f(key, value) then table.insert(t, value) end
+    if f(key, value) then
+      table.insert(t, value)
+    end
   end
   return t
 end
@@ -149,7 +163,9 @@ function M.screen_scale(config)
   }
 end
 
-function M.diag_error() return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0 end
+function M.diag_error()
+  return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
+end
 
 ---@diagnostic disable-next-line: unused-local, unused-function
 local function treesitter_is_css_class_under_cursor()
@@ -171,12 +187,18 @@ local function treesitter_is_css_class_under_cursor()
     bufnr = bufnr,
     ignore_injections = false,
   })
-  if cursor == nil then return false end
+  if cursor == nil then
+    return false
+  end
   local parent = cursor:parent()
 
-  if not parent then return false end
+  if not parent then
+    return false
+  end
 
-  if queries == nil then return false end
+  if queries == nil then
+    return false
+  end
 
   for id, _ in queries:iter_captures(parent, bufnr, 0, -1) do
     local name = queries.captures[id]
@@ -187,11 +209,12 @@ end
 local function is_diag_for_cur_pos()
   local diagnostics = vim.diagnostic.get(0)
   local pos = api.nvim_win_get_cursor(0)
-  if #diagnostics == 0 then return false end
-  local message = vim.tbl_filter(
-    function(d) return d.col == pos[2] and d.lnum == pos[1] - 1 end,
-    diagnostics
-  )
+  if #diagnostics == 0 then
+    return false
+  end
+  local message = vim.tbl_filter(function(d)
+    return d.col == pos[2] and d.lnum == pos[1] - 1
+  end, diagnostics)
   return #message > 0
 end
 
@@ -199,7 +222,9 @@ function M.hover_handler()
   local ok, ufo = pcall(require, "ufo")
   if ok then
     local winid = ufo.peekFoldedLinesUnderCursor()
-    if winid then return end
+    if winid then
+      return
+    end
   end
   local ft = bo.filetype
   if tbl_contains({ "vim", "help" }, ft) then

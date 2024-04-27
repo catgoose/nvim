@@ -30,11 +30,15 @@ local projects = {
     dev_keys = {
       {
         dev_key,
-        function() vim.cmd([[Lazy reload vue-goto-definition.nvim]]) end,
+        function()
+          vim.cmd([[Lazy reload vue-goto-definition.nvim]])
+        end,
       },
       {
         "gd",
-        function() require("vue-goto-definition").goto_definition() end,
+        function()
+          require("vue-goto-definition").goto_definition()
+        end,
       },
     },
   },
@@ -55,7 +59,9 @@ local projects = {
     dev_keys = {
       {
         dev_key,
-        function() vim.cmd([[Lazy reload angler.nvim]]) end,
+        function()
+          vim.cmd([[Lazy reload angler.nvim]])
+        end,
       },
     },
   },
@@ -82,7 +88,9 @@ local current_project = projects.eddie
 
 local function get_project_property(project_name, property_type)
   local project = projects[project_name]
-  if not project then return nil end
+  if not project then
+    return nil
+  end
   local property = nil
   if project == current_project then
     property = project["dev_" .. property_type] or {}
@@ -114,6 +122,8 @@ function M.get_keys(project_name, keys)
   return keys
 end
 
-function M.is_project(project_name) return current_project == projects[project_name] end
+function M.is_project(project_name)
+  return current_project == projects[project_name]
+end
 
 return M

@@ -13,7 +13,9 @@ local is_not_buftype = function()
     "nofile",
   }
   for _, v in pairs(exclude_bt) do
-    if bt == v then return false end
+    if bt == v then
+      return false
+    end
   end
   return true
 end
@@ -26,7 +28,9 @@ local is_not_filetype = function()
     "oil",
   }
   for _, v in pairs(exclude_ft) do
-    if ft == v then return false end
+    if ft == v then
+      return false
+    end
   end
   return true
 end

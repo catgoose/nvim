@@ -221,56 +221,43 @@ return {
   config = config,
   init = function()
     local create_cmd = require("util").create_cmd
-    create_cmd(
-      "TelescopeFindFiles",
-      function()
-        require("telescope.builtin").find_files({
-          layout_strategy = "vertical",
-          layout_config = {
-            width = 0.5,
-            height = 0.50,
-            vertical = {
-              prompt_position = "bottom",
-            },
+    create_cmd("TelescopeFindFiles", function()
+      require("telescope.builtin").find_files({
+        layout_strategy = "vertical",
+        layout_config = {
+          width = 0.5,
+          height = 0.50,
+          vertical = {
+            prompt_position = "bottom",
           },
-        })
-      end
-    )
-    create_cmd(
-      "TelescopeFindFilesPreview",
-      function()
-        require("telescope.builtin").find_files({
-          layout_config = {
-            horizontal = {
-              prompt_position = "bottom",
-              preview_width = 0.65,
-              results_width = 0.35,
-            },
+        },
+      })
+    end)
+    create_cmd("TelescopeFindFilesPreview", function()
+      require("telescope.builtin").find_files({
+        layout_config = {
+          horizontal = {
+            prompt_position = "bottom",
+            preview_width = 0.65,
+            results_width = 0.35,
           },
-        })
-      end
-    )
-    create_cmd(
-      "TelescopeFindFilesNoIgnore",
-      function()
-        require("telescope.builtin").fd({
-          no_ignore = true,
-          hidden = true,
-        })
-      end
-    )
-    create_cmd(
-      "TelescopeFindFilesCWD",
-      function() require("telescope.builtin").fd({ search_dirs = { vim.fn.expand("%:h") } }) end
-    )
-    create_cmd(
-      "TelescopeLiveGrepHidden",
-      function()
-        require("telescope.builtin").live_grep({
-          additional_args = { "--hidden" },
-        })
-      end
-    )
+        },
+      })
+    end)
+    create_cmd("TelescopeFindFilesNoIgnore", function()
+      require("telescope.builtin").fd({
+        no_ignore = true,
+        hidden = true,
+      })
+    end)
+    create_cmd("TelescopeFindFilesCWD", function()
+      require("telescope.builtin").fd({ search_dirs = { vim.fn.expand("%:h") } })
+    end)
+    create_cmd("TelescopeLiveGrepHidden", function()
+      require("telescope.builtin").live_grep({
+        additional_args = { "--hidden" },
+      })
+    end)
   end,
   cmd = "Telescope",
   keys = keys,

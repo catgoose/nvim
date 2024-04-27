@@ -17,10 +17,9 @@ M.ffi.cdef([[
 
 function M.get_signs()
   local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-  return vim.tbl_map(
-    function(sign) return vim.fn.sign_getdefined(sign.name)[1] end,
-    vim.fn.sign_getplaced(buf, { group = "*", lnum = vim.v.lnum })[1].signs
-  )
+  return vim.tbl_map(function(sign)
+    return vim.fn.sign_getdefined(sign.name)[1]
+  end, vim.fn.sign_getplaced(buf, { group = "*", lnum = vim.v.lnum })[1].signs)
 end
 
 function M.fold_col()
@@ -72,6 +71,8 @@ function M.column()
   return table.concat(cols, "")
 end
 
-if vim.fn.has("nvim-0.9.0") == 1 then vim.opt.statuscolumn = [[%!v:lua.Status.column()]] end
+if vim.fn.has("nvim-0.9.0") == 1 then
+  vim.opt.statuscolumn = [[%!v:lua.Status.column()]]
+end
 
 return M

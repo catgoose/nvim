@@ -15,12 +15,16 @@ return {
     {
       "s",
       mode = { "n", "x", "o" },
-      function() require("flash").jump() end,
+      function()
+        require("flash").jump()
+      end,
     },
     {
       "r",
       mode = "o",
-      function() require("flash").remote() end,
+      function()
+        require("flash").remote()
+      end,
     },
   },
 }
