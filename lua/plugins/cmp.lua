@@ -8,6 +8,7 @@ local source_mapping = {
   treesitter = "[TREE]",
   cmp_ai = "[AI]",
   ["vim-dadbod-completion"] = "[DB]",
+  eddie_lsp = "[EDDIE]",
 }
 
 local config = function()
@@ -19,16 +20,22 @@ local config = function()
   local autocomplete_group = vim.api.nvim_create_augroup("dadbod-autocomplete", { clear = true })
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "sql", "mysql", "plsql" },
-    callback = function() cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } }) end,
+    callback = function()
+      cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+    end,
     group = autocomplete_group,
   })
 
   cmp.setup({
-    enabled = function() return require("util.cmp").is_enabled() end,
+    enabled = function()
+      return require("util.cmp").is_enabled()
+    end,
     preselect = cmp.PreselectMode.Item,
     keyword_length = 2,
     snippet = {
-      expand = function(args) vim.snippet.expand(args.body) end,
+      expand = function(args)
+        vim.snippet.expand(args.body)
+      end,
     },
     window = {
       completion = cmp.config.window.bordered(),
@@ -79,10 +86,16 @@ local config = function()
         group_index = 2,
       },
       {
+        name = "eddie_lsp",
+        group_index = 2,
+      },
+      {
         name = "codeium",
         group_index = 2,
         option = { use_show_condition = true },
-        entry_filter = function() return not vim.g.leetcode end,
+        entry_filter = function()
+          return not vim.g.leetcode
+        end,
       },
       {
         name = "nvim_lua",
@@ -185,6 +198,7 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "roobert/tailwindcss-colorizer-cmp.nvim",
       "jcdickinson/codeium.nvim",
+      dir = "~/git/eddie.nvim",
     },
   },
 }

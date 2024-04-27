@@ -9,6 +9,8 @@ return {
     "hrsh7th/nvim-cmp",
   },
   event = "InsertEnter",
-  config = function() require("codeium").setup({}) end,
+  config = function()
+    require("codeium").setup({})
+  end,
   enabled = false,
 }

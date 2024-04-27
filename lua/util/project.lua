@@ -75,8 +75,8 @@ local projects = {
 
 -- local current_project = nil
 -- local current_project = projects.angler
--- local current_project = projects.eddie
-local current_project = projects.helpgrep
+local current_project = projects.eddie
+-- local current_project = projects.helpgrep
 -- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]
 
