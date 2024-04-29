@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-field
 local source_mapping = {
-  nvim_lsp = "[LSP]",
+  -- nvim_lsp = "[LSP]",
   nvim_lua = "[LUA]",
   luasnip = "[SNIP]",
   buffer = "[BUF]",
@@ -81,10 +81,10 @@ local config = function()
             and not context.in_syntax_group("String")
         end,
       },
-      {
-        name = "nvim_lsp",
-        group_index = 2,
-      },
+      -- {
+      --   name = "nvim_lsp",
+      --   group_index = 2,
+      -- },
       {
         name = "eddie_lsp",
         group_index = 2,

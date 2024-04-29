@@ -72,6 +72,7 @@ local projects = {
         dev_key,
         function()
           vim.cmd([[Lazy reload eddie.nvim]])
+          vim.cmd([[Lazy reload nvim-cmp]])
           vim.cmd([[Eddie]])
         end,
       },
