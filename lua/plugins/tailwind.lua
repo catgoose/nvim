@@ -22,7 +22,7 @@ return {
     opts = {
       conceal = {
         enabled = true,
-        min_length = 8,
+        min_length = 80,
         symbol = "󱏿",
         highlight = {
           fg = "#38BDF8",
