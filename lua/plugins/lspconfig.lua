@@ -4,17 +4,17 @@ local config = function()
   local lspconfig = require("lspconfig")
   local vt = require("virtualtypes")
 
-  -- local capabilities = vim.tbl_deep_extend(
-  --   "force",
-  --   vim.lsp.protocol.make_client_capabilities(),
-  --   require("cmp_nvim_lsp").default_capabilities()
-  -- )
-
   local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),
-    require("eddie").default_capabilities()
+    require("cmp_nvim_lsp").default_capabilities()
   )
+
+  -- local capabilities = vim.tbl_deep_extend(
+  --   "force",
+  --   vim.lsp.protocol.make_client_capabilities(),
+  --   require("eddie").default_capabilities()
+  -- )
   -- local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   -- ufo

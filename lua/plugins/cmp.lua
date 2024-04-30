@@ -81,14 +81,14 @@ local config = function()
             and not context.in_syntax_group("String")
         end,
       },
-      -- {
-      --   name = "nvim_lsp",
-      --   group_index = 2,
-      -- },
       {
-        name = "eddie_lsp",
+        name = "nvim_lsp",
         group_index = 2,
       },
+      -- {
+      --   name = "eddie_lsp",
+      --   group_index = 2,
+      -- },
       {
         name = "codeium",
         group_index = 2,
