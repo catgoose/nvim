@@ -29,6 +29,12 @@ return {
       })
     end, { "n", "x" }),
   },
-  dependencies = "nvim-lua/plenary.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    {
+      "pockata/harpoon-highlight-current-file",
+      config = true,
+    },
+  },
   branch = "harpoon2",
 }
