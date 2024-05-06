@@ -892,6 +892,25 @@ describe('<>', () =>> {
     )
   ),
   s("itc", t("const itc = it.concurrent;")),
+  s(
+    "playwright",
+    fmta(
+      [[
+import { test, expect } from '@playwright/test'
+
+test.describe('<>', () =>> {
+  test('<>', async ({ page }) =>> {
+    <>
+  })
+})
+    ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+      }
+    )
+  ),
 }
 
 return snippets
