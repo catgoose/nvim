@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-field
 local source_mapping = {
-  -- nvim_lsp = "[LSP]",
+  nvim_lsp = "[LSP]",
   nvim_lua = "[LUA]",
   luasnip = "[SNIP]",
   buffer = "[BUF]",
@@ -198,7 +198,6 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "roobert/tailwindcss-colorizer-cmp.nvim",
       "jcdickinson/codeium.nvim",
-      dir = "~/git/eddie.nvim",
     },
   },
 }

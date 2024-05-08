@@ -134,7 +134,7 @@ local config = function()
     },
     tailwindcss = {
       root_dir = function(fname)
-        local root_pattern = lspconfig.util.root_pattern("tailwind.config.js")
+        local root_pattern = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts")
         return root_pattern(fname)
       end,
     },
