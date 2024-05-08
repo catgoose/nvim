@@ -49,6 +49,9 @@ local opts = {
     cmp_menu = {
       always_update = true,
     },
+    NeogitLogView = {
+      names = false,
+    },
   },
   user_default_options = {
     RGB = true,
