@@ -58,7 +58,11 @@ return {
         class_action(tsnode)
       end,
       ["attribute_value"] = function(tsnode)
-        tsnode = tsnode:parent():prev_named_sibling()
+        tsnode = tsnode:parent()
+        if not tsnode then
+          return
+        end
+        tsnode = tsnode:prev_named_sibling()
         class_action(tsnode)
       end,
       ["quoted_attribute_value"] = function(tsnode)
