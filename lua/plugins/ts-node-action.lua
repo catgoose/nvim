@@ -1,5 +1,5 @@
-local m = require("util").lazy_map
 local u = require("util")
+local m = u.lazy_map
 
 local function expand_class(tsnode)
   local row = tsnode:start()
