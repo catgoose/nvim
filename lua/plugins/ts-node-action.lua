@@ -1,9 +1,9 @@
 local m = require("util").lazy_map
 local u = require("util")
 
-local function expand_class(node)
-  local row = node:start()
-  local node_text = vim.treesitter.get_node_text(node, vim.api.nvim_get_current_buf())
+local function expand_class(tsnode)
+  local row = tsnode:start()
+  local node_text = vim.treesitter.get_node_text(tsnode, vim.api.nvim_get_current_buf())
   local classes = u.split_string(node_text)
   local quote = classes[1]:sub(1, 1)
   classes[1] = classes[1]:sub(2)
@@ -20,10 +20,10 @@ local function expand_class(node)
   end
 end
 
-local function collapse_class(node)
-  local row_start, col_start = node:start()
-  local row_end, col_end = node:end_()
-  local node_text = vim.treesitter.get_node_text(node, vim.api.nvim_get_current_buf())
+local function collapse_class(tsnode)
+  local row_start, col_start = tsnode:start()
+  local row_end, col_end = tsnode:end_()
+  local node_text = vim.treesitter.get_node_text(tsnode, vim.api.nvim_get_current_buf())
   local quote = node_text:sub(1, 1)
   local cleaned_text = node_text:gsub("\n", " "):gsub("%s+", " "):match("^%s*(.-)%s*$"):sub(3, -3)
   local line = "=" .. quote .. cleaned_text .. quote
@@ -33,25 +33,37 @@ local function collapse_class(node)
   end
 end
 
+local function class_action(tsnode)
+  local node_text = vim.treesitter.get_node_text(tsnode, 0)
+  if node_text == "class" then
+    local sibling = tsnode:next_named_sibling()
+    if not sibling then
+      return
+    end
+    local row = sibling:start()
+    local end_row = sibling:end_()
+    if row == end_row then
+      expand_class(sibling)
+    else
+      collapse_class(sibling)
+    end
+  end
+end
+
 return {
   "CKolkey/ts-node-action",
   opts = {
     vue = {
       ["attribute_name"] = function(tsnode)
-        local node_text = vim.treesitter.get_node_text(tsnode, vim.api.nvim_get_current_buf())
-        if node_text == "class" then
-          local sibling = tsnode:next_named_sibling()
-          if not sibling then
-            return
-          end
-          local row = sibling:start()
-          local end_row = sibling:end_()
-          if row == end_row then
-            expand_class(sibling)
-          else
-            collapse_class(sibling)
-          end
-        end
+        class_action(tsnode)
+      end,
+      ["attribute_value"] = function(tsnode)
+        tsnode = tsnode:parent():prev_named_sibling()
+        class_action(tsnode)
+      end,
+      ["quoted_attribute_value"] = function(tsnode)
+        tsnode = tsnode:prev_named_sibling()
+        class_action(tsnode)
       end,
     },
   },
