@@ -14,4 +14,5 @@ return {
     m("<leader>i", [[lua require("treesj").toggle({split = {recursive = true}})]]),
   },
   opts = opts,
+  enabled = false,
 }

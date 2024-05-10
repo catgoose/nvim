@@ -257,4 +257,17 @@ function M.deep_copy(orig)
   return copy
 end
 
+function M.split_string(str, sep, include_empty)
+  sep = sep or " "
+  include_empty = include_empty or false
+  local t = {}
+  local pattern = string.format("([^%s]*)", sep)
+  for word in string.gmatch(str, pattern) do
+    if include_empty or word ~= "" then
+      table.insert(t, word)
+    end
+  end
+  return t
+end
+
 return M
