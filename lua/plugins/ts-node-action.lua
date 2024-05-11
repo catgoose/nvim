@@ -2,13 +2,18 @@ local u = require("util")
 local m = u.lazy_map
 
 local function expand_class(tsnode)
+  local sibling = tsnode:prev_named_sibling()
+  if not sibling then
+    return
+  end
   local row = tsnode:start()
-  local node_text = vim.treesitter.get_node_text(tsnode, vim.api.nvim_get_current_buf())
+  local _, attr_col = sibling:start()
+  local node_text = vim.treesitter.get_node_text(tsnode, 0)
+  local quote = node_text:sub(1, 1)
   local classes = u.split_string(node_text)
-  local quote = classes[1]:sub(1, 1)
   classes[1] = classes[1]:sub(2)
   classes[#classes] = classes[#classes]:sub(1, -2)
-  local spaces = (" "):rep(row + vim.bo.shiftwidth)
+  local spaces = (" "):rep(attr_col)
   local lines = { spaces .. "class=" .. quote }
   for _, class in ipairs(classes) do
     table.insert(lines, spaces .. (" "):rep(vim.bo.shiftwidth) .. class)
@@ -33,20 +38,24 @@ local function collapse_class(tsnode)
   end
 end
 
+local function handle_node(tsnode)
+  local row = tsnode:start()
+  local end_row = tsnode:end_()
+  if row == end_row then
+    expand_class(tsnode)
+  else
+    collapse_class(tsnode)
+  end
+end
+
 local function class_action(tsnode)
   local node_text = vim.treesitter.get_node_text(tsnode, 0)
   if node_text == "class" then
-    local sibling = tsnode:next_named_sibling()
-    if not sibling then
+    tsnode = tsnode:next_named_sibling()
+    if not tsnode then
       return
     end
-    local row = sibling:start()
-    local end_row = sibling:end_()
-    if row == end_row then
-      expand_class(sibling)
-    else
-      collapse_class(sibling)
-    end
+    handle_node(tsnode)
   end
 end
 
