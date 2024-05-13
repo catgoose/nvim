@@ -99,8 +99,10 @@ return {
             _classes[1] = _classes[1]:sub(2)
             _classes[#_classes] = _classes[#_classes]:sub(1, -2)
             local classes = { quote }
+            local _, attr_col = tsnode:start()
+            local spaces = (" "):rep(attr_col)
             for _, class in ipairs(_classes) do
-              table.insert(classes, class)
+              table.insert(classes, spaces .. (" "):rep(vim.bo.shiftwidth) .. class)
             end
             classes[#classes + 1] = quote
             return classes, opts

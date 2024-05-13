@@ -6,9 +6,9 @@ return {
   config = function()
     local lint = require("lint")
     lint.linters_by_ft = {
-      javascript = { "eslint_d" },
-      typescript = { "eslint_d" },
-      vue = { "eslint_d" },
+      javascript = { "eslint_d", "oxlint" },
+      typescript = { "eslint_d", "oxlint" },
+      vue = { "eslint_d", "oxlint" },
       docker = { "hadolint" },
       fish = { "fish" },
       -- env = { "dotenv-linter" },
@@ -23,6 +23,19 @@ return {
 
     local ignore_buftype = {
       markdown = { "nofile" },
+    }
+
+    lint.linters.oxlint = {
+      name = "oxlint", -- cargo install --features allocator --git https://github.com/oxc-project/oxc oxc_cli
+      cmd = "oxlint",
+      stdin = false,
+      args = { "--format", "unix" },
+      stream = "stdout",
+      ignore_exitcode = true,
+      parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+        source = "oxlint",
+        severity = vim.diagnostic.severity.WARN,
+      }),
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter" }, {
