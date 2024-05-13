@@ -270,4 +270,9 @@ function M.split_string(str, sep, include_empty)
   return t
 end
 
+function M.get_node_text(tsnode, bufnr)
+  bufnr = bufnr or 0
+  return vim.treesitter.get_node_text(tsnode, bufnr)
+end
+
 return M
