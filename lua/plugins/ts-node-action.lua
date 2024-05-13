@@ -91,8 +91,11 @@ return {
           }
 
           if multiline then
-            local classes =
-              classes_text:gsub("\n", " "):gsub(quote .. "%s+", quote):gsub("%s+" .. quote, quote)
+            local classes = classes_text
+              :gsub("\n", " ")
+              :gsub(quote .. "%s+", quote)
+              :gsub("%s+" .. quote, quote)
+              :gsub("%s+", " ")
             return classes, opts
           else
             local _classes = u.split_string(classes_text)
@@ -104,7 +107,7 @@ return {
             for _, class in ipairs(_classes) do
               table.insert(classes, spaces .. (" "):rep(vim.bo.shiftwidth) .. class)
             end
-            classes[#classes + 1] = quote
+            classes[#classes + 1] = spaces .. quote
             return classes, opts
           end
         end
