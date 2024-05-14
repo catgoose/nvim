@@ -2,6 +2,9 @@ local t = require("util.ts-node-action")
 local u = require("util")
 local m = u.lazy_map
 
+--  TODO: 2024-05-14 - create node action for toggling json/jsonc arrays and
+--  objects multiline
+
 return {
   "CKolkey/ts-node-action",
   opts = {
