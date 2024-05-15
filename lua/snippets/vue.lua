@@ -61,14 +61,26 @@ console.groupEnd();
     "vue",
     fmt(
       [[
-<template>
-  <div></div>
-</template>
 <script setup lang="ts">
 {}
 </script>
+
+<template>
+  <div></div>
+</template>
   ]],
       { i(1) }
+    )
+  ),
+  s(
+    "vscript",
+    fmt(
+      [[
+<script setup lang="ts">
+{}
+</script>
+   ]],
+      i(1)
     )
   ),
   s(
