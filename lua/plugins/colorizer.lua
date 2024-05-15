@@ -52,6 +52,9 @@ local opts = {
     NeogitLogView = {
       names = false,
     },
+    NeogitCommitMessage = {
+      names = false,
+    },
   },
   user_default_options = {
     RGB = true,
