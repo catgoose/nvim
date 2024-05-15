@@ -84,8 +84,19 @@ M.hover_handler = function()
 end
 ```
 
-## Todo
+## Extra
 
-- Create `cmp` source for `primeflex`
-- `<leader>o` should unfold if fold present, otherwise open `oil`
-- find out what is setting foldlevel to 0
+### Neovim
+
+My other neovim projects
+
+[do-the-needful.nvim](https://github.com/catgoose/do-the-needful.nvim)
+
+- [telescope-helpgrep.nvim](https://github.com/catgoose/telescope-helpgrep.nvim)
+- [vue-goto-definition](https://github.com/catgoose/vue-goto-definition.nvim)
+
+### Tmux
+
+Tmux theme:
+
+[kanagawa-tmux](https://github.com/catgoose/kanagawa-tmux)
