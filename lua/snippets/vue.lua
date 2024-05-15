@@ -73,7 +73,7 @@ console.groupEnd();
     )
   ),
   s(
-    "vscript",
+    "setup",
     fmt(
       [[
 <script setup lang="ts">
@@ -84,10 +84,12 @@ console.groupEnd();
     )
   ),
   s(
-    "vstyle",
+    "style",
     fmt(
       [[
-<style lang="scss">{}</style>
+<style lang="scss">
+{}
+</style>
    ]],
       i(1)
     )
