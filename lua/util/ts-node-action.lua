@@ -19,11 +19,12 @@ M.vue = {
     local quote = classes_text:sub(1, 1)
     local multiline = string.find(classes_text, "\n")
     local opts = {
-      --  TODO: 2024-05-13 - set cursor to "class" node
       cursor = {},
       target = sibling,
       callback = function()
-        vim.b.disable_autoformat = not vim.b.disable_autoformat and not multiline
+        --  TODO: 2024-05-16 - Check if there are any expanded classes and set
+        --  disable format accordingly
+        vim.b.disable_autoformat = true
       end,
     }
 
