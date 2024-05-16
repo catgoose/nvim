@@ -65,24 +65,10 @@ local projects = {
       },
     },
   },
-  eddie = {
-    keys = {},
-    dev_keys = {
-      {
-        dev_key,
-        function()
-          vim.cmd([[Lazy reload eddie.nvim]])
-          vim.cmd([[Lazy reload nvim-cmp]])
-          vim.cmd([[Eddie]])
-        end,
-      },
-    },
-  },
 }
 
 local current_project = nil
 -- local current_project = projects.angler
--- local current_project = projects.eddie
 -- local current_project = projects.helpgrep
 -- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]
