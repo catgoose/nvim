@@ -911,6 +911,34 @@ test.describe('<>', () =>> {
       }
     )
   ),
+  s(
+    "ref",
+    fmt(
+      [[
+  const {}: Ref<{} | undefined> = ref();
+  {}
+     ]],
+      {
+        i(1),
+        i(2, "Type"),
+        i(0),
+      }
+    )
+  ),
+  s(
+    "comput",
+    fmt(
+      [[
+  const {} = computed(() => {})
+  {}
+   ]],
+      {
+        i(1),
+        i(2),
+        i(0),
+      }
+    )
+  ),
 }
 
 return snippets
