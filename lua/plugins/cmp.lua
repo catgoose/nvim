@@ -6,9 +6,7 @@ local source_mapping = {
   buffer = "[BUF]",
   path = "[PATH]",
   treesitter = "[TREE]",
-  cmp_ai = "[AI]",
   ["vim-dadbod-completion"] = "[DB]",
-  eddie_lsp = "[EDDIE]",
 }
 
 local config = function()
@@ -50,25 +48,15 @@ local config = function()
     },
     mapping = cmp.mapping.preset.insert({
       ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
+        behavior = cmp.ConfirmBehavior.Insert,
         select = true,
-      }),
-      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      }, { "i", "c" }),
+      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-5),
       ["<C-f>"] = cmp.mapping.scroll_docs(5),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-q>"] = cmp.mapping.abort(),
-      ["<C-x>"] = cmp.mapping(
-        cmp.mapping.complete({
-          config = {
-            sources = cmp.config.sources({
-              { name = "cmp_ai" },
-            }),
-          },
-        }),
-        { "i" }
-      ),
     }),
     sources = cmp.config.sources({
       {
@@ -85,10 +73,6 @@ local config = function()
         name = "nvim_lsp",
         group_index = 2,
       },
-      -- {
-      --   name = "eddie_lsp",
-      --   group_index = 2,
-      -- },
       {
         name = "codeium",
         group_index = 2,
