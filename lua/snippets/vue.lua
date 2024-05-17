@@ -362,13 +362,12 @@ const props = defineProps<{{
     fmta(
       [[
 const emit = defineEmits<<{
-  (e: '<>', <>: <>): <>;
- <> 
-}>>();
+  <>: [<>: <>]
+  <>
+}>>()
     ]],
       {
         i(1),
-        smn(1),
         i(2),
         i(3),
         i(0),
