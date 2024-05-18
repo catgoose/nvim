@@ -20,4 +20,5 @@ return {
   "ethanholz/nvim-lastplace",
   opts = opts,
   event = "BufReadPre",
+  enabled = false,
 }

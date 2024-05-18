@@ -275,4 +275,18 @@ function M.get_node_text(tsnode, bufnr)
   return vim.treesitter.get_node_text(tsnode, bufnr)
 end
 
+function M.set_formatoptions()
+  vim.opt_local.formatoptions = vim.opt_local.formatoptions
+    - "t"
+    + "c"
+    - "r"
+    - "o"
+    - "q"
+    - "a"
+    + "n"
+    - "2"
+    + "l"
+    + "j"
+end
+
 return M

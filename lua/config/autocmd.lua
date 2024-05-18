@@ -25,25 +25,7 @@ autocmd({ "FileType" }, {
   group = all_filetypes,
   pattern = { "*" },
   callback = function()
-    --  TODO: 2024-05-18 - move this to common location, used in
-    --  ftplugin/neogitcommitmessage
-    opt_local.formatoptions = opt_local.formatoptions
-      - "t"
-      + "c"
-      - "r"
-      - "o"
-      - "q"
-      - "a"
-      + "n"
-      - "2"
-      + "l"
-      + "j"
-  end,
-})
-autocmd({ "FileType" }, {
-  group = all_filetypes,
-  pattern = { "*" },
-  callback = function()
+    u.set_formatoptions()
     u.restore_cmdheight()
   end,
 })
@@ -127,24 +109,6 @@ autocmd({ "WinEnter" }, {
     if bo.filetype == "terminal" then
       cmd.startinsert()
     end
-  end,
-})
-
---  TODO: 2024-04-12 - Can this be moved to a ftplugin file?
-local dashboard = augroup("DashboardWinhighlight")
-autocmd({ "FileType" }, {
-  group = dashboard,
-  pattern = { "dashboard" },
-  callback = function()
-    vim.wo.winhighlight = "NormalNC:Normal"
-    autocmd({ "BufReadPre" }, {
-      group = dashboard,
-      pattern = { "*" },
-      callback = function()
-        vim.wo.winhighlight = ""
-        augroup("DashboardWinhighlight")
-      end,
-    })
   end,
 })
 

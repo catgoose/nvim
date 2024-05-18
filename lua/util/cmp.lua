@@ -35,7 +35,6 @@ local is_not_filetype = function()
   return true
 end
 local is_not_luasnip = function()
-  ---@diagnostic disable-next-line: param-type-mismatch
   return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
 end
 
