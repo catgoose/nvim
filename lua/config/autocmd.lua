@@ -3,6 +3,7 @@ local api, bo, opt_local, cmd = vim.api, vim.bo, vim.opt_local, vim.cmd
 local augroup, q_to_quit = u.create_augroup, u.map_q_to_quit
 local autocmd = api.nvim_create_autocmd
 local file_pattern = {
+  "*.cpp",
   "*.css",
   "*.fish",
   "*.html",
@@ -14,9 +15,9 @@ local file_pattern = {
   "*.scss",
   "*.sh",
   "*.ts",
+  "*.vue",
   "Dockerfile",
   "docker-compose.yaml",
-  "*.cpp",
 }
 
 local all_filetypes = augroup("AllFileTypesLocalOptions")
