@@ -24,7 +24,7 @@ opt.fillchars = {
   foldopen = "▼",
 }
 opt.confirm = true
-opt.shortmess = "aoOstTWAIcCFS"
+opt.shortmess = "aoOstTWAIcCFSq"
 opt.lazyredraw = true
 opt.updatetime = 100
 opt.splitkeep = "screen"
@@ -81,7 +81,7 @@ opt.diffopt = {
 opt.conceallevel = 0
 
 opt.pumblend = 12
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 opt.formatoptions = opt.formatoptions
   - "t" -- wrap with text width
   + "c" -- wrap comments
