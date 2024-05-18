@@ -65,9 +65,22 @@ local projects = {
       },
     },
   },
+  twvalues = {
+    keys = {},
+    dev_keys = {
+      {
+        dev_key,
+        function()
+          vim.cmd([[Lazy reload tw-values.nvim]])
+          vim.cmd([[TWValues]])
+        end,
+      },
+    },
+  },
 }
 
 local current_project = nil
+-- local current_project = projects.twvalues
 -- local current_project = projects.angler
 -- local current_project = projects.helpgrep
 -- local current_project = projects["do-the-needful"]
