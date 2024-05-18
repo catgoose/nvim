@@ -229,11 +229,11 @@ function M.hover_handler()
   local ft = bo.filetype
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
-  -- elseif treesitter_is_css_class_under_cursor() then
-  -- 	local clients = vim.lsp.get_clients({ name = "tailwindcss" })
-  -- 	if clients[1] then
-  -- 		cmd("TWValues")
-  -- 	end
+  elseif treesitter_is_css_class_under_cursor() then
+    local clients = vim.lsp.get_clients({ name = "tailwindcss" })
+    if clients[1] then
+      cmd("TWValues")
+    end
   elseif tbl_contains({ "man" }, ft) then
     cmd("silent! Man " .. fn.expand("<cword>"))
   elseif is_diag_for_cur_pos() then
