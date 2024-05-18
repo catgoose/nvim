@@ -90,8 +90,7 @@ end
 
 My other neovim projects
 
-[do-the-needful.nvim](https://github.com/catgoose/do-the-needful.nvim)
-
+- [do-the-needful.nvim](https://github.com/catgoose/do-the-needful.nvim)
 - [telescope-helpgrep.nvim](https://github.com/catgoose/telescope-helpgrep.nvim)
 - [vue-goto-definition](https://github.com/catgoose/vue-goto-definition.nvim)
 
