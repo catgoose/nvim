@@ -149,23 +149,6 @@ local config = function()
         },
       },
     },
-    textsubjects = {
-      enable = true,
-      prev_selection = ",",
-      keymaps = {
-        ["."] = "textsubjects-smart",
-        [";"] = "textsubjects-container-outer",
-        ["i;"] = "textsubjects-container-inner",
-      },
-    },
-    query_linter = {
-      enable = true,
-      use_virtual_text = true,
-      lint_events = {
-        "BufWrite",
-        "CursorHold",
-      },
-    },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -194,7 +177,6 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "RRethy/nvim-treesitter-textsubjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
       "windwp/nvim-ts-autotag",
       "CKolkey/ts-node-action",
