@@ -1,5 +1,5 @@
 local opts = {
-  duration = 300,
+  duration = 500,
   undo = {
     hlgroup = "HighlightUndo",
     mode = "n",

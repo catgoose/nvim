@@ -9,8 +9,8 @@ return {
       callback = function(ctx)
         if vim.bo.buftype ~= "nofile" then
           require("tsnode-marker").set_automark(ctx.buf, {
-            target = { "code_fence_content" }, -- list of target node types
-            hl_group = "CursorLine", -- highlight group
+            target = { "code_fence_content" },
+            hl_group = "CursorLine",
           })
         end
       end,
