@@ -24,6 +24,8 @@ autocmd({ "FileType" }, {
   group = all_filetypes,
   pattern = { "*" },
   callback = function()
+    --  TODO: 2024-05-18 - move this to common location, used in
+    --  ftplugin/neogitcommitmessage
     opt_local.formatoptions = opt_local.formatoptions
       - "t"
       + "c"
