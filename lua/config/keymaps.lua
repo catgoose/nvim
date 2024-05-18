@@ -36,6 +36,7 @@ m("<leader>ts", "horizontal term")
 m("<leader>tj", "botright term")
 m("<leader>tt", "tab term")
 m("<leader>tq", "tabclose")
+m("<leader>tp", "InspectTree")
 
 -- User commands
 m("<leader>cz", "ToggleCmdHeight")

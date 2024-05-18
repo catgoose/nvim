@@ -7,10 +7,15 @@ local opts = {
     telescope = true,
   },
   graph_style = "unicode",
+  commit_editor = {
+    kind = "tab",
+    show_staged_diff = true,
+  },
 }
 
 return {
-  "NeogitOrg/neogit",
+  -- "NeogitOrg/neogit",
+  dir = "~/git/neogit",
   opts = opts,
   config = function()
     local ng = require("neogit")
