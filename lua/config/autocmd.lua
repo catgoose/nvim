@@ -2,7 +2,7 @@ local u = require("util")
 local api, bo, opt_local, cmd = vim.api, vim.bo, vim.opt_local, vim.cmd
 local augroup, q_to_quit = u.create_augroup, u.map_q_to_quit
 local autocmd = api.nvim_create_autocmd
-local file_pattern = {
+local opt_file_pattern = {
   "*.cpp",
   "*.css",
   "*.fish",
@@ -152,7 +152,7 @@ autocmd({ "FileType" }, {
 local buffer = augroup("BufferDetectChanges")
 autocmd({ "FocusGained", "BufEnter" }, {
   group = buffer,
-  pattern = file_pattern,
+  pattern = opt_file_pattern,
   callback = function()
     cmd.checktime()
   end,
@@ -161,7 +161,7 @@ autocmd({ "FocusGained", "BufEnter" }, {
 local cursor_line = augroup("LocalCursorLine")
 autocmd({ "WinEnter", "BufWinEnter" }, {
   group = cursor_line,
-  pattern = file_pattern,
+  pattern = opt_file_pattern,
   callback = function()
     if bo.filetype ~= "nofile" then
       opt_local.cursorline = true
@@ -170,7 +170,7 @@ autocmd({ "WinEnter", "BufWinEnter" }, {
 })
 autocmd({ "WinLeave" }, {
   group = cursor_line,
-  pattern = file_pattern,
+  pattern = opt_file_pattern,
   callback = function()
     if bo.filetype ~= "nofile" then
       opt_local.cursorline = false

@@ -9,6 +9,20 @@ return {
     options = const.opt.sessionoptions_tbl,
     pre_save = ufo_u.set_opts,
     save_empty = false,
-    post_load = ufo_u.set_opts,
+    post_load = function()
+      -- vim.opt.formatoptions = vim.opt.formatoptions
+      --   + "j" -- remove comment when joining lines
+      --   + "l" -- long lines are not broken
+      --   + "c" -- wrap comments
+      --   + "n" -- recognized numbered lists
+      --   - "t" -- wrap with text width
+      --   - "r" -- insert comment after enter
+      --   - "o" -- insert comment after o/O
+      --   - "q" -- allow formatting of comments with gq
+      --   - "a" -- format paragraphs
+      --   - "2" -- use indent of second line for paragraph
+
+      ufo_u.set_opts()
+    end,
   },
 }
