@@ -1,6 +1,3 @@
-local m = require("util").lazy_map
-local k = vim.keymap.set
-
 local config = function()
   local opts = {
     ensure_installed = {
