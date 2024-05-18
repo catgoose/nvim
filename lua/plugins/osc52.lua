@@ -4,8 +4,6 @@ local opts = {
   silent = true,
 }
 
---  TODO: 2024-05-18 - Get 0.10 osc52 working
-
 return {
   "ojroques/nvim-osc52",
   event = "BufReadPre",

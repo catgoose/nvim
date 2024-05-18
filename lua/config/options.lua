@@ -81,7 +81,7 @@ opt.diffopt = {
 opt.conceallevel = 0
 
 opt.pumblend = 12
--- opt.clipboard = "unnamedplus"
+opt.clipboard = "unnamedplus"
 opt.formatoptions = opt.formatoptions
   - "t" -- wrap with text width
   + "c" -- wrap comments
