@@ -77,9 +77,21 @@ local projects = {
       },
     },
   },
+  ["highlight-colors"] = {
+    keys = {},
+    dev_keys = {
+      {
+        dev_key,
+        function()
+          vim.cmd([[Lazy reload nvim-highlight-colors]])
+        end,
+      },
+    },
+  },
 }
 
-local current_project = nil
+-- local current_project = nil
+local current_project = "highlight-colors"
 -- local current_project = projects.twvalues
 -- local current_project = projects.angler
 -- local current_project = projects.helpgrep

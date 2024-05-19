@@ -72,4 +72,5 @@ return {
     m("<leader>ci", [[ConformInfo]]),
   },
   init = init,
+  enabled = true,
 }

@@ -81,4 +81,5 @@ return {
   branch = "tailwind_add_ring_prefixes",
   opts = opts,
   event = "BufReadPre",
+  enabled = true,
 }
