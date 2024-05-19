@@ -14,8 +14,7 @@ local opts = {
 }
 
 return {
-  -- "NeogitOrg/neogit",
-  dir = "~/git/neogit",
+  "NeogitOrg/neogit",
   opts = opts,
   config = function()
     local ng = require("neogit")
