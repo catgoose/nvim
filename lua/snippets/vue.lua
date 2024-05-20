@@ -374,6 +374,30 @@ const emit = defineEmits<<{
       }
     )
   ),
+  s(
+    "trans",
+    fmt(
+      [[
+.{}enter-from
+.{}enter-active
+.{}enter-to
+.{}leave-from
+.{}leave-active
+.{}leave-to {{
+  {}
+}}
+     ]],
+      {
+        i(1),
+        smn(1),
+        smn(1),
+        smn(1),
+        smn(1),
+        smn(1),
+        i(0),
+      }
+    )
+  ),
 }
 
 return snippets
