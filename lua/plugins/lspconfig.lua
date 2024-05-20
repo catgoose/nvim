@@ -120,8 +120,6 @@ local config = function()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
-      --  TODO: 2024-05-20 - this needs to stop providing snippets
-      -- "emmet_ls",
       "marksman",
       "sqlls",
       "yamlls",
