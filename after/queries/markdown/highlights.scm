@@ -51,6 +51,11 @@
   (#set! conceal "")
 )
 (
+  [(info_string (language))] @markdown_code_block_lang_typescript
+  (#eq? @markdown_code_block_lang_typescript "ts")
+  (#set! conceal "")
+)
+(
   [(info_string (language))] @markdown_code_block_lang_json
   (#eq? @markdown_code_block_lang_json "json")
   (#set! conceal "")
