@@ -20,5 +20,4 @@ return {
   "s1n7ax/nvim-window-picker",
   version = "v1.*",
   opts = opts,
-  cmd = "Neotree",
 }
