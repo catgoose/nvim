@@ -180,8 +180,10 @@ local function treesitter_is_css_class_under_cursor()
         (#match? @attr_name "class")
     )
     ]]
-  --  TODO: 2024-04-23 - wrap these in pcalls
-  local queries = vim.treesitter.query.parse(ft, ft_query)
+  local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
+  if not ok or not query then
+    return
+  end
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.treesitter.get_node({
     bufnr = bufnr,
@@ -196,12 +198,12 @@ local function treesitter_is_css_class_under_cursor()
     return false
   end
 
-  if queries == nil then
+  if query == nil then
     return false
   end
 
-  for id, _ in queries:iter_captures(parent, bufnr, 0, -1) do
-    local name = queries.captures[id]
+  for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
+    local name = query.captures[id]
     return #name > 0
   end
 end

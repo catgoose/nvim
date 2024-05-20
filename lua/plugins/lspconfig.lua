@@ -105,7 +105,6 @@ local config = function()
   local vue_ft = { unpack(ts_ft) }
   table.insert(vue_ft, "vue")
   local css_ft = { "css", "scss", "less", "sass", "vue" }
-  local html_ft = { "html", "vue" }
   local tsdk = function()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
@@ -150,7 +149,7 @@ local config = function()
     },
     html = {
       capabilities = snippet_capabilities,
-      filetypes = html_ft,
+      filetypes = { "html", "vue" },
     },
     cssmodules_ls = {
       filetypes = vue_ft,
