@@ -56,5 +56,4 @@ return {
     m("<leader>G", "Neogit"),
     m("<leader>gl", "Neogit kind=vsplit"),
   },
-  branch = "nightly",
 }
