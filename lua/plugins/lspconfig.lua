@@ -4,12 +4,12 @@ local config = function()
   local lspconfig = require("lspconfig")
   local vt = require("virtualtypes")
 
+  --- Capabilities
   local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),
     require("cmp_nvim_lsp").default_capabilities()
   )
-
   -- ufo
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
@@ -17,7 +17,7 @@ local config = function()
   }
   ---@diagnostic disable-next-line: inject-field
   capabilities.offsetEncoding = { "utf-16" }
-
+  -- snippets
   local _snippet_capabilities = l.protocol.make_client_capabilities()
   ---@diagnostic disable-next-line: inject-field
   _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
