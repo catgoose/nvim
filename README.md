@@ -57,27 +57,6 @@ an issue or send me a message!
 
 ![image](https://github.com/catgoose/nvim/blob/f79299f39ea9320f61862c0f2199b4acef998acf/image.png)
 
-```lua
-M.hover_handler = function()
-  local winid = require("ufo").peekFoldedLinesUnderCursor()
-  if winid then
-    return
-  end
-  local ft = bo.filetype
-  if tbl_contains({ "vim", "help" }, ft) then
-    cmd("silent! h " .. fn.expand("<cword>"))
-  elseif M.treesitter_is_css_class_under_cursor() then
-    cmd("TWValues")
-  elseif tbl_contains({ "man" }, ft) then
-    cmd("silent! Man " .. fn.expand("<cword>"))
-  elseif is_diag_for_cur_pos() then
-    vim.diagnostic.open_float()
-  else
-    vim.lsp.buf.hover()
-  end
-end
-```
-
 ## Extra
 
 ### Neovim
