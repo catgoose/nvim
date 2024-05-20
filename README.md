@@ -47,21 +47,15 @@ an issue or send me a message!
 
 ![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim3.png)
 
-### Help grep
-
-#### ui.prompt
-
-![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim4.png)
-
 #### Results in quickfix
 
 ![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim5.png)
 
 ### Hover handler
 
-- Uses `K` to display different hover implementations depending on the content
+- Uses `K` to contextually display hover
 
-![image](https://github.com/catgoose/nvim/blob/6159ac96f7a725a79d5ee5767c3d3ec8d1ece0ed/neovim6.png)
+![image](https://github.com/catgoose/nvim/blob/6159ac96f7a725a79d5ee5767c3d3ec8d1ece0ed/image.png)
 
 ```lua
 M.hover_handler = function()
