@@ -23,3 +23,5 @@ if x_display ~= nil and x_display ~= "" then
     cache_enabled = 1,
   }
 end
+
+vim.deprecate = function() end

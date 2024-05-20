@@ -10,13 +10,6 @@ local config = function()
     require("cmp_nvim_lsp").default_capabilities()
   )
 
-  -- local capabilities = vim.tbl_deep_extend(
-  --   "force",
-  --   vim.lsp.protocol.make_client_capabilities(),
-  --   require("eddie").default_capabilities()
-  -- )
-  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-
   -- ufo
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
@@ -127,7 +120,8 @@ local config = function()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
-      "emmet_ls",
+      --  TODO: 2024-05-20 - this needs to stop providing snippets
+      -- "emmet_ls",
       "marksman",
       "sqlls",
       "yamlls",
