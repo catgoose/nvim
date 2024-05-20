@@ -55,7 +55,7 @@ an issue or send me a message!
 
 - Uses `K` to contextually display hover
 
-![image](https://github.com/catgoose/nvim/blob/6159ac96f7a725a79d5ee5767c3d3ec8d1ece0ed/image.png)
+![image](https://github.com/catgoose/nvim/blob/f79299f39ea9320f61862c0f2199b4acef998acf/image.png)
 
 ```lua
 M.hover_handler = function()
