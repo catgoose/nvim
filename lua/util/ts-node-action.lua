@@ -2,6 +2,33 @@ local u = require("util")
 local M = {}
 
 M.vue = {
+  tag_name = function(tsnode)
+    local tag_text = u.get_node_text(tsnode)
+    local parent = tsnode:parent()
+    if not parent then
+      return
+    end
+    local parent_text = u.get_node_text(parent)
+    local tag_start = parent_text:sub(1, 1)
+    local tag_end = parent_text:sub(-1)
+    local tag_tbl = { tag_start .. tag_text }
+    local sibiling = tsnode:next_named_sibling()
+    if not sibiling then
+      return
+    end
+    table.insert(tag_tbl, (" "):rep(vim.bo.shiftwidth) .. u.get_node_text(sibiling))
+    table.insert(tag_tbl, (" "):rep(vim.bo.shiftwidth) .. tag_end)
+    local opts = {
+      cursor = { row = 1, col = vim.bo.shiftwidth },
+      target = tsnode:parent(),
+      callback = function()
+        --  TODO: 2024-05-16 - Check if there are any expanded classes and set
+        --  disable format accordingly
+        vim.b.disable_autoformat = true
+      end,
+    }
+    return tag_tbl, opts
+  end,
   class_action = function(tsnode)
     local node_text = u.get_node_text(tsnode)
     if node_text ~= "class" then

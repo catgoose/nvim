@@ -2,8 +2,6 @@ local t = require("util.ts-node-action")
 local u = require("util")
 local m = u.lazy_map
 
---  TODO: 2024-05-14 - create node action for toggling json/jsonc arrays and
---  objects multiline
 local html = {
   ["attribute_name"] = function(tsnode)
     return t.vue.class_action(tsnode)
@@ -25,6 +23,9 @@ local html = {
       return
     end
     return t.vue.class_action(sibling)
+  end,
+  ["tag_name"] = function(tsnode)
+    return t.vue.tag_name(tsnode)
   end,
 }
 
