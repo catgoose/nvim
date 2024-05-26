@@ -3,8 +3,15 @@ local u = require("util")
 local m = u.lazy_map
 
 local html = {
+  ["tag_name"] = function(tsnode)
+    return t.vue.tag_name(tsnode)
+  end,
   ["attribute_name"] = function(tsnode)
-    return t.vue.class_action(tsnode)
+    local sibling = tsnode:next_named_sibling()
+    if not sibling then
+      return
+    end
+    return t.vue.attribute_name(tsnode)
   end,
   ["attribute_value"] = function(tsnode)
     local parent = tsnode:parent()
@@ -15,17 +22,14 @@ local html = {
     if not sibling then
       return
     end
-    return t.vue.class_action(sibling)
+    return t.vue.attribute_name(sibling)
   end,
   ["quoted_attribute_value"] = function(tsnode)
     local sibling = tsnode:prev_named_sibling()
     if not sibling then
       return
     end
-    return t.vue.class_action(sibling)
-  end,
-  ["tag_name"] = function(tsnode)
-    return t.vue.tag_name(tsnode)
+    return t.vue.attribute_name(sibling)
   end,
 }
 
