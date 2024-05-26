@@ -79,6 +79,8 @@ M.vue = {
     if not attribute_value then
       return
     end
+    --  TODO: 2024-05-25 - What does this mean and what should be returned
+    -- if multiple lines aren't received?
     if #u.split_string(attribute_value) > 1 then
       return handle_attribute_value(sibling)
     end
