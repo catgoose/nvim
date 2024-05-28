@@ -3,7 +3,13 @@ local u = require("util")
 local m = u.lazy_map
 
 local html = {
-  ["start_tag"] = function(tsnode) end,
+  ["start_tag"] = function(tsnode)
+    local child = tsnode:named_child()
+    if not child then
+      return
+    end
+    return t.vue.tag_name(child)
+  end,
   ["tag_name"] = function(tsnode)
     return t.vue.tag_name(tsnode)
   end,
