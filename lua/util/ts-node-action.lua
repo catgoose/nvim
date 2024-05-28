@@ -37,7 +37,8 @@ local function handle_attribute_value(tsnode)
   end
 end
 
-local function handle_tag_name(tsnode)
+local function handle_tag_name(tsnode, cursor)
+  cursor = cursor or {}
   local tag_text = u.get_node_text(tsnode)
 
   local parent = tsnode:parent()
@@ -63,11 +64,27 @@ local function handle_tag_name(tsnode)
       vim.b.disable_autoformat = true
     end,
     format = true,
+    cursor = cursor,
   }
   if multiline then
     return table.concat(element, " "), opts
   else
     return element, opts
+  end
+end
+
+local function get_first_sibling(tsnode)
+  local sibling = tsnode:prev_named_sibling()
+  if not sibling then
+    return tsnode
+  end
+  while sibling do
+    local new_sibling = sibling:prev_named_sibling()
+    if not new_sibling then
+      return sibling
+    else
+      sibling = new_sibling
+    end
   end
 end
 
@@ -83,10 +100,21 @@ M.vue = {
     end
     if #u.split_string(attribute_value) > 1 then
       return handle_attribute_value(sibling)
+    else
+      local parent = tsnode:parent()
+      if not parent then
+        return
+      end
+      local tagnode = get_first_sibling(parent)
+      return handle_tag_name(tagnode)
     end
   end,
   tag_name = function(tsnode)
     return handle_tag_name(tsnode)
+  end,
+  handle_attribute = function(tsnode)
+    local tagnode = get_first_sibling(tsnode)
+    return handle_tag_name(tagnode)
   end,
 }
 

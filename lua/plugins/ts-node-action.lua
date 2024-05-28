@@ -3,6 +3,7 @@ local u = require("util")
 local m = u.lazy_map
 
 local html = {
+  ["start_tag"] = function(tsnode) end,
   ["tag_name"] = function(tsnode)
     return t.vue.tag_name(tsnode)
   end,
@@ -12,6 +13,16 @@ local html = {
       return
     end
     return t.vue.attribute_name(tsnode)
+  end,
+  ["directive_name"] = function(tsnode)
+    local parent = tsnode:parent()
+    if not parent then
+      return
+    end
+    return t.vue.handle_attribute(parent)
+  end,
+  ["directive_attribute"] = function(tsnode)
+    return t.vue.handle_attribute(tsnode)
   end,
   ["attribute_value"] = function(tsnode)
     local parent = tsnode:parent()
