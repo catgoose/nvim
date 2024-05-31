@@ -49,6 +49,7 @@ local function handle_tag_name(tsnode, cursor)
 
   local tag_start = parent_text:sub(1, 1)
   local tag_end = parent_text:sub(-2)
+  --  BUG: 2024-05-31 - whitespace is being added on the collapse action
   if tag_end ~= "/>" then
     tag_end = parent_text:sub(-1)
   end
