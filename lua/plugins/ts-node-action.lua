@@ -2,9 +2,15 @@ local t = require("util.ts-node-action")
 local u = require("util")
 local m = u.lazy_map
 
---  TODO: 2024-05-31 - handle self closing tags
 local html = {
   ["start_tag"] = function(tsnode)
+    local child = tsnode:named_child()
+    if not child then
+      return
+    end
+    return t.vue.tag_name(child)
+  end,
+  ["self_closing_tag"] = function(tsnode)
     local child = tsnode:named_child()
     if not child then
       return
