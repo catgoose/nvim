@@ -49,7 +49,10 @@ local function handle_tag_name(tsnode, cursor)
 
   local tag_start = parent_text:sub(1, 1)
   local tag_end = parent_text:sub(-2)
-  tag_end = tag_end:gsub(">$", ">")
+  if tag_end ~= "/>" then
+    tag_end = parent_text:sub(-1)
+  end
+
   local element = { tag_start .. tag_text }
   local sibling = tsnode:next_named_sibling()
   while sibling do
