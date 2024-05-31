@@ -939,6 +939,21 @@ test.describe('<>', () =>> {
       }
     )
   ),
+  s(
+    "prtest",
+    fmt(
+      [[
+
+      test('{}', async ({{ page }}) => {{
+       {}
+      }})
+     ]],
+      {
+        i(1),
+        i(0),
+      }
+    )
+  ),
 }
 
 return snippets

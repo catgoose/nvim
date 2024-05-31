@@ -368,8 +368,8 @@ const emit = defineEmits<<{
     ]],
       {
         i(1),
+        smn(1),
         i(2),
-        i(3),
         i(0),
       }
     )
