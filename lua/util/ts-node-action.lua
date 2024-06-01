@@ -49,7 +49,6 @@ local function handle_tag_name(tsnode, cursor)
 
   local tag_start = parent_text:sub(1, 1)
   local tag_end = parent_text:sub(-2)
-  --  BUG: 2024-05-31 - whitespace is being added on the collapse action
   if tag_end ~= "/>" then
     tag_end = parent_text:sub(-1)
   end
@@ -72,6 +71,10 @@ local function handle_tag_name(tsnode, cursor)
     cursor = cursor,
   }
   if multiline then
+    if tag_end == ">" then
+      element[#element - 1] = element[#element - 1] .. tag_end
+      element[#element] = nil
+    end
     return table.concat(element, " "), opts
   else
     return element, opts
