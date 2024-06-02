@@ -57,5 +57,15 @@ return {
     m("<leader>tf", function()
       require("neotest").run.run(vim.fn.expand("%"))
     end),
+    --  TODO: 2024-06-02 - This is duplicated in utils.lua hover_handler
+    m("<leader>tO", function()
+      require("neotest").output.open({
+        enter = true,
+        auto_close = true,
+      })
+    end),
+    m("<leader>to", function()
+      require("neotest").output_panel.toggle()
+    end),
   },
 }

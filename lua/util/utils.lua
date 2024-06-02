@@ -220,9 +220,21 @@ local function is_diag_for_cur_pos()
   return #message > 0
 end
 
+local function is_diag_neotest()
+  local diagnostics = vim.diagnostic.get(0)
+  local found = false
+  for _, d in ipairs(diagnostics) do
+    if d.source:match("neotest") then
+      found = true
+      break
+    end
+  end
+  return found
+end
+
 function M.hover_handler()
-  local ok, ufo = pcall(require, "ufo")
-  if ok then
+  local ufo_ok, ufo = pcall(require, "ufo")
+  if ufo_ok then
     local winid = ufo.peekFoldedLinesUnderCursor()
     if winid then
       return
@@ -239,7 +251,17 @@ function M.hover_handler()
   elseif tbl_contains({ "man" }, ft) then
     cmd("silent! Man " .. fn.expand("<cword>"))
   elseif is_diag_for_cur_pos() then
-    vim.diagnostic.open_float()
+    if is_diag_neotest() then
+      local nt_ok, nt = pcall(require, "neotest")
+      if nt_ok then
+        nt.output.open({
+          enter = true,
+          auto_close = true,
+        })
+      end
+    else
+      vim.diagnostic.open_float()
+    end
   else
     vim.lsp.buf.hover()
   end
