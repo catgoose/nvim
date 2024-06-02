@@ -127,9 +127,9 @@ local config = function()
           winblend = 2,
         }),
       },
-      workspaces = {
-        keep_insert = false,
-      },
+      -- workspaces = {
+      --   keep_insert = false,
+      -- },
       helpgrep = {
         ignore_paths = {
           vim.fn.stdpath("state") .. "/lazy/readme",
@@ -175,7 +175,7 @@ local config = function()
     -- "harpoon",
     "do-the-needful",
     "chat-gypsy",
-    "workspaces",
+    -- "workspaces",
     "lazy",
     "helpgrep",
   }
@@ -205,7 +205,7 @@ local dependencies = {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
   },
-  "natecraddock/workspaces.nvim",
+  -- "natecraddock/workspaces.nvim",
   {
     "nvim-telescope/telescope-ui-select.nvim",
   },

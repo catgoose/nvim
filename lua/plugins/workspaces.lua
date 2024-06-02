@@ -13,4 +13,5 @@ return {
   keys = {
     m("<leader>tw", "Telescope workspaces"),
   },
+  enabled = false,
 }

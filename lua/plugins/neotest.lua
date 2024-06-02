@@ -41,6 +41,21 @@ return {
   },
   keys = {
     m("<leader>m", "Neotest summary"),
-    m("<leader>n", "Neotest run file"),
+    --  TODO: 2024-06-02 - create UserCommands
+    m("<leader>n", function()
+      require("neotest").run.run()
+    end),
+    m("<leader>tr", function()
+      require("neotest").run.run()
+    end),
+    m("<leader>tw", function()
+      require("neotest").watch.toggle()
+    end),
+    m("<leader>tW", function()
+      require("neotest").watch.toggle(vim.fn.expand("%"))
+    end),
+    m("<leader>tf", function()
+      require("neotest").run.run(vim.fn.expand("%"))
+    end),
   },
 }
