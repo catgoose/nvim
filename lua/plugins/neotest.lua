@@ -43,18 +43,23 @@ return {
     m("<leader>m", "Neotest summary"),
     --  TODO: 2024-06-02 - create UserCommands
     m("<leader>n", function()
+      vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run()
     end),
     m("<leader>tr", function()
+      vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run()
     end),
     m("<leader>tw", function()
+      vim.g.terminal_enable_startinsert = 0
       require("neotest").watch.toggle()
     end),
     m("<leader>tW", function()
+      vim.g.terminal_enable_startinsert = 0
       require("neotest").watch.toggle(vim.fn.expand("%"))
     end),
     m("<leader>tf", function()
+      vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run(vim.fn.expand("%"))
     end),
     --  TODO: 2024-06-02 - This is duplicated in utils.lua hover_handler

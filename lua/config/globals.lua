@@ -1,5 +1,7 @@
 local g = vim.g
 
+g.terminal_enable_startinsert = 1
+
 g.mapleader = " "
 g.maplocalleader = " "
 g.suda_smart_edit = 1
