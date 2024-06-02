@@ -12,7 +12,6 @@ return {
   },
   config = function()
     require("neotest").setup({
-      --  TODO: 2024-06-02 - Add is_test_file and filter_dir for both adapters
       adapters = {
         require("neotest-vitest")({
           filter_dir = function(name)
@@ -23,13 +22,25 @@ return {
           options = {
             persist_project_selection = true,
             enable_dynamic_test_discovery = true,
+            is_test_file = function(file_path)
+              return string.match(file_path, "e2e/tests")
+            end,
           },
         }),
       },
+      consumers = {
+        playwright = require("neotest-playwright.consumers").consumers,
+      },
     })
   end,
-  cmd = { "Neotest" },
+  cmd = {
+    "Neotest",
+    "NeotestPlaywrightProject",
+    "NeotestPlaywrightPreset",
+    "NeotestPlaywrightRefresh",
+  },
   keys = {
     m("<leader>m", "Neotest summary"),
+    m("<leader>n", "Neotest run file"),
   },
 }

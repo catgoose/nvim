@@ -56,6 +56,7 @@ autocmd({ "FileType" }, {
     "dbout",
     "neotest-output-panel",
     "neotest-summary",
+    "neotest-output",
   },
   callback = function(event)
     q_to_quit(event)

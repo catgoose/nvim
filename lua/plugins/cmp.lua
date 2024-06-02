@@ -185,7 +185,7 @@ return {
       "ray-x/cmp-treesitter",
       "saadparwaiz1/cmp_luasnip",
       "roobert/tailwindcss-colorizer-cmp.nvim",
-      "jcdickinson/codeium.nvim",
+      "Exafunction/codeium.nvim",
     },
   },
 }

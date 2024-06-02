@@ -99,5 +99,5 @@ return {
   "stevearc/dressing.nvim",
   opts = opts,
   event = "BufReadPre",
-  enabled = true,
+  enabled = false,
 }
