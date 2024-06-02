@@ -258,6 +258,7 @@ function M.hover_handler()
           enter = true,
           auto_close = true,
         })
+        vim.cmd.startinsert()
       end
     else
       vim.diagnostic.open_float()

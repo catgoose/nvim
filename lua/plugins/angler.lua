@@ -26,7 +26,7 @@ local keys = {
   m("gp", angler_str .. [[.open_cwd({order = "prev"})]]),
   -- m("<leader>tc", [[AnglerCompile]]),
   m("<leader>tc", angler_str .. [[.compile()]]),
-  m("<leader>tf", [[AnglerRenameFile]]),
+  -- m("<leader>tf", [[AnglerRenameFile]]),
   m("<leader>rn", [[AnglerRenameSymbol]]),
   m("<leader>k", [[AnglerFixAll]]),
 }

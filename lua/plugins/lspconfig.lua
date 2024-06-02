@@ -71,8 +71,29 @@ local config = function()
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
       local bufopts = { noremap = true, silent = true, buffer = event.bufnr }
-      km("n", "[g", vim.diagnostic.goto_prev, bufopts)
-      km("n", "]g", vim.diagnostic.goto_next, bufopts)
+      km("n", "[g", function()
+        vim.diagnostic.jump({
+          count = -1,
+          --  TODO: 2024-06-02 - Get severity and descend until severity found
+          severity = vim.diagnostic.severity.ERROR,
+        })
+      end, bufopts)
+      km("n", "[G", function()
+        vim.diagnostic.jump({
+          count = -1,
+        })
+      end, bufopts)
+      km("n", "]g", function()
+        vim.diagnostic.jump({
+          count = 1,
+          severity = vim.diagnostic.severity.ERROR,
+        })
+      end, bufopts)
+      km("n", "]G", function()
+        vim.diagnostic.jump({
+          count = 1,
+        })
+      end, bufopts)
       km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
       km("n", "gD", l.buf.declaration, bufopts)
       if not require("neoconf").get("lsp.keys.goto_definition.disable") then

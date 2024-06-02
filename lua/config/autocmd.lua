@@ -103,8 +103,6 @@ autocmd({ "TermOpen" }, {
       api.nvim_set_option_value("filetype", "terminal", { buf = event.bufnr })
       if vim.g.terminal_enable_startinsert == 1 then
         cmd.startinsert()
-      else
-        vim.g.terminal_enable_startinsert = 1
       end
     end
   end,
@@ -113,7 +111,7 @@ autocmd({ "WinEnter" }, {
   group = terminal,
   pattern = { "*" },
   callback = function()
-    if bo.filetype == "terminal" then
+    if bo.filetype == "terminal" and vim.g.terminal_enable_startinsert == 1 then
       cmd.startinsert()
     end
   end,
