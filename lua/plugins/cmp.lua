@@ -123,6 +123,10 @@ local config = function()
         keyword_length = 2,
         group_index = 6,
       },
+      {
+        name = "lazydev",
+        group_index = 0,
+      },
     }),
     formatting = {
       format = lspkind.cmp_format({

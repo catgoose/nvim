@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local enabled = true
 local e = vim.tbl_extend
 local m = require("util").lazy_map
@@ -31,6 +31,15 @@ local opts = {
       window = {
         close = false,
         keep_current = true,
+      },
+    },
+    {
+      name = "git rename branch",
+      cmd = "fish -c git_rename_branch",
+      tags = { "git", "rename", "branch" },
+      window = {
+        close = true,
+        keep_current = false,
       },
     },
   },

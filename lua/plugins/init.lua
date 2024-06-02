@@ -28,6 +28,10 @@ return {
     cmd = { "BufOnly", "Bdelete" },
   },
   {
+    "folke/neoconf.nvim",
+    lazy = true,
+  },
+  {
     "nvim-neotest/neotest",
     dependencies = {
       "nvim-neotest/nvim-nio",
