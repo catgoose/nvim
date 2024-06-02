@@ -4,7 +4,9 @@ return {
     ft = "lua",
     opts = {
       library = {
-        vim.env.LAZY .. "/luvit-meta/library",
+        -- vim.env.LAZY .. "/luvit-meta/library",
+        plugins = { "neotest" },
+        types = true,
       },
     },
     dependencies = {

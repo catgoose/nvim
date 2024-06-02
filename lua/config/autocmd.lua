@@ -54,6 +54,8 @@ autocmd({ "FileType" }, {
     "dapui_console",
     "netrw",
     "dbout",
+    "neotest-output-panel",
+    "neotest-summary",
   },
   callback = function(event)
     q_to_quit(event)
