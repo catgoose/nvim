@@ -55,6 +55,10 @@ local opts = {
     NeogitCommitMessage = {
       names = false,
     },
+    TelescopeResults = {
+      names = false,
+      RGB = false,
+    },
   },
   user_default_options = {
     RGB = true,

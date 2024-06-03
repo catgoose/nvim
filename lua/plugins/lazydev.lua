@@ -5,8 +5,7 @@ return {
     opts = {
       library = {
         "luvit-meta/library",
-        plugins = { "neotest" },
-        types = true,
+        "neotest",
       },
     },
     dependencies = {

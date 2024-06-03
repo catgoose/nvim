@@ -26,7 +26,7 @@ local config = function()
 
   -- Diagnostic
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = false,
     virtual_lines = {
       only_current_line = true,
     },
