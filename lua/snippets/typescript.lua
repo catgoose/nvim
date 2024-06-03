@@ -954,6 +954,28 @@ test.describe('<>', () =>> {
       }
     )
   ),
+  s(
+    "primp",
+    fmta(
+      [[
+import { test, expect, Page } from '@playwright/test';
+<>
+    ]],
+      i(1)
+    )
+  ),
+  --  TODO: 2024-06-03 - make choice for this on desc snippet
+  s(
+    "prdesc",
+    fmt(
+      [[
+test.describe('{}', () => {{
+  {}
+}})
+     ]],
+      { i(1), i(0) }
+    )
+  ),
 }
 
 return snippets

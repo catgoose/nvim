@@ -11,11 +11,12 @@ return {
     "thenbe/neotest-playwright",
   },
   config = function()
+    ---@diagnostic disable-next-line: missing-fields
     require("neotest").setup({
       adapters = {
         require("neotest-vitest")({
           filter_dir = function(name)
-            return name ~= "node_modules" and name:find("/e2e") == nil
+            return name ~= "node_modules" and name:find("/e2e") ~= nil
           end,
           is_test_file = function(file_path)
             local found = file_path:find("src/*/__tests__") ~= nil
@@ -45,6 +46,7 @@ return {
     "NeotestPlaywrightRefresh",
   },
   keys = {
+    --  TODO: 2024-06-03 - add bindings for test whole workspace
     m("<leader>m", "Neotest summary"),
     m("<leader>n", function()
       vim.g.terminal_enable_startinsert = 0
@@ -55,6 +57,7 @@ return {
       require("neotest").run.run(vim.fn.expand("%"))
     end),
     m("<leader>1", function()
+      ---@diagnostic disable-next-line: missing-parameter
       require("neotest").watch.stop()
     end),
     m("<leader>2", function()
