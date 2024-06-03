@@ -101,4 +101,31 @@ c("PersistenceLoad", function()
   require("persistence").load()
 end)
 c("DiffviewPrompt", require("util.diffview").open)
+c("DiagnosticsJumpPrev", function()
+  f.diagnostics_jump({
+    count = -1,
+    float = true,
+  })
+end)
+c("DiagnosticsJumpNext", function()
+  f.diagnostics_jump({
+    count = 1,
+    float = true,
+  })
+end)
+c("DiagnosticsErrorJumpPrev", function()
+  f.diagnostics_jump({
+    count = -1,
+    severity = vim.diagnostic.severity.ERROR,
+    float = true,
+  })
+end)
+c("DiagnosticsErrorJumpNext", function()
+  f.diagnostics_jump({
+    count = 1,
+    severity = vim.diagnostic.severity.ERROR,
+    float = true,
+  })
+end)
+
 c("TF", f.testing_function)

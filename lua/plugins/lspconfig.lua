@@ -1,3 +1,5 @@
+local u = require("util")
+local m, f = u.cmd_map, u.key_map
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
 
 local config = function()
@@ -71,31 +73,13 @@ local config = function()
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
       local bufopts = { noremap = true, silent = true, buffer = event.bufnr }
-      km("n", "[g", function()
-        vim.diagnostic.jump({
-          count = -1,
-          --  TODO: 2024-06-02 - Get severity and descend until severity found
-          severity = vim.diagnostic.severity.ERROR,
-        })
-      end, bufopts)
-      km("n", "[G", function()
-        vim.diagnostic.jump({
-          count = -1,
-        })
-      end, bufopts)
-      km("n", "]g", function()
-        vim.diagnostic.jump({
-          count = 1,
-          severity = vim.diagnostic.severity.ERROR,
-        })
-      end, bufopts)
-      km("n", "]G", function()
-        vim.diagnostic.jump({
-          count = 1,
-        })
-      end, bufopts)
-      km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
-      km("n", "gD", l.buf.declaration, bufopts)
+      m("[g", "DiagnosticsErrorJumpPrev", bufopts)
+      m("]g", "DiagnosticsErrorJumpNext", bufopts)
+      m("[G", "DiagnosticsJumpPrev", bufopts)
+      m("]G", "DiagnosticsJumpNext", bufopts)
+      m("<leader>dd", vim.diagnostic.setqflist, bufopts)
+      m("gD", l.buf.declaration, bufopts)
+      --  TODO: 2024-06-02 - can these be created using m()?
       if not require("neoconf").get("lsp.keys.goto_definition.disable") then
         km("n", "gd", l.buf.definition, bufopts)
       end

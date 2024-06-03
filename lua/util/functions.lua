@@ -256,6 +256,33 @@ function M.tabnavigate(cfg)
   nav()
 end
 
+function M.diagnostics_jump(config)
+  config = config or config
+  config.severity = config.severity or vim.diagnostic.severity.HINT
+  config.count = config.count or 1
+  config.float = config.float or false
+  if config.count == 0 then
+    return
+  end
+  local getter = config.count > 1 and vim.diagnostic.get_next or vim.diagnostic.get_prev
+  local diag = getter({
+    count = config.count,
+    severity = config.severity,
+  })
+  if diag then
+    vim.diagnostic.jump({
+      count = config.count,
+      severity = config.severity,
+      float = config.float,
+    })
+  else
+    vim.diagnostic.jump({
+      count = config.count,
+      float = config.float,
+    })
+  end
+end
+
 function M.testing_function()
   --
 end
