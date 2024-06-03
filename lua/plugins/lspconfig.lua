@@ -1,5 +1,4 @@
 local u = require("util")
-local m, f = u.cmd_map, u.key_map
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
 
 local config = function()
@@ -27,7 +26,7 @@ local config = function()
 
   -- Diagnostic
   vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = true,
     virtual_lines = {
       only_current_line = true,
     },
@@ -73,13 +72,20 @@ local config = function()
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
       local bufopts = { noremap = true, silent = true, buffer = event.bufnr }
-      m("[g", "DiagnosticsErrorJumpPrev", bufopts)
-      m("]g", "DiagnosticsErrorJumpNext", bufopts)
-      m("[G", "DiagnosticsJumpPrev", bufopts)
-      m("]G", "DiagnosticsJumpNext", bufopts)
-      m("<leader>dd", vim.diagnostic.setqflist, bufopts)
-      m("gD", l.buf.declaration, bufopts)
-      --  TODO: 2024-06-02 - can these be created using m()?
+      km("n", "[g", function()
+        vim.cmd("DiagnosticsErrorJumpPrev")
+      end, bufopts)
+      km("n", "]g", function()
+        vim.cmd("DiagnosticsErrorJumpNext")
+      end, bufopts)
+      km("n", "[G", function()
+        vim.cmd("DiagnosticsJumpPrev")
+      end, bufopts)
+      km("n", "]G", function()
+        vim.cmd("DiagnosticsJumpNext")
+      end, bufopts)
+      km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
+      km("n", "gD", l.buf.declaration, bufopts)
       if not require("neoconf").get("lsp.keys.goto_definition.disable") then
         km("n", "gd", l.buf.definition, bufopts)
       end
