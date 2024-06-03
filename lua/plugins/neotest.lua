@@ -13,19 +13,23 @@ return {
   config = function()
     require("neotest").setup({
       adapters = {
-        -- require("neotest-vitest")({
-        --   filter_dir = function(name)
-        --     return name ~= "node_modules" and name ~= "e2e"
-        --   end,
-        -- }),
+        require("neotest-vitest")({
+          filter_dir = function(name)
+            return name ~= "node_modules" and name:find("/e2e") == nil
+          end,
+          is_test_file = function(file_path)
+            local found = file_path:find("src/*/__tests__") ~= nil
+            return found
+          end,
+        }),
         require("neotest-playwright").adapter({
           options = {
             persist_project_selection = true,
             enable_dynamic_test_discovery = true,
             is_test_file = function(file_path)
-              return file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
+              local found = file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
+              return found
             end,
-            -- extra_args = { "--reporter=json" },
           },
         }),
       },
@@ -61,7 +65,6 @@ return {
       vim.g.terminal_enable_startinsert = 0
       require("neotest").watch.toggle(vim.fn.expand("%"))
     end),
-    --  TODO: 2024-06-02 - This is duplicated in utils.lua hover_handler
     m("<leader>8", function()
       require("neotest").output.open({
         enter = true,
