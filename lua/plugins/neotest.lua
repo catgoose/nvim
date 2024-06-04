@@ -52,6 +52,7 @@ return {
     "NeotestPlaywrightRefresh",
   },
   keys = {
+    --  TODO: 2024-06-04 - wrap these in pcall
     m("[n", function()
       require("neotest").jump.prev({ status = "failed" })
     end),
@@ -61,23 +62,15 @@ return {
     m("<leader>m", "Neotest summary"),
     m("<leader>n", function()
       vim.g.terminal_enable_startinsert = 0
-      require("neotest").run.run()
+      require("neotest").watch.watch()
     end),
     m("<leader>N", function()
       vim.g.terminal_enable_startinsert = 0
-      require("neotest").run.run(vim.fn.expand("%"))
+      require("neotest").watch.watch(vim.fn.expand("%"))
     end),
     m("<leader>1", function()
       ---@diagnostic disable-next-line: missing-parameter
       require("neotest").watch.stop()
-    end),
-    m("<leader>2", function()
-      vim.g.terminal_enable_startinsert = 0
-      require("neotest").watch.toggle()
-    end),
-    m("<leader>3", function()
-      vim.g.terminal_enable_startinsert = 0
-      require("neotest").watch.toggle(vim.fn.expand("%"))
     end),
     m("<leader>8", function()
       require("neotest").output.open({
