@@ -81,19 +81,6 @@ autocmd({ "BufEnter" }, {
   end,
 })
 
---  TODO: 2024-06-03 - move this to neotest config
-local neotest = augroup("NeoTestAutoCommands")
-autocmd({ "BufEnter" }, {
-  group = neotest,
-  pattern = { "*" },
-  callback = function(event)
-    if bo.filetype == "neotest-output" then
-      -- go to end of file
-      cmd("normal! G")
-    end
-  end,
-})
-
 -- Terminal
 local terminal = augroup("TerminalLocalOptions")
 autocmd({ "TermOpen" }, {
@@ -120,15 +107,30 @@ autocmd({ "TermOpen" }, {
     end
   end,
 })
-autocmd({ "WinEnter" }, {
-  group = terminal,
-  pattern = { "*" },
-  callback = function()
-    if bo.filetype == "terminal" and vim.g.terminal_enable_startinsert == 1 then
-      cmd.startinsert()
-    end
-  end,
-})
+-- autocmd({ "WinEnter" }, {
+--   group = terminal,
+--   pattern = { "*" },
+--   callback = function()
+--     if bo.filetype == "terminal" and vim.g.terminal_enable_startinsert == 1 then
+--       cmd("normal! G")
+--       vim.g.terminal_enable_startinsert = 0
+--     end
+--   end,
+-- })
+
+-- --  TODO: 2024-06-03 - move this to neotest config
+-- local neotest = augroup("NeoTestAutoCommands")
+-- autocmd({ "BufEnter" }, {
+--   group = neotest,
+--   pattern = { "*" },
+--   callback = function(event)
+--     if bo.filetype == "neotest-output" then
+--       vim.print(event)
+--       -- go to end of file
+--       cmd("normal! G")
+--     end
+--   end,
+-- })
 
 -- Buffer
 local buffer = augroup("BufferDetectChanges")

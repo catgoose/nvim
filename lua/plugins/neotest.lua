@@ -16,11 +16,10 @@ return {
       adapters = {
         require("neotest-vitest")({
           filter_dir = function(name)
-            return name ~= "node_modules" and name:find("/e2e") ~= nil
+            return name ~= "node_modules" and name:find("e2e") == nil
           end,
           is_test_file = function(file_path)
-            local found = file_path:find("src/*/__tests__") ~= nil
-            return found
+            return file_path:find("src/*/__tests__") == nil
           end,
         }),
         require("neotest-playwright").adapter({
@@ -28,14 +27,21 @@ return {
             persist_project_selection = true,
             enable_dynamic_test_discovery = true,
             is_test_file = function(file_path)
-              local found = file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
-              return found
+              return file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
             end,
           },
         }),
       },
       consumers = {
         playwright = require("neotest-playwright.consumers").consumers,
+      },
+      quickfix = {
+        enabled = true,
+        open = false,
+      },
+      output = {
+        enabled = true,
+        open_on_run = "short",
       },
     })
   end,
@@ -46,7 +52,12 @@ return {
     "NeotestPlaywrightRefresh",
   },
   keys = {
-    --  TODO: 2024-06-03 - add bindings for test whole workspace
+    m("[n", function()
+      require("neotest").jump.prev({ status = "failed" })
+    end),
+    m("]n", function()
+      require("neotest").jump.next({ status = "failed" })
+    end),
     m("<leader>m", "Neotest summary"),
     m("<leader>n", function()
       vim.g.terminal_enable_startinsert = 0
