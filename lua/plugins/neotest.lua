@@ -52,7 +52,6 @@ return {
     "NeotestPlaywrightRefresh",
   },
   keys = {
-    --  TODO: 2024-06-04 - wrap these in pcall
     m("[n", function()
       require("neotest").jump.prev({ status = "failed" })
     end),
