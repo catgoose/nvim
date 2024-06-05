@@ -61,15 +61,23 @@ return {
     m("<leader>m", "Neotest summary"),
     m("<leader>n", function()
       vim.g.terminal_enable_startinsert = 0
-      require("neotest").watch.watch()
+      require("neotest").run.run()
     end),
     m("<leader>N", function()
       vim.g.terminal_enable_startinsert = 0
-      require("neotest").watch.watch(vim.fn.expand("%"))
+      require("neotest").run.run(vim.fn.expand("%"))
     end),
     m("<leader>1", function()
       ---@diagnostic disable-next-line: missing-parameter
       require("neotest").watch.stop()
+    end),
+    m("<leader>2", function()
+      ---@diagnostic disable-next-line: missing-parameter
+      require("neotest").watch.watch()
+    end),
+    m("<leader>3", function()
+      ---@diagnostic disable-next-line: missing-parameter
+      require("neotest").watch.watch(vim.fn.expand("%"))
     end),
     m("<leader>8", function()
       require("neotest").output.open({
