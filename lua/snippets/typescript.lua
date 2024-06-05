@@ -1005,6 +1005,7 @@ describe('<>', () =>> {
       }
     )
   ),
+  s("snap", t(".toMatchSnapshot()")),
 }
 
 return snippets

@@ -20,6 +20,7 @@ return {
           end,
           is_test_file = function(file_path)
             return file_path:find("src/*/__tests__") == nil
+              and file_path:find("__tests__/__snapshots__") == nil
           end,
         }),
         require("neotest-playwright").adapter({
