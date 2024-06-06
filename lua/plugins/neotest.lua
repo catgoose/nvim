@@ -8,7 +8,11 @@ return {
     "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
     "marilari88/neotest-vitest",
-    "thenbe/neotest-playwright",
+    {
+      "thenbe/neotest-playwright",
+      branch = "telescope",
+      dependencies = "nvim-telescope/telescope.nvim",
+    },
   },
   config = function()
     ---@diagnostic disable-next-line: missing-fields
@@ -32,6 +36,9 @@ return {
               local test = file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
               return test
             end,
+            experimental = {
+              use_telescope = true,
+            },
           },
         }),
       },

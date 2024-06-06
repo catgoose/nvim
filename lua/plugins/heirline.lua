@@ -22,7 +22,6 @@ local config = function()
       "startuptime",
       "mason.nvim",
       "terminal",
-      "gypsy",
       "no-neck-pain",
     },
   }
@@ -37,7 +36,6 @@ local config = function()
       "toggleterm",
       "qf",
       "terminal",
-      "gypsy",
       "oil",
       "harpoon",
       "no-neck-pain",
