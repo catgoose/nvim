@@ -38,7 +38,7 @@ local config = function()
         preview_cutoff = 120,
       },
       file_sorter = require("telescope.sorters").get_fuzzy_file,
-      file_ignore_patterns = { "node_modules", "\\.git" },
+      file_ignore_patterns = { "node_modules", "\\.git", ".*-snapshots" },
       generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
       winblend = 2,
       border = {},

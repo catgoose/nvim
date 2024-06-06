@@ -50,6 +50,7 @@ local projects = {
         function()
           vim.cmd([[Lazy reload do-the-needful.nvim]])
           vim.cmd([[Lazy reload telescope.nvim]])
+          require("do-the-needful").please()
         end,
       },
     },

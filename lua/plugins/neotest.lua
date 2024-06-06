@@ -19,8 +19,9 @@ return {
             return name ~= "node_modules" and name:find("e2e") == nil
           end,
           is_test_file = function(file_path)
-            return file_path:find("src/*/__tests__") == nil
-              and file_path:find("__tests__/__snapshots__") == nil
+            local test = file_path:find("src/.*/__tests__/.*%.test%.[jt]s$") ~= nil
+            local snapshot = file_path:find("src/.*/__snapshots__") ~= nil
+            return test and not snapshot
           end,
         }),
         require("neotest-playwright").adapter({
@@ -28,7 +29,8 @@ return {
             persist_project_selection = true,
             enable_dynamic_test_discovery = true,
             is_test_file = function(file_path)
-              return file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
+              local test = file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
+              return test
             end,
           },
         }),
@@ -53,13 +55,17 @@ return {
     "NeotestPlaywrightRefresh",
   },
   keys = {
+    m("<leader>m", "Neotest summary"),
+    m("<leader>M", function()
+      vim.cmd("NeotestPlaywrightRefresh")
+      vim.cmd.write()
+    end),
     m("[n", function()
       require("neotest").jump.prev({ status = "failed" })
     end),
     m("]n", function()
       require("neotest").jump.next({ status = "failed" })
     end),
-    m("<leader>m", "Neotest summary"),
     m("<leader>n", function()
       vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run()
