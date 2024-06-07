@@ -19,7 +19,7 @@ return {
       bash = { "shellcheck" },
     }
 
-    lint.linters.codespell.args = { "--ignore-words=~/.config/codespell/ignore_word" }
+    lint.linters.codespell.args = { "--ignore-words=~/.config/codespell/ignore_words" }
 
     local ignore_buftype = {
       markdown = { "nofile" },

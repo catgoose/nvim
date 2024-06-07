@@ -1006,6 +1006,7 @@ describe('<>', () =>> {
     )
   ),
   s("snap", t(".toMatchSnapshot()")),
+  s("scr", t("await expect(page).toHaveScreenshot();")),
 }
 
 return snippets

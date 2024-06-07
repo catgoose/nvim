@@ -9,9 +9,11 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "marilari88/neotest-vitest",
     {
-      "thenbe/neotest-playwright",
-      branch = "telescope",
-      dependencies = "nvim-telescope/telescope.nvim",
+      -- "thenbe/neotest-playwright",
+      dir = "~/git/neotest-playwright/",
+      lazy = false,
+      -- branch = "telescope",
+      -- dependencies = "nvim-telescope/telescope.nvim",
     },
   },
   config = function()
@@ -34,10 +36,23 @@ return {
             enable_dynamic_test_discovery = true,
             is_test_file = function(file_path)
               local test = file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
-              return test
+              local setup = file_path:find("e2e/tests/setup/.*%.setup%.[jt]s$") ~= nil
+              return test or setup
             end,
             experimental = {
-              use_telescope = true,
+              telescope = {
+                enabled = true,
+                opts = {
+                  layout_strategy = "vertical",
+                  layout_config = {
+                    width = 0.25,
+                    height = 0.25,
+                    vertical = {
+                      prompt_position = "bottom",
+                    },
+                  },
+                },
+              },
             },
           },
         }),
@@ -93,6 +108,9 @@ return {
       ---@diagnostic disable-next-line: missing-parameter
       require("neotest").watch.watch(vim.fn.expand("%"))
     end),
+    m("<leader>4", function()
+      require("neotest").output_panel.toggle()
+    end),
     m("<leader>8", function()
       require("neotest").output.open({
         enter = true,
@@ -100,7 +118,9 @@ return {
       })
     end),
     m("<leader>9", function()
-      require("neotest").output_panel.toggle()
+      vim.cmd("Lazy reload neotest-playwright")
+      ---@diagnostic disable-next-line: undefined-field
+      require("neotest").playwright.attachment()
     end),
   },
 }
