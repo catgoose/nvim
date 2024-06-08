@@ -118,7 +118,6 @@ return {
       })
     end),
     m("<leader>9", function()
-      vim.cmd("Lazy reload neotest-playwright")
       ---@diagnostic disable-next-line: undefined-field
       require("neotest").playwright.attachment()
     end),
