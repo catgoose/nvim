@@ -9,11 +9,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "marilari88/neotest-vitest",
     {
-      -- "thenbe/neotest-playwright",
-      dir = "~/git/neotest-playwright/",
-      lazy = false,
-      -- branch = "telescope",
-      -- dependencies = "nvim-telescope/telescope.nvim",
+      "thenbe/neotest-playwright",
+      dependencies = "nvim-telescope/telescope.nvim",
     },
   },
   config = function()
