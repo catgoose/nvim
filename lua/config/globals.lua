@@ -26,4 +26,4 @@ if x_display ~= nil and x_display ~= "" then
   }
 end
 
--- vim.deprecate = function() end
+vim.deprecate = function() end
