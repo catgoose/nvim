@@ -12,9 +12,8 @@ local opts = {
 }
 
 return {
-  -- "windwp/nvim-ts-autotag",
-  dir = "~/git/nvim-ts-autotag",
-  lazy = false,
+  "windwp/nvim-ts-autotag",
+  -- dir = "~/git/nvim-ts-autotag",
   opts = opts,
   keys = keys,
   event = "BufReadPre",
