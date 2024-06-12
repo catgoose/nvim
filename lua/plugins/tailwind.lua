@@ -4,9 +4,9 @@ local ft = { "vue", "html" }
 
 return {
   {
-    -- "MaximilianLloyd/tw-values.nvim",
+    "MaximilianLloyd/tw-values.nvim",
     -- dir = "~/git/tw-values.nvim",
-    "catgoose/tw-values.nvim",
+    -- "catgoose/tw-values.nvim",
     opts = {
       focus_preview = true,
     },

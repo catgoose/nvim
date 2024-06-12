@@ -1,3 +1,5 @@
+local keys = require("util.project").get_keys("nvim-ts-autotag")
+
 local opts = {
   opts = {
     enable_close = true,
@@ -10,7 +12,10 @@ local opts = {
 }
 
 return {
-  "windwp/nvim-ts-autotag",
+  -- "windwp/nvim-ts-autotag",
+  dir = "~/git/nvim-ts-autotag",
+  lazy = false,
   opts = opts,
+  keys = keys,
   event = "BufReadPre",
 }

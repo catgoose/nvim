@@ -66,6 +66,17 @@ local projects = {
       },
     },
   },
+  ["nvim-ts-autotag"] = {
+    keys = {},
+    dev_keys = {
+      {
+        dev_key,
+        function()
+          vim.cmd([[Lazy reload nvim-ts-autotag]])
+        end,
+      },
+    },
+  },
   twvalues = {
     keys = {},
     dev_keys = {
@@ -96,8 +107,9 @@ local projects = {
 -- local current_project = projects.twvalues
 -- local current_project = projects.angler
 -- local current_project = projects.helpgrep
-local current_project = projects["do-the-needful"]
+-- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]
+local current_project = projects["nvim-ts-autotag"]
 
 local function get_project_property(project_name, property_type)
   local project = projects[project_name]
