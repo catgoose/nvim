@@ -12,7 +12,6 @@ local fmta = require("luasnip.extras.fmt").fmta
 local u = require("util.luasnip")
 local smn = u.same_node
 local low = u.lower
-local filename = u.filename
 
 local snippets = {
   s(

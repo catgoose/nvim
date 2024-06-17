@@ -1,5 +1,5 @@
 local ls = require("luasnip")
-local parse = ls.parser.parse_snippet
+---@diagnostic disable-next-line: unused-local
 local s, t, i, c, r, f, sn =
   ls.snippet,
   ls.text_node,

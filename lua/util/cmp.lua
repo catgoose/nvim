@@ -35,7 +35,11 @@ local is_not_filetype = function()
   return true
 end
 local is_not_luasnip = function()
-  return not fn.expand("%:p"):find(".*/nvim/lua/snippets/.*%.lua")
+  local path = fn.expand("%:p")
+  if not path then
+    return true
+  end
+  return not path:find(".*/nvim/lua/snippets/.*%.lua")
 end
 
 M.is_enabled = function()

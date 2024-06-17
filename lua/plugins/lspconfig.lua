@@ -1,4 +1,3 @@
-local u = require("util")
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
 
 local config = function()

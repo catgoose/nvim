@@ -1,4 +1,5 @@
 local ls = require("luasnip")
+---@diagnostic disable-next-line: unused-local
 local s, t, i, c, r, f, sn, d =
   ls.snippet,
   ls.text_node,
@@ -9,9 +10,6 @@ local s, t, i, c, r, f, sn, d =
   ls.snippet_node,
   ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-local u = require("util.luasnip")
-local smn = u.same_node
 
 local snippets = {
   s(
@@ -26,6 +24,7 @@ local snippets = {
     )
   ),
   s({ trig = "table(%d+)x(%d+)", regTrig = true }, {
+    ---@diagnostic disable-next-line: unused-local
     d(1, function(args, snip)
       local nodes = {}
       local i_counter = 0

@@ -18,6 +18,7 @@ local opts = {
     markdown = { "cbfmt", "prettierd", "markdownlint" },
   },
   format_on_save = function(bufnr)
+    ---@diagnostic disable-next-line: undefined-field
     if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
       return
     end
@@ -51,7 +52,10 @@ local function init()
           or "globally"
       ),
       vim.log.levels.info,
-      { title = "conform.nvim formatting" }
+      ---@diagnostic disable-next-line: missing-fields
+      {
+        title = "conform.nvim formatting",
+      }
     )
   end
   c("ConformFormatToggle", function(args)

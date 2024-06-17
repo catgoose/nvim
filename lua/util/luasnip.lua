@@ -1,4 +1,5 @@
 local ls = require("luasnip")
+---@diagnostic disable-next-line: unused-local
 local s, t, i, c, r, f, sn =
   ls.snippet,
   ls.text_node,
@@ -7,6 +8,7 @@ local s, t, i, c, r, f, sn =
   ls.restore_node,
   ls.function_node,
   ls.snippet_node
+---@diagnostic disable-next-line: unused-local
 local fmt = require("luasnip.extras.fmt").fmt
 local M = {}
 
@@ -29,7 +31,11 @@ local comment_close = {
 function M.comment_open()
   local ok, ts_context = pcall(require, "ts_context_commentstring")
   if ok then
-    return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[1]
+    local comment_string = ts_context.calculate_commentstring()
+    if not comment_string then
+      return
+    end
+    return vim.split(comment_string, "%s", { plain = true })[1]
   else
     local ft = vim.bo.filetype
     local ext = vim.fn.expand("%:e")
@@ -45,7 +51,11 @@ end
 function M.comment_close()
   local ok, ts_context = pcall(require, "ts_context_commentstring")
   if ok then
-    return vim.split(ts_context.calculate_commentstring(), "%s", { plain = true })[2]
+    local comment_string = ts_context.calculate_commentstring()
+    if not comment_string then
+      return
+    end
+    return vim.split(comment_string, "%s", { plain = true })[2]
   else
     local ft = vim.bo.filetype
     if comment_close[ft] then

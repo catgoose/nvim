@@ -1,4 +1,5 @@
 local ls = require("luasnip")
+---@diagnostic disable-next-line: unused-local
 local s, t, i, c, r, f, sn =
   ls.snippet,
   ls.text_node,
@@ -8,8 +9,6 @@ local s, t, i, c, r, f, sn =
   ls.function_node,
   ls.snippet_node
 local fmt = require("luasnip.extras.fmt").fmt
-local u = require("util.luasnip")
-local smn = u.same_node
 
 local snippets = {
   s(

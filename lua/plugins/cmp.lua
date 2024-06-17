@@ -7,6 +7,7 @@ local source_mapping = {
   path = "[PATH]",
   treesitter = "[TREE]",
   ["vim-dadbod-completion"] = "[DB]",
+  codeium = "[CODE]",
 }
 
 local config = function()
@@ -32,7 +33,7 @@ local config = function()
     keyword_length = 2,
     snippet = {
       expand = function(args)
-        vim.snippet.expand(args.body)
+        require("luasnip").lsp_expand(args.body)
       end,
     },
     window = {
@@ -46,18 +47,24 @@ local config = function()
         follow_cursor = true,
       },
     },
-    mapping = cmp.mapping.preset.insert({
-      ["<CR>"] = cmp.mapping.confirm({
+    mapping = {
+      ["<C-y>"] = cmp.mapping(
+        cmp.mapping.confirm({
+          select = true,
+          behavior = cmp.ConfirmBehavior.Insert,
+        }),
+        { "i", "c" }
+      ),
+      ["<C-n>"] = cmp.mapping.select_next_item({
         behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }, { "i", "c" }),
-      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+      }),
+      ["<C-p>"] = cmp.mapping.select_prev_item({
+        behavior = cmp.ConfirmBehavior.Insert,
+      }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-5),
       ["<C-f>"] = cmp.mapping.scroll_docs(5),
-      ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-q>"] = cmp.mapping.abort(),
-    }),
+    },
     sources = cmp.config.sources({
       {
         name = "luasnip",
@@ -83,10 +90,6 @@ local config = function()
       },
       {
         name = "nvim_lua",
-        group_index = 3,
-      },
-      {
-        name = "crates",
         group_index = 3,
       },
       {
@@ -128,6 +131,7 @@ local config = function()
         group_index = 0,
       },
     }),
+    ---@diagnostic disable-next-line: missing-fields
     formatting = {
       format = lspkind.cmp_format({
         mode = "symbol_text",
@@ -158,7 +162,6 @@ local config = function()
       ghost_text = false,
     },
   })
-  --@diagnostic disable-next-line: undefined-field
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
   -- require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {

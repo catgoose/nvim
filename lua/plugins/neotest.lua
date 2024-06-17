@@ -86,10 +86,12 @@ return {
       require("neotest").jump.next({ status = "failed" })
     end),
     m("<leader>n", function()
+      ---@diagnostic disable-next-line: inject-field
       vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run()
     end),
     m("<leader>N", function()
+      ---@diagnostic disable-next-line: inject-field
       vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run(vim.fn.expand("%"))
     end),

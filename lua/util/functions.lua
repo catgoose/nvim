@@ -51,9 +51,11 @@ end
 function M.toggle_cmdheight()
   if o.cmdheight == 1 then
     o.cmdheight = 0
+    ---@diagnostic disable-next-line: inject-field
     g.CMDHEIGHTZERO = 1
   else
     o.cmdheight = 1
+    ---@diagnostic disable-next-line: inject-field
     g.CMDHEIGHTZERO = 0
   end
 end
@@ -257,15 +259,14 @@ function M.tabnavigate(cfg)
 end
 
 function M.diagnostics_jump(config)
-  config = config or config
-  config.severity = config.severity or vim.diagnostic.severity.HINT
+  config = config or {}
   config.count = config.count or 1
   config.float = config.float or false
   if config.count == 0 then
     return
   end
-  local getter = config.count > 1 and vim.diagnostic.get_next or vim.diagnostic.get_prev
-  local diag = getter({
+  local get = config.count > 1 and vim.diagnostic.get_next or vim.diagnostic.get_prev
+  local diag = get({
     count = config.count,
     severity = config.severity,
   })
@@ -276,10 +277,10 @@ function M.diagnostics_jump(config)
       float = config.float,
     })
   else
-    vim.diagnostic.jump({
-      count = config.count,
-      float = config.float,
-    })
+    if config.severity < vim.diagnostic.severity.HINT then
+      config.severity = config.severity + 1
+      M.diagnostics_jump(config)
+    end
   end
 end
 
