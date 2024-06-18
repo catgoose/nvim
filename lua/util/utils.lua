@@ -313,4 +313,8 @@ function M.set_formatoptions()
     + "j"
 end
 
+function M.find_path(path, pattern)
+  return path:find(pattern) ~= nil
+end
+
 return M

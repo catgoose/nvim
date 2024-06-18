@@ -1,4 +1,5 @@
-local m = require("util").lazy_map
+local u = require("util")
+local m = u.lazy_map
 
 return {
   "nvim-neotest/neotest",
@@ -11,6 +12,7 @@ return {
     {
       "thenbe/neotest-playwright",
       dependencies = "nvim-telescope/telescope.nvim",
+      branch = "project-deps",
     },
   },
   config = function()
@@ -21,9 +23,9 @@ return {
           filter_dir = function(name)
             return name ~= "node_modules" and name:find("e2e") == nil
           end,
-          is_test_file = function(file_path)
-            local test = file_path:find("src/.*/__tests__/.*%.test%.[jt]s$") ~= nil
-            local snapshot = file_path:find("src/.*/__snapshots__") ~= nil
+          is_test_file = function(path)
+            local test = u.find_path(path, "src/.*/__tests__/.*%.test%.[jt]s$")
+            local snapshot = u.find_path(path, "src/.*/__snapshots__")
             return test and not snapshot
           end,
         }),
@@ -31,10 +33,9 @@ return {
           options = {
             persist_project_selection = true,
             enable_dynamic_test_discovery = true,
-            is_test_file = function(file_path)
-              local test = file_path:find("e2e/tests/.*%.test%.[jt]s$") ~= nil
-              local setup = file_path:find("e2e/tests/setup/.*%.setup%.[jt]s$") ~= nil
-              return test or setup
+            is_test_file = function(path)
+              local test = u.find_path(path, "e2e/tests/.*%.test%.[jt]s$")
+              return test
             end,
             experimental = {
               telescope = {
@@ -86,12 +87,10 @@ return {
       require("neotest").jump.next({ status = "failed" })
     end),
     m("<leader>n", function()
-      ---@diagnostic disable-next-line: inject-field
       vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run()
     end),
     m("<leader>N", function()
-      ---@diagnostic disable-next-line: inject-field
       vim.g.terminal_enable_startinsert = 0
       require("neotest").run.run(vim.fn.expand("%"))
     end),
