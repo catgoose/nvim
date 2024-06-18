@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local e = vim.tbl_extend
 local m = require("util").lazy_map
 local project = require("util.project")
@@ -24,8 +24,8 @@ local keys = {
   m("<leader>gf", angler_str .. [[.open({extension = "spec.ts"})]]),
   m("gn", angler_str .. [[.open_cwd({order = "next"})]]),
   m("gp", angler_str .. [[.open_cwd({order = "prev"})]]),
-  -- m("<leader>tc", [[AnglerCompile]]),
-  m("<leader>tc", angler_str .. [[.compile()]]),
+  m("<leader>tc", [[AnglerCompile]]),
+  -- m("<leader>tc", angler_str .. [[.compile()]]),
   -- m("<leader>tf", [[AnglerRenameFile]]),
   m("<leader>rn", [[AnglerRenameSymbol]]),
   m("<leader>k", [[AnglerFixAll]]),
