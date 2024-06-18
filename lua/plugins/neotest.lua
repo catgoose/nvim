@@ -12,7 +12,6 @@ return {
     {
       "thenbe/neotest-playwright",
       dependencies = "nvim-telescope/telescope.nvim",
-      branch = "project-deps",
     },
   },
   config = function()
