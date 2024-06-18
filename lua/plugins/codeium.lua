@@ -8,5 +8,5 @@ return {
   config = function()
     require("codeium").setup({})
   end,
-  enabled = true,
+  enabled = false,
 }
