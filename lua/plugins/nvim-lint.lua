@@ -7,8 +7,7 @@ return {
     local lint = require("lint")
     lint.linters_by_ft = {
       javascript = { "eslint_d", "oxlint" },
-      -- typescript = { "eslint_d", "oxlint" },
-      typescript = { "oxlint" },
+      typescript = { "eslint_d", "oxlint" },
       vue = { "eslint_d", "oxlint" },
       docker = { "hadolint" },
       fish = { "fish" },
