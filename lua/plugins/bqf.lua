@@ -12,9 +12,8 @@ local opts = {
     stoggleup = "<S-Tab>",
     stogglevm = "<Tab>",
     sclear = "z<Tab>",
-    --  TODO: 2024-06-19 - swap this with scrollup/scrolldown
-    pscrollup = "<C-u>",
-    pscrolldown = "<C-d>",
+    pscrollup = "<C-f>",
+    pscrolldown = "<C-b>",
     fzffilter = "zf",
     ptogglemode = "zp",
     filter = "zn",
