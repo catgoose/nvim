@@ -1006,6 +1006,17 @@ describe('<>', () =>> {
   ),
   s("snap", t(".toMatchSnapshot()")),
   s("scr", t("await expect(page).toHaveScreenshot();")),
+  s(
+    "timeout",
+    fmta(
+      [[
+   setTimeout(() =>> {
+     <>
+   }, <>)
+   ]],
+      { i(1), i(2, "0") }
+    )
+  ),
 }
 
 return snippets

@@ -18,6 +18,10 @@ local opts = {
     ptogglemode = "zp",
     filter = "zn",
     filterr = "zr",
+    prevfile = "<C-p>",
+    nextfile = "<C-n>",
+    prevhist = "<",
+    nexthist = ">",
   },
 }
 
