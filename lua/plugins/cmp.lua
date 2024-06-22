@@ -8,6 +8,7 @@ local source_mapping = {
   treesitter = "[TREE]",
   ["vim-dadbod-completion"] = "[DB]",
   codeium = "[CODE]",
+  dap = "[DAP]",
 }
 
 local config = function()
@@ -164,11 +165,11 @@ local config = function()
   })
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-  -- require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  -- 	sources = {
-  -- 		{ name = "dap" },
-  -- 	},
-  -- })
+  require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
 end
 
 return {
