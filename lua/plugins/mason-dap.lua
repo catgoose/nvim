@@ -1,12 +1,12 @@
 local opts = {
   ensure_installed = {
     "bash",
-    -- "chrome",
-    "codelldb",
-    "cppdbg",
-    -- "js",
-    -- "node2",
-    "cpptools",
+    "chrome",
+    -- "codelldb",
+    -- "cppdbg",
+    "js",
+    "node2",
+    -- "cpptools",
   },
   automatic_installation = true,
   automatic_setup = true,
@@ -14,6 +14,7 @@ local opts = {
 
 local handlers = function()
   local dap = require("dap")
+  --  TODO: 2024-06-21 - configure for chrome/js/node
   dap.configurations.cpp = {
     {
       name = "Launch file (cppdbg)",
@@ -64,5 +65,5 @@ return {
     "williamboman/mason.nvim",
     "mfussenegger/nvim-dap",
   },
-  enabled = false,
+  enabled = true,
 }
