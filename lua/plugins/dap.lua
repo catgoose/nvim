@@ -22,15 +22,6 @@ return {
     event = "BufReadPre",
   },
   {
-    "ofirgall/goto-breakpoints.nvim",
-    event = "BufReadPre",
-    keys = {
-      m("]r", [[lua require('goto-breakpoints').next()]]),
-      m("[r", [[lua require('goto-breakpoints').prev()]]),
-    },
-    dependencies = "mfussenegger/nvim-dap",
-  },
-  {
     "rcarriga/nvim-dap-ui",
     config = true,
     -- keys = {
@@ -38,6 +29,16 @@ return {
     -- },
     dependencies = {
       "mfussenegger/nvim-dap",
+      "rcarriga/cmp-dap",
     },
+  },
+  {
+    "ofirgall/goto-breakpoints.nvim",
+    event = "BufReadPre",
+    keys = {
+      m("]r", [[lua require('goto-breakpoints').next()]]),
+      m("[r", [[lua require('goto-breakpoints').prev()]]),
+    },
+    dependencies = "mfussenegger/nvim-dap",
   },
 }
