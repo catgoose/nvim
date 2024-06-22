@@ -42,7 +42,7 @@ local is_not_luasnip = function()
   return not path:find(".*/nvim/lua/snippets/.*%.lua")
 end
 
-M.is_enabled = function()
+function M.is_enabled()
   return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
 end
 

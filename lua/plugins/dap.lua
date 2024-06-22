@@ -4,13 +4,56 @@ return {
   {
     "mfussenegger/nvim-dap",
     event = "BufReadPre",
-    -- keys = {
-    -- 	m("<leader>dc", [[DapContinue]]),
-    -- 	m("<leader>db", [[DapToggleBreakpoint]]),
-    -- 	m("<leader>di", [[DapStepInto]]),
-    -- 	m("<leader>do", [[DapStepOut]]),
-    -- 	m("<leader>dl", [[DapStepOver]]),
-    -- },
+    keys = {
+      m("<F1>", [[DapContinue]]),
+      m("<F2>", [[DapStepInto]]),
+      m("<F3>", [[DapStepOver]]),
+      m("<F4>", [[DapStepOut]]),
+      m("<F5>", [[DapStepBack]]),
+      m("<F7>", [[DapRestartFrame]]),
+      m("<leader>/", [[DapToggleBreakpoint]]),
+    },
+    config = function()
+      local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+
+      if not dap.adapters["pwa-chrome"] then
+        dap.adapters["pwa-chrome"] = {
+          type = "server",
+          host = "127.0.0.1",
+          port = "${port}",
+          executable = {
+            command = "node",
+            args = {
+              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+                .. "/js-debug/src/dapDebugServer.js",
+              "${port}",
+            },
+          },
+        }
+      end
+      for _, lang in ipairs({
+        "typescript",
+        "javascript",
+      }) do
+        dap.configurations[lang] = dap.configurations[lang] or {}
+        table.insert(dap.configurations[lang], {
+          type = "pwa-chrome",
+          request = "launch",
+          name = "Launch Chrome",
+          url = "http://127.0.0.1:4200",
+          sourceMaps = false,
+        })
+      end
+    end,
   },
   {
     "theHamsta/nvim-dap-virtual-text",
@@ -24,12 +67,11 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     config = true,
-    -- keys = {
-    -- 	m("<leader>n", [[lua require("dapui").toggle()]]),
-    -- },
+    keys = {
+      m("<leader>?", [[lua require("dapui").toggle()]]),
+    },
     dependencies = {
       "mfussenegger/nvim-dap",
-      "rcarriga/cmp-dap",
     },
   },
   {

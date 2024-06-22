@@ -129,6 +129,7 @@ local config = function()
       },
       {
         name = "lazydev",
+        keyword_length = 2,
         group_index = 0,
       },
     }),
@@ -190,6 +191,10 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "roobert/tailwindcss-colorizer-cmp.nvim",
       "Exafunction/codeium.nvim",
+      {
+        "rcarriga/cmp-dap",
+        dependencies = "mfussenegger/nvim-dap",
+      },
     },
   },
 }
