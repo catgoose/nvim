@@ -1,3 +1,5 @@
+--  TODO: 2024-06-24 - Move to noice
+
 local config = function()
   require("wilder").setup({
     modes = { ":", "/", "?" },
