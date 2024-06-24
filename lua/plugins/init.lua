@@ -31,13 +31,14 @@ return {
     "folke/neoconf.nvim",
     lazy = true,
   },
-  -- {
-  --   "mluders/comfy-line-numbers.nvim",
-  --   -- init = function()
-  --   --   vim.opt.number = false
-  --   --   vim.opt.relativenumber = false
-  --   -- end,
-  --   config = true,
-  --   event = "BufReadPre",
-  -- },
+  {
+    "FabijanZulj/blame.nvim",
+    config = function()
+      require("blame").setup()
+    end,
+    cmd = { "BlameToggle" },
+    keys = {
+      m("<leader>gb", [[BlameToggle]]),
+    },
+  },
 }

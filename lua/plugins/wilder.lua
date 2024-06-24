@@ -39,6 +39,7 @@ local config = function()
           return {
             wilder.history(),
             function(ctx, h)
+              --
               return wilder.vim_fuzzy_filt(ctx, {}, h, x)
             end,
           }

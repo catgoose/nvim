@@ -331,6 +331,7 @@ end,
       { i(1), i(2) }
     )
   ),
+  s("lazymap", t([[local m = require("util").lazy_map]])),
 }
 
 return snippets

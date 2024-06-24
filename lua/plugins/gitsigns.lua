@@ -1,3 +1,5 @@
+local m = require("util").lazy_map
+
 local text = "┃"
 local opts = {
   signs = {
