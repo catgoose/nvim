@@ -16,6 +16,7 @@
   "cmp-treesitter": { "branch": "master", "commit": "958fcfa0d8ce46d215e19cc3992c542f576c4123" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "coderunner.nvim": { "branch": "main", "commit": "2d8612982908d54ceb99e36dd13cf177618fca28" },
+  "comfy-line-numbers.nvim": { "branch": "main", "commit": "846899e1d24c4ae6ea4996142a8f995476352af2" },
   "conform.nvim": { "branch": "master", "commit": "9a06e83527407a7600a2fe4e0d10adf432b6215e" },
   "copilot.lua": { "branch": "master", "commit": "67f86de449a8b693082f66e8f8fcb8a1d79dd45e" },
   "dashboard-nvim": { "branch": "master", "commit": "4f7f9369f2cf896adcb7c1780ecd07674d1f34b5" },

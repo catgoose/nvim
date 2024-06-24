@@ -31,4 +31,13 @@ return {
     "folke/neoconf.nvim",
     lazy = true,
   },
+  -- {
+  --   "mluders/comfy-line-numbers.nvim",
+  --   -- init = function()
+  --   --   vim.opt.number = false
+  --   --   vim.opt.relativenumber = false
+  --   -- end,
+  --   config = true,
+  --   event = "BufReadPre",
+  -- },
 }
