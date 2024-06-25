@@ -289,6 +289,17 @@ local snippets = {
       }
     )
   ),
+  s(
+    "ngcon",
+    fmt(
+      [[
+    <ng-container *ngIf="{}">
+    {}
+    </ng-container>
+     ]],
+      { i(1), i(0) }
+    )
+  ),
 }
 
 return snippets

@@ -31,14 +31,4 @@ return {
     "folke/neoconf.nvim",
     lazy = true,
   },
-  {
-    "FabijanZulj/blame.nvim",
-    config = function()
-      require("blame").setup()
-    end,
-    cmd = { "BlameToggle" },
-    keys = {
-      m("<leader>gb", [[BlameToggle]]),
-    },
-  },
 }
