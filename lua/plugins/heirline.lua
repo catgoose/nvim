@@ -266,6 +266,7 @@ local config = function()
     update = { "RecordingEnter", "RecordingLeave" },
   }
 
+  --  TODO: 2024-06-27 - Is it possible to only show on certain file types?
   local Ruler = {
     {
       RightSep,
