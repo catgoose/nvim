@@ -17,6 +17,15 @@ local config = function()
       "blame",
     },
   }
+  local ruler_inactive = {
+    buftype = {
+      "nofile",
+      "terminal",
+    },
+    filetype = {
+      "neotest-summary",
+    },
+  }
   local cmdtype_inactive = {
     ":",
     "/",
@@ -34,34 +43,18 @@ local config = function()
   local LeftSep = { provider = "" }
   local RightSep = { provider = "" }
 
-  local Winbar = {
-    hl = {
-      bg = active_foreground_color,
-    },
-  }
-  local ActiveSep = {
-    hl = function()
-      if conditions.is_active() then
-        return { fg = active_background_color }
-      else
-        return { fg = inactive_background_color }
-      end
-    end,
-  }
-
-  local FileIcon = {
+  local FileNameBlock = {
     init = function(self)
+      self.filename = api.nvim_buf_get_name(0)
       local filename = self.filename
       local extension = fn.fnamemodify(filename, ":e")
       self.icon, self.icon_color =
         require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
     end,
+  }
+  local FileIcon = {
     provider = function(self)
-      if self.filename == "" then
-        return ""
-      else
-        return self.icon and (self.icon .. " ")
-      end
+      return self.filename == "" and self.filename or self.icon and (self.icon .. " ")
     end,
     hl = function(self)
       return { fg = self.icon_color }
@@ -105,22 +98,40 @@ local config = function()
       end
     end,
   }
+  local ActiveSep = {
+    hl = function()
+      if conditions.is_active() then
+        return { fg = active_background_color }
+      else
+        return { fg = inactive_background_color }
+      end
+    end,
+  }
+  FileNameBlock = u.insert(
+    FileNameBlock,
+    u.insert(ActiveSep, LeftSep),
+    Space,
+    unpack(FileFlags),
+    u.insert(FileNameModifer, FileName, Space, FileIcon),
+    { provider = "%<" }
+  )
 
-  local diagnostics_spacer = " "
-  local Diagnostics = {
+  local DiagnosticsBlock = {
     condition = conditions.has_diagnostics,
-    static = {
-      error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,
-      warn_icon = fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-      info_icon = fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-      hint_icon = fn.sign_getdefined("DiagnosticSignHint")[1].text,
-    },
     init = function(self)
       self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
       self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
       self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
       self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
+  }
+  local Diagnostics = {
+    static = {
+      error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,
+      warn_icon = fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+      info_icon = fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+      hint_icon = fn.sign_getdefined("DiagnosticSignHint")[1].text,
+    },
     update = { "DiagnosticChanged", "BufEnter", "WinEnter" },
     {
       RightSep,
@@ -141,32 +152,33 @@ local config = function()
     Space,
     {
       provider = function(self)
-        return self.errors > 0 and (self.error_icon .. self.errors .. diagnostics_spacer) or ""
+        return self.errors > 0 and (self.error_icon .. self.errors .. " ") or ""
       end,
       hl = { fg = colors.samuraiRed },
     },
     {
       provider = function(self)
-        return self.warnings > 0 and (self.warn_icon .. self.warnings .. diagnostics_spacer)
+        return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
       end,
       hl = { fg = colors.roninYellow },
     },
     {
       provider = function(self)
-        return self.info > 0 and (self.info_icon .. self.info .. diagnostics_spacer)
+        return self.info > 0 and (self.info_icon .. self.info .. " ")
       end,
       hl = { fg = colors.waveAqua1 },
     },
     {
       provider = function(self)
-        return self.hints > 0 and (self.hint_icon .. self.hints .. diagnostics_spacer)
+        return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
       end,
       hl = { fg = colors.dragonBlue },
     },
     hl = { bg = active_foreground_color },
   }
+  DiagnosticsBlock = u.insert(DiagnosticsBlock, Diagnostics)
 
-  local Git = {
+  local GitBlock = {
     condition = conditions.is_git_repo,
     init = function(self)
       self.status_dict = vim.b.gitsigns_status_dict
@@ -174,58 +186,59 @@ local config = function()
         or self.status_dict.removed ~= 0
         or self.status_dict.changed ~= 0
     end,
-    {
-      condition = function(self)
-        return self.has_changes
-      end,
-      {
-        provider = function(self)
-          return "  " .. self.status_dict.head .. " "
-        end,
-        hl = { fg = colors.springViolet1, bold = true, italic = true },
-      },
-      {
-        provider = function(self)
-          local count = self.status_dict.added or 0
-          return count > 0 and ("+" .. count .. " ")
-        end,
-        hl = { fg = colors.autumnGreen, bold = true },
-      },
-      {
-        provider = function(self)
-          local count = self.status_dict.removed or 0
-          return count > 0 and ("-" .. count .. " ")
-        end,
-        hl = { fg = colors.autumnRed, bold = true },
-      },
-      {
-        provider = function(self)
-          local count = self.status_dict.changed or 0
-          return count > 0 and ("~" .. count .. " ")
-        end,
-        hl = { fg = colors.autumnYellow, bold = true },
-      },
-      {
-        LeftSep,
-        hl = function()
-          if conditions.is_active() then
-            return {
-              bg = active_background_color,
-              fg = active_foreground_color,
-            }
-          else
-            return {
-              fg = active_foreground_color,
-              bg = inactive_background_color,
-            }
-          end
-        end,
-      },
-      hl = { bg = active_foreground_color },
-    },
   }
+  local Git = {
+    condition = function(self)
+      return self.has_changes
+    end,
+    {
+      provider = function(self)
+        return "  " .. self.status_dict.head .. " "
+      end,
+      hl = { fg = colors.springViolet1, bold = true, italic = true },
+    },
+    {
+      provider = function(self)
+        local count = self.status_dict.added or 0
+        return count > 0 and ("+" .. count .. " ")
+      end,
+      hl = { fg = colors.autumnGreen, bold = true },
+    },
+    {
+      provider = function(self)
+        local count = self.status_dict.removed or 0
+        return count > 0 and ("-" .. count .. " ")
+      end,
+      hl = { fg = colors.autumnRed, bold = true },
+    },
+    {
+      provider = function(self)
+        local count = self.status_dict.changed or 0
+        return count > 0 and ("~" .. count .. " ")
+      end,
+      hl = { fg = colors.autumnYellow, bold = true },
+    },
+    {
+      LeftSep,
+      hl = function()
+        if conditions.is_active() then
+          return {
+            bg = active_background_color,
+            fg = active_foreground_color,
+          }
+        else
+          return {
+            fg = active_foreground_color,
+            bg = inactive_background_color,
+          }
+        end
+      end,
+    },
+    hl = { bg = active_foreground_color },
+  }
+  GitBlock = u.insert(GitBlock, Git)
 
-  local MacroRecording = {
+  local MacroRecordingBlock = {
     condition = conditions.is_active,
     init = function(self)
       self.reg_recording = fn.reg_recording()
@@ -234,39 +247,44 @@ local config = function()
         or self.status_dict.removed ~= 0
         or self.status_dict.changed ~= 0
     end,
+  }
+  local MacroRecording = {
+    condition = function(self)
+      return self.reg_recording ~= ""
+    end,
     {
       condition = function(self)
-        return self.reg_recording ~= ""
+        return self.has_changes
       end,
-      {
-        condition = function(self)
-          return self.has_changes
-        end,
-        LeftSep,
-      },
-      {
-        provider = "   ",
-        hl = { fg = colors.autumnRed },
-      },
-      {
-        provider = function(self)
-          return "@" .. self.reg_recording
-        end,
-        hl = { italic = false, bold = true },
-      },
-      {
-        Space,
-      },
-      {
-        LeftSep,
-        hl = { bg = active_background_color, fg = recording_background_color },
-      },
-      hl = { bg = recording_background_color, fg = active_background_color },
+      LeftSep,
     },
+    {
+      provider = "   ",
+      hl = { fg = colors.autumnRed },
+    },
+    {
+      provider = function(self)
+        return "@" .. self.reg_recording
+      end,
+      hl = { italic = false, bold = true },
+    },
+    {
+      Space,
+    },
+    {
+      LeftSep,
+      hl = { bg = active_background_color, fg = recording_background_color },
+    },
+    hl = { bg = recording_background_color, fg = active_background_color },
     update = { "RecordingEnter", "RecordingLeave" },
   }
+  MacroRecordingBlock = u.insert(MacroRecordingBlock, MacroRecording)
 
-  --  TODO: 2024-06-27 - Is it possible to only show on certain file types?
+  local RulerBlock = {
+    condition = function()
+      return not conditions.buffer_matches(ruler_inactive)
+    end,
+  }
   local Ruler = {
     {
       RightSep,
@@ -293,71 +311,30 @@ local config = function()
       },
     },
   }
+  RulerBlock = u.insert(RulerBlock, Ruler)
 
-  -- local QuickFix = {
-  --   -- provider = "asdf",
-  --   init = function(self)
-  --     -- self.quickfix = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
-  --     -- self.filename = vim.fn.expand("%:.")
-  --     -- vim.print(self.filename)
-  --     local filename = self.filename
-  --     vim.print(filename)
-  --   end,
-  --   condition = function(self)
-  --     vim.print(self.filename)
-  --     self.quickfix = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
-  --     -- vim.print(self.filename)
-  --     -- vim.print(self.quickfix)
-  --     if not self.quickfix then
-  --       return false
-  --     end
-  --     for i, item in ipairs(self.quickfix.items) do
-  --       vim.print(item.text)
-  --       vim.print(self.filename)
-  --       if item.text == self.filename then
-  --         vim.print(
-  --           string.format(
-  --             "%s %s: (%s/%s)",
-  --             self.quickfix.nr,
-  --             self.quickfix.title,
-  --             "i",
-  --             #self.quickfix.items
-  --           )
-  --         )
-  --         return true
-  --       end
-  --     end
-  --     return false
-  --   end,
-  --   provider = function(self)
-  --     return string.format(
-  --       "%s %s: (%s/%s)",
-  --       self.quickfix.nr,
-  --       self.quickfix.title,
-  --       "i",
-  --       #self.quickfix.items
-  --     )
-  --   end,
-  -- }
-
-  local FileNameBlock = {
+  local QuickfixBlock = {
     init = function(self)
-      self.filename = api.nvim_buf_get_name(0)
+      self.quickfix = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+      vim.print(self.quickfix)
+      self.filename = vim.fn.expand("%:.")
+    end,
+    condition = function(self)
+      local qf = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+      vim.print(qf)
+      local quickfix = self.quickfix
+      if not quickfix then
+        return false
+      end
+      return true
     end,
   }
-  local DiagnosticsBlock = { Diagnostics }
-  local GitBlock = { Git }
-  local MacroRecordingBlock = { MacroRecording }
-  local RulerBlock = { Ruler }
-
-  FileNameBlock = u.insert(
-    FileNameBlock,
-    u.insert(ActiveSep, LeftSep),
-    Space,
-    unpack(FileFlags),
-    u.insert(FileNameModifer, FileName, Space, FileIcon),
-    { provider = "%<" }
-  )
+  local QuickFix = {
+    provider = function(self)
+      return "asdf"
+    end,
+  }
+  QuickfixBlock = u.insert(QuickfixBlock, QuickFix)
 
   local StatusLines = {
     condition = function()
@@ -382,6 +359,11 @@ local config = function()
     end,
   }
 
+  local Winbar = {
+    hl = {
+      bg = active_foreground_color,
+    },
+  }
   local Winbars = {
     condition = function()
       local empty_buffer = function()
@@ -389,7 +371,7 @@ local config = function()
       end
       return not empty_buffer()
     end,
-    -- QuickFix,
+    QuickfixBlock,
     Align,
     u.insert(Winbar, FileNameBlock),
   }
