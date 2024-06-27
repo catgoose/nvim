@@ -25,9 +25,9 @@ opt.fillchars = {
 }
 opt.confirm = true
 opt.shortmess = "aoOstTWAIcCFSq"
-opt.lazyredraw = true
 opt.updatetime = 100
 opt.splitkeep = "screen"
+opt.ruler = false
 
 -- Window
 opt.splitright = true

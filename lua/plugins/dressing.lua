@@ -61,6 +61,7 @@ local opts = {
         filetype = "DressingSelect",
       },
       win_options = {
+        --
         winblend = 2,
       },
       max_width = 80,

@@ -7,39 +7,14 @@ local config = function()
   heirline.load_colors(colors)
   local fn, api, bo = vim.fn, vim.api, vim.bo
 
-  local status_inactive = {
-    buftype = {
-      "dashboard",
-      "quickfix",
-      "locationlist",
-      "quickfix",
-      "scratch",
-      "prompt",
-    },
-    filetype = {
-      "dashboard",
-      "harpoon",
-      "startuptime",
-      "mason.nvim",
-      "terminal",
-      "no-neck-pain",
-    },
-  }
   local winbar_inactive = {
     buftype = {
       "nofile",
-      "prompt",
-      "quickfix",
       "terminal",
     },
     filetype = {
-      "toggleterm",
-      "qf",
-      "terminal",
       "oil",
-      "harpoon",
-      "no-neck-pain",
-      "eddie",
+      "blame",
     },
   }
   local cmdtype_inactive = {
@@ -52,12 +27,7 @@ local config = function()
   local active_background_color = colors.sumiInk3
   local active_foreground_color = colors.sumiInk5
   local inactive_background_color = colors.sumiInk1
-  local scrollbar_foreground_color = colors.dragonBlue
-  local scrollbar_background_color = active_background_color
-
-  local scrollbar_enabled = function()
-    return api.nvim_buf_line_count(0) > 99 and conditions.is_active()
-  end
+  local ruler_foreground_color = colors.dragonBlue
 
   local Align = { provider = "%=" }
   local Space = { provider = " " }
@@ -73,7 +43,6 @@ local config = function()
       end
     end,
   }
-
   local ActiveBlock = {
     hl = function()
       if conditions.is_active() then
@@ -83,7 +52,6 @@ local config = function()
       end
     end,
   }
-
   local ActiveSep = {
     hl = function()
       if conditions.is_active() then
@@ -112,21 +80,19 @@ local config = function()
       return { fg = self.icon_color }
     end,
   }
-
   local FileName = {
     provider = function(self)
-      local filename = fn.fnamemodify(self.filename, ":t")
+      local filename = fn.fnamemodify(self.filename, ":.")
       if filename == "" then
         return ""
       end
-      if not conditions.width_percent_below(#filename, 0.1) then
-        filename = fn.pathshorten(filename)
+      if not conditions.width_percent_below(#filename, 0.25) then
+        filename = fn.pathshorten(filename, 3)
       end
       return filename
     end,
     hl = { fg = colors.oldWhite, bold = true },
   }
-
   local FileFlags = {
     {
       provider = function()
@@ -145,7 +111,6 @@ local config = function()
       hl = { fg = colors.roninYellow, bold = true, italic = true },
     },
   }
-
   local FileNameModifer = {
     hl = function()
       if bo.modified then
@@ -210,14 +175,6 @@ local config = function()
         return self.hints > 0 and (self.hint_icon .. self.hints .. diagnostics_spacer)
       end,
       hl = { fg = colors.dragonBlue },
-    },
-    {
-      condition = function()
-        return not scrollbar_enabled()
-      end,
-      {
-        Space,
-      },
     },
     hl = { bg = active_foreground_color },
   }
@@ -322,36 +279,32 @@ local config = function()
     update = { "RecordingEnter", "RecordingLeave" },
   }
 
-  local FileType = {
-    condition = function()
-      return conditions.buffer_matches({ filetype = { "coderunner" } })
-    end,
-    provider = function()
-      return bo.filetype
-    end,
-    hl = { fg = colors.oldWhite, bold = true },
-  }
+  local a
 
-  local ScrollBar = {
-    condition = function()
-      return scrollbar_enabled()
-    end,
-    static = {
-      sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
-    },
+  local Ruler = {
     {
-      {
-        provider = function(self)
-          local curr_line = api.nvim_win_get_cursor(0)[1]
-          local lines = api.nvim_buf_line_count(0)
-          local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
-          return string.rep(self.sbar[i], 2)
-        end,
-        hl = function()
-          return { fg = scrollbar_foreground_color, bg = scrollbar_background_color }
-        end,
-      },
+      RightSep,
+      condition = conditions.has_diagnostics,
+      hl = function()
+        if conditions.is_active() then
+          return {
+            fg = active_background_color,
+            bg = active_foreground_color,
+          }
+        else
+          return {
+            fg = inactive_background_color,
+            bg = active_foreground_color,
+          }
+        end
+      end,
     },
+    Space,
+    {
+      provider = "%7(%l/%3L%):%2c",
+      hl = { fg = ruler_foreground_color },
+    },
+    Space,
   }
 
   local FileNameBlock = {
@@ -359,47 +312,26 @@ local config = function()
       self.filename = api.nvim_buf_get_name(0)
     end,
   }
-  local DiagnosticsBlock, GitBlock, MacroRecordingBlock, ScrollBarBlock = {}, {}, {}, {}
+  local DiagnosticsBlock = { Diagnostics }
+  local GitBlock = { Git }
+  local MacroRecordingBlock = { MacroRecording }
+  local RulerBlock = { Ruler }
 
   FileNameBlock = u.insert(
     FileNameBlock,
-    FileType,
     u.insert(ActiveSep, LeftSep),
     Space,
     unpack(FileFlags),
     u.insert(FileNameModifer, FileName, Space, FileIcon),
     { provider = "%<" }
   )
-  DiagnosticsBlock = u.insert(DiagnosticsBlock, Diagnostics)
-  GitBlock = u.insert(GitBlock, Git)
-  MacroRecordingBlock = u.insert(MacroRecordingBlock, MacroRecording)
-  ScrollBarBlock = u.insert(ScrollBarBlock, ScrollBar)
-
-  InactiveStatusline = {
-    condition = function()
-      conditions.buffer_matches(status_inactive)
-    end,
-    provider = function()
-      return "%="
-    end,
-    hl = function()
-      if conditions.is_active() then
-        return { bg = active_background_color }
-      else
-        return { bg = inactive_background_color }
-      end
-    end,
-  }
 
   ActiveStatusline = {
-    condition = function()
-      return not conditions.buffer_matches(status_inactive)
-    end,
     GitBlock,
-    MacroRecording,
+    MacroRecordingBlock,
     Align,
     DiagnosticsBlock,
-    ScrollBarBlock,
+    RulerBlock,
     hl = function()
       if conditions.is_active() then
         return { bg = active_background_color }
@@ -418,7 +350,6 @@ local config = function()
       end
       return true
     end,
-    InactiveStatusline,
     ActiveStatusline,
   }
 
