@@ -111,13 +111,14 @@ local config = function()
       substitute = render_search,
     })
   )
-  vim.cmd.WilderUpdateRemotePlugins()
+  -- vim.cmd.WilderUpdateRemotePlugins()
 end
 
 return {
   "gelguy/wilder.nvim",
   config = config,
   event = "CmdlineEnter",
+  run = ":UpdateRemotePlugins",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },

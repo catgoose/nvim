@@ -140,27 +140,27 @@ function M.tagstack_navigate(config)
   end
 end
 
-function M.wilder_update_remote_plugins()
-  local update = function()
-    cmd([[silent! UpdateRemotePlugins]])
-  end
-  local rplugin = fn.stdpath("data") .. "/rplugin.vim"
-  if fn.filereadable(rplugin) ~= 1 then
-    update()
-    return
-  end
-  local wilder_updated = false
-  for _, line in ipairs(fn.readfile(rplugin)) do
-    if line:match("wilder#lua#remote#host") then
-      wilder_updated = true
-      break
-    end
-  end
-  if not wilder_updated then
-    update()
-    return
-  end
-end
+-- function M.wilder_update_remote_plugins()
+--   local update = function()
+--     cmd([[silent! UpdateRemotePlugins]])
+--   end
+--   local rplugin = fn.stdpath("data") .. "/rplugin.vim"
+--   if fn.filereadable(rplugin) ~= 1 then
+--     update()
+--     return
+--   end
+--   local wilder_updated = false
+--   for _, line in ipairs(fn.readfile(rplugin)) do
+--     if line:match("wilder#lua#remote#host") then
+--       wilder_updated = true
+--       break
+--     end
+--   end
+--   if not wilder_updated then
+--     update()
+--     return
+--   end
+-- end
 
 function M.spectre_open()
   cmd([[lua require("spectre").open()]])
