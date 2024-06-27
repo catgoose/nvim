@@ -1,55 +1,56 @@
 local f = require("util.functions")
 local u = require("util")
 local c = u.create_cmd
+local cmd, api, fn, d = vim.cmd, vim.api, vim.fn, vim.diagnostic
 
 c("BufOnlyWindowOnly", function()
-  if #vim.api.nvim_list_wins() > 1 then
-    vim.cmd.only()
+  if #api.nvim_list_wins() > 1 then
+    cmd.only()
   end
-  vim.cmd.BufOnly()
+  cmd.BufOnly()
 end)
 c("WinOnly", function()
   f.win_only()
 end)
 c("WinOnlyFocusLeft", function()
   f.win_only(function()
-    vim.cmd("vsplit")
+    cmd("vsplit")
   end)
 end)
 c("WinOnlyFocusRight", function()
   f.win_only(function()
-    vim.cmd("vsplit")
-    vim.cmd.wincmd("h")
+    cmd("vsplit")
+    cmd.wincmd("h")
   end)
 end)
 c("WinOnlyFocusDown", function()
   f.win_only(function()
-    vim.cmd("split")
-    vim.cmd.wincmd("j")
+    cmd("split")
+    cmd.wincmd("j")
   end)
 end)
 c("WinOnlyFocusUp", function()
   f.win_only(function()
-    vim.cmd("split")
-    vim.cmd.wincmd("k")
+    cmd("split")
+    cmd.wincmd("k")
   end)
 end)
 c("CommentYankPaste", f.comment_yank_paste)
 c("HelpWord", f.help_word)
 c("LoadPreviousBuffer", function()
-  if #vim.fn.expand("#") > 0 then
-    vim.cmd.edit(vim.fn.expand("#"))
+  if #fn.expand("#") > 0 then
+    cmd.edit(fn.expand("#"))
   end
 end)
 c("ReloadLua", u.reload_lua)
 c("SpectreOpen", function()
-  vim.cmd([[lua require("spectre").open()]])
+  cmd([[lua require("spectre").open()]])
 end)
 c("SpectreOpenWord", function()
-  vim.cmd([[lua require("spectre").open_visual({select_word = true})]])
+  cmd([[lua require("spectre").open_visual({select_word = true})]])
 end)
 c("SpectreOpenCwd", function()
-  vim.cmd([[lua require("spectre").open_file_search()]])
+  cmd([[lua require("spectre").open_file_search()]])
 end)
 c("SpotifyNext", function()
   f.run_system_command({
@@ -101,17 +102,17 @@ c("UpdateAndSyncAll", function()
     "Lazy sync",
   }
   for _, c in ipairs(cmds) do
-    vim.cmd(c)
+    cmd(c)
     print("Running: " .. c)
   end
 end)
 c("UfoToggleFold", require("util.ufo").toggle_fold)
 c("FoldParagraph", function()
-  local foldclosed = vim.fn.foldclosed(vim.fn.line("."))
+  local foldclosed = fn.foldclosed(fn.line("."))
   if foldclosed == -1 then
-    vim.cmd([[silent! normal! zfip]])
+    cmd([[silent! normal! zfip]])
   else
-    vim.cmd("silent! normal! zo")
+    cmd("silent! normal! zo")
   end
 end)
 c("HoverHandler", require("util").hover_handler)
@@ -149,14 +150,14 @@ end)
 c("DiagnosticsErrorJumpPrev", function()
   f.diagnostics_jump({
     count = -1,
-    severity = vim.diagnostic.severity.ERROR,
+    severity = d.severity.ERROR,
     float = true,
   })
 end)
 c("DiagnosticsErrorJumpNext", function()
   f.diagnostics_jump({
     count = 1,
-    severity = vim.diagnostic.severity.ERROR,
+    severity = d.severity.ERROR,
     float = true,
   })
 end)
