@@ -27,7 +27,7 @@ local config = function()
   local active_background_color = colors.sumiInk3
   local active_foreground_color = colors.sumiInk5
   local inactive_background_color = colors.sumiInk1
-  local ruler_foreground_color = colors.dragonBlue
+  local active_ruler_foreground_color = colors.dragonBlue
 
   local Align = { provider = "%=" }
   local Space = { provider = " " }
@@ -279,8 +279,6 @@ local config = function()
     update = { "RecordingEnter", "RecordingLeave" },
   }
 
-  local a
-
   local Ruler = {
     {
       RightSep,
@@ -302,7 +300,7 @@ local config = function()
     Space,
     {
       provider = "%7(%l/%3L%):%2c",
-      hl = { fg = ruler_foreground_color },
+      hl = { fg = active_ruler_foreground_color },
     },
     Space,
   }

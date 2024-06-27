@@ -118,16 +118,6 @@ local config = function()
         },
       },
       {
-        name = "emoji",
-        keyword_length = 2,
-        group_index = 6,
-      },
-      {
-        name = "nerdfont",
-        keyword_length = 2,
-        group_index = 6,
-      },
-      {
         name = "lazydev",
         keyword_length = 2,
         group_index = 0,
@@ -148,25 +138,20 @@ local config = function()
     sorting = {
       priority_weight = 2,
       comparators = {
-        cmp.config.compare.recently_used,
-        cmp.config.compare.score,
-        cmp.config.compare.exact,
-        cmp.config.compare.kind,
         cmp.config.compare.offset,
-        cmp.config.compare.locality,
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+        cmp.config.compare.recently_used,
+        cmp.config.compare.kind,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,
         cmp.config.compare.order,
       },
     },
-    experimental = {
-      native_menu = false,
-      ghost_text = false,
-    },
   })
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-  require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
     sources = {
       { name = "dap" },
     },
@@ -183,10 +168,7 @@ return {
       "L3MON4D3/LuaSnip",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-emoji",
-      "chrisgrieser/cmp-nerdfont",
       "ray-x/cmp-treesitter",
       "saadparwaiz1/cmp_luasnip",
       "roobert/tailwindcss-colorizer-cmp.nvim",
