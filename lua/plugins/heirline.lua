@@ -34,23 +34,10 @@ local config = function()
   local LeftSep = { provider = "" }
   local RightSep = { provider = "" }
 
-  local ActiveWindow = {
-    hl = function()
-      if conditions.is_active() then
-        return { bg = active_background_color }
-      else
-        return { bg = inactive_background_color }
-      end
-    end,
-  }
-  local ActiveBlock = {
-    hl = function()
-      if conditions.is_active() then
-        return { bg = active_foreground_color }
-      else
-        return { bg = active_foreground_color }
-      end
-    end,
+  local Winbar = {
+    hl = {
+      bg = active_foreground_color,
+    },
   }
   local ActiveSep = {
     hl = function()
@@ -299,11 +286,58 @@ local config = function()
     },
     Space,
     {
-      provider = "%7(%l/%3L%):%2c",
-      hl = { fg = active_ruler_foreground_color },
+      provider = "%(%l/%3L%):%c %q",
+      hl = {
+        fg = active_ruler_foreground_color,
+      },
     },
-    Space,
   }
+
+  -- local QuickFix = {
+  --   -- provider = "asdf",
+  --   init = function(self)
+  --     -- self.quickfix = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+  --     -- self.filename = vim.fn.expand("%:.")
+  --     -- vim.print(self.filename)
+  --     local filename = self.filename
+  --     vim.print(filename)
+  --   end,
+  --   condition = function(self)
+  --     vim.print(self.filename)
+  --     self.quickfix = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+  --     -- vim.print(self.filename)
+  --     -- vim.print(self.quickfix)
+  --     if not self.quickfix then
+  --       return false
+  --     end
+  --     for i, item in ipairs(self.quickfix.items) do
+  --       vim.print(item.text)
+  --       vim.print(self.filename)
+  --       if item.text == self.filename then
+  --         vim.print(
+  --           string.format(
+  --             "%s %s: (%s/%s)",
+  --             self.quickfix.nr,
+  --             self.quickfix.title,
+  --             "i",
+  --             #self.quickfix.items
+  --           )
+  --         )
+  --         return true
+  --       end
+  --     end
+  --     return false
+  --   end,
+  --   provider = function(self)
+  --     return string.format(
+  --       "%s %s: (%s/%s)",
+  --       self.quickfix.nr,
+  --       self.quickfix.title,
+  --       "i",
+  --       #self.quickfix.items
+  --     )
+  --   end,
+  -- }
 
   local FileNameBlock = {
     init = function(self)
@@ -324,7 +358,15 @@ local config = function()
     { provider = "%<" }
   )
 
-  ActiveStatusline = {
+  local StatusLines = {
+    condition = function()
+      for _, c in ipairs(cmdtype_inactive) do
+        if vim.fn.getcmdtype() == c then
+          return false
+        end
+      end
+      return true
+    end,
     GitBlock,
     MacroRecordingBlock,
     Align,
@@ -339,36 +381,21 @@ local config = function()
     end,
   }
 
-  local StatusLines = {
-    condition = function()
-      for _, c in ipairs(cmdtype_inactive) do
-        if vim.fn.getcmdtype() == c then
-          return false
-        end
-      end
-      return true
-    end,
-    ActiveStatusline,
-  }
-
-  ActiveWinbar = {
+  local Winbars = {
     condition = function()
       local empty_buffer = function()
         return bo.ft == "" and bo.buftype == ""
       end
       return not empty_buffer()
     end,
+    -- QuickFix,
     Align,
-    u.insert(ActiveBlock, FileNameBlock),
-  }
-
-  local WinBars = {
-    u.insert(ActiveWindow, ActiveWinbar),
+    u.insert(Winbar, FileNameBlock),
   }
 
   heirline.setup({
     statusline = StatusLines,
-    winbar = WinBars,
+    winbar = Winbars,
     opts = {
       disable_winbar_cb = function(args)
         return conditions.buffer_matches(winbar_inactive, args.buf)

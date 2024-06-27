@@ -162,4 +162,4 @@ c("DiagnosticsErrorJumpNext", function()
   })
 end)
 
-c("TF", f.testing_function)
+c("TestingFunction", f.testing_function)

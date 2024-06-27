@@ -207,7 +207,14 @@ function M.diagnostics_jump(config)
 end
 
 function M.testing_function()
-  --
+  local qf = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+  local current_file = vim.fn.expand("%:.")
+
+  for i, item in ipairs(qf.items) do
+    if item.text == current_file then
+      vim.print(string.format("%s %s: (%s/%s)", qf.nr, qf.title, i, #qf.items))
+    end
+  end
 end
 
 return M
