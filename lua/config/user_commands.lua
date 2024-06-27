@@ -101,9 +101,9 @@ c("UpdateAndSyncAll", function()
     "TSUpdate",
     "Lazy sync",
   }
-  for _, c in ipairs(cmds) do
-    cmd(c)
-    print("Running: " .. c)
+  for _, cm in ipairs(cmds) do
+    cmd(cm)
+    print(string.format("Running: %s", cm))
   end
 end)
 c("UfoToggleFold", require("util.ufo").toggle_fold)

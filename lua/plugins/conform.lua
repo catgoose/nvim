@@ -24,7 +24,7 @@ local opts = {
     end
     return { timeout_ms = 500, lsp_fallback = true }
   end,
-  notify_on_error = true,
+  notify_on_error = false,
   formatters = {
     shfmt = {
       prepend_args = { "-i", "2" },
@@ -76,5 +76,4 @@ return {
     m("<leader>ci", [[ConformInfo]]),
   },
   init = init,
-  enabled = true,
 }
