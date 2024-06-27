@@ -2,7 +2,6 @@ local fn, cmd, api, o, g, ui = vim.fn, vim.cmd, vim.api, vim.o, vim.g, vim.ui
 local set_cur = api.nvim_win_set_cursor
 local t = require("util.toggle")
 local u = require("util")
-local ufo = require("util.ufo")
 
 local M = {}
 
@@ -124,32 +123,6 @@ function M.tagstack_navigate(config)
       return
     end
     cmd.pop()
-  end
-end
-
-function M.update_all()
-  local cmds = {
-    "MasonUpdate",
-    "MasonToolsUpdate",
-    "TSUpdate",
-    "Lazy sync",
-  }
-  for _, c in ipairs(cmds) do
-    cmd(c)
-    print("Running: " .. c)
-  end
-end
-
-function M.ufo_toggle_fold()
-  return ufo.toggle_fold()
-end
-
-function M.fold_paragraph()
-  local foldclosed = fn.foldclosed(fn.line("."))
-  if foldclosed == -1 then
-    cmd([[silent! normal! zfip]])
-  else
-    cmd("silent! normal! zo")
   end
 end
 

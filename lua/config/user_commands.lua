@@ -93,9 +93,27 @@ end)
 c("ToggleTermSpotify", function()
   f.toggle_term_cmd({ count = 1, cmd = "spotify_player" })
 end)
-c("UpdateAndSyncAll", f.update_all)
-c("UfoToggleFold", f.ufo_toggle_fold)
-c("FoldParagraph", f.fold_paragraph)
+c("UpdateAndSyncAll", function()
+  local cmds = {
+    "MasonUpdate",
+    "MasonToolsUpdate",
+    "TSUpdate",
+    "Lazy sync",
+  }
+  for _, c in ipairs(cmds) do
+    vim.cmd(c)
+    print("Running: " .. c)
+  end
+end)
+c("UfoToggleFold", require("util.ufo").toggle_fold)
+c("FoldParagraph", function()
+  local foldclosed = vim.fn.foldclosed(vim.fn.line("."))
+  if foldclosed == -1 then
+    vim.cmd([[silent! normal! zfip]])
+  else
+    vim.cmd("silent! normal! zo")
+  end
+end)
 c("HoverHandler", require("util").hover_handler)
 c("TerminalSendCmd", function()
   f.terminal_send_cmd("ls")
