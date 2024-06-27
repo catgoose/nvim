@@ -1,7 +1,13 @@
 local f = require("util.functions")
-local c = require("util").create_cmd
+local u = require("util")
+local c = u.create_cmd
 
-c("BufOnlyWindowOnly", f.buf_only)
+c("BufOnlyWindowOnly", function()
+  if #vim.api.nvim_list_wins() > 1 then
+    vim.cmd.only()
+  end
+  vim.cmd.BufOnly()
+end)
 c("WinOnly", function()
   f.win_only()
 end)
@@ -30,11 +36,21 @@ c("WinOnlyFocusUp", function()
 end)
 c("CommentYankPaste", f.comment_yank_paste)
 c("HelpWord", f.help_word)
-c("LoadPreviousBuffer", f.load_previous_buffer)
-c("ReloadLua", f.reload_lua)
-c("SpectreOpen", f.spectre_open)
-c("SpectreOpenWord", f.spectre_open_word)
-c("SpectreOpenCwd", f.spectre_open_cwd)
+c("LoadPreviousBuffer", function()
+  if #vim.fn.expand("#") > 0 then
+    vim.cmd.edit(vim.fn.expand("#"))
+  end
+end)
+c("ReloadLua", u.reload_lua)
+c("SpectreOpen", function()
+  vim.cmd([[lua require("spectre").open()]])
+end)
+c("SpectreOpenWord", function()
+  vim.cmd([[lua require("spectre").open_visual({select_word = true})]])
+end)
+c("SpectreOpenCwd", function()
+  vim.cmd([[lua require("spectre").open_file_search()]])
+end)
 c("SpotifyNext", function()
   f.run_system_command({
     cmd = [[spotify_player playback next && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
@@ -77,7 +93,6 @@ end)
 c("ToggleTermSpotify", function()
   f.toggle_term_cmd({ count = 1, cmd = "spotify_player" })
 end)
--- c("WilderUpdateRemotePlugins", f.wilder_update_remote_plugins)
 c("UpdateAndSyncAll", f.update_all)
 c("UfoToggleFold", f.ufo_toggle_fold)
 c("FoldParagraph", f.fold_paragraph)

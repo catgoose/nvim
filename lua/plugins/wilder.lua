@@ -111,7 +111,6 @@ local config = function()
       substitute = render_search,
     })
   )
-  -- vim.cmd.WilderUpdateRemotePlugins()
 end
 
 return {

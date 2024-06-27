@@ -31,13 +31,6 @@ function M.comment_yank_paste()
   end
 end
 
-function M.buf_only()
-  if #api.nvim_list_wins() > 1 then
-    cmd.only()
-  end
-  cmd.BufOnly()
-end
-
 function M.win_only(cb)
   cb = cb or nil
   if #api.nvim_list_wins() > 1 then
@@ -99,12 +92,6 @@ function M.run_system_command(config)
   end, 0)
 end
 
-function M.load_previous_buffer()
-  if #fn.expand("#") > 0 then
-    cmd.edit(fn.expand("#"))
-  end
-end
-
 local function open_help_tab(help_cmd, topic)
   cmd.tabe()
   local winnr = api.nvim_get_current_win()
@@ -138,44 +125,6 @@ function M.tagstack_navigate(config)
     end
     cmd.pop()
   end
-end
-
--- function M.wilder_update_remote_plugins()
---   local update = function()
---     cmd([[silent! UpdateRemotePlugins]])
---   end
---   local rplugin = fn.stdpath("data") .. "/rplugin.vim"
---   if fn.filereadable(rplugin) ~= 1 then
---     update()
---     return
---   end
---   local wilder_updated = false
---   for _, line in ipairs(fn.readfile(rplugin)) do
---     if line:match("wilder#lua#remote#host") then
---       wilder_updated = true
---       break
---     end
---   end
---   if not wilder_updated then
---     update()
---     return
---   end
--- end
-
-function M.spectre_open()
-  cmd([[lua require("spectre").open()]])
-end
-
-function M.spectre_open_word()
-  cmd([[lua require("spectre").open_visual({select_word = true})]])
-end
-
-function M.spectre_open_cwd()
-  cmd([[lua require("spectre").open_file_search()]])
-end
-
-function M.reload_lua()
-  u.reload_lua()
 end
 
 function M.update_all()
