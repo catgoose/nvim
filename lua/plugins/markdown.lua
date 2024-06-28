@@ -1,4 +1,3 @@
-local a
 return {
   {
     "MeanderingProgrammer/markdown.nvim",
@@ -9,6 +8,9 @@ return {
     ft = { "markdown" },
     opts = {
       code_style = "normal",
+      highlights = {
+        code = "MarkdownFence",
+      },
     },
   },
 }

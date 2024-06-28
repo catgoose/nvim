@@ -138,7 +138,6 @@ local config = function()
       self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
   }
-  local a
   local Diagnostics = {
     static = {
       error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,

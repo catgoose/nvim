@@ -68,6 +68,10 @@ local overrides = function(colors)
     IdentScope = {
       fg = p.oniViolet2,
     },
+    MarkdownFence = {
+      bg = p.sumiInk1,
+      italic = true,
+    },
   }
 end
 
