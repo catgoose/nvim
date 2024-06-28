@@ -46,10 +46,11 @@ local config = function()
   local FileNameBlock = {
     init = function(self)
       self.filename = api.nvim_buf_get_name(0)
-      local filename = self.filename
-      local extension = fn.fnamemodify(filename, ":e")
-      self.icon, self.icon_color =
-        require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+      self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
+        self.filename,
+        fn.fnamemodify(self.filename, ":e"),
+        { default = true }
+      )
     end,
   }
   local FileIcon = {
@@ -313,28 +314,58 @@ local config = function()
   }
   RulerBlock = u.insert(RulerBlock, Ruler)
 
-  local QuickfixBlock = {
+  local function get_qf()
+    return vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+  end
+  local QuickFixBlock = {
     init = function(self)
-      self.quickfix = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
-      vim.print(self.quickfix)
+      self.quickfix = get_qf()
       self.filename = vim.fn.expand("%:.")
     end,
-    condition = function(self)
-      local qf = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
-      vim.print(qf)
-      local quickfix = self.quickfix
-      if not quickfix then
-        return false
-      end
-      return true
+    condition = function()
+      local quickfix = get_qf()
+      return quickfix.title ~= "" and #quickfix.items > 0
     end,
   }
   local QuickFix = {
-    provider = function(self)
-      return "asdf"
-    end,
+    {
+      provider = function(self)
+        local idx = 1
+        local found = false
+        for i, item in ipairs(self.quickfix.items) do
+          if item.text == self.filename then
+            idx = i
+            found = true
+            break
+          end
+        end
+        if not found then
+          return
+        end
+        return string.format(
+          "%s %s %s:(%s/%s)",
+          "  ",
+          self.quickfix.nr,
+          self.quickfix.title,
+          idx,
+          self.quickfix.size
+        )
+      end,
+      hl = function()
+        if conditions.is_active() then
+          return {
+            fg = active_ruler_foreground_color,
+          }
+        else
+          return {
+            fg = active_ruler_foreground_color,
+            bg = inactive_background_color,
+          }
+        end
+      end,
+    },
   }
-  QuickfixBlock = u.insert(QuickfixBlock, QuickFix)
+  QuickFixBlock = u.insert(QuickFixBlock, QuickFix)
 
   local StatusLines = {
     condition = function()
@@ -371,7 +402,7 @@ local config = function()
       end
       return not empty_buffer()
     end,
-    QuickfixBlock,
+    QuickFixBlock,
     Align,
     u.insert(Winbar, FileNameBlock),
   }

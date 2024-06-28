@@ -161,5 +161,8 @@ c("DiagnosticsErrorJumpNext", function()
     float = true,
   })
 end)
+c("QuickFixClear", function()
+  vim.fn.setqflist({}, "r")
+end)
 
 c("TestingFunction", f.testing_function)
