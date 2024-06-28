@@ -343,7 +343,7 @@ local config = function()
           return
         end
         return string.format(
-          "%s %s %s:(%s/%s)",
+          "%s %s %s: (%s/%s)",
           "  ",
           self.quickfix.nr,
           self.quickfix.title,
