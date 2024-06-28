@@ -51,9 +51,17 @@ local config = function()
         { default = true }
       )
     end,
-    hl = {
-      bg = colors.sumiInk5,
-    },
+    hl = function()
+      if conditions.is_active() then
+        return {
+          bg = colors.sumiInk5,
+        }
+      else
+        return {
+          bg = colors.sumiInk4,
+        }
+      end
+    end,
   }
   local FileIcon = {
     provider = function(self)
@@ -130,7 +138,15 @@ local config = function()
       self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
   }
+  local a
   local Diagnostics = {
+    static = {
+      error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,
+      warn_icon = fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+      info_icon = fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+      hint_icon = fn.sign_getdefined("DiagnosticSignHint")[1].text,
+    },
+    update = { "DiagnosticChanged", "BufEnter", "WinEnter" },
     {
       hl = function()
         if conditions.is_active() then
@@ -144,29 +160,6 @@ local config = function()
         end
       end,
       Space,
-    },
-    static = {
-      error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,
-      warn_icon = fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-      info_icon = fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-      hint_icon = fn.sign_getdefined("DiagnosticSignHint")[1].text,
-    },
-    update = { "DiagnosticChanged", "BufEnter", "WinEnter" },
-    {
-      RightSep,
-      hl = function()
-        if conditions.is_active() then
-          return {
-            fg = colors.sumiInk5,
-            bg = colors.sumiInk3,
-          }
-        else
-          return {
-            fg = colors.sumiInk5,
-            bg = colors.sumiInk1,
-          }
-        end
-      end,
     },
     Space,
     {
@@ -193,27 +186,17 @@ local config = function()
       end,
       hl = { fg = colors.dragonBlue },
     },
-    hl = { bg = colors.sumiInk5 },
-    {
-      {
-        condition = conditions.is_active,
-        RightSep,
-      },
-      condition = conditions.has_diagnostics,
-      hl = function()
-        if conditions.is_active() then
-          return {
-            fg = colors.sumiInk3,
-            bg = colors.sumiInk5,
-          }
-        else
-          return {
-            fg = colors.sumiInk1,
-            bg = colors.sumiInk5,
-          }
-        end
-      end,
-    },
+    hl = function()
+      if conditions.is_active() then
+        return {
+          bg = colors.sumiInk3,
+        }
+      else
+        return {
+          bg = colors.sumiInk1,
+        }
+      end
+    end,
   }
   DiagnosticsBlock = u.insert(DiagnosticsBlock, Diagnostics)
 

@@ -1,3 +1,4 @@
+local a
 return {
   {
     "MeanderingProgrammer/markdown.nvim",
@@ -6,6 +7,8 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     ft = { "markdown" },
-    config = true,
+    opts = {
+      code_style = "normal",
+    },
   },
 }
