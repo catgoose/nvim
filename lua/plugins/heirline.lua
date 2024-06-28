@@ -1,5 +1,9 @@
 --  TODO: 2024-06-28 - Create block for vitest
 
+--[[
+local adapter_ids = neotest.state.adapter_ids()
+neotest.state.status_counts(adapter_id, bufnr)
+]]
 local config = function()
   local heirline = require("heirline")
   local conditions = require("heirline.conditions")
