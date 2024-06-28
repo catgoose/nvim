@@ -1,4 +1,3 @@
---  TODO: 2024-06-28 - truncate git branch name if it exceeds 35% or so
 --  TODO: 2024-06-28 - Create block for vitest
 
 local config = function()
