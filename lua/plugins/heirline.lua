@@ -324,7 +324,7 @@ local config = function()
   local Ruler = {
     Space,
     {
-      provider = "%(%l/%3L%):%c %q",
+      provider = "%l/%L:%c %q",
       hl = {
         fg = colors.springViolet1,
       },
@@ -363,7 +363,7 @@ local config = function()
           return
         end
         return string.format(
-          "%s %s: (%s/%s)",
+          "%s %s:(%s/%s)",
           self.quickfix.nr,
           self.quickfix.title,
           idx,
