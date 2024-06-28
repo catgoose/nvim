@@ -32,18 +32,15 @@ local config = function()
     "?",
   }
 
-  local recording_background_color = colors.autumnYellow
-  local active_background_color = colors.sumiInk3
-  local active_foreground_color = colors.sumiInk5
-  local inactive_background_color = colors.sumiInk1
-  local active_ruler_foreground_color = colors.dragonBlue
-
   local Align = { provider = "%=" }
   local Space = { provider = " " }
   local LeftSep = { provider = "" }
   local RightSep = { provider = "" }
 
   local FileNameBlock = {
+    condition = function()
+      return #api.nvim_buf_get_name(0) > 0
+    end,
     init = function(self)
       self.filename = api.nvim_buf_get_name(0)
       self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
@@ -52,13 +49,18 @@ local config = function()
         { default = true }
       )
     end,
+    hl = {
+      bg = colors.sumiInk5,
+    },
   }
   local FileIcon = {
     provider = function(self)
-      return self.filename == "" and self.filename or self.icon and (self.icon .. " ")
+      return #self.filename == "" and self.filename or self.icon and (self.icon .. " ")
     end,
     hl = function(self)
-      return { fg = self.icon_color }
+      return {
+        fg = self.icon_color,
+      }
     end,
   }
   local FileName = {
@@ -102,9 +104,9 @@ local config = function()
   local ActiveSep = {
     hl = function()
       if conditions.is_active() then
-        return { fg = active_background_color }
+        return { fg = colors.sumiInk3 }
       else
-        return { fg = inactive_background_color }
+        return { fg = colors.sumiInk1 }
       end
     end,
   }
@@ -117,6 +119,8 @@ local config = function()
     { provider = "%<" }
   )
 
+  local a
+
   local DiagnosticsBlock = {
     condition = conditions.has_diagnostics,
     init = function(self)
@@ -127,6 +131,20 @@ local config = function()
     end,
   }
   local Diagnostics = {
+    {
+      hl = function()
+        if conditions.is_active() then
+          return {
+            bg = colors.sumiInk3,
+          }
+        else
+          return {
+            bg = colors.sumiInk1,
+          }
+        end
+      end,
+      Space,
+    },
     static = {
       error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,
       warn_icon = fn.sign_getdefined("DiagnosticSignWarn")[1].text,
@@ -139,13 +157,13 @@ local config = function()
       hl = function()
         if conditions.is_active() then
           return {
-            fg = active_foreground_color,
-            bg = active_background_color,
+            fg = colors.sumiInk5,
+            bg = colors.sumiInk3,
           }
         else
           return {
-            fg = active_foreground_color,
-            bg = inactive_background_color,
+            fg = colors.sumiInk5,
+            bg = colors.sumiInk1,
           }
         end
       end,
@@ -175,7 +193,27 @@ local config = function()
       end,
       hl = { fg = colors.dragonBlue },
     },
-    hl = { bg = active_foreground_color },
+    hl = { bg = colors.sumiInk5 },
+    {
+      {
+        condition = conditions.is_active,
+        RightSep,
+      },
+      condition = conditions.has_diagnostics,
+      hl = function()
+        if conditions.is_active() then
+          return {
+            fg = colors.sumiInk3,
+            bg = colors.sumiInk5,
+          }
+        else
+          return {
+            fg = colors.sumiInk1,
+            bg = colors.sumiInk5,
+          }
+        end
+      end,
+    },
   }
   DiagnosticsBlock = u.insert(DiagnosticsBlock, Diagnostics)
 
@@ -224,18 +262,18 @@ local config = function()
       hl = function()
         if conditions.is_active() then
           return {
-            bg = active_background_color,
-            fg = active_foreground_color,
+            bg = colors.sumiInk3,
+            fg = colors.sumiInk5,
           }
         else
           return {
-            fg = active_foreground_color,
-            bg = inactive_background_color,
+            fg = colors.sumiInk5,
+            bg = colors.sumiInk1,
           }
         end
       end,
     },
-    hl = { bg = active_foreground_color },
+    hl = { bg = colors.sumiInk5 },
   }
   GitBlock = u.insert(GitBlock, Git)
 
@@ -265,50 +303,30 @@ local config = function()
     },
     {
       provider = function(self)
-        return "@" .. self.reg_recording
+        return "@" .. self.reg_recording .. " "
       end,
       hl = { italic = false, bold = true },
     },
     {
-      Space,
-    },
-    {
       LeftSep,
-      hl = { bg = active_background_color, fg = recording_background_color },
+      hl = { bg = colors.sumiInk3, fg = colors.autumnYellow },
     },
-    hl = { bg = recording_background_color, fg = active_background_color },
+    hl = { bg = colors.autumnYellow, fg = colors.sumiInk3 },
     update = { "RecordingEnter", "RecordingLeave" },
   }
   MacroRecordingBlock = u.insert(MacroRecordingBlock, MacroRecording)
 
   local RulerBlock = {
     condition = function()
-      return not conditions.buffer_matches(ruler_inactive)
+      return conditions.is_active() and not conditions.buffer_matches(ruler_inactive)
     end,
   }
   local Ruler = {
-    {
-      RightSep,
-      condition = conditions.has_diagnostics,
-      hl = function()
-        if conditions.is_active() then
-          return {
-            fg = active_background_color,
-            bg = active_foreground_color,
-          }
-        else
-          return {
-            fg = inactive_background_color,
-            bg = active_foreground_color,
-          }
-        end
-      end,
-    },
     Space,
     {
       provider = "%(%l/%3L%):%c %q",
       hl = {
-        fg = active_ruler_foreground_color,
+        fg = colors.dragonBlue,
       },
     },
   }
@@ -324,10 +342,12 @@ local config = function()
     end,
     condition = function()
       local quickfix = get_qf()
-      return quickfix.title ~= "" and #quickfix.items > 0
+      return conditions.is_active() and quickfix.title ~= "" and #quickfix.items > 0
     end,
+    hl = { fg = colors.dragonBlue, italic = true },
   }
   local QuickFix = {
+    Space,
     {
       provider = function(self)
         local idx = 1
@@ -343,25 +363,12 @@ local config = function()
           return
         end
         return string.format(
-          "%s %s %s: (%s/%s)",
-          "  ",
+          "%s %s: (%s/%s)",
           self.quickfix.nr,
           self.quickfix.title,
           idx,
           self.quickfix.size
         )
-      end,
-      hl = function()
-        if conditions.is_active() then
-          return {
-            fg = active_ruler_foreground_color,
-          }
-        else
-          return {
-            fg = active_ruler_foreground_color,
-            bg = inactive_background_color,
-          }
-        end
       end,
     },
   }
@@ -379,22 +386,18 @@ local config = function()
     GitBlock,
     MacroRecordingBlock,
     Align,
+    QuickFixBlock,
     DiagnosticsBlock,
     RulerBlock,
     hl = function()
       if conditions.is_active() then
-        return { bg = active_background_color }
+        return { bg = colors.sumiInk3 }
       else
-        return { bg = inactive_background_color }
+        return { bg = colors.sumiInk1 }
       end
     end,
   }
 
-  local Winbar = {
-    hl = {
-      bg = active_foreground_color,
-    },
-  }
   local Winbars = {
     condition = function()
       local empty_buffer = function()
@@ -402,9 +405,8 @@ local config = function()
       end
       return not empty_buffer()
     end,
-    QuickFixBlock,
     Align,
-    u.insert(Winbar, FileNameBlock),
+    FileNameBlock,
   }
 
   heirline.setup({
