@@ -1,3 +1,4 @@
+--  TODO: 2024-06-28 - truncate git branch name if it exceeds 35% or so
 local config = function()
   local heirline = require("heirline")
   local conditions = require("heirline.conditions")
