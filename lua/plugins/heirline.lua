@@ -315,16 +315,18 @@ local config = function()
   RulerBlock = u.insert(RulerBlock, Ruler)
 
   local function get_qf()
-    return vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
+    return vim.fn.getqflist({ all = 0 })
   end
   local QuickFixBlock = {
     init = function(self)
       self.quickfix = get_qf()
       self.filename = vim.fn.expand("%:.")
+      self.uri = vim.uri_from_fname(vim.fn.expand("%:p"))
     end,
     condition = function()
       local quickfix = get_qf()
-      return conditions.is_active() and quickfix.title ~= "" and #quickfix.items > 0
+      -- return conditions.is_active() and quickfix.title ~= "" and #quickfix.items > 0
+      return conditions.is_active() and #quickfix.items > 0
     end,
     hl = { fg = colors.springViolet1, italic = true },
   }
@@ -335,7 +337,10 @@ local config = function()
         local idx = 1
         local found = false
         for i, item in ipairs(self.quickfix.items) do
-          if item.text == self.filename then
+          if
+            item.user_data and item.user_data.uri == self.uri
+            or item.text and item.text == self.filename
+          then
             idx = i
             found = true
             break
