@@ -326,7 +326,7 @@ local config = function()
     {
       provider = "%(%l/%3L%):%c %q",
       hl = {
-        fg = colors.dragonBlue,
+        fg = colors.springViolet1,
       },
     },
   }
@@ -344,7 +344,7 @@ local config = function()
       local quickfix = get_qf()
       return conditions.is_active() and quickfix.title ~= "" and #quickfix.items > 0
     end,
-    hl = { fg = colors.dragonBlue, italic = true },
+    hl = { fg = colors.springViolet1, italic = true },
   }
   local QuickFix = {
     Space,
