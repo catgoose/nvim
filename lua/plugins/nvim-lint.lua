@@ -26,7 +26,7 @@ return {
     }
 
     lint.linters.oxlint = {
-      name = "oxlint", -- cargo install --features allocator --git https://github.com/oxc-project/oxc oxc_cli
+      name = "oxlint", -- cargo install --features allocator --git https://github.com/oxc-project/oxc oxlint
       cmd = "oxlint",
       stdin = false,
       args = { "--format", "unix" },
