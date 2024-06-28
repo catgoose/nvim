@@ -37,7 +37,7 @@ local config = function()
   local Align = { provider = "%=" }
   local Space = { provider = " " }
   local LeftSep = { provider = "" }
-  local RightSep = { provider = "" }
+  -- local RightSep = { provider = "" }
 
   local FileNameBlock = {
     condition = function()
