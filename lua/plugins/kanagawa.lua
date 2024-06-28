@@ -4,7 +4,7 @@ local overrides = function(colors)
     CursorLine = {
       bold = true,
       italic = true,
-      bg = p.sumiInk4,
+      bg = p.sumiInk5,
     },
     Visual = {
       bold = true,

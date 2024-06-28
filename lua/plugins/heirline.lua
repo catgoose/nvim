@@ -325,7 +325,6 @@ local config = function()
     end,
     condition = function()
       local quickfix = get_qf()
-      -- return conditions.is_active() and quickfix.title ~= "" and #quickfix.items > 0
       return conditions.is_active() and #quickfix.items > 0
     end,
     hl = { fg = colors.springViolet1, italic = true },
