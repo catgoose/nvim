@@ -15,6 +15,7 @@ local config = function()
     filetype = {
       "oil",
       "blame",
+      "help",
     },
   }
   local ruler_inactive = {
@@ -24,6 +25,7 @@ local config = function()
     },
     filetype = {
       "neotest-summary",
+      "help",
     },
   }
   local cmdtype_inactive = {
@@ -118,8 +120,6 @@ local config = function()
     u.insert(FileNameModifer, FileName, Space, FileIcon),
     { provider = "%<" }
   )
-
-  local a
 
   local DiagnosticsBlock = {
     condition = conditions.has_diagnostics,
