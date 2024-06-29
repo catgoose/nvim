@@ -319,6 +319,11 @@ local config = function()
     condition = function(self)
       return self.has_changes
     end,
+    init = function(self)
+      local max = 0.35 * vim.api.nvim_win_get_width(0)
+      self.status.head = u.count_chars(self.status.head) < max and self.status.head
+        or string.format("%s...", string.sub(self.status.head, 1, max))
+    end,
     {
       provider = function(self)
         return string.format("  %s ", self.status.head)

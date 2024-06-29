@@ -73,57 +73,59 @@ local overrides = function(colors)
       italic = true,
     },
     NeotestAdapterName = {
-      fg = p.peachRed
+      fg = p.peachRed,
     },
     NeotestDir = {
       fg = p.crystalBlue,
     },
     NeotestExpandMarker = {
-      fg = p.sumiInk5
+      fg = p.springViolet2,
+      bold = true,
     },
     NeotestFailed = {
-      fg = p.samuraiRed
+      fg = p.samuraiRed,
     },
     NeotestFile = {
       fg = p.crystalBlue,
     },
     NeotestFocused = {
       bold = true,
-      underline = true
+      underline = true,
     },
     NeotestIndent = {
-      fg = p.sumiInk5
+      fg = p.springViolet1,
+      bold = true,
     },
     NeotestMarked = {
-      fg = p.surimiOrange,
-      italic = true
+      fg = p.roninYellow,
+      italic = true,
     },
     NeotestNamespace = {
       fg = p.crystalBlue,
     },
     NeotestPassed = {
-      fg = p.springGreen
+      fg = p.springGreen,
     },
     NeotestRunning = {
-      fg = p.autumnYellow
+      fg = p.autumnYellow,
     },
     NeotestWinSelect = {
-      fg = p.waveAqua1
+      fg = p.waveAqua1,
     },
     NeotestSkipped = {
-      fg = p.springBlue
+      fg = p.springBlue,
     },
     NeotestTarget = {
-      fg = p.peachRed
+      fg = p.peachRed,
     },
     NeotestTest = {
-      fg = p.oldWhite
+      fg = p.oldWhite,
     },
     NeotestUnknown = {
-      fg = p.katanaGray
+      fg = p.katanaGray,
     },
     NeotestWatching = {
-      fg = p.autumnYellow
+      fg = p.autumnYellow,
     },
   }
 end
@@ -159,8 +161,8 @@ local config = function()
 end
 
 return {
-  -- "rebelot/kanagawa.nvim",
-  dir = "~/git/kanagawa.nvim",
+  "rebelot/kanagawa.nvim",
+  -- dir = "~/git/kanagawa.nvim",
   config = config,
   lazy = false,
   priority = 1000,
