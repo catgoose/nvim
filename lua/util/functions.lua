@@ -207,11 +207,9 @@ function M.diagnostics_jump(config)
 end
 
 function M.testing_function()
-  local neotest = require("neotest")
-  local ids = neotest.state.adapter_ids()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local status = neotest.state.status_counts(ids[1], { buffer = bufnr })
-  vim.print(status)
+  local _colors = require("kanagawa.colors").setup()
+  local theme = _colors.theme
+  vim.print(theme.diag.error)
 end
 
 return M

@@ -68,50 +68,71 @@ local config = function()
     },
     {
       condition = function(self)
-        return self.status.passed > 0
-      end,
-      provider = function(self)
-        return string.format("%s%s ", self.icon.passed, self.status.passed)
-      end,
-      hl = {
-        fg = colors.autumnGreen,
-        italic = true,
-      },
-    },
-    {
-      condition = function(self)
-        return self.status.failed > 0
-      end,
-      provider = function(self)
-        return string.format("%s%s ", self.icon.failed, self.status.failed)
-      end,
-      hl = {
-        fg = colors.autumnRed,
-        italic = true,
-      },
-    },
-    {
-      condition = function(self)
-        return self.status.skipped > 0
-      end,
-      provider = function(self)
-        return string.format("%s%s ", self.icon.skipped, self.status.skipped)
-      end,
-      hl = {
-        fg = colors.autumnYellow,
-        italic = true,
-      },
-    },
-    {
-      condition = function(self)
         return self.status.total > 0
       end,
+      init = function(self)
+        self.adapter = vim.split(
+          vim.split(self.adapter_ids[1], ":", { plain = true })[1],
+          "neotest-",
+          { plain = true }
+        )[2]
+      end,
       provider = function(self)
-        return string.format("%s%s ", self.icon.total, self.status.total)
+        return string.format("%s ", self.adapter)
       end,
       hl = {
         fg = colors.springViolet1,
         italic = true,
+      },
+      {
+        {
+          condition = function(self)
+            return self.status.total > 0
+          end,
+          provider = function(self)
+            return string.format("%s%s ", self.icon.total, self.status.total)
+          end,
+          hl = {
+            fg = colors.springViolet2,
+            italic = true,
+          },
+        },
+        {
+          provider = function(self)
+            return string.format("%s%s ", self.icon.passed, self.status.passed)
+          end,
+          hl = function()
+            local hl = u.get_highlight("NeotestPassed")
+            hl.italic = true
+            return hl
+          end,
+        },
+        {
+          condition = function(self)
+            return self.status.failed > 0
+          end,
+          provider = function(self)
+            return string.format("%s%s ", self.icon.failed, self.status.failed)
+          end,
+          hl = function()
+            local hl = u.get_highlight("NeotestFailed")
+            hl.italic = true
+            return hl
+          end,
+        },
+        {
+          condition = function(self)
+            return self.status.skipped > 0
+          end,
+          provider = function(self)
+            return string.format("%s%s ", self.icon.skipped, self.status.skipped)
+          end,
+          hl = function()
+            local hl = u.get_highlight("NeotestSkipped")
+            hl.italic = true
+            return hl
+          end,
+        },
       },
     },
   }
@@ -288,9 +309,9 @@ local config = function()
     condition = conditions.is_git_repo,
     init = function(self)
       self.status = vim.b.gitsigns_status_dict
-      self.has_added = self.status.added ~= 0
-      self.has_removed = self.status.removed ~= 0
-      self.has_changed = self.status.changed ~= 0
+      self.has_added = self.status.added and self.status.added > 0
+      self.has_removed = self.status.removed and self.status.removed > 0
+      self.has_changed = self.status.changed and self.status.changed > 0
       self.has_changes = self.has_added or self.has_removed or self.has_changed
     end,
   }
@@ -356,9 +377,9 @@ local config = function()
     init = function(self)
       self.register = fn.reg_recording()
       local status_dict = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-      self.has_changes = status_dict.added ~= 0
-        or status_dict.removed ~= 0
-        or status_dict.changed ~= 0
+      self.has_changes = (status_dict.added and status_dict.added > 0)
+        or (status_dict.removed and status_dict.removed > 0)
+        or (status_dict.changed and status_dict.removed > 0)
     end,
   }
   local MacroRecording = {

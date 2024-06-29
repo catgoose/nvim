@@ -68,16 +68,63 @@ local overrides = function(colors)
     IdentScope = {
       fg = p.oniViolet2,
     },
-    -- MarkdownFence = {
-    --   bg = p.sumiInk1,
-    --   italic = true,
-    -- },
-    -- DiagnosticSignError = {
-    --   fg = p.autumnRed,
-    -- },
-    -- DiagnosticSignWarn = {
-    --   fg = p.autumnYellow,
-    -- },
+    MarkdownFence = {
+      bg = p.sumiInk1,
+      italic = true,
+    },
+    NeotestAdapterName = {
+      fg = p.peachRed
+    },
+    NeotestDir = {
+      fg = p.crystalBlue,
+    },
+    NeotestExpandMarker = {
+      fg = p.sumiInk5
+    },
+    NeotestFailed = {
+      fg = p.samuraiRed
+    },
+    NeotestFile = {
+      fg = p.crystalBlue,
+    },
+    NeotestFocused = {
+      bold = true,
+      underline = true
+    },
+    NeotestIndent = {
+      fg = p.sumiInk5
+    },
+    NeotestMarked = {
+      fg = p.surimiOrange,
+      italic = true
+    },
+    NeotestNamespace = {
+      fg = p.crystalBlue,
+    },
+    NeotestPassed = {
+      fg = p.springGreen
+    },
+    NeotestRunning = {
+      fg = p.autumnYellow
+    },
+    NeotestWinSelect = {
+      fg = p.waveAqua1
+    },
+    NeotestSkipped = {
+      fg = p.springBlue
+    },
+    NeotestTarget = {
+      fg = p.peachRed
+    },
+    NeotestTest = {
+      fg = p.oldWhite
+    },
+    NeotestUnknown = {
+      fg = p.katanaGray
+    },
+    NeotestWatching = {
+      fg = p.autumnYellow
+    },
   }
 end
 
@@ -112,7 +159,8 @@ local config = function()
 end
 
 return {
-  "rebelot/kanagawa.nvim",
+  -- "rebelot/kanagawa.nvim",
+  dir = "~/git/kanagawa.nvim",
   config = config,
   lazy = false,
   priority = 1000,
