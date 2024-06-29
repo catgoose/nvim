@@ -1,9 +1,3 @@
---  TODO: 2024-06-28 - Create block for vitest
-
---[[
-local adapter_ids = neotest.state.adapter_ids()
-neotest.state.status_counts(adapter_id, bufnr)
-]]
 local config = function()
   local heirline = require("heirline")
   local conditions = require("heirline.conditions")
@@ -12,6 +6,7 @@ local config = function()
   local colors = kanagawa.palette
   heirline.load_colors(colors)
   local fn, api, bo = vim.fn, vim.api, vim.bo
+  local neotest_ok, neotest = pcall(require, "neotest")
 
   local winbar_inactive = {
     buftype = {
@@ -45,6 +40,82 @@ local config = function()
   local LeftSep = { provider = "" }
   -- local RightSep = { provider = "" }
 
+  local NeoTestBlock = {
+    condition = function()
+      return neotest_ok and conditions.is_active() and #neotest.state.adapter_ids() > 0
+    end,
+    init = function(self)
+      self.adapter_ids = neotest.state.adapter_ids()
+      self.buffer = vim.api.nvim_get_current_buf()
+    end,
+  }
+  local NeoTest = {
+    condition = function(self)
+      local status = neotest.state.status_counts(self.adapter_ids[1], { buffer = self.buffer })
+      return status
+    end,
+    init = function(self)
+      self.status = neotest.state.status_counts(self.adapter_ids[1], { buffer = self.buffer })
+    end,
+    static = {
+      icon = {
+        passed = " ",
+        failed = " ",
+        skipped = " ",
+        total = " ",
+      },
+    },
+    {
+      condition = function(self)
+        return self.status.passed > 0
+      end,
+      provider = function(self)
+        return string.format("%s%s ", self.icon.passed, self.status.passed)
+      end,
+      hl = {
+        fg = colors.autumnGreen,
+        italic = true,
+      },
+    },
+    {
+      condition = function(self)
+        return self.status.failed > 0
+      end,
+      provider = function(self)
+        return string.format("%s%s ", self.icon.failed, self.status.failed)
+      end,
+      hl = {
+        fg = colors.autumnRed,
+        italic = true,
+      },
+    },
+    {
+      condition = function(self)
+        return self.status.skipped > 0
+      end,
+      provider = function(self)
+        return string.format("%s%s ", self.icon.skipped, self.status.skipped)
+      end,
+      hl = {
+        fg = colors.autumnYellow,
+        italic = true,
+      },
+    },
+    {
+      condition = function(self)
+        return self.status.total > 0
+      end,
+      provider = function(self)
+        return string.format("%s%s ", self.icon.total, self.status.total)
+      end,
+      hl = {
+        fg = colors.springViolet1,
+        italic = true,
+      },
+    },
+  }
+  NeoTestBlock = u.insert(NeoTestBlock, NeoTest, Space)
+
   local FileNameBlock = {
     condition = function()
       return #api.nvim_buf_get_name(0) > 0
@@ -71,7 +142,7 @@ local config = function()
   }
   local FileIcon = {
     provider = function(self)
-      return #self.filename == "" and self.filename or self.icon and (self.icon .. " ")
+      return string.format("%s ", self.icon)
     end,
     hl = function(self)
       return {
@@ -82,9 +153,6 @@ local config = function()
   local FileName = {
     provider = function(self)
       local filename = fn.fnamemodify(self.filename, ":.")
-      if filename == "" then
-        return ""
-      end
       if not conditions.width_percent_below(#filename, 0.25) then
         filename = fn.pathshorten(filename, 3)
       end
@@ -141,7 +209,7 @@ local config = function()
       self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
       self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
       self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-      self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+      self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
   }
   local Diagnostics = {
@@ -164,32 +232,42 @@ local config = function()
           }
         end
       end,
-      Space,
-    },
-    Space,
-    {
-      provider = function(self)
-        return self.errors > 0 and (self.error_icon .. self.errors .. " ") or ""
-      end,
-      hl = { fg = colors.samuraiRed },
     },
     {
-      provider = function(self)
-        return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+      condition = function(self)
+        return self.errors > 0
       end,
-      hl = { fg = colors.roninYellow },
+      provider = function(self)
+        return string.format("%s%s ", self.error_icon, self.errors)
+      end,
+      hl = u.get_highlight("DiagnosticSignError"),
     },
     {
-      provider = function(self)
-        return self.info > 0 and (self.info_icon .. self.info .. " ")
+      condition = function(self)
+        return self.warnings > 0
       end,
-      hl = { fg = colors.waveAqua1 },
+      provider = function(self)
+        return string.format("%s%s ", self.warn_icon, self.warnings)
+      end,
+      hl = u.get_highlight("DiagnosticSignWarn"),
     },
     {
-      provider = function(self)
-        return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
+      condition = function(self)
+        return self.infos > 0
       end,
-      hl = { fg = colors.dragonBlue },
+      provider = function(self)
+        return string.format("%s%s ", self.info_icon, self.infos)
+      end,
+      hl = u.get_highlight("DiagnosticSignInfo"),
+    },
+    {
+      condition = function(self)
+        return self.hints > 0
+      end,
+      provider = function(self)
+        return string.format("%s%s ", self.hint_icon, self.hints)
+      end,
+      hl = u.get_highlight("DiagnosticSignHint"),
     },
     hl = function()
       if conditions.is_active() then
@@ -203,15 +281,16 @@ local config = function()
       end
     end,
   }
-  DiagnosticsBlock = u.insert(DiagnosticsBlock, Diagnostics)
+  DiagnosticsBlock = u.insert(DiagnosticsBlock, Diagnostics, Space)
 
   local GitBlock = {
     condition = conditions.is_git_repo,
     init = function(self)
       self.status_dict = vim.b.gitsigns_status_dict
-      self.has_changes = self.status_dict.added ~= 0
-        or self.status_dict.removed ~= 0
-        or self.status_dict.changed ~= 0
+      self.has_added = self.status_dict.added ~= 0
+      self.has_removed = self.status_dict.removed ~= 0
+      self.has_changed = self.status_dict.changed ~= 0
+      self.has_changes = self.has_added or self.has_removed or self.has_changed
     end,
   }
   local Git = {
@@ -220,28 +299,34 @@ local config = function()
     end,
     {
       provider = function(self)
-        return "  " .. self.status_dict.head .. " "
+        return string.format("  %s ", self.status_dict.head)
       end,
       hl = { fg = colors.springViolet1, bold = true, italic = true },
     },
     {
+      condition = function(self)
+        return self.has_added
+      end,
       provider = function(self)
-        local count = self.status_dict.added or 0
-        return count > 0 and ("+" .. count .. " ")
+        return string.format("+%s ", self.status_dict.added)
       end,
       hl = { fg = colors.autumnGreen, bold = true },
     },
     {
+      condition = function(self)
+        return self.has_removed
+      end,
       provider = function(self)
-        local count = self.status_dict.removed or 0
-        return count > 0 and ("-" .. count .. " ")
+        return string.format("+%s ", self.status_dict.removed)
       end,
       hl = { fg = colors.autumnRed, bold = true },
     },
     {
+      condition = function(self)
+        return self.has_changed
+      end,
       provider = function(self)
-        local count = self.status_dict.changed or 0
-        return count > 0 and ("~" .. count .. " ")
+        return string.format("+%s ", self.status_dict.changed)
       end,
       hl = { fg = colors.autumnYellow, bold = true },
     },
@@ -291,7 +376,7 @@ local config = function()
     },
     {
       provider = function(self)
-        return "@" .. self.reg_recording .. " "
+        return string.format(" %s ", self.reg_recording)
       end,
       hl = { italic = false, bold = true },
     },
@@ -310,15 +395,14 @@ local config = function()
     end,
   }
   local Ruler = {
-    Space,
     {
-      provider = "%l/%L:%c %q",
+      provider = "%l/%L:%c%q",
       hl = {
         fg = colors.springViolet1,
       },
     },
   }
-  RulerBlock = u.insert(RulerBlock, Ruler)
+  RulerBlock = u.insert(RulerBlock, Ruler, Space)
 
   local function get_qf()
     return vim.fn.getqflist({ all = 0 })
@@ -336,7 +420,6 @@ local config = function()
     hl = { fg = colors.springViolet1, italic = true },
   }
   local QuickFix = {
-    Space,
     {
       provider = function(self)
         local idx = 1
@@ -355,7 +438,7 @@ local config = function()
           return
         end
         return string.format(
-          "%s %s:(%s/%s)",
+          "%s %s:(%s/%s) ",
           self.quickfix.nr,
           self.quickfix.title,
           idx,
@@ -364,7 +447,7 @@ local config = function()
       end,
     },
   }
-  QuickFixBlock = u.insert(QuickFixBlock, QuickFix)
+  QuickFixBlock = u.insert(QuickFixBlock, QuickFix, Space)
 
   local StatusLines = {
     condition = function()
@@ -379,6 +462,7 @@ local config = function()
     MacroRecordingBlock,
     Align,
     QuickFixBlock,
+    NeoTestBlock,
     DiagnosticsBlock,
     RulerBlock,
     hl = function()
@@ -392,10 +476,7 @@ local config = function()
 
   local Winbars = {
     condition = function()
-      local empty_buffer = function()
-        return bo.ft == "" and bo.buftype == ""
-      end
-      return not empty_buffer()
+      return bo.ft ~= "" and bo.buftype ~= ""
     end,
     Align,
     FileNameBlock,

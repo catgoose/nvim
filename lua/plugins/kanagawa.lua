@@ -72,6 +72,12 @@ local overrides = function(colors)
       bg = p.sumiInk1,
       italic = true,
     },
+    DiagnosticSignError = {
+      fg = p.autumnRed,
+    },
+    DiagnosticSignWarn = {
+      fg = p.autumnYellow,
+    },
   }
 end
 

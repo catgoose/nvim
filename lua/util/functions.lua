@@ -207,14 +207,11 @@ function M.diagnostics_jump(config)
 end
 
 function M.testing_function()
-  local qf = vim.fn.getqflist({ size = 0, title = 0, nr = 0, items = 0 })
-  local current_file = vim.fn.expand("%:.")
-
-  for i, item in ipairs(qf.items) do
-    if item.text == current_file then
-      vim.print(string.format("%s %s: (%s/%s)", qf.nr, qf.title, i, #qf.items))
-    end
-  end
+  local neotest = require("neotest")
+  local ids = neotest.state.adapter_ids()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local status = neotest.state.status_counts(ids[1], { buffer = bufnr })
+  vim.print(status)
 end
 
 return M
