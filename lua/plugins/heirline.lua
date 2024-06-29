@@ -12,6 +12,7 @@ local config = function()
     buftype = {
       "nofile",
       "terminal",
+      "prompt",
     },
     filetype = {
       "oil",
@@ -286,10 +287,10 @@ local config = function()
   local GitBlock = {
     condition = conditions.is_git_repo,
     init = function(self)
-      self.status_dict = vim.b.gitsigns_status_dict
-      self.has_added = self.status_dict.added ~= 0
-      self.has_removed = self.status_dict.removed ~= 0
-      self.has_changed = self.status_dict.changed ~= 0
+      self.status = vim.b.gitsigns_status_dict
+      self.has_added = self.status.added ~= 0
+      self.has_removed = self.status.removed ~= 0
+      self.has_changed = self.status.changed ~= 0
       self.has_changes = self.has_added or self.has_removed or self.has_changed
     end,
   }
@@ -299,7 +300,7 @@ local config = function()
     end,
     {
       provider = function(self)
-        return string.format("  %s ", self.status_dict.head)
+        return string.format("  %s ", self.status.head)
       end,
       hl = { fg = colors.springViolet1, bold = true, italic = true },
     },
@@ -308,7 +309,7 @@ local config = function()
         return self.has_added
       end,
       provider = function(self)
-        return string.format("+%s ", self.status_dict.added)
+        return string.format("+%s ", self.status.added)
       end,
       hl = { fg = colors.autumnGreen, bold = true },
     },
@@ -317,7 +318,7 @@ local config = function()
         return self.has_removed
       end,
       provider = function(self)
-        return string.format("+%s ", self.status_dict.removed)
+        return string.format("+%s ", self.status.removed)
       end,
       hl = { fg = colors.autumnRed, bold = true },
     },
@@ -326,7 +327,7 @@ local config = function()
         return self.has_changed
       end,
       provider = function(self)
-        return string.format("+%s ", self.status_dict.changed)
+        return string.format("+%s ", self.status.changed)
       end,
       hl = { fg = colors.autumnYellow, bold = true },
     },
@@ -353,16 +354,16 @@ local config = function()
   local MacroRecordingBlock = {
     condition = conditions.is_active,
     init = function(self)
-      self.reg_recording = fn.reg_recording()
-      self.status_dict = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-      self.has_changes = self.status_dict.added ~= 0
-        or self.status_dict.removed ~= 0
-        or self.status_dict.changed ~= 0
+      self.register = fn.reg_recording()
+      local status_dict = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
+      self.has_changes = status_dict.added ~= 0
+        or status_dict.removed ~= 0
+        or status_dict.changed ~= 0
     end,
   }
   local MacroRecording = {
     condition = function(self)
-      return self.reg_recording ~= ""
+      return self.register ~= ""
     end,
     {
       condition = function(self)
@@ -371,20 +372,20 @@ local config = function()
       LeftSep,
     },
     {
-      provider = "   ",
+      provider = "  ",
       hl = { fg = colors.autumnRed },
     },
     {
       provider = function(self)
-        return string.format(" %s ", self.reg_recording)
+        return string.format("%s ", self.register)
       end,
-      hl = { italic = false, bold = true },
+      hl = { bold = true },
     },
     {
       LeftSep,
       hl = { bg = colors.sumiInk3, fg = colors.autumnYellow },
     },
-    hl = { bg = colors.autumnYellow, fg = colors.sumiInk3 },
+    hl = { bg = colors.autumnYellow, fg = colors.sumiInk1 },
     update = { "RecordingEnter", "RecordingLeave" },
   }
   MacroRecordingBlock = u.insert(MacroRecordingBlock, MacroRecording)
@@ -404,17 +405,14 @@ local config = function()
   }
   RulerBlock = u.insert(RulerBlock, Ruler, Space)
 
-  local function get_qf()
-    return vim.fn.getqflist({ all = 0 })
-  end
   local QuickFixBlock = {
     init = function(self)
-      self.quickfix = get_qf()
+      self.quickfix = vim.fn.getqflist({ all = 0 })
       self.filename = vim.fn.expand("%:.")
       self.uri = vim.uri_from_fname(vim.fn.expand("%:p"))
     end,
     condition = function()
-      local quickfix = get_qf()
+      local quickfix = vim.fn.getqflist({ all = 0 })
       return conditions.is_active() and #quickfix.items > 0
     end,
     hl = { fg = colors.springViolet1, italic = true },
@@ -475,9 +473,6 @@ local config = function()
   }
 
   local Winbars = {
-    condition = function()
-      return bo.ft ~= "" and bo.buftype ~= ""
-    end,
     Align,
     FileNameBlock,
   }
@@ -488,6 +483,8 @@ local config = function()
     opts = {
       disable_winbar_cb = function(args)
         return conditions.buffer_matches(winbar_inactive, args.buf)
+          or bo.ft == ""
+          or bo.buftype == ""
       end,
     },
   })
