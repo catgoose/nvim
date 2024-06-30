@@ -162,7 +162,6 @@ end
 
 return {
   "rebelot/kanagawa.nvim",
-  -- dir = "~/git/kanagawa.nvim",
   config = config,
   lazy = false,
   priority = 1000,
