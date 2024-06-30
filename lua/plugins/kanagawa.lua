@@ -72,61 +72,6 @@ local overrides = function(colors)
       bg = p.sumiInk1,
       italic = true,
     },
-    NeotestAdapterName = {
-      fg = p.peachRed,
-    },
-    NeotestDir = {
-      fg = p.crystalBlue,
-    },
-    NeotestExpandMarker = {
-      fg = p.springViolet2,
-      bold = true,
-    },
-    NeotestFailed = {
-      fg = p.samuraiRed,
-    },
-    NeotestFile = {
-      fg = p.crystalBlue,
-    },
-    NeotestFocused = {
-      bold = true,
-      underline = true,
-    },
-    NeotestIndent = {
-      fg = p.springViolet1,
-      bold = true,
-    },
-    NeotestMarked = {
-      fg = p.roninYellow,
-      italic = true,
-    },
-    NeotestNamespace = {
-      fg = p.crystalBlue,
-    },
-    NeotestPassed = {
-      fg = p.springGreen,
-    },
-    NeotestRunning = {
-      fg = p.autumnYellow,
-    },
-    NeotestWinSelect = {
-      fg = p.waveAqua1,
-    },
-    NeotestSkipped = {
-      fg = p.springBlue,
-    },
-    NeotestTarget = {
-      fg = p.peachRed,
-    },
-    NeotestTest = {
-      fg = p.oldWhite,
-    },
-    NeotestUnknown = {
-      fg = p.katanaGray,
-    },
-    NeotestWatching = {
-      fg = p.autumnYellow,
-    },
   }
 end
 
