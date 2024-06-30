@@ -164,5 +164,21 @@ end)
 c("QuickFixClear", function()
   vim.fn.setqflist({}, "r")
 end)
+c("TermOpenTab", function()
+  vim.g.terminal_enable_startinsert = 1
+  vim.cmd("tab term")
+end)
+c("TermOpenBottom", function()
+  vim.g.terminal_enable_startinsert = 1
+  vim.cmd("botright term")
+end)
+c("TermOpenBottomVert", function()
+  vim.g.terminal_enable_startinsert = 1
+  vim.cmd("horizontal term")
+end)
+c("TermOpenRight", function()
+  vim.g.terminal_enable_startinsert = 1
+  vim.cmd("vertical term")
+end)
 
 c("TestingFunction", f.testing_function)
