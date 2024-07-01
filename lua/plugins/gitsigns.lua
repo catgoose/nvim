@@ -28,10 +28,17 @@ local opts = {
   },
   current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
   sign_priority = 1,
+  on_attach = function(bufnr)
+    vim.cmd("redrawstatus")
+  end,
 }
 
 return {
   "lewis6991/gitsigns.nvim",
   opts = opts,
   event = "BufReadPre",
+  keys = {
+    m("]h", "Gitsigns next_hunk"),
+    m("[h", "Gitsigns prev_hunk"),
+  },
 }
