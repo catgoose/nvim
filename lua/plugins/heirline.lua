@@ -509,8 +509,8 @@ local config = function()
     opts = {
       disable_winbar_cb = function(args)
         return conditions.buffer_matches(winbar_inactive, args.buf)
-          or bo.ft == ""
-          or bo.buftype == ""
+        -- or bo.ft == ""
+        -- or bo.buftype == ""
       end,
     },
   })
