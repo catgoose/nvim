@@ -12,5 +12,6 @@ return {
         code = "MarkdownFence",
       },
     },
+    enabled = false,
   },
 }

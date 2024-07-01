@@ -24,7 +24,7 @@ opt.fillchars = {
   foldopen = "▼",
 }
 opt.confirm = true
-opt.shortmess = "aoOstTWAIcCFSq"
+opt.shortmess = "aoOstTWAIcCFSqW"
 opt.updatetime = 100
 opt.splitkeep = "screen"
 opt.ruler = false
