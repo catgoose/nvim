@@ -101,7 +101,7 @@ autocmd({ "TermOpen" }, {
     end
     if bo.filetype == "" then
       api.nvim_set_option_value("filetype", "terminal", { buf = event.bufnr })
-      if vim.g.terminal_enable_startinsert == 1 then
+      if vim.g.catgoose_terminal_enable_startinsert == 1 then
         cmd.startinsert()
       end
     end

@@ -86,11 +86,11 @@ return {
       require("neotest").jump.next({ status = "failed" })
     end),
     m("<leader>n", function()
-      vim.g.terminal_enable_startinsert = 0
+      vim.g.catgoose_terminal_enable_startinsert = 0
       require("neotest").run.run()
     end),
     m("<leader>N", function()
-      vim.g.terminal_enable_startinsert = 0
+      vim.g.catgoose_terminal_enable_startinsert = 0
       require("neotest").run.run(vim.fn.expand("%"))
     end),
     m("<leader>1", function()
@@ -109,7 +109,7 @@ return {
       require("neotest").output_panel.toggle()
     end),
     m("<leader>8", function()
-      vim.g.terminal_enable_startinsert = 1
+      vim.g.catgoose_terminal_enable_startinsert = 1
       require("neotest").output.open({
         enter = true,
         auto_close = true,

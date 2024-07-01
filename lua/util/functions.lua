@@ -206,6 +206,11 @@ function M.diagnostics_jump(config)
   end
 end
 
+function M.tab_open(c)
+  vim.g.catgoose_terminal_enable_startinsert = 1
+  cmd(c)
+end
+
 function M.testing_function()
   local _colors = require("kanagawa.colors").setup()
   local theme = _colors.theme
