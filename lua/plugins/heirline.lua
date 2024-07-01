@@ -13,6 +13,7 @@ local config = function()
       "nofile",
       "terminal",
       "prompt",
+      "help",
     },
     filetype = {
       "oil",

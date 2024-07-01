@@ -28,7 +28,7 @@ local opts = {
   },
   current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
   sign_priority = 1,
-  on_attach = function(bufnr)
+  on_attach = function()
     vim.cmd("redrawstatus")
   end,
 }
@@ -38,7 +38,7 @@ return {
   opts = opts,
   event = "BufReadPre",
   keys = {
-    m("]h", "Gitsigns next_hunk"),
-    m("[h", "Gitsigns prev_hunk"),
+    m("]h", "Gitsigns nav_hunk next"),
+    m("[h", "Gitsigns nav_hunk prev"),
   },
 }
