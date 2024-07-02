@@ -7,6 +7,7 @@ local const = require("config.constants").const
 opt.numberwidth = 1
 opt.number = true
 opt.relativenumber = true
+opt.cursorline = true
 opt.fillchars = {
   horiz = "━",
   horizup = "┻",

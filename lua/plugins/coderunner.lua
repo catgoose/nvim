@@ -26,6 +26,10 @@ local opts = {
       { "clear" },
       { "fish", "[#file]" },
     },
+    go = {
+      { "clear" },
+      { "go", "run", "[#file]" },
+    },
   },
   scale = 0.25,
 }

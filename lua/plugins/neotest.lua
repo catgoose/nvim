@@ -66,7 +66,11 @@ return {
           },
         }),
         require("neotest-go"),
-        require("neotest-golang"),
+        -- require("neotest-golang"),
+        ["neotest-golang"] = {
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true,
+        },
       },
       consumers = {
         playwright = require("neotest-playwright.consumers").consumers,

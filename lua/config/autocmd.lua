@@ -69,6 +69,9 @@ autocmd({ "FileType" }, {
     if bo.buftype == "nofile" then
       q_to_quit(event)
     end
+    if bo.buftype == "help" then
+      opt_local.cursorline = false
+    end
   end,
 })
 autocmd({ "BufEnter" }, {
