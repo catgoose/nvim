@@ -22,7 +22,6 @@ local config = function()
   ---@diagnostic disable-next-line: inject-field
   _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
   local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
-
   -- Diagnostic
   vim.diagnostic.config({
     virtual_text = false,
@@ -129,6 +128,8 @@ local config = function()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
+      "golangci_lint_ls",
+      "gopls",
       "marksman",
       "sqlls",
       "yamlls",

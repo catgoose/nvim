@@ -17,6 +17,7 @@ return {
       editorconfig = { "editorconfig-checker" },
       sh = { "shellcheck" },
       bash = { "shellcheck" },
+      go = { "golangcilint" },
     }
 
     lint.linters.codespell.args = { "--ignore-words ~/.config/codespell/ignore_words" }

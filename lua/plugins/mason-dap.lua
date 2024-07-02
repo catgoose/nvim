@@ -1,6 +1,7 @@
 local opts = {
   ensure_installed = {
     "bash",
+    "delve",
     "chrome",
     "js",
     "node2",
