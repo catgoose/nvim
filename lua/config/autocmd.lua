@@ -69,9 +69,6 @@ autocmd({ "FileType" }, {
     if bo.buftype == "nofile" then
       q_to_quit(event)
     end
-    if bo.buftype == "help" then
-      opt_local.cursorline = false
-    end
   end,
 })
 autocmd({ "BufEnter" }, {
@@ -137,6 +134,17 @@ autocmd({ "WinLeave" }, {
   callback = function()
     if bo.filetype ~= "nofile" then
       opt_local.cursorline = false
+    end
+  end,
+})
+autocmd({ "FileType" }, {
+  group = cursor_line,
+  pattern = { "*" },
+  callback = function(event)
+    if event.match == "help" then
+      opt_local.cursorline = false
+    else
+      opt_local.cursorline = true
     end
   end,
 })
