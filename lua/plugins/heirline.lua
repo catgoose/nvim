@@ -317,9 +317,9 @@ local config = function()
     end,
   }
   local Git = {
-    condition = function(self)
-      return self.has_changes
-    end,
+    -- condition = function(self)
+    --   return self.has_changes
+    -- end,
     init = function(self)
       local max = 0.35 * vim.api.nvim_win_get_width(0)
       self.status.head = u.count_chars(self.status.head) < max and self.status.head
@@ -382,10 +382,6 @@ local config = function()
     condition = conditions.is_active,
     init = function(self)
       self.register = fn.reg_recording()
-      local status_dict = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-      self.has_changes = (status_dict.added and status_dict.added > 0)
-        or (status_dict.removed and status_dict.removed > 0)
-        or (status_dict.changed and status_dict.removed > 0)
     end,
   }
   local MacroRecording = {
@@ -393,9 +389,7 @@ local config = function()
       return self.register ~= ""
     end,
     {
-      condition = function(self)
-        return self.has_changes
-      end,
+      condition = conditions.is_git_repo,
       LeftSep,
     },
     {
