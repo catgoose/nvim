@@ -22,7 +22,7 @@
   "flash.nvim": { "branch": "main", "commit": "43f67935d388fbb540f8b40e8cbfd80de54f978a" },
   "focus.nvim": { "branch": "master", "commit": "948b32e35f54b6900632312d51a1706fabdc12b8" },
   "fortune.nvim": { "branch": "master", "commit": "470bcb2292f4fba68724cddc39b07c96e5e3e732" },
-  "fzf": { "branch": "master", "commit": "cfc149e99448c68f0d298fd8f99808cd2c36788e" },
+  "fzf": { "branch": "master", "commit": "e1fcdbc3372087d80ebfd30c3c433881b9535b38" },
   "gitsigns.nvim": { "branch": "main", "commit": "6b1a14eabcebbcca1b9e9163a26b2f8371364cb7" },
   "go.nvim": { "branch": "master", "commit": "cde0c7a110c0f65b9e4e6baf342654268efff371" },
   "goto-breakpoints.nvim": { "branch": "master", "commit": "d14776899eda4023667b246e5c53c14a7c41f88e" },
