@@ -119,6 +119,8 @@ local config = function()
         range = true,
       }
     end
+    on_attach(client, bufnr)
+    vim.lsp.inlay_hint.enable()
   end
 
   -- LSP config
