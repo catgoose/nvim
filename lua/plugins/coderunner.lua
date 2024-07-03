@@ -42,7 +42,10 @@ local plugin = {
     "CoderunnerVertical",
   },
   keys = {
-    m("<leader>C", [[Coderunner]]),
+    m("<leader>C", function()
+      vim.g.catgoose_terminal_enable_startinsert = 0
+      vim.cmd("Coderunner")
+    end),
   },
 }
 
