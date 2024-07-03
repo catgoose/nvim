@@ -56,7 +56,7 @@ return {
     build = function()
       vim.cmd.GoInstallDeps()
     end,
-    opts = {},
+    config = true,
   },
   {
     "leoluz/nvim-dap-go",
