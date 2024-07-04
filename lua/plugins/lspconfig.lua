@@ -69,7 +69,7 @@ local config = function()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
-      local bufopts = { noremap = true, silent = true, buffer = event.bufnr }
+      local bufopts = { noremap = true, silent = true, buffer = event.buf }
       km("n", "[g", function()
         vim.cmd("DiagnosticsErrorJumpPrev")
       end, bufopts)
@@ -93,10 +93,46 @@ local config = function()
       km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
       km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
       km("n", "L", vim.lsp.buf.hover, bufopts)
+      km("n", "<leader>di", function()
+        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
+        vim.lsp.inlay_hint.enable(not enabled, { bufnr = event.buf })
+        require("notify").notify(
+          string.format(
+            "Inlay hints %s for buffer %d",
+            not enabled and "enabled" or "disabled",
+            event.buf
+          ),
+          vim.log.levels.info,
+          ---@diagnostic disable-next-line: missing-fields
+          {
+            title = "LSP inlay hints",
+          }
+        )
+      end, bufopts)
+      km("n", "<leader>dI", function()
+        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
+        vim.lsp.inlay_hint.enable(not enabled)
+        require("notify").notify(
+          string.format("Inlay hints %s globally", not enabled and "enabled" or "disabled"),
+          vim.log.levels.info,
+          ---@diagnostic disable-next-line: missing-fields
+          {
+            title = "LSP inlay hints",
+          }
+        )
+      end, { noremap = bufopts.noremap, silent = bufopts.silent })
     end,
   })
 
   -- on_attach definitions
+  local inlay_hints_on_attach = function(client)
+    local inlay_lsp = {
+      "gopls",
+    }
+    if vim.tbl_contains(inlay_lsp, client.name) then
+      vim.lsp.inlay_hint.enable()
+    end
+  end
   local virtual_types_on_attach = function(client, bufnr)
     if client.server_capabilities.textDocument then
       if client.server_capabilities.textDocument.codeLens then
@@ -106,6 +142,7 @@ local config = function()
   end
   local on_attach = function(client, bufnr)
     virtual_types_on_attach(client, bufnr)
+    inlay_hints_on_attach(client)
   end
   local go_on_attach = function(client, bufnr)
     if not client.server_capabilities.semanticTokensProvider then
@@ -120,7 +157,6 @@ local config = function()
       }
     end
     on_attach(client, bufnr)
-    vim.lsp.inlay_hint.enable()
   end
 
   -- LSP config
@@ -228,6 +264,7 @@ local config = function()
       vimruntime = "",
     },
     lua_ls = {
+      on_attach = on_attach,
       settings = {
         Lua = {
           runtime = {
