@@ -72,6 +72,10 @@ local overrides = function(colors)
       bg = p.sumiInk1,
       italic = true,
     },
+    LspInlayHint = {
+      fg = p.sumiInk6,
+      italic = true,
+    },
   }
 end
 

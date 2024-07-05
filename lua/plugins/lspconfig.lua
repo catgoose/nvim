@@ -397,5 +397,21 @@ return {
       config = true,
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
     },
+    {
+      "chrisgrieser/nvim-lsp-endhints",
+      event = "LspAttach",
+      ft = { "go", "lua" },
+      config = true,
+      opts = {
+        icons = {
+          type = "󰋙 ",
+          parameter = "󱃲 ",
+        },
+        label = {
+          padding = 1,
+          marginLeft = 0,
+        },
+      },
+    },
   },
 }
