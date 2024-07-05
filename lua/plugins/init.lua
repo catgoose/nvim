@@ -35,4 +35,9 @@ return {
     "leoluz/nvim-dap-go",
     config = true,
   },
+  -- {
+  --   "mistricky/codesnap.nvim",
+  --   build = "make",
+  --   config = true,
+  -- },
 }

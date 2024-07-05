@@ -68,20 +68,70 @@ local config = function()
   local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
   h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
     local client = l.get_client_by_id(ctx.client_id)
+    if not result then
+      result = {}
+    end
     if client then
-      local row = unpack(api.nvim_win_get_cursor(0))
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
       result = vim
         .iter(result)
         :filter(function(hint)
-          return hint.position.line + 1 == row
+          return math.abs(hint.position.line - row) <= 5
         end)
         :totable()
     end
     inlay_hint_handler(err, result, ctx, config)
   end
 
-  api.nvim_create_autocmd("LspAttach", {
-    group = api.nvim_create_augroup("UserLspConfig", {}),
+  local function inlay_hints_autocmd(bufnr)
+    local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = inlay_hints_group,
+      desc = "Update inlay hints on line change",
+      buffer = bufnr,
+      callback = function()
+        l.inlay_hint.enable(true, { bufnr = bufnr })
+      end,
+    })
+  end
+  -- on_attach definitions
+  local function inlay_hints_on_attach(client, bufnr)
+    local inlay_lsp = {
+      "gopls",
+    }
+    if vim.tbl_contains(inlay_lsp, client.name) then
+      l.inlay_hint.enable()
+      inlay_hints_autocmd(bufnr)
+    end
+  end
+  local function virtual_types_on_attach(client, bufnr)
+    if client.server_capabilities.textDocument then
+      if client.server_capabilities.textDocument.codeLens then
+        vt.on_attach(client, bufnr)
+      end
+    end
+  end
+  local function on_attach(client, bufnr)
+    virtual_types_on_attach(client, bufnr)
+    inlay_hints_on_attach(client, bufnr)
+  end
+  local function go_on_attach(client, bufnr)
+    if not client.server_capabilities.semanticTokensProvider then
+      local semantic = client.config.capabilities.textDocument.semanticTokens
+      client.server_capabilities.semanticTokensProvider = {
+        full = true,
+        legend = {
+          tokenTypes = semantic.tokenTypes,
+          tokenModifiers = semantic.tokenModifiers,
+        },
+        range = true,
+      }
+    end
+    on_attach(client, bufnr)
+  end
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
       local bufopts = { noremap = true, silent = true, buffer = event.buf }
       km("n", "[g", function()
@@ -109,6 +159,11 @@ local config = function()
       km("n", "L", l.buf.hover, bufopts)
       km("n", "<leader>di", function()
         local enabled = l.inlay_hint.is_enabled({ bufnr = event.buf })
+        if enabled then
+          vim.api.nvim_create_augroup("LSP_inlayHints", { clear = true })
+        else
+          inlay_hints_autocmd(event.buf)
+        end
         l.inlay_hint.enable(not enabled, { bufnr = event.buf })
         require("notify").notify(
           string.format(
@@ -138,52 +193,7 @@ local config = function()
     end,
   })
 
-  -- on_attach definitions
-  local function inlay_hints_on_attach(client, bufnr)
-    local inlay_lsp = {
-      "gopls",
-    }
-    if vim.tbl_contains(inlay_lsp, client.name) then
-      l.inlay_hint.enable()
-      local inlay_hints_group = api.nvim_create_augroup("LSP_inlayHints", { clear = false })
-      api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        group = inlay_hints_group,
-        desc = "Update inlay hints on line change",
-        buffer = bufnr,
-        callback = function()
-          l.inlay_hint.enable(true, { bufnr = bufnr })
-        end,
-      })
-    end
-  end
-  local function virtual_types_on_attach(client, bufnr)
-    if client.server_capabilities.textDocument then
-      if client.server_capabilities.textDocument.codeLens then
-        vt.on_attach(client, bufnr)
-      end
-    end
-  end
-  local function on_attach(client, bufnr)
-    virtual_types_on_attach(client, bufnr)
-    inlay_hints_on_attach(client, bufnr)
-  end
-  local function go_on_attach(client, bufnr)
-    if not client.server_capabilities.semanticTokensProvider then
-      local semantic = client.config.capabilities.textDocument.semanticTokens
-      client.server_capabilities.semanticTokensProvider = {
-        full = true,
-        legend = {
-          tokenTypes = semantic.tokenTypes,
-          tokenModifiers = semantic.tokenModifiers,
-        },
-        range = true,
-      }
-    end
-    on_attach(client, bufnr)
-  end
-
   -- LSP config
-
   local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
   local vue_ft = { unpack(ts_ft) }
   table.insert(vue_ft, "vue")
@@ -423,12 +433,11 @@ return {
     {
       "chrisgrieser/nvim-lsp-endhints",
       event = "LspAttach",
-      ft = { "go", "lua" },
       config = true,
       opts = {
         icons = {
           type = "󰋙 ",
-          parameter = "󱃲 ",
+          parameter = " ",
         },
         label = {
           padding = 1,
