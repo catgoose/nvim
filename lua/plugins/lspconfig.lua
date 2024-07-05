@@ -1,4 +1,5 @@
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
+local h, p = l.handlers, l.protocol
 
 local config = function()
   local lspconfig = require("lspconfig")
@@ -18,7 +19,7 @@ local config = function()
   ---@diagnostic disable-next-line: inject-field
   capabilities.offsetEncoding = { "utf-16" }
   -- snippets
-  local _snippet_capabilities = l.protocol.make_client_capabilities()
+  local _snippet_capabilities = p.make_client_capabilities()
   ---@diagnostic disable-next-line: inject-field
   _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
   local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
@@ -46,13 +47,13 @@ local config = function()
     end
     config = config or {}
     config.border = "rounded"
-    l.handlers.hover(_, result, ctx, config)
+    h.hover(_, result, ctx, config)
   end
-  l.handlers["textDocument/signatureHelp"] = l.with(l.handlers.signature_help, {
+  h["textDocument/signatureHelp"] = l.with(h.signature_help, {
     border = "rounded",
   })
   ---@diagnostic disable-next-line: duplicate-set-field
-  l.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+  h["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
     local ts_lsp = { "tsserver", "angularls", "volar" }
     local clients = l.get_clients({ id = ctx.client_id })
     if vim.tbl_contains(ts_lsp, clients[1].name) then
@@ -64,6 +65,20 @@ local config = function()
       require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
     end
     vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+  end
+  local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
+  h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
+    local client = l.get_client_by_id(ctx.client_id)
+    if client then
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      result = vim
+        .iter(result)
+        :filter(function(hint)
+          return hint.position.line + 1 == row
+        end)
+        :totable()
+    end
+    inlay_hint_handler(err, result, ctx, config)
   end
 
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -125,26 +140,35 @@ local config = function()
   })
 
   -- on_attach definitions
-  local inlay_hints_on_attach = function(client)
+  local function inlay_hints_on_attach(client, bufnr)
     local inlay_lsp = {
       "gopls",
     }
     if vim.tbl_contains(inlay_lsp, client.name) then
       vim.lsp.inlay_hint.enable()
     end
+    local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = inlay_hints_group,
+      desc = "Update inlay hints on line change",
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end,
+    })
   end
-  local virtual_types_on_attach = function(client, bufnr)
+  local function virtual_types_on_attach(client, bufnr)
     if client.server_capabilities.textDocument then
       if client.server_capabilities.textDocument.codeLens then
         vt.on_attach(client, bufnr)
       end
     end
   end
-  local on_attach = function(client, bufnr)
+  local function on_attach(client, bufnr)
     virtual_types_on_attach(client, bufnr)
-    inlay_hints_on_attach(client)
+    inlay_hints_on_attach(client, bufnr)
   end
-  local go_on_attach = function(client, bufnr)
+  local function go_on_attach(client, bufnr)
     if not client.server_capabilities.semanticTokensProvider then
       local semantic = client.config.capabilities.textDocument.semanticTokens
       client.server_capabilities.semanticTokensProvider = {
