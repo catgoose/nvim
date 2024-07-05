@@ -976,6 +976,18 @@ test.describe('{}', () => {{
     )
   ),
   s(
+    "prbe",
+    fmt(
+      [[
+     test.beforeEach(async ({{ page }}) => {{
+       {}
+     }})
+     {}
+     ]],
+      { i(1), i(0) }
+    )
+  ),
+  s(
     "vitest",
     fmta(
       [[

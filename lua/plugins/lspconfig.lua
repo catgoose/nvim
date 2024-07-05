@@ -433,7 +433,6 @@ return {
     {
       "chrisgrieser/nvim-lsp-endhints",
       event = "LspAttach",
-      ft = { "go", "lua" },
       config = true,
       opts = {
         icons = {
@@ -445,6 +444,7 @@ return {
           marginLeft = 0,
         },
       },
+      enabled = false,
     },
   },
 }

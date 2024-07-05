@@ -79,7 +79,6 @@ opt.diffopt = {
   "hiddenoff",
   "algorithm:minimal",
 }
-opt.conceallevel = 0
 
 opt.pumblend = 12
 opt.clipboard = "unnamedplus"

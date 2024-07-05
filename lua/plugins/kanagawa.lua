@@ -69,7 +69,7 @@ local overrides = function(colors)
       fg = p.oniViolet2,
     },
     MarkdownFence = {
-      bg = p.sumiInk1,
+      bg = p.winterBlue,
       italic = true,
     },
     LspInlayHint = {
