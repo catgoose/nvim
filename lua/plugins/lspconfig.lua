@@ -8,7 +8,7 @@ local config = function()
   --- Capabilities
   local capabilities = vim.tbl_deep_extend(
     "force",
-    vim.lsp.protocol.make_client_capabilities(),
+    l.protocol.make_client_capabilities(),
     require("cmp_nvim_lsp").default_capabilities()
   )
   -- ufo
@@ -40,8 +40,8 @@ local config = function()
     },
   })
 
-  ---@diagnostic disable-next-line: duplicate-set-field
-  vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+  -- handler overrides
+  l.handlers["textDocument/hover"] = function(_, result, ctx, config)
     if not (result and result.contents) then
       return
     end
@@ -52,7 +52,6 @@ local config = function()
   h["textDocument/signatureHelp"] = l.with(h.signature_help, {
     border = "rounded",
   })
-  ---@diagnostic disable-next-line: duplicate-set-field
   h["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
     local ts_lsp = { "tsserver", "angularls", "volar" }
     local clients = l.get_clients({ id = ctx.client_id })
@@ -64,13 +63,13 @@ local config = function()
       }
       require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
     end
-    vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+    l.diagnostic.on_publish_diagnostics(err, result, ctx, config)
   end
   local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
   h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
     local client = l.get_client_by_id(ctx.client_id)
     if client then
-      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      local row = unpack(api.nvim_win_get_cursor(0))
       result = vim
         .iter(result)
         :filter(function(hint)
@@ -81,8 +80,8 @@ local config = function()
     inlay_hint_handler(err, result, ctx, config)
   end
 
-  vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  api.nvim_create_autocmd("LspAttach", {
+    group = api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
       local bufopts = { noremap = true, silent = true, buffer = event.buf }
       km("n", "[g", function()
@@ -106,11 +105,11 @@ local config = function()
       km("n", "<leader>D", l.buf.type_definition, bufopts)
       km("n", "gr", l.buf.references, bufopts)
       km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
-      km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-      km("n", "L", vim.lsp.buf.hover, bufopts)
+      km("n", "<leader>rn", l.buf.rename, bufopts)
+      km("n", "L", l.buf.hover, bufopts)
       km("n", "<leader>di", function()
-        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
-        vim.lsp.inlay_hint.enable(not enabled, { bufnr = event.buf })
+        local enabled = l.inlay_hint.is_enabled({ bufnr = event.buf })
+        l.inlay_hint.enable(not enabled, { bufnr = event.buf })
         require("notify").notify(
           string.format(
             "Inlay hints %s for buffer %d",
@@ -125,8 +124,8 @@ local config = function()
         )
       end, bufopts)
       km("n", "<leader>dI", function()
-        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
-        vim.lsp.inlay_hint.enable(not enabled)
+        local enabled = l.inlay_hint.is_enabled({ bufnr = event.buf })
+        l.inlay_hint.enable(not enabled)
         require("notify").notify(
           string.format("Inlay hints %s globally", not enabled and "enabled" or "disabled"),
           vim.log.levels.info,
@@ -145,17 +144,17 @@ local config = function()
       "gopls",
     }
     if vim.tbl_contains(inlay_lsp, client.name) then
-      vim.lsp.inlay_hint.enable()
+      l.inlay_hint.enable()
+      local inlay_hints_group = api.nvim_create_augroup("LSP_inlayHints", { clear = false })
+      api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = inlay_hints_group,
+        desc = "Update inlay hints on line change",
+        buffer = bufnr,
+        callback = function()
+          l.inlay_hint.enable(true, { bufnr = bufnr })
+        end,
+      })
     end
-    local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
-    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      group = inlay_hints_group,
-      desc = "Update inlay hints on line change",
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-      end,
-    })
   end
   local function virtual_types_on_attach(client, bufnr)
     if client.server_capabilities.textDocument then
