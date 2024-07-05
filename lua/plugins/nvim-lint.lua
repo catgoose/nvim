@@ -1,5 +1,3 @@
---  TODO: 2024-04-12 - add linters for dotenv-linter
-
 return {
   "mfussenegger/nvim-lint",
   event = "BufReadPre",
@@ -11,9 +9,7 @@ return {
       vue = { "eslint_d", "oxlint" },
       docker = { "hadolint" },
       fish = { "fish" },
-      -- env = { "dotenv-linter" },
       json = { "jsonlint" },
-      -- markdown = { "markdownlint", "vale" },
       markdown = { "markdownlint" },
       editorconfig = { "editorconfig-checker" },
       sh = { "shellcheck" },

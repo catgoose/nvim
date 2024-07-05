@@ -1,8 +1,5 @@
 ;; extends
 
-; offset and table chars courtesy of `megalithic`:
-; https://github.com/megalithic/dotfiles/blob/39aa5fcefaa4d68cce66b6de425311e47c2d54fb/config/nvim/after/queries/markdown/highlights.scm#L45-L64
-
 ; list markers/bullet points
 (
   ([
@@ -31,10 +28,6 @@
     (block_continuation) @markdown_quote_marker (#set! conceal "▍")
   ))
 ))
-
-; (fenced_code_block
-;   (info_string) @devicon
-;   (#as_devicon! @devicon))
 
 (
   fenced_code_block (fenced_code_block_delimiter) @markdown_code_block_marker
@@ -86,11 +79,6 @@
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_java
-  (#eq? @markdown_code_block_lang_java "java")
-  (#set! conceal "")
-)
-(
   [(info_string (language))] @markdown_code_block_lang_html
   (#eq? @markdown_code_block_lang_html "html")
   (#set! conceal "")
@@ -104,4 +92,9 @@
   [(info_string (language))] @markdown_code_block_lang_sql
   (#eq? @markdown_code_block_lang_sql "sql")
   (#set! conceal "")
+)
+(
+  [(info_string (language))] @markdown_code_block_lang_sql
+  (#eq? @markdown_code_block_lang_sql "go")
+  (#set! conceal "")
 )
