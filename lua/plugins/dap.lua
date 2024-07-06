@@ -59,6 +59,27 @@ return {
             program = "${file}",
             dlvToolPath = vim.fn.exepath("dlv"),
           },
+          -- {
+          --   type = "delve",
+          --   name = "Debug",
+          --   request = "launch",
+          --   program = "${file}",
+          -- },
+          -- {
+          --   type = "delve",
+          --   name = "Debug test", -- configuration for debugging test files
+          --   request = "launch",
+          --   mode = "test",
+          --   program = "${file}",
+          -- },
+          -- -- works with go.mod packages and sub packages
+          -- {
+          --   type = "delve",
+          --   name = "Debug test (go.mod)",
+          --   request = "launch",
+          --   mode = "test",
+          --   program = "./${relativeFileDirname}",
+          -- },
         }
       end
       if not dap.adapters["pwa-chrome"] then
