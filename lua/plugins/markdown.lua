@@ -1,16 +1,13 @@
 return {
   {
-    "MeanderingProgrammer/markdown.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
+    "jamessan/vim-gnupg",
+    lazy = false,
+    ft = "markdown",
+  },
+  {
+    "lukas-reineke/virt-column.nvim",
+    config = true,
+    event = "BufReadPre",
     ft = { "markdown" },
-    opts = {
-      code_style = "normal",
-      highlights = {
-        code = "MarkdownFence",
-      },
-    },
   },
 }

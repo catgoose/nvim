@@ -4,7 +4,7 @@ local overrides = function(colors)
     CursorLine = {
       bold = true,
       italic = true,
-      bg = p.sumiInk5,
+      bg = p.sumiInk4,
     },
     Visual = {
       bold = true,
@@ -69,63 +69,12 @@ local overrides = function(colors)
       fg = p.oniViolet2,
     },
     MarkdownFence = {
-      bg = p.sumiInk1,
+      bg = p.winterBlue,
       italic = true,
     },
-    NeotestAdapterName = {
-      fg = p.peachRed,
-    },
-    NeotestDir = {
-      fg = p.crystalBlue,
-    },
-    NeotestExpandMarker = {
-      fg = p.springViolet2,
-      bold = true,
-    },
-    NeotestFailed = {
-      fg = p.samuraiRed,
-    },
-    NeotestFile = {
-      fg = p.crystalBlue,
-    },
-    NeotestFocused = {
-      bold = true,
-      underline = true,
-    },
-    NeotestIndent = {
-      fg = p.springViolet1,
-      bold = true,
-    },
-    NeotestMarked = {
-      fg = p.roninYellow,
+    LspInlayHint = {
+      fg = p.sumiInk6,
       italic = true,
-    },
-    NeotestNamespace = {
-      fg = p.crystalBlue,
-    },
-    NeotestPassed = {
-      fg = p.springGreen,
-    },
-    NeotestRunning = {
-      fg = p.autumnYellow,
-    },
-    NeotestWinSelect = {
-      fg = p.waveAqua1,
-    },
-    NeotestSkipped = {
-      fg = p.springBlue,
-    },
-    NeotestTarget = {
-      fg = p.peachRed,
-    },
-    NeotestTest = {
-      fg = p.oldWhite,
-    },
-    NeotestUnknown = {
-      fg = p.katanaGray,
-    },
-    NeotestWatching = {
-      fg = p.autumnYellow,
     },
   }
 end
@@ -162,7 +111,6 @@ end
 
 return {
   "rebelot/kanagawa.nvim",
-  -- dir = "~/git/kanagawa.nvim",
   config = config,
   lazy = false,
   priority = 1000,

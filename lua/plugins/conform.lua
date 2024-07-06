@@ -16,6 +16,7 @@ local opts = {
     sh = { "shfmt", "shellharden" },
     bash = { "shfmt", "shellharden" },
     markdown = { "cbfmt", "prettierd", "markdownlint" },
+    go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
   },
   format_on_save = function(bufnr)
     ---@diagnostic disable-next-line: undefined-field

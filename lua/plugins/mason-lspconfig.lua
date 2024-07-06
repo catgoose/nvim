@@ -12,6 +12,8 @@ local opts = {
     "dockerls",
     "emmet_ls",
     "eslint",
+    "golangci_lint_ls",
+    "gopls",
     "html",
     "jsonls",
     "lua_ls",

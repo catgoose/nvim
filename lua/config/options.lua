@@ -7,6 +7,7 @@ local const = require("config.constants").const
 opt.numberwidth = 1
 opt.number = true
 opt.relativenumber = true
+-- opt.cursorline = true
 opt.fillchars = {
   horiz = "━",
   horizup = "┻",
@@ -24,7 +25,7 @@ opt.fillchars = {
   foldopen = "▼",
 }
 opt.confirm = true
-opt.shortmess = "aoOstTWAIcCFSq"
+opt.shortmess = "aoOstTWAIcCFSqW"
 opt.updatetime = 100
 opt.splitkeep = "screen"
 opt.ruler = false

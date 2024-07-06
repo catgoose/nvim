@@ -9,12 +9,24 @@ return {
     "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
     "marilari88/neotest-vitest",
+    "nvim-neotest/neotest-go",
+    "fredrikaverpil/neotest-golang",
     {
       "thenbe/neotest-playwright",
       dependencies = "nvim-telescope/telescope.nvim",
     },
   },
   config = function()
+    local neotest_ns = vim.api.nvim_create_namespace("neotest")
+    vim.diagnostic.config({
+      virtual_text = {
+        format = function(diagnostic)
+          local message =
+            diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+          return message
+        end,
+      },
+    }, neotest_ns)
     ---@diagnostic disable-next-line: missing-fields
     require("neotest").setup({
       adapters = {
@@ -53,6 +65,12 @@ return {
             },
           },
         }),
+        require("neotest-go"),
+        -- require("neotest-golang"),
+        ["neotest-golang"] = {
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true,
+        },
       },
       consumers = {
         playwright = require("neotest-playwright.consumers").consumers,
@@ -86,11 +104,11 @@ return {
       require("neotest").jump.next({ status = "failed" })
     end),
     m("<leader>n", function()
-      vim.g.terminal_enable_startinsert = 0
+      vim.g.catgoose_terminal_enable_startinsert = 0
       require("neotest").run.run()
     end),
     m("<leader>N", function()
-      vim.g.terminal_enable_startinsert = 0
+      vim.g.catgoose_terminal_enable_startinsert = 0
       require("neotest").run.run(vim.fn.expand("%"))
     end),
     m("<leader>1", function()
@@ -109,6 +127,7 @@ return {
       require("neotest").output_panel.toggle()
     end),
     m("<leader>8", function()
+      vim.g.catgoose_terminal_enable_startinsert = 1
       require("neotest").output.open({
         enter = true,
         auto_close = true,
