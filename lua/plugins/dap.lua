@@ -23,17 +23,21 @@ return {
     end,
     cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
-      local dap, dapui = require("dap"), require("dapui")
+      local dap, dapui, mason = require("dap"), require("dapui"), require("mason-registry")
+      local function get_install_path(package)
+        return mason.get_package(package):get_install_path()
+      end
+
       dap.listeners.after.event_initialized["dapui_config"] = function()
-        vim.cmd("tabnew %")
+        vim.cmd("silent! tabnew %")
         dapui.open()
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
-        vim.cmd("tabclose")
+        vim.cmd("silent! tabclose")
         dapui.close()
       end
       dap.listeners.before.event_exited["dapui_config"] = function()
-        vim.cmd("tabclose")
+        vim.cmd("silent! tabclose")
         dapui.close()
       end
 
@@ -41,7 +45,7 @@ return {
         dap.adapters.go = {
           type = "executable",
           command = "node",
-          args = { vim.fn.stdpath("data") .. "/mason/bin/go-debug-adapter" },
+          args = { get_install_path("go-debug-adapter") .. "/extension/dist/debugAdapter.js" },
         }
         dap.configurations.go = {
           {
@@ -50,7 +54,7 @@ return {
             request = "launch",
             showLog = false,
             program = "${file}",
-            dlvToolPath = vim.fn.exepath("dlv"), -- Adjust to where delve is installed
+            dlvToolPath = vim.fn.exepath("dlv"),
           },
         }
       end
@@ -62,8 +66,7 @@ return {
           executable = {
             command = "node",
             args = {
-              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
+              get_install_path("js-debug-adapter") .. "/js-debug/src/dapDebugServer.js",
               "${port}",
             },
           },
@@ -111,5 +114,21 @@ return {
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
+  },
+  {
+    "leoluz/nvim-dap-go",
+    opts = {
+      dap_configurations = {
+        {
+          -- Must be "go" or it will be ignored by the plugin
+          type = "go",
+          name = "Attach remote",
+          mode = "remote",
+          request = "attach",
+        },
+      },
+    },
+    dependencies = "mfussenegger/nvim-dap",
+    enabled = false,
   },
 }

@@ -17,6 +17,7 @@ return {
   {
     "lambdalisue/suda.vim",
     event = "BufReadPre",
+    enabled = false,
   },
   {
     "romainl/vim-cool",
@@ -35,9 +36,4 @@ return {
     "leoluz/nvim-dap-go",
     config = true,
   },
-  -- {
-  --   "mistricky/codesnap.nvim",
-  --   build = "make",
-  --   config = true,
-  -- },
 }

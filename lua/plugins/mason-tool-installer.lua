@@ -3,6 +3,8 @@ local opts = {
   run_on_start = true,
   ensure_installed = {
     "impl",
+    "js-debug-adapter",
+    "go-debug-adapter",
   },
 }
 
