@@ -98,7 +98,7 @@ local config = function()
   -- on_attach definitions
   local function inlay_hints_on_attach(client, bufnr)
     local inlay_lsp = {
-      -- "gopls",
+      "gopls",
     }
     if vim.tbl_contains(inlay_lsp, client.name) then
       l.inlay_hint.enable()

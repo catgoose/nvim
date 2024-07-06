@@ -3,7 +3,7 @@ local overrides = function(colors)
   return {
     CursorLine = {
       bold = true,
-      italic = true,
+      italic = false,
       bg = p.sumiInk4,
     },
     Visual = {
@@ -75,6 +75,7 @@ local overrides = function(colors)
     LspInlayHint = {
       fg = p.sumiInk6,
       italic = true,
+      bold = true,
     },
   }
 end
