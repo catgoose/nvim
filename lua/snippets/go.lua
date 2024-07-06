@@ -56,6 +56,17 @@ local snippets = {
       }
     )
   ),
+  s(
+    "main",
+    fmt(
+      [[
+     func main() {{
+       {}
+     }}
+     ]],
+      i(0)
+    )
+  ),
 }
 
 return snippets

@@ -19,9 +19,10 @@ local opt_file_pattern = {
   "Dockerfile",
   "docker-compose.yaml",
 }
-local cursorline_disable = {
+local cursorline_disable_ft = {
   "help",
   "dashboard",
+  "lazy",
 }
 
 local all_filetypes = augroup("AllFileTypesLocalOptions")
@@ -145,7 +146,7 @@ autocmd({ "FileType" }, {
   group = cursor_line,
   pattern = { "*" },
   callback = function(event)
-    if not vim.tbl_contains(cursorline_disable, event.match) then
+    if not vim.tbl_contains(cursorline_disable_ft, event.match) then
       opt_local.cursorline = true
     else
       opt_local.cursorline = false

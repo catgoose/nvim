@@ -65,35 +65,36 @@ local config = function()
     end
     l.diagnostic.on_publish_diagnostics(err, result, ctx, config)
   end
-  local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
-  h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
-    local client = l.get_client_by_id(ctx.client_id)
-    if not result then
-      result = {}
-    end
-    if client then
-      local row = unpack(vim.api.nvim_win_get_cursor(0))
-      result = vim
-        .iter(result)
-        :filter(function(hint)
-          return math.abs(hint.position.line - row) <= 5
-        end)
-        :totable()
-    end
-    inlay_hint_handler(err, result, ctx, config)
-  end
+  -- local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
+  -- h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
+  --   local client = l.get_client_by_id(ctx.client_id)
+  --   if not result then
+  --     result = {}
+  --   end
+  --   if client then
+  --     local row = unpack(vim.api.nvim_win_get_cursor(0))
+  --     result = vim
+  --       .iter(result)
+  --       :filter(function(hint)
+  --         -- return math.abs(hint.position.line - row) <= 5
+  --         return hint.position.line + 1 == row
+  --       end)
+  --       :totable()
+  --   end
+  --   inlay_hint_handler(err, result, ctx, config)
+  -- end
 
-  local function inlay_hints_autocmd(bufnr)
-    local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
-    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      group = inlay_hints_group,
-      desc = "Update inlay hints on line change",
-      buffer = bufnr,
-      callback = function()
-        l.inlay_hint.enable(true, { bufnr = bufnr })
-      end,
-    })
-  end
+  -- local function inlay_hints_autocmd(bufnr)
+  --   local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
+  --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  --     group = inlay_hints_group,
+  --     desc = "Update inlay hints on line change",
+  --     buffer = bufnr,
+  --     callback = function()
+  --       l.inlay_hint.enable(true, { bufnr = bufnr })
+  --     end,
+  --   })
+  -- end
   -- on_attach definitions
   local function inlay_hints_on_attach(client, bufnr)
     local inlay_lsp = {
@@ -101,7 +102,7 @@ local config = function()
     }
     if vim.tbl_contains(inlay_lsp, client.name) then
       l.inlay_hint.enable()
-      inlay_hints_autocmd(bufnr)
+      -- inlay_hints_autocmd(bufnr)
     end
   end
   local function virtual_types_on_attach(client, bufnr)
@@ -433,7 +434,6 @@ return {
     {
       "chrisgrieser/nvim-lsp-endhints",
       event = "LspAttach",
-      config = true,
       opts = {
         icons = {
           type = "󰋙 ",
@@ -444,7 +444,6 @@ return {
           marginLeft = 0,
         },
       },
-      enabled = false,
     },
   },
 }
