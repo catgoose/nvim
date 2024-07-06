@@ -11,10 +11,10 @@ return {
     end)
   end,
   opts = {
-    dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
     options = const.opt.sessionoptions_tbl,
     pre_save = ufo_u.set_opts,
     save_empty = false,
     post_load = ufo_u.set_opts,
   },
+  commit = "3d443bd0a7e1d9eebfa37321fc8118d8d538af13",
 }

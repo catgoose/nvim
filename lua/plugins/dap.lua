@@ -13,7 +13,6 @@ return {
       m("<F4>", [[DapStepOut]]),
       m("<F5>", [[DapStepBack]]),
       m("<F7>", [[DapRestartFrame]]),
-      m("<leader>/", [[DapToggleBreakpoint]]),
     },
     init = function()
       c("DapClearBreakpoints", require("dap").clear_breakpoints)
@@ -28,15 +27,19 @@ return {
         return mason.get_package(package):get_install_path()
       end
 
-      dap.listeners.after.event_initialized["dapui_config"] = function()
+      dap.listeners.before.attach.dapui_config = function()
         vim.cmd("silent! tabnew %")
         dapui.open()
       end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
+      dap.listeners.before.launch.dapui_config = function()
+        vim.cmd("silent! tabnew %")
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
         vim.cmd("silent! tabclose")
         dapui.close()
       end
-      dap.listeners.before.event_exited["dapui_config"] = function()
+      dap.listeners.before.event_exited.dapui_config = function()
         vim.cmd("silent! tabclose")
         dapui.close()
       end
@@ -104,6 +107,7 @@ return {
     },
     dependencies = {
       "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
     },
   },
   {
@@ -116,19 +120,14 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    "leoluz/nvim-dap-go",
+    "Weissle/persistent-breakpoints.nvim",
+    event = "BufReadPre",
     opts = {
-      dap_configurations = {
-        {
-          -- Must be "go" or it will be ignored by the plugin
-          type = "go",
-          name = "Attach remote",
-          mode = "remote",
-          request = "attach",
-        },
-      },
+      load_breakpoints_event = { "BufReadPost" },
+    },
+    keys = {
+      m("<leader>/", [[lua require('persistent-breakpoints.api').toggle_breakpoint()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
-    enabled = false,
   },
 }

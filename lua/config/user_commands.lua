@@ -106,7 +106,6 @@ c("UpdateAndSyncAll", function()
     print(string.format("Running: %s", cm))
   end
 end)
-c("UfoToggleFold", require("util.ufo").toggle_fold)
 c("FoldParagraph", function()
   local foldclosed = fn.foldclosed(fn.line("."))
   if foldclosed == -1 then
@@ -131,7 +130,6 @@ end)
 c("EnableLSPFormatting", function()
   f.lsp_formatting({ enable = true })
 end)
-c("DiffviewPrompt", require("util.diffview").open)
 c("DiagnosticsJumpPrev", function()
   f.diagnostics_jump({
     count = -1,

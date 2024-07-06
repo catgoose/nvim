@@ -15,13 +15,15 @@ local signs = {
     dict = {
       text = "⬤",
       texthl = hl.error,
+      numhl = hl.error,
     },
   },
   {
     name = "DapStopped",
     dict = {
-      text = "",
-      texthl = hl.hint,
+      text = "",
+      texthl = hl.warn,
+      numhl = hl.warn,
     },
   },
   {
@@ -29,7 +31,6 @@ local signs = {
     dict = {
       text = "⭐️",
       texthl = hl.info,
-      linehl = hl.info,
       numhl = hl.info,
     },
   },
