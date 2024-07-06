@@ -65,44 +65,46 @@ local config = function()
     end
     l.diagnostic.on_publish_diagnostics(err, result, ctx, config)
   end
-  -- local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
-  -- h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
-  --   local client = l.get_client_by_id(ctx.client_id)
-  --   if not result then
-  --     result = {}
-  --   end
-  --   if client then
-  --     local row = unpack(vim.api.nvim_win_get_cursor(0))
-  --     result = vim
-  --       .iter(result)
-  --       :filter(function(hint)
-  --         -- return math.abs(hint.position.line - row) <= 5
-  --         return hint.position.line + 1 == row
-  --       end)
-  --       :totable()
-  --   end
-  --   inlay_hint_handler(err, result, ctx, config)
-  -- end
+  local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
+  h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
+    local client = l.get_client_by_id(ctx.client_id)
+    if not result then
+      result = {}
+    end
+    if client then
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      result = vim
+        .iter(result)
+        :filter(function(hint)
+          -- return math.abs(hint.position.line - row) <= 5
+          return hint.position.line + 1 == row
+        end)
+        :totable()
+    end
+    inlay_hint_handler(err, result, ctx, config)
+  end
 
-  -- local function inlay_hints_autocmd(bufnr)
-  --   local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
-  --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  --     group = inlay_hints_group,
-  --     desc = "Update inlay hints on line change",
-  --     buffer = bufnr,
-  --     callback = function()
-  --       l.inlay_hint.enable(true, { bufnr = bufnr })
-  --     end,
-  --   })
-  -- end
+  local function inlay_hints_autocmd(bufnr)
+    local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = inlay_hints_group,
+      desc = "Update inlay hints on line change",
+      buffer = bufnr,
+      callback = function()
+        l.inlay_hint.enable(true, { bufnr = bufnr })
+      end,
+    })
+  end
   -- on_attach definitions
   local function inlay_hints_on_attach(client, bufnr)
     local inlay_lsp = {
-      "gopls",
+      -- "gopls",
     }
     if vim.tbl_contains(inlay_lsp, client.name) then
-      -- l.inlay_hint.enable()
-      -- inlay_hints_autocmd(bufnr)
+      l.inlay_hint.enable()
+      inlay_hints_autocmd(bufnr)
+    else
+      l.inlay_hint.enable(false)
     end
   end
   local function virtual_types_on_attach(client, bufnr)
@@ -160,11 +162,11 @@ local config = function()
       km("n", "L", l.buf.hover, bufopts)
       km("n", "<leader>di", function()
         local enabled = l.inlay_hint.is_enabled({ bufnr = event.buf })
-        -- if enabled then
-        -- vim.api.nvim_create_augroup("LSP_inlayHints", { clear = true })
-        -- else
-        --   inlay_hints_autocmd(event.buf)
-        -- end
+        if enabled then
+          vim.api.nvim_create_augroup("LSP_inlayHints", { clear = true })
+        else
+          inlay_hints_autocmd(event.buf)
+        end
         l.inlay_hint.enable(not enabled, { bufnr = event.buf })
         require("notify").notify(
           string.format(
@@ -313,7 +315,7 @@ local config = function()
           },
           telemetry = { enable = false },
           hint = {
-            enable = true,
+            enable = false,
           },
         },
       },
@@ -432,8 +434,7 @@ return {
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
     },
     {
-      -- "chrisgrieser/nvim-lsp-endhints",
-      dir = "~/git/nvim-lsp-endhints",
+      "chrisgrieser/nvim-lsp-endhints",
       event = "LspAttach",
       opts = {
         icons = {
@@ -445,7 +446,7 @@ return {
           marginLeft = 0,
           bracketedParameters = false,
         },
-        autoEnableHints = true,
+        autoEnableHints = false,
       },
     },
   },
