@@ -1,9 +1,15 @@
+local c = require("util").create_cmd
 local ufo_u = require("util.ufo")
 local const = require("config.constants").const
 
 return {
   "folke/persistence.nvim",
   event = "BufReadPre",
+  init = function()
+    c("PersistenceLoad", function()
+      require("persistence").load()
+    end)
+  end,
   opts = {
     dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
     options = const.opt.sessionoptions_tbl,

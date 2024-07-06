@@ -1,4 +1,6 @@
-local m = require("util").lazy_map
+local u = require("util")
+local c = u.create_cmd
+local m = u.lazy_map
 
 return {
   {
@@ -13,18 +15,45 @@ return {
       m("<F7>", [[DapRestartFrame]]),
       m("<leader>/", [[DapToggleBreakpoint]]),
     },
+    init = function()
+      c("DapClearBreakpoints", require("dap").clear_breakpoints)
+      c("DapConditionalBreakpoints", function()
+        require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+      end)
+    end,
+    cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
       local dap, dapui = require("dap"), require("dapui")
       dap.listeners.after.event_initialized["dapui_config"] = function()
+        vim.cmd("tabnew %")
         dapui.open()
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
+        vim.cmd("tabclose")
         dapui.close()
       end
       dap.listeners.before.event_exited["dapui_config"] = function()
+        vim.cmd("tabclose")
         dapui.close()
       end
 
+      if not dap.adapters.go then
+        dap.adapters.go = {
+          type = "executable",
+          command = "node",
+          args = { vim.fn.stdpath("data") .. "/mason/bin/go-debug-adapter" },
+        }
+        dap.configurations.go = {
+          {
+            type = "go",
+            name = "Debug",
+            request = "launch",
+            showLog = false,
+            program = "${file}",
+            dlvToolPath = vim.fn.exepath("dlv"), -- Adjust to where delve is installed
+          },
+        }
+      end
       if not dap.adapters["pwa-chrome"] then
         dap.adapters["pwa-chrome"] = {
           type = "server",

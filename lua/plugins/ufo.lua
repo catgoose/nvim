@@ -1,6 +1,7 @@
 local u = require("util")
 local ufo_u = require("util.ufo")
 local m = u.lazy_map
+local c = u.create_cmd
 
 local scale = u.screen_scale({ height = 0.65 })
 
@@ -37,6 +38,7 @@ return {
   opts = opts,
   init = function()
     ufo_u.set_opts()
+    c("UfoToggleFold", require("util.ufo").toggle_fold)
   end,
   keys = {
     m("zR", lua_ufo("openAllFolds")),
@@ -48,5 +50,4 @@ return {
     m("<leader>O", "UfoToggleFold"),
     m("\\", "FoldParagraph"),
   },
-  enabled = true,
 }
