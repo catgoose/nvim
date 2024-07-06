@@ -232,7 +232,6 @@ local function is_diag_neotest()
   return found
 end
 
---  TODO: 2024-07-01 - add fallback for previewing githunk
 function M.hover_handler()
   local ufo_ok, ufo = pcall(require, "ufo")
   if ufo_ok then

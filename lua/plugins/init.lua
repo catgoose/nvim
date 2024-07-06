@@ -31,13 +31,4 @@ return {
     "folke/neoconf.nvim",
     lazy = true,
   },
-  {
-    "leoluz/nvim-dap-go",
-    config = true,
-  },
-  -- {
-  --   "mistricky/codesnap.nvim",
-  --   build = "make",
-  --   config = true,
-  -- },
 }

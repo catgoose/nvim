@@ -1,6 +1,6 @@
 local g = vim.g
 
-g.catgoose_terminal_enable_startinsert = 1
+g.terminal_enable_startinsert = 1
 
 g.mapleader = " "
 g.maplocalleader = " "

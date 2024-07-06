@@ -19,11 +19,6 @@ local opt_file_pattern = {
   "Dockerfile",
   "docker-compose.yaml",
 }
-local cursorline_disable_ft = {
-  "help",
-  "dashboard",
-  "lazy",
-}
 
 local all_filetypes = augroup("AllFileTypesLocalOptions")
 autocmd({ "FileType" }, {
@@ -106,7 +101,7 @@ autocmd({ "TermOpen" }, {
     end
     if bo.filetype == "" then
       api.nvim_set_option_value("filetype", "terminal", { buf = event.bufnr })
-      if vim.g.catgoose_terminal_enable_startinsert == 1 then
+      if vim.g.terminal_enable_startinsert == 1 then
         cmd.startinsert()
       end
     end
@@ -138,17 +133,6 @@ autocmd({ "WinLeave" }, {
   pattern = opt_file_pattern,
   callback = function()
     if bo.filetype ~= "nofile" then
-      opt_local.cursorline = false
-    end
-  end,
-})
-autocmd({ "FileType" }, {
-  group = cursor_line,
-  pattern = { "*" },
-  callback = function(event)
-    if not vim.tbl_contains(cursorline_disable_ft, event.match) then
-      opt_local.cursorline = true
-    else
       opt_local.cursorline = false
     end
   end,

@@ -1,5 +1,4 @@
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
-local h, p = l.handlers, l.protocol
 
 local config = function()
   local lspconfig = require("lspconfig")
@@ -8,7 +7,7 @@ local config = function()
   --- Capabilities
   local capabilities = vim.tbl_deep_extend(
     "force",
-    l.protocol.make_client_capabilities(),
+    vim.lsp.protocol.make_client_capabilities(),
     require("cmp_nvim_lsp").default_capabilities()
   )
   -- ufo
@@ -19,10 +18,11 @@ local config = function()
   ---@diagnostic disable-next-line: inject-field
   capabilities.offsetEncoding = { "utf-16" }
   -- snippets
-  local _snippet_capabilities = p.make_client_capabilities()
+  local _snippet_capabilities = l.protocol.make_client_capabilities()
   ---@diagnostic disable-next-line: inject-field
   _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
   local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
+
   -- Diagnostic
   vim.diagnostic.config({
     virtual_text = false,
@@ -40,19 +40,20 @@ local config = function()
     },
   })
 
-  -- handler overrides
-  l.handlers["textDocument/hover"] = function(_, result, ctx, config)
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
     if not (result and result.contents) then
       return
     end
     config = config or {}
     config.border = "rounded"
-    h.hover(_, result, ctx, config)
+    l.handlers.hover(_, result, ctx, config)
   end
-  h["textDocument/signatureHelp"] = l.with(h.signature_help, {
+  l.handlers["textDocument/signatureHelp"] = l.with(l.handlers.signature_help, {
     border = "rounded",
   })
-  h["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+  ---@diagnostic disable-next-line: duplicate-set-field
+  l.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
     local ts_lsp = { "tsserver", "angularls", "volar" }
     local clients = l.get_clients({ id = ctx.client_id })
     if vim.tbl_contains(ts_lsp, clients[1].name) then
@@ -63,78 +64,13 @@ local config = function()
       }
       require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
     end
-    l.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-  end
-  -- local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
-  -- h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
-  --   local client = l.get_client_by_id(ctx.client_id)
-  --   if not result then
-  --     result = {}
-  --   end
-  --   if client then
-  --     local row = unpack(vim.api.nvim_win_get_cursor(0))
-  --     result = vim
-  --       .iter(result)
-  --       :filter(function(hint)
-  --         -- return math.abs(hint.position.line - row) <= 5
-  --         return hint.position.line + 1 == row
-  --       end)
-  --       :totable()
-  --   end
-  --   inlay_hint_handler(err, result, ctx, config)
-  -- end
-
-  -- local function inlay_hints_autocmd(bufnr)
-  --   local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
-  --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  --     group = inlay_hints_group,
-  --     desc = "Update inlay hints on line change",
-  --     buffer = bufnr,
-  --     callback = function()
-  --       l.inlay_hint.enable(true, { bufnr = bufnr })
-  --     end,
-  --   })
-  -- end
-  -- on_attach definitions
-  local function inlay_hints_on_attach(client, bufnr)
-    local inlay_lsp = {
-      "gopls",
-    }
-    if vim.tbl_contains(inlay_lsp, client.name) then
-      l.inlay_hint.enable()
-      -- inlay_hints_autocmd(bufnr)
-    end
-  end
-  local function virtual_types_on_attach(client, bufnr)
-    if client.server_capabilities.textDocument then
-      if client.server_capabilities.textDocument.codeLens then
-        vt.on_attach(client, bufnr)
-      end
-    end
-  end
-  local function on_attach(client, bufnr)
-    virtual_types_on_attach(client, bufnr)
-    inlay_hints_on_attach(client, bufnr)
-  end
-  local function go_on_attach(client, bufnr)
-    if not client.server_capabilities.semanticTokensProvider then
-      local semantic = client.config.capabilities.textDocument.semanticTokens
-      client.server_capabilities.semanticTokensProvider = {
-        full = true,
-        legend = {
-          tokenTypes = semantic.tokenTypes,
-          tokenModifiers = semantic.tokenModifiers,
-        },
-        range = true,
-      }
-    end
-    on_attach(client, bufnr)
+    vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
   end
 
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
-      local bufopts = { noremap = true, silent = true, buffer = event.buf }
+      local bufopts = { noremap = true, silent = true, buffer = event.bufnr }
       km("n", "[g", function()
         vim.cmd("DiagnosticsErrorJumpPrev")
       end, bufopts)
@@ -156,45 +92,25 @@ local config = function()
       km("n", "<leader>D", l.buf.type_definition, bufopts)
       km("n", "gr", l.buf.references, bufopts)
       km({ "n", "v" }, "<leader>ca", l.buf.code_action, bufopts)
-      km("n", "<leader>rn", l.buf.rename, bufopts)
-      km("n", "L", l.buf.hover, bufopts)
-      km("n", "<leader>di", function()
-        local enabled = l.inlay_hint.is_enabled({ bufnr = event.buf })
-        if enabled then
-          vim.api.nvim_create_augroup("LSP_inlayHints", { clear = true })
-        else
-          inlay_hints_autocmd(event.buf)
-        end
-        l.inlay_hint.enable(not enabled, { bufnr = event.buf })
-        require("notify").notify(
-          string.format(
-            "Inlay hints %s for buffer %d",
-            not enabled and "enabled" or "disabled",
-            event.buf
-          ),
-          vim.log.levels.info,
-          ---@diagnostic disable-next-line: missing-fields
-          {
-            title = "LSP inlay hints",
-          }
-        )
-      end, bufopts)
-      km("n", "<leader>dI", function()
-        local enabled = l.inlay_hint.is_enabled({ bufnr = event.buf })
-        l.inlay_hint.enable(not enabled)
-        require("notify").notify(
-          string.format("Inlay hints %s globally", not enabled and "enabled" or "disabled"),
-          vim.log.levels.info,
-          ---@diagnostic disable-next-line: missing-fields
-          {
-            title = "LSP inlay hints",
-          }
-        )
-      end, { noremap = bufopts.noremap, silent = bufopts.silent })
+      km("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+      km("n", "L", vim.lsp.buf.hover, bufopts)
     end,
   })
 
+  -- on_attach definitions
+  local virtual_types_on_attach = function(client, bufnr)
+    if client.server_capabilities.textDocument then
+      if client.server_capabilities.textDocument.codeLens then
+        vt.on_attach(client, bufnr)
+      end
+    end
+  end
+  local on_attach = function(client, bufnr)
+    virtual_types_on_attach(client, bufnr)
+  end
+
   -- LSP config
+
   local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
   local vue_ft = { unpack(ts_ft) }
   table.insert(vue_ft, "vue")
@@ -213,7 +129,6 @@ local config = function()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
-      "golangci_lint_ls",
       "marksman",
       "sqlls",
       "yamlls",
@@ -298,7 +213,6 @@ local config = function()
       vimruntime = "",
     },
     lua_ls = {
-      on_attach = on_attach,
       settings = {
         Lua = {
           runtime = {
@@ -323,45 +237,6 @@ local config = function()
         on_attach(client, bufnr)
         client.server_capabilities.renameProvider = false
       end,
-    },
-    gopls = {
-      on_attach = go_on_attach,
-      settings = {
-        gopls = {
-          gofumpt = true,
-          codelenses = {
-            gc_details = false,
-            generate = true,
-            regenerate_cgo = true,
-            run_govulncheck = true,
-            test = true,
-            tidy = true,
-            upgrade_dependency = true,
-            vendor = true,
-          },
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
-          },
-          analyses = {
-            fieldalignment = true,
-            nilness = true,
-            unusedparams = true,
-            unusedwrite = true,
-            useany = true,
-          },
-          usePlaceholders = true,
-          completeUnimported = true,
-          staticcheck = true,
-          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-          semanticTokens = true,
-        },
-      },
     },
   }
 
@@ -430,20 +305,6 @@ return {
       "dmmulroy/ts-error-translator.nvim",
       config = true,
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
-    },
-    {
-      "chrisgrieser/nvim-lsp-endhints",
-      event = "LspAttach",
-      opts = {
-        icons = {
-          type = "󰋙 ",
-          parameter = " ",
-        },
-        label = {
-          padding = 1,
-          marginLeft = 0,
-        },
-      },
     },
   },
 }

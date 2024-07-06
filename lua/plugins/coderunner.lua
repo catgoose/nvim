@@ -26,10 +26,6 @@ local opts = {
       { "clear" },
       { "fish", "[#file]" },
     },
-    go = {
-      { "clear" },
-      { "go", "run", "[#file]" },
-    },
   },
   scale = 0.25,
 }
@@ -42,10 +38,7 @@ local plugin = {
     "CoderunnerVertical",
   },
   keys = {
-    m("<leader>C", function()
-      vim.g.catgoose_terminal_enable_startinsert = 0
-      vim.cmd("Coderunner")
-    end),
+    m("<leader>C", [[Coderunner]]),
   },
 }
 

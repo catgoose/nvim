@@ -35,5 +35,4 @@ return {
       vim.fn["fzf#install"]()
     end,
   },
-  enabled = true,
 }

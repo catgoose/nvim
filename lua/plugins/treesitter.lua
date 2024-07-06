@@ -15,7 +15,6 @@ local config = function()
       "gitattributes",
       "gitcommit",
       "gitignore",
-      "go",
       "html",
       "http",
       "javascript",
