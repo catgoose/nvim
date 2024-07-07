@@ -87,7 +87,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "c0cfc1738361b5da1cd0a962dd6f774cc444f856" },
   "nvim-window-picker": { "branch": "main", "commit": "5902827d0e338890a22849e2f18dc80d1cc1a8db" },
   "oil.nvim": { "branch": "master", "commit": "10fbfdd37b6904c0776c5db1a27ab47eecba335e" },
-  "persistence.nvim": { "branch": "main", "commit": "3d443bd0a7e1d9eebfa37321fc8118d8d538af13" },
+  "persistence.nvim": { "branch": "main", "commit": "2c7d3eb6b81f7179d4adf8fbc84f4105ee9e20be" },
   "persistent-breakpoints.nvim": { "branch": "main", "commit": "01e43512ef8d137f2b9e5c1c74fd35c37e787b59" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "promise-async": { "branch": "main", "commit": "28c1d5a295eb5310afa2523d4ae9aa41ec5a9de2" },

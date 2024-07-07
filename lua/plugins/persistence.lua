@@ -1,6 +1,8 @@
-local c = require("util").create_cmd
+local u = require("util")
+local c = u.create_cmd
+local augroup = u.create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 local ufo_u = require("util.ufo")
-local const = require("config.constants").const
 
 return {
   "folke/persistence.nvim",
@@ -9,12 +11,15 @@ return {
     c("PersistenceLoad", function()
       require("persistence").load()
     end)
+    local group = augroup("PersistenceEvents")
+    local patterns = { "PersistenceLoadPost", "PersistenceSavePre" }
+    for _, pattern in ipairs(patterns) do
+      autocmd({ "User" }, {
+        pattern = pattern,
+        group = group,
+        callback = ufo_u.set_opts,
+      })
+    end
   end,
-  opts = {
-    options = const.opt.sessionoptions_tbl,
-    pre_save = ufo_u.set_opts,
-    save_empty = false,
-    post_load = ufo_u.set_opts,
-  },
-  commit = "3d443bd0a7e1d9eebfa37321fc8118d8d538af13",
+  config = true,
 }
