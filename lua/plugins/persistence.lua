@@ -12,19 +12,15 @@ return {
     c("PersistenceLoad", persistence.load)
     c("PersistenceSelect", persistence.select)
     local group = augroup("PersistenceEvents")
-    autocmd({ "User" }, {
-      pattern = "PersistenceLoadPost",
-      group = group,
-      callback = ufo_u.set_opts,
-    })
-    autocmd({ "User" }, {
-      pattern = "PersistenceSavePre",
-      group = group,
-      callback = ufo_u.set_opts,
-    })
+    local patterns = { "PersistenceLoad", "PersistenceSavePre" }
+    for _, pattern in ipairs(patterns) do
+      autocmd({ "User" }, {
+        pattern = pattern,
+        group = group,
+        callback = ufo_u.set_opts,
+      })
+    end
   end,
-  opts = {
-    branch = true,
-  },
+  config = true,
   dependencies = { "stevearc/dressing.nvim" },
 }

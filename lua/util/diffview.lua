@@ -13,6 +13,9 @@ local function git_branches(config)
     table.insert(branches, branch)
   end
   handle:close()
+  if #branches == 0 then
+    return
+  end
   return config.current and branches[1] or branches
 end
 
@@ -36,6 +39,9 @@ end
 
 function M.main()
   local branches = git_branches()
+  if not branches then
+    return
+  end
   if open_if_single_branch(branches) then
     return
   end
@@ -52,6 +58,9 @@ end
 
 function M.prompt()
   local branches = git_branches()
+  if not branches then
+    return
+  end
   if open_if_single_branch(branches) then
     return
   end

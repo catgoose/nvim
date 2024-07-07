@@ -51,12 +51,6 @@ local opts = {
         action = "DiffviewMain",
       },
       {
-        icon = "",
-        desc = "DiffView prompt",
-        key = "D",
-        action = "DiffviewPrompt",
-      },
-      {
         icon = "",
         desc = "Mason",
         key = "m",
