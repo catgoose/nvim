@@ -1,6 +1,6 @@
 local M = {}
 
-local function git_branches(config)
+local function get_branches(config)
   config = config or { current = false }
   local branches = {}
   local git_cmd = config.current and "git rev-parse --abbrev-ref HEAD"
@@ -38,7 +38,7 @@ local function open_if_single_branch(branches)
 end
 
 function M.main()
-  local branches = git_branches()
+  local branches = get_branches()
   if not branches then
     return
   end
@@ -57,7 +57,7 @@ function M.main()
 end
 
 function M.prompt()
-  local branches = git_branches()
+  local branches = get_branches()
   if not branches then
     return
   end
@@ -65,7 +65,7 @@ function M.prompt()
     return
   end
   if #branches > 1 then
-    local current = git_branches({ current = true })
+    local current = get_branches({ current = true })
     branches = vim.tbl_filter(function(branch)
       return current ~= branch
     end, branches)
