@@ -46,13 +46,7 @@ local opts = {
       },
       {
         icon = "",
-        desc = "Neogit",
-        key = "g",
-        action = "Neogit",
-      },
-      {
-        icon = "",
-        desc = "DiffView main",
+        desc = "DiffView prompt",
         key = "d",
         action = "DiffviewPrompt",
       },
@@ -69,10 +63,10 @@ local opts = {
         action = "PersistenceLoad",
       },
       {
-        icon = "",
-        desc = "Oil",
-        key = "o",
-        action = "Oil",
+        icon = "",
+        desc = "Restore session",
+        key = "k",
+        action = "PersistenceSelect",
       },
       {
         icon = "",

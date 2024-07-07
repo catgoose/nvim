@@ -141,7 +141,6 @@ autocmd({ "WinLeave" }, {
   pattern = opt_file_pattern,
   callback = function()
     -- if bo.filetype ~= "nofile" then
-    vim.print("leave")
     opt_local.cursorline = false
     -- end
   end,

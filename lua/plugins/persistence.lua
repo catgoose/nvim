@@ -11,6 +11,9 @@ return {
     c("PersistenceLoad", function()
       require("persistence").load()
     end)
+    c("PersistenceSelect", function()
+      require("persistence").select()
+    end)
     local group = augroup("PersistenceEvents")
     local patterns = { "PersistenceLoadPost", "PersistenceSavePre" }
     for _, pattern in ipairs(patterns) do
@@ -22,4 +25,6 @@ return {
     end
   end,
   config = true,
+  cmd = { "PersistenceLoad", "PersistenceSelect" },
+  dependencies = { "stevearc/dressing.nvim" },
 }
