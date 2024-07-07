@@ -30,6 +30,7 @@ local snippets = {
       { i(1), i(0) }
     )
   ),
+  --  TODO: 2024-07-06 - use same node for i
   s(
     "for",
     fmt(
@@ -65,6 +66,15 @@ local snippets = {
      }}
      ]],
       i(0)
+    )
+  ),
+  s(
+    "v",
+    fmt(
+      [[
+     {} := {}
+     ]],
+      { i(1), i(0) }
     )
   ),
 }
