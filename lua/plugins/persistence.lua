@@ -8,23 +8,23 @@ return {
   "folke/persistence.nvim",
   event = "BufReadPre",
   init = function()
-    c("PersistenceLoad", function()
-      require("persistence").load()
-    end)
-    c("PersistenceSelect", function()
-      require("persistence").select()
-    end)
+    local persistence = require("persistence")
+    c("PersistenceLoad", persistence.load)
+    c("PersistenceSelect", persistence.select)
     local group = augroup("PersistenceEvents")
-    local patterns = { "PersistenceLoadPost", "PersistenceSavePre" }
-    for _, pattern in ipairs(patterns) do
-      autocmd({ "User" }, {
-        pattern = pattern,
-        group = group,
-        callback = ufo_u.set_opts,
-      })
-    end
+    autocmd({ "User" }, {
+      pattern = "PersistenceLoadPost",
+      group = group,
+      callback = ufo_u.set_opts,
+    })
+    autocmd({ "User" }, {
+      pattern = "PersistenceSavePre",
+      group = group,
+      callback = ufo_u.set_opts,
+    })
   end,
-  config = true,
-  cmd = { "PersistenceLoad", "PersistenceSelect" },
+  opts = {
+    branch = true,
+  },
   dependencies = { "stevearc/dressing.nvim" },
 }

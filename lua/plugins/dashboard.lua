@@ -46,8 +46,14 @@ local opts = {
       },
       {
         icon = "",
-        desc = "DiffView prompt",
+        desc = "DiffView main/master",
         key = "d",
+        action = "DiffviewMain",
+      },
+      {
+        icon = "",
+        desc = "DiffView prompt",
+        key = "D",
         action = "DiffviewPrompt",
       },
       {
@@ -64,8 +70,8 @@ local opts = {
       },
       {
         icon = "",
-        desc = "Restore session",
-        key = "k",
+        desc = "Select session",
+        key = "R",
         action = "PersistenceSelect",
       },
       {

@@ -212,15 +212,8 @@ function M.tab_open(c)
 end
 
 function M.testing_function()
-  local is_enabled = vim.lsp.inlay_hint.is_enabled()
-  vim.print(string.format("Inlay hints is %s", is_enabled and "enabled" or "disabled"))
-  local hints = vim.lsp.inlay_hint.get()
-  vim.print(string.format(
-    [[hints:
-  %s
-  ]],
-    vim.inspect(hints)
-  ))
+  local diffview = require("util.diffview")
+  diffview.prompt()
 end
 
 return M

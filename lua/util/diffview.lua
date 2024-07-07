@@ -1,10 +1,11 @@
 local M = {}
 
-local default_branches = { "main", "master" }
-
-local function git_branches()
+local function git_branches(config)
+  config = config or { current = false }
   local branches = {}
-  local handle = io.popen("git branch --format='%(refname:short)'")
+  local git_cmd = config.current and "git rev-parse --abbrev-ref HEAD"
+    or "git branch --format='%(refname:short)'"
+  local handle = io.popen(git_cmd)
   if not handle then
     return branches
   end
@@ -12,30 +13,53 @@ local function git_branches()
     table.insert(branches, branch)
   end
   handle:close()
-  return branches
+  return config.current and branches[1] or branches
 end
 
-local open_diff_view = function(branch)
+local function open_diff_view(branch)
   local diff = string.format("DiffviewOpen %s...HEAD", branch)
   ---@diagnostic disable-next-line: param-type-mismatch
   pcall(vim.cmd, diff)
 end
 
-function M.open()
-  local branches = git_branches()
+local function open_if_single_branch(branches)
   if not branches or #branches == 0 then
     return
   end
-
   if #branches == 1 then
-    open_diff_view(branches[1])
+    local diff = string.format("DiffviewOpen %s", branches[1])
+    ---@diagnostic disable-next-line: param-type-mismatch
+    pcall(vim.cmd, diff)
+    return true
+  end
+end
+
+function M.main()
+  local branches = git_branches()
+  if open_if_single_branch(branches) then
+    return
   end
 
+  local default_branches = { "main", "master" }
   for _, branch in ipairs(default_branches) do
     if vim.tbl_contains(branches, branch) then
       open_diff_view(branch)
       return
     end
+  end
+  M.prompt()
+end
+
+function M.prompt()
+  local branches = git_branches()
+  if open_if_single_branch(branches) then
+    return
+  end
+  if #branches > 1 then
+    local current = git_branches({ current = true })
+    branches = vim.tbl_filter(function(branch)
+      return current ~= branch
+    end, branches)
   end
 
   vim.ui.select(branches, {
