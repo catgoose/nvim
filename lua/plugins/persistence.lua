@@ -1,5 +1,6 @@
 local u = require("util")
 local c = u.create_cmd
+local m = u.lazy_map
 local augroup = u.create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local ufo_u = require("util.ufo")
@@ -7,6 +8,7 @@ local ufo_u = require("util.ufo")
 return {
   "folke/persistence.nvim",
   event = "BufReadPre",
+  config = true,
   init = function()
     local persistence = require("persistence")
     c("PersistenceLoad", persistence.load)
@@ -21,6 +23,9 @@ return {
       })
     end
   end,
-  config = true,
+  keys = {
+    m("<leader>pl", [[lua require('persistence').load()]]),
+    m("<leader>ps", [[lua require('persistence').select()]]),
+  },
   dependencies = { "stevearc/dressing.nvim" },
 }
