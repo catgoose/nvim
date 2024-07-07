@@ -39,6 +39,12 @@ local opts = {
         action = "Lazy sync",
       },
       {
+        icon = "",
+        desc = "Mason",
+        key = "m",
+        action = "Mason",
+      },
+      {
         icon = "",
         desc = "Find files",
         key = "f",
@@ -51,10 +57,10 @@ local opts = {
         action = "DiffviewMain",
       },
       {
-        icon = "",
-        desc = "Mason",
-        key = "m",
-        action = "Mason",
+        icon = "",
+        desc = "DiffView prompt",
+        key = "D",
+        action = "DiffviewPrompt",
       },
       {
         icon = "",
