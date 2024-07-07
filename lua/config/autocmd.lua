@@ -16,6 +16,7 @@ local opt_file_pattern = {
   "*.sh",
   "*.ts",
   "*.vue",
+  "*.go",
   "Dockerfile",
   "docker-compose.yaml",
 }
@@ -24,6 +25,7 @@ local cursorline_disable_ft = {
   "dashboard",
   "lazy",
   "mason",
+  "coderunner",
 }
 
 local all_filetypes = augroup("AllFileTypesLocalOptions")
@@ -129,18 +131,19 @@ autocmd({ "WinEnter", "BufWinEnter" }, {
   group = cursor_line,
   pattern = opt_file_pattern,
   callback = function()
-    if bo.filetype ~= "nofile" then
-      opt_local.cursorline = true
-    end
+    -- if bo.filetype ~= "nofile" then
+    opt_local.cursorline = true
+    -- end
   end,
 })
 autocmd({ "WinLeave" }, {
   group = cursor_line,
   pattern = opt_file_pattern,
   callback = function()
-    if bo.filetype ~= "nofile" then
-      opt_local.cursorline = false
-    end
+    -- if bo.filetype ~= "nofile" then
+    vim.print("leave")
+    opt_local.cursorline = false
+    -- end
   end,
 })
 autocmd({ "FileType" }, {
