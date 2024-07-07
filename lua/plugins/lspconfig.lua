@@ -77,7 +77,7 @@ local config = function()
         .iter(result)
         :filter(function(hint)
           -- return math.abs(hint.position.line - row) <= 5
-          return hint.position.line + 1 == row
+          return hint.position.line + 1 == row and vim.api.nvim_get_mode().mode == "i"
         end)
         :totable()
     end
@@ -88,7 +88,6 @@ local config = function()
     local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       group = inlay_hints_group,
-      desc = "Update inlay hints on line change",
       buffer = bufnr,
       callback = function()
         l.inlay_hint.enable(true, { bufnr = bufnr })
