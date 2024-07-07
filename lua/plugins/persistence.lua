@@ -13,6 +13,7 @@ return {
     local persistence = require("persistence")
     c("PersistenceLoad", persistence.load)
     c("PersistenceSelect", persistence.select)
+    c("PersistenceStop", persistence.stop)
     local group = augroup("PersistenceEvents")
     local patterns = { "PersistenceLoad", "PersistenceSavePre" }
     for _, pattern in ipairs(patterns) do
@@ -26,6 +27,7 @@ return {
   keys = {
     m("<leader>pl", [[lua require('persistence').load()]]),
     m("<leader>ps", [[lua require('persistence').select()]]),
+    m("<leader>pS", [[lua require('persistence').stop()]]),
   },
   dependencies = { "stevearc/dressing.nvim" },
 }
