@@ -90,6 +90,49 @@ local snippets = {
       { i(1), i(2), i(0) }
     )
   ),
+  s(
+    "func",
+    c(1, {
+      fmta(
+        [[
+func <>() {
+  <>
+}
+    ]],
+        { r(1, "func_name"), i(2) }
+      ),
+      fmta(
+        [[
+func (<>) <>() {
+  <>
+}
+    ]],
+        { i(1), r(2, "func_name"), i(3) }
+      ),
+    })
+  ),
+  s(
+    "inter",
+    fmta(
+      [[
+type <> interface {
+  <>
+}
+     ]],
+      { i(1), i(0) }
+    )
+  ),
+  s(
+    "struct",
+    fmta(
+      [[
+type <> struct {
+  <>
+}
+     ]],
+      { i(1), i(2) }
+    )
+  ),
 }
 
 return snippets
