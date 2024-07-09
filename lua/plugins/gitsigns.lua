@@ -28,9 +28,6 @@ local opts = {
   },
   current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
   sign_priority = 1,
-  -- on_attach = function()
-  --   vim.cmd("redrawstatus")
-  -- end,
 }
 
 return {
