@@ -35,7 +35,7 @@ return {
   opts = opts,
   event = "BufReadPre",
   keys = {
-    m("]h", "Gitsigns nav_hunk next"),
-    m("[h", "Gitsigns nav_hunk prev"),
+    m("]h", "Gitsigns nav_hunk prev"),
+    m("[h", "Gitsigns nav_hunk next"),
   },
 }
