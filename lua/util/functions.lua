@@ -184,6 +184,7 @@ function M.diagnostics_jump(config)
   config = config or {}
   config.count = config.count or 1
   config.float = config.float or false
+  config.severity = config.severity or vim.diagnostic.severity.HINT
   if config.count == 0 then
     return
   end
@@ -199,8 +200,11 @@ function M.diagnostics_jump(config)
       float = config.float,
     })
   else
-    if config.severity < vim.diagnostic.severity.HINT then
-      config.severity = config.severity + 1
+    if
+      config.severity >= vim.diagnostic.severity.ERROR
+      and config.severity < vim.diagnostic.severity.HINT
+    then
+      config.severity = config.severity - 1
       M.diagnostics_jump(config)
     end
   end
