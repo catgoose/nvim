@@ -7,9 +7,6 @@ local opts = {
       background = palette.sumiInk0,
       text = palette.sumiInk0,
     },
-    -- wo = {
-    --   winbar = "",
-    -- },
   },
 }
 

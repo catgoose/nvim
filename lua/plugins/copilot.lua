@@ -20,13 +20,10 @@ local opts = {
     auto_trigger = false,
     debounce = 75,
     keymap = {
-      -- accept = "<S-Tab>",
       accept = "<Tab>",
-      -- accept_line = "<M-o>",
       accept_line = "<S-Tab>",
       next = "<M-]>",
       prev = "<M-[>",
-      -- dismiss = "<C-]>",
       dismiss = "<M-o>",
     },
   },
