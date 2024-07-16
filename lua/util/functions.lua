@@ -184,13 +184,14 @@ end
 --  in.  The severity should be optional and use a Error first strategy.
 --  TODO: 2024-07-15 - Should there be an optional strategy for locality?
 function M.diagnostics_jump(config)
+  local sev = vim.diagnostic.severity
   config = config or {}
   config.count = config.count or 1
-  config.float = config.float or false
-  config.severity = config.severity or vim.diagnostic.severity.HINT
   if config.count == 0 then
     return
   end
+  config.float = config.float or false
+  config.severity = config.severity or sev.ERROR
   local get = config.count > 1 and vim.diagnostic.get_next or vim.diagnostic.get_prev
   local diag = get({
     count = config.count,
@@ -203,13 +204,7 @@ function M.diagnostics_jump(config)
       float = config.float,
     })
   else
-    if
-      config.severity >= vim.diagnostic.severity.ERROR
-      and config.severity < vim.diagnostic.severity.HINT
-    then
-      config.severity = config.severity - 1
-      M.diagnostics_jump(config)
-    end
+    config.severity = (config.severity + 1) % 4
   end
 end
 

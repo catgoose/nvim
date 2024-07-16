@@ -134,26 +134,28 @@ c("DiagnosticsJumpPrev", function()
   f.diagnostics_jump({
     count = -1,
     float = true,
+    severity = d.severity.HINT,
   })
 end)
 c("DiagnosticsJumpNext", function()
   f.diagnostics_jump({
     count = 1,
     float = true,
+    severity = d.severity.HINT,
   })
 end)
 c("DiagnosticsErrorJumpPrev", function()
   f.diagnostics_jump({
     count = -1,
-    severity = d.severity.ERROR,
     float = true,
+    severity = d.severity.ERROR,
   })
 end)
 c("DiagnosticsErrorJumpNext", function()
   f.diagnostics_jump({
     count = 1,
-    severity = d.severity.ERROR,
     float = true,
+    severity = d.severity.ERROR,
   })
 end)
 c("QuickFixClear", function()
