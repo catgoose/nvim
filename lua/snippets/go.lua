@@ -133,6 +133,15 @@ type <> struct {
       { i(1), i(2) }
     )
   ),
+  s(
+    "map",
+    fmt(
+      [[
+map[{}]{}
+     ]],
+      { i(1, "string"), i(2, "string") }
+    )
+  ),
 }
 
 return snippets

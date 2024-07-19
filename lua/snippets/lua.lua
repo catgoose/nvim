@@ -53,8 +53,6 @@ return snippets
   s("kan", t([[local colors = require("kanagawa.colors").setup()]])),
   s("kanagawa", t([[local colors = require("kanagawa.colors").setup()]])),
   s("colors", t([[local colors = require("kanagawa.colors").setup()]])),
-  s("p", fmt([[print({})]], i(1))),
-  s("P", fmt([[P({})]], i(1))),
   s(
     "module",
     fmta(

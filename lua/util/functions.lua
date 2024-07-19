@@ -180,9 +180,6 @@ function M.tabnavigate(cfg)
   nav()
 end
 
---  TODO: 2024-07-15 - warn level is not being jumped to with no severity passed
---  in.  The severity should be optional and use a Error first strategy.
---  TODO: 2024-07-15 - Should there be an optional strategy for locality?
 function M.diagnostics_jump(config)
   local sev = vim.diagnostic.severity
   config = config or {}
@@ -205,6 +202,7 @@ function M.diagnostics_jump(config)
     })
   else
     config.severity = (config.severity + 1) % 4
+    M.diagnostics_jump(config)
   end
 end
 

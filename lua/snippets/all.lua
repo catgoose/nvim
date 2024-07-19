@@ -28,6 +28,8 @@ local todos = {
   "refc",
   "question",
 }
+--  TODO: 2024-07-17 - Create a dynamic node to insert initials if a requirement
+--  is met like being in a certain git repo
 for _, todo in ipairs(todos) do
   table.insert(
     snippets,
