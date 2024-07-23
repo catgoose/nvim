@@ -3,14 +3,14 @@
 **fuckForticlient** is a command-line utility to connect to SAML fortivpn servers by using **openfortivpn** and the --cookie-in-stdin parameter.
 This repo was formerly a [Github gist](https://gist.github.com/nonamed01).
 
-# Why?
+## Why?
 
 Well, because the official Forticlient for GNU/Linux is total crap! \
 When I wrote this script, the main idea was to solve a problem that I though temporary... and, well, one year in and the official Forticlient GNU/Linux client is still total crap... so, heck, it looks like we'll be using this for quite a long time...
 
-# Usage
+## Usage
 
-```
+```bash
    ___         __    ____         __  _     ___          __         
   / _/_ ______/ /__ / __/__  ____/ /_(_)___/ (_)__ ___  / /_        
  / _/ // / __/  '_// _// _ \/ __/ __/ / __/ / / -_) _ \/ __/        
@@ -56,15 +56,23 @@ Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
 
 ```
 
-# Alias
+## Dependencies
+
+ * [openfortivpn](https://github.com/adrienverge/openfortivpn)
+ * Mozilla Firefox
+ * [jq](https://github.com/jqlang/jq) - ```sudo apt install jq``` on Debian/Ubuntu and derivatives
+ * [lz4jsoncat](https://github.com/andikleen/lz4json) - ```sudo apt install lz4json``` on Debian/Ubuntu and derivatives
+
+
+## Alias
 If you do not want to re-type every single time the command to connect to your FortiVPN provider, you can add this alias to your ~.bashrc file:
 
-```
+```bash
     alias vpn='FUCKFORTICLIENT_OPTS="--no-dns" fuckForticlient.sh -S VPN_SERVER -c'
 ```
 
 After re-loading your ~.bashrc, you can connect to the vpn by simply running:
 
-```
+```bash
     vpn
 ```
