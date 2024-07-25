@@ -2,6 +2,7 @@
 
 **fuckForticlient** is a command-line utility to connect to SAML fortivpn servers by using **openfortivpn** and the --cookie-in-stdin parameter.
 This repo was formerly a [Github gist](https://gist.github.com/nonamed01).
+This script has been written for and tested on Debian GNU/Linux distros and derivatives. With minor changes, it may also work on RPM-based distros such as Fedora, etc.
 
 ## Why?
 
