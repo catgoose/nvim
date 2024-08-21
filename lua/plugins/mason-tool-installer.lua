@@ -5,6 +5,7 @@ local opts = {
     "impl",
     "js-debug-adapter",
     "go-debug-adapter",
+    "gomodifytags",
   },
 }
 
