@@ -62,6 +62,7 @@ return {
   opts = {
     html = html,
     vue = html,
+    angular = html,
   },
   keys = {
     m("<leader>i", [[lua require("ts-node-action").node_action()]]),
