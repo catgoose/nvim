@@ -6,6 +6,8 @@ local opts = {
     "js-debug-adapter",
     "go-debug-adapter",
     "gomodifytags",
+    "iferr",
+    "gotests",
   },
 }
 
