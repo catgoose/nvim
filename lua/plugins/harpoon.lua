@@ -18,12 +18,12 @@ return {
       local harpoon = require("harpoon")
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { "n", "x" }),
-    m("]]", function()
+    m("<leader>,", function()
       require("harpoon"):list():next({
         ui_nav_wrap = true,
       })
     end, { "n", "x" }),
-    m("[[", function()
+    m("<leader>.", function()
       require("harpoon"):list():prev({
         ui_nav_wrap = true,
       })
