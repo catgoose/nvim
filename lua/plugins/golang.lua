@@ -37,4 +37,16 @@ return {
     -- end,
     config = true,
   },
+  {
+    "jack-rabe/impl.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = {
+      layout_strategy = "vertical",
+      layout_config = {
+        width = 0.5,
+      },
+    },
+  },
 }
