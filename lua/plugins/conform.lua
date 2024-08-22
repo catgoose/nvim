@@ -5,6 +5,7 @@ local opts = {
   formatters_by_ft = {
     css = { "prettierd" },
     html = { "prettierd" },
+    htmlangular = { "prettierd" },
     javascript = { "prettierd" },
     json = { "prettierd" },
     jsonc = { "prettierd" },
