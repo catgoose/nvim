@@ -201,7 +201,10 @@ function M.diagnostics_jump(config)
       float = config.float,
     })
   else
-    config.severity = (config.severity + 1) % 4
+    if config.severity == sev.HINT then
+      return
+    end
+    config.severity = config.severity + 1
     M.diagnostics_jump(config)
   end
 end
