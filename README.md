@@ -10,16 +10,16 @@ Neovim config for Typescript, Lua plugin development, always WIP
 
 - [catgoose neovim](#catgoose-neovim)
   - [About](#about)
-  - [Current WIP](#current-wip)
   - [Screenshot](#screenshot)
     - [Heirline](#heirline)
     - [Wilder](#wilder)
       - [Search](#search)
       - [Command](#command)
-    - [Help grep](#help-grep)
-      - [ui.prompt](#uiprompt)
       - [Results in quickfix](#results-in-quickfix)
     - [Hover handler](#hover-handler)
+  - [Extra](#extra)
+    - [Neovim](#neovim)
+    - [Tmux](#tmux)
   - [Todo](#todo)
   <!--toc:end-->
 
