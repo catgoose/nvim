@@ -30,6 +30,10 @@ local opts = {
       { "clear" },
       { "go", "run", "[#file]" },
     },
+    sh = {
+      { "clear" },
+      { "[#file]" },
+    },
   },
   scale = 0.25,
 }
