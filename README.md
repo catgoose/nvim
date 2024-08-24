@@ -30,9 +30,6 @@ Neovim config for Typescript, Lua plugin development, always WIP
 I have curated this neovim config for about two years now. I use it for
 Angular, NestJS, and now Vue.
 
-If you have any questions about how something works, don't hesitate to open
-an issue or send me a message!
-
 ## Screenshot
 
 ### Heirline
