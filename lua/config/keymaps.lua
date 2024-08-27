@@ -38,6 +38,7 @@ m("<leader>tt", "TermOpenTab")
 m("<leader>tj", "TermOpenBottom")
 m("<leader>ts", "TermOpenBottomVert")
 m("<leader>tl", "TermOpenRight")
+m("<leader>tL", "TermOpenRightScaled")
 m("<leader>tq", "tabclose")
 m("<leader>tp", "InspectTree")
 

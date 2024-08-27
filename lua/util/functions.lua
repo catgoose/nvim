@@ -209,9 +209,16 @@ function M.diagnostics_jump(config)
   end
 end
 
-function M.tab_open(c)
+function M.term_open(c)
   vim.g.catgoose_terminal_enable_startinsert = 1
-  cmd(c)
+  if type(c) == "string" then
+    cmd(c)
+  end
+  if type(c) == "table" then
+    for _, v in ipairs(c) do
+      cmd(v)
+    end
+  end
 end
 
 function M.testing_function()
