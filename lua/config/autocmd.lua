@@ -26,6 +26,7 @@ local cursorline_disable_ft = {
   "lazy",
   "mason",
   "coderunner",
+  "terminal",
 }
 
 local all_filetypes = augroup("AllFileTypesLocalOptions")
@@ -115,6 +116,15 @@ autocmd({ "TermOpen" }, {
     end
   end,
 })
+autocmd({ "WinEnter" }, {
+  group = terminal,
+  pattern = { "*" },
+  callback = function()
+    if bo.filetype == "terminal" and vim.g.catgoose_terminal_enable_startinsert then
+      cmd.startinsert()
+    end
+  end,
+})
 
 -- Buffer
 local buffer = augroup("BufferDetectChanges")
@@ -130,19 +140,19 @@ local cursor_line = augroup("LocalCursorLine")
 autocmd({ "WinEnter", "BufWinEnter" }, {
   group = cursor_line,
   pattern = opt_file_pattern,
-  callback = function()
-    -- if bo.filetype ~= "nofile" then
-    opt_local.cursorline = true
-    -- end
+  callback = function(event)
+    if not vim.tbl_contains(cursorline_disable_ft, event.match) then
+      opt_local.cursorline = true
+    else
+      opt_local.cursorline = false
+    end
   end,
 })
 autocmd({ "WinLeave" }, {
   group = cursor_line,
   pattern = opt_file_pattern,
   callback = function()
-    -- if bo.filetype ~= "nofile" then
     opt_local.cursorline = false
-    -- end
   end,
 })
 autocmd({ "FileType" }, {
