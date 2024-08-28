@@ -329,6 +329,11 @@ local config = function()
       on_attach = go_on_attach,
       settings = {
         gopls = {
+          completeUnimported = true,
+          usePlaceholders = true,
+          staticcheck = true,
+          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+          semanticTokens = true,
           gofumpt = true,
           codelenses = {
             gc_details = false,
@@ -356,11 +361,6 @@ local config = function()
             unusedwrite = true,
             useany = true,
           },
-          usePlaceholders = true,
-          completeUnimported = true,
-          staticcheck = true,
-          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-          semanticTokens = true,
         },
       },
     },
