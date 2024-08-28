@@ -32,10 +32,11 @@ return {
   },
   {
     "Jay-Madden/auto-fix-return.nvim",
-    -- config = function()
-    --   require("auto-fix-return").setup({})
-    -- end,
-    config = true,
+    config = function()
+      require("auto-fix-return").setup({})
+    end,
+    lazy = false,
+    -- config = true,
   },
   {
     "jack-rabe/impl.nvim",
