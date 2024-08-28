@@ -8,6 +8,7 @@ local opts = {
     "gomodifytags",
     "iferr",
     "gotests",
+    "codespell",
   },
 }
 
