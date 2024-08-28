@@ -32,4 +32,7 @@ return {
     "folke/neoconf.nvim",
     lazy = true,
   },
+  -- {
+  --   "rest-nvim/rest.nvim",
+  -- },
 }
