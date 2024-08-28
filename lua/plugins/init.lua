@@ -32,7 +32,8 @@ return {
     "folke/neoconf.nvim",
     lazy = true,
   },
-  -- {
-  --   "rest-nvim/rest.nvim",
-  -- },
+  {
+    "rest-nvim/rest.nvim",
+    dependencies = "nvim-neorocks/rocks.nvim",
+  },
 }
