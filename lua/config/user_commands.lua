@@ -167,13 +167,19 @@ end)
 c("TermOpenBottom", function()
   f.term_open("botright term")
 end)
+c("TermOpenBottomResized", function()
+  f.term_open({
+    "botright term",
+    "botright resize 15%",
+  })
+end)
 c("TermOpenBottomVert", function()
   f.term_open("horizontal term")
 end)
 c("TermOpenRight", function()
   f.term_open("vertical term")
 end)
-c("TermOpenRightScaled", function()
+c("TermOpenRightResized", function()
   f.term_open({
     "vertical term",
     "vertical resize 50%",
