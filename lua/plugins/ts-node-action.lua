@@ -57,12 +57,26 @@ local html = {
   end,
 }
 
+local templ = {
+  ["tag_start"] = function(tsnode)
+    local child = tsnode:named_child()
+    if not child then
+      return
+    end
+    return t.vue.tag_name(child)
+  end,
+  ["element_identifier"] = function(tsnode)
+    return t.vue.tag_name(tsnode)
+  end,
+}
+
 return {
   "CKolkey/ts-node-action",
   opts = {
     html = html,
     vue = html,
     angular = html,
+    templ = templ,
   },
   keys = {
     m("<leader>i", [[lua require("ts-node-action").node_action()]]),
