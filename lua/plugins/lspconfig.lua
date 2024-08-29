@@ -217,6 +217,7 @@ local config = function()
       "golangci_lint_ls",
       "marksman",
       "sqlls",
+      "templ",
       "yamlls",
     },
     tailwindcss = {
