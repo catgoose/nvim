@@ -1,12 +1,10 @@
 local keys = require("util.project").get_keys("twvalues")
 
-local ft = { "vue", "html" }
+local ft = { "vue", "html", "templ" }
 
 return {
   {
     "MaximilianLloyd/tw-values.nvim",
-    -- dir = "~/git/tw-values.nvim",
-    -- "catgoose/tw-values.nvim",
     opts = {
       focus_preview = true,
     },
