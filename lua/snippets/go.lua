@@ -15,7 +15,19 @@ local smn = u.same_node
 
 local snippets = {
   s(
-    "pr",
+    "prf",
+    fmt(
+      [[
+		fmt.Printf({}, {})
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
+    "prl",
     fmt(
       [[
 		fmt.Println({})
@@ -24,12 +36,45 @@ local snippets = {
     )
   ),
   s(
-    "pf",
+    "fpf",
     fmt(
       [[
-		fmt.Printf("{}", {})
+		fmt.Fprintf({}, {})
     ]],
-      { i(1), i(0) }
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
+    "fpl",
+    fmt(
+      [[
+		fmt.Fprintln({})
+    ]],
+      i(1)
+    )
+  ),
+  s(
+    "spf",
+    fmt(
+      [[
+		fmt.Sprintf({}, {})
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
+    "spl",
+    fmt(
+      [[
+		fmt.Sprintln({})
+    ]],
+      i(1)
     )
   ),
   --  TODO: 2024-07-06 - use same node for i
