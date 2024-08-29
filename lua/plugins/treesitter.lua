@@ -36,6 +36,7 @@ local config = function()
       "sql",
       "toml",
       "typescript",
+      "templ",
       "vim",
       "vimdoc",
       "vue",
