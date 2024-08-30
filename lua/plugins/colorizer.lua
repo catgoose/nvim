@@ -59,6 +59,9 @@ local opts = {
       names = false,
       RGB = false,
     },
+    go = {
+      names = false,
+    },
   },
   user_default_options = {
     RGB = true,
