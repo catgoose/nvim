@@ -65,6 +65,13 @@ local templ = {
     end
     return t.vue.tag_name(child)
   end,
+  ["attribute_name"] = function(tsnode)
+    local sibling = tsnode:next_named_sibling()
+    if not sibling then
+      return
+    end
+    return t.vue.attribute_name(tsnode)
+  end,
   ["element_identifier"] = function(tsnode)
     return t.vue.tag_name(tsnode)
   end,
