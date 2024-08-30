@@ -39,6 +39,7 @@ local opts = {
     lua = true,
     oil = false,
     typescript = true,
+    go = true,
     ["dap-repl"] = false,
     sh = function()
       ---@diagnostic disable-next-line: param-type-mismatch
