@@ -7,7 +7,6 @@ local source_mapping = {
   path = "[PATH]",
   treesitter = "[TREE]",
   ["vim-dadbod-completion"] = "[DB]",
-  codeium = "[CODE]",
   dap = "[DAP]",
 }
 
@@ -80,14 +79,6 @@ local config = function()
       {
         name = "nvim_lsp",
         group_index = 2,
-      },
-      {
-        name = "codeium",
-        group_index = 2,
-        option = { use_show_condition = true },
-        entry_filter = function()
-          return not vim.g.leetcode
-        end,
       },
       {
         name = "nvim_lua",
@@ -172,7 +163,6 @@ return {
       "ray-x/cmp-treesitter",
       "saadparwaiz1/cmp_luasnip",
       "roobert/tailwindcss-colorizer-cmp.nvim",
-      "Exafunction/codeium.nvim",
       {
         "rcarriga/cmp-dap",
         dependencies = "mfussenegger/nvim-dap",

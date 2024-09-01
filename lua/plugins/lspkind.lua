@@ -29,7 +29,6 @@ local config = function()
       Operator = "",
       TypeParameter = "",
       Copilot = "",
-      Codeium = "",
     },
   })
 end

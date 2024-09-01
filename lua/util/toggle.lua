@@ -3,8 +3,8 @@ local utils = require("util.utils")
 local M = {}
 
 function M.toggleterm_opts(added_opts)
-  local scale = 0.85
-  local scale = utils.screen_scale({ width = scale, height = scale })
+  local ratio = 0.85
+  local scale = utils.screen_scale({ width = ratio, height = ratio })
   local toggleterm_opts = {
     auto_scroll = true,
     direction = "float",
