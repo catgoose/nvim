@@ -75,6 +75,13 @@ local templ = {
   ["element_identifier"] = function(tsnode)
     return t.vue.tag_name(tsnode)
   end,
+  ["self_closing_tag"] = function(tsnode)
+    local child = tsnode:named_child()
+    if not child then
+      return
+    end
+    return t.vue.tag_name(child)
+  end,
 }
 
 return {

@@ -116,16 +116,6 @@ local snippets = {
     )
   ),
   s(
-    "v",
-    fmt(
-      [[
-     {} := {}
-     {}
-     ]],
-      { i(1), i(2), i(0) }
-    )
-  ),
-  s(
     "ok",
     fmt(
       [[
@@ -185,6 +175,18 @@ type <> struct {
 map[{}]{}
      ]],
       { i(1, "string"), i(2, "string") }
+    )
+  ),
+  s(
+    "errfatal",
+    fmta(
+      [[
+	if err != nil {
+		log.Fatal(err)
+    <>
+	}
+   ]],
+      i(0)
     )
   ),
 }
