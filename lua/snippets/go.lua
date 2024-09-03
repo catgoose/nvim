@@ -18,11 +18,13 @@ local snippets = {
     "prf",
     fmt(
       [[
-		fmt.Printf({}, {})
+fmt.Printf({}, {})
+{}
     ]],
       {
         i(1),
         i(2),
+        i(0),
       }
     )
   ),
@@ -30,20 +32,26 @@ local snippets = {
     "prl",
     fmt(
       [[
-		fmt.Println({})
+fmt.Println({})
+{}
     ]],
-      i(1)
+      {
+        i(1),
+        i(0),
+      }
     )
   ),
   s(
     "fpf",
     fmt(
       [[
-		fmt.Fprintf({}, {})
+fmt.Fprintf({}, {})
+{}
     ]],
       {
         i(1),
         i(2),
+        i(0),
       }
     )
   ),
@@ -51,20 +59,26 @@ local snippets = {
     "fpl",
     fmt(
       [[
-		fmt.Fprintln({})
+fmt.Fprintln({})
+{}
     ]],
-      i(1)
+      {
+        i(1),
+        i(0),
+      }
     )
   ),
   s(
     "spf",
     fmt(
       [[
-		fmt.Sprintf({}, {})
+fmt.Sprintf({}, {})
+{}
     ]],
       {
         i(1),
         i(2),
+        i(0),
       }
     )
   ),
@@ -72,9 +86,13 @@ local snippets = {
     "spl",
     fmt(
       [[
-		fmt.Sprintln({})
+fmt.Sprintln({})
+{}
     ]],
-      i(1)
+      {
+        i(1),
+        i(0),
+      }
     )
   ),
   --  TODO: 2024-07-06 - use same node for i
@@ -87,6 +105,22 @@ local snippets = {
   }}
      ]],
       { i(1), i(2), smn(1), i(3), smn(1), i(0) }
+    )
+  ),
+  s(
+    "range",
+    fmta(
+      [[
+  for <>, <> := range <> {
+    <>
+  }
+  ]],
+      {
+        i(1, "_"),
+        i(2, "_"),
+        i(3),
+        i(4),
+      }
     )
   ),
   s(
@@ -178,16 +212,25 @@ map[{}]{}
     )
   ),
   s(
-    "errfatal",
-    fmta(
-      [[
+    "iferr",
+    c(1, {
+      fmta(
+        [[
 	if err != nil {
-		log.Fatal(err)
     <>
 	}
    ]],
-      i(0)
-    )
+        i(0)
+      ),
+      fmta(
+        [[
+	if err == nil {
+    <>
+	}
+   ]],
+        i(0)
+      ),
+    })
   ),
 }
 
