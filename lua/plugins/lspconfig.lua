@@ -219,6 +219,7 @@ local config = function()
       "sqlls",
       "templ",
       "yamlls",
+      "htmx",
     },
     tailwindcss = {
       root_dir = function(fname)
