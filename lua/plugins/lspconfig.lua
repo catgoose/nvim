@@ -219,13 +219,26 @@ local config = function()
       "sqlls",
       "templ",
       "yamlls",
-      "htmx",
     },
     tailwindcss = {
       root_dir = function(fname)
         local root_pattern = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts")
         return root_pattern(fname)
       end,
+      filetypes = {
+        "templ",
+        "astro",
+        "javascript",
+        "typescript",
+        "react",
+      },
+      settings = {
+        tailwindCSS = {
+          includeLanguages = {
+            templ = "html",
+          },
+        },
+      },
     },
     csharp_ls = {
       capabilities = snippet_capabilities,
@@ -247,7 +260,10 @@ local config = function()
     },
     html = {
       capabilities = snippet_capabilities,
-      filetypes = { "html", "vue" },
+      filetypes = { "html", "vue", "templ" },
+    },
+    htmx = {
+      filetypes = { "html", "templ" },
     },
     cssmodules_ls = {
       filetypes = vue_ft,
