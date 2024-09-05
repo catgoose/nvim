@@ -96,7 +96,7 @@ local function get_first_sibling(tsnode)
   end
 end
 
-M.vue = {
+M.html = {
   attribute_name = function(tsnode)
     local sibling = tsnode:next_named_sibling()
     if not sibling then

@@ -8,34 +8,34 @@ local html = {
     if not child then
       return
     end
-    return t.vue.tag_name(child)
+    return t.html.tag_name(child)
   end,
   ["self_closing_tag"] = function(tsnode)
     local child = tsnode:named_child()
     if not child then
       return
     end
-    return t.vue.tag_name(child)
+    return t.html.tag_name(child)
   end,
   ["tag_name"] = function(tsnode)
-    return t.vue.tag_name(tsnode)
+    return t.html.tag_name(tsnode)
   end,
   ["attribute_name"] = function(tsnode)
     local sibling = tsnode:next_named_sibling()
     if not sibling then
       return
     end
-    return t.vue.attribute_name(tsnode)
+    return t.html.attribute_name(tsnode)
   end,
   ["directive_name"] = function(tsnode)
     local parent = tsnode:parent()
     if not parent then
       return
     end
-    return t.vue.handle_attribute(parent)
+    return t.html.handle_attribute(parent)
   end,
   ["directive_attribute"] = function(tsnode)
-    return t.vue.handle_attribute(tsnode)
+    return t.html.handle_attribute(tsnode)
   end,
   ["attribute_value"] = function(tsnode)
     local parent = tsnode:parent()
@@ -46,14 +46,14 @@ local html = {
     if not sibling then
       return
     end
-    return t.vue.attribute_name(sibling)
+    return t.html.attribute_name(sibling)
   end,
   ["quoted_attribute_value"] = function(tsnode)
     local sibling = tsnode:prev_named_sibling()
     if not sibling then
       return
     end
-    return t.vue.attribute_name(sibling)
+    return t.html.attribute_name(sibling)
   end,
 }
 
@@ -63,24 +63,27 @@ local templ = {
     if not child then
       return
     end
-    return t.vue.tag_name(child)
+    return t.html.tag_name(child)
   end,
   ["attribute_name"] = function(tsnode)
     local sibling = tsnode:next_named_sibling()
     if not sibling then
       return
     end
-    return t.vue.attribute_name(tsnode)
+    return t.html.attribute_name(tsnode)
   end,
   ["element_identifier"] = function(tsnode)
-    return t.vue.tag_name(tsnode)
+    return t.html.tag_name(tsnode)
+  end,
+  ["attribute"] = function(tsnode)
+    return t.html.handle_attribute(tsnode)
   end,
   ["self_closing_tag"] = function(tsnode)
     local child = tsnode:named_child()
     if not child then
       return
     end
-    return t.vue.tag_name(child)
+    return t.html.tag_name(child)
   end,
 }
 
