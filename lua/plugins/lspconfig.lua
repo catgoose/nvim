@@ -260,7 +260,7 @@ local config = function()
     },
     html = {
       capabilities = snippet_capabilities,
-      filetypes = { "html", "vue", "templ" },
+      filetypes = { "html", "vue" },
     },
     htmx = {
       filetypes = { "html", "templ" },

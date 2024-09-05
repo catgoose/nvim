@@ -14,16 +14,17 @@ local u = require("util.luasnip")
 local smn = u.same_node
 
 local snippets = {
-  s("scr", {
+  s(
+    "scr",
     fmt(
       [[
-    <script>
-      {}
-    </script>
-    ]],
+<script> 
+  {}
+</script>
+  ]],
       i(0)
-    ),
-  }),
+    )
+  ),
   s(
     "hxlog",
     fmt(
