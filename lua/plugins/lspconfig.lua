@@ -219,6 +219,7 @@ local config = function()
       "sqlls",
       "templ",
       "yamlls",
+      "azure_pipelines_ls",
     },
     tailwindcss = {
       root_dir = function(fname)
