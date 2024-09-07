@@ -37,6 +37,26 @@ local snippets = {
       i(0)
     )
   ),
+  s(
+    "eventlisten",
+    fmta(
+      [[
+   document.body.addEventListener('<>', function (<>) {
+     <>
+     }) 
+     ]],
+      { i(1), i(2), i(0) }
+    )
+  ),
+  s(
+    "cl",
+    fmt(
+      [[
+     console.log({})
+     ]],
+      i(0)
+    )
+  ),
 }
 
 return snippets
