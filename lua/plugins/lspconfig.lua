@@ -129,7 +129,35 @@ local config = function()
         range = true,
       }
     end
+
     on_attach(client, bufnr)
+  end
+
+  local function go_goto_def()
+    local old = vim.lsp.buf.definition
+    local opts = {
+      on_list = function(options)
+        if options == nil or options.items == nil or #options.items == 0 then
+          return
+        end
+        local targetFile = options.items[1].filename
+        local prefix = string.match(targetFile, "(.-)_templ%.go$")
+        if prefix then
+          local function_name = vim.fn.expand("<cword>")
+          options.items[1].filename = prefix .. ".templ"
+          vim.fn.setqflist({}, " ", options)
+          vim.api.nvim_command("cfirst")
+          vim.api.nvim_command("silent! /templ " .. function_name)
+        else
+          old()
+        end
+      end,
+    }
+    l.buf.definition = function(o)
+      o = o or {}
+      o = vim.tbl_extend("keep", o, opts)
+      old(o)
+    end
   end
 
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -151,6 +179,9 @@ local config = function()
       km("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
       km("n", "gD", l.buf.declaration, bufopts)
       if not require("neoconf").get("lsp.keys.goto_definition.disable") then
+        if vim.bo.filetype == "go" then
+          go_goto_def()
+        end
         km("n", "gd", l.buf.definition, bufopts)
       end
       km("n", "gi", l.buf.implementation, bufopts)
