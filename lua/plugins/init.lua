@@ -36,4 +36,9 @@ return {
     "rest-nvim/rest.nvim",
     lazy = false,
   },
+  {
+    dir = "~/git/templ-goto-definition",
+    lazy = false,
+    -- config = true,
+  },
 }
