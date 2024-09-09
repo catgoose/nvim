@@ -21,7 +21,7 @@ local opts = {
     "powershell_es",
     "sqlls",
     "tailwindcss",
-    "tsserver",
+    -- "tsserver",
     "volar",
     "yamlls",
   },
