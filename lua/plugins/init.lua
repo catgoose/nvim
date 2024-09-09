@@ -36,9 +36,12 @@ return {
     "rest-nvim/rest.nvim",
     lazy = false,
   },
-  {
-    dir = "~/git/templ-goto-definition",
-    lazy = false,
-    -- config = true,
-  },
+  -- {
+  -- "catgoose/templ-goto-definition",
+  --   dir = "~/git/templ-goto-definition",
+  --   lazy = false,
+  --   ft = { "go", "templ" },
+  --   config = true,
+  --   enabled = false,
+  -- },
 }
