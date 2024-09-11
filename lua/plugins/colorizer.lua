@@ -62,6 +62,9 @@ local opts = {
     go = {
       names = false,
     },
+    make = {
+      names = false,
+    },
   },
   user_default_options = {
     RGB = true,
