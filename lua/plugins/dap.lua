@@ -55,15 +55,16 @@ return {
             type = "go",
             name = "Debug",
             request = "launch",
-            showLog = false,
+            showLog = true,
             program = "${file}",
             dlvToolPath = vim.fn.exepath("dlv"),
           },
           -- {
-          --   type = "delve",
+          --   type = "go",
           --   name = "Debug",
           --   request = "launch",
           --   program = "${file}",
+          --   dlvToolPath = vim.fn.exepath("dlv"),
           -- },
           -- {
           --   type = "delve",
