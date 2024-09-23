@@ -57,6 +57,31 @@ local snippets = {
       i(0)
     )
   ),
+  s(
+    "range",
+    fmta(
+      [[
+  for <>, <> := range <> {
+    <>
+  }
+  ]],
+      {
+        i(1, "_"),
+        i(2, "_"),
+        i(3),
+        i(4),
+      }
+    )
+  ),
+  s(
+    "hs",
+    fmt(
+      [[_="
+{}
+"]],
+      { i(1) }
+    )
+  ),
 }
 
 return snippets
