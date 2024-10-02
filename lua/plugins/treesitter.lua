@@ -19,6 +19,7 @@ local config = function()
       "html",
       "http",
       "javascript",
+      "xml",
       "jq",
       "json",
       "jsonc",
