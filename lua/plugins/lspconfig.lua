@@ -53,7 +53,7 @@ local config = function()
     border = "rounded",
   })
   h["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-    local ts_lsp = { "tsserver", "angularls", "volar" }
+    local ts_lsp = { "ts_ls", "angularls", "volar" }
     local clients = l.get_clients({ id = ctx.client_id })
     if vim.tbl_contains(ts_lsp, clients[1].name) then
       local filtered_result = {
@@ -233,6 +233,7 @@ local config = function()
         "javascript",
         "typescript",
         "react",
+        "htmlangular",
       },
       settings = {
         tailwindCSS = {
@@ -270,7 +271,7 @@ local config = function()
     cssmodules_ls = {
       filetypes = vue_ft,
     },
-    tsserver = {
+    ts_ls = {
       filetypes = ts_ft,
       init_options = {
         typescript = {
