@@ -2,7 +2,7 @@ local m = require("util").lazy_map
 
 return {
   "folke/trouble.nvim",
-  opts = {}, -- for default options, refer to the configuration section for custom setup.
+  opts = {},
   cmd = "Trouble",
   keys = {
     m("<leader>xx", [[Trouble diagnostics toggle]]),
