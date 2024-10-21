@@ -15,6 +15,16 @@ local smn = u.same_node
 
 local snippets = {
   s(
+    "pr",
+    fmt(
+      [[
+  fmt.Print({}, {})
+  {}
+  ]],
+      { i(1), i(2), i(0) }
+    )
+  ),
+  s(
     "prf",
     fmt(
       [[
@@ -102,7 +112,7 @@ fmt.Sprintln({})
       [[
 	for {} := {}; {} < {}; {}++ {{
     {}
-}}
+  }}
 ]],
       { i(1), i(2), smn(1), i(3), smn(1), i(0) }
     )
@@ -207,8 +217,13 @@ type <> struct {
     fmt(
       [[
 map[{}]{}
+{}
      ]],
-      { i(1, "string"), i(2, "string") }
+      {
+        i(1, "string"),
+        i(2, "string"),
+        i(0),
+      }
     )
   ),
   s(
