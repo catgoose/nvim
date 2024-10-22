@@ -118,7 +118,7 @@ fmt.Sprintln({})
     )
   ),
   s(
-    "range",
+    "rn",
     fmta(
       [[
   for <>, <> := range <> {
