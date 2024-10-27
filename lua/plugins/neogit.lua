@@ -11,6 +11,7 @@ local opts = {
     kind = "tab",
     show_staged_diff = true,
   },
+  graph_style = "kitty",
 }
 
 return {
