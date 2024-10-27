@@ -6,12 +6,11 @@ local opts = {
     diffview = true,
     telescope = true,
   },
-  graph_style = "unicode",
+  graph_style = "kitty",
   commit_editor = {
     kind = "tab",
     show_staged_diff = true,
   },
-  graph_style = "kitty",
 }
 
 return {
