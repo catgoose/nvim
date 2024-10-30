@@ -222,8 +222,10 @@ function M.term_open(c)
 end
 
 function M.testing_function()
-  local diffview = require("util.diffview")
-  diffview.prompt()
+  vim.cmd.make()
+  if #vim.fn.getqflist() > 0 then
+    cmd.copen()
+  end
 end
 
 return M
