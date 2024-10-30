@@ -264,7 +264,9 @@ function M.hover_handler()
       vim.diagnostic.open_float()
     end
   else
-    vim.lsp.buf.hover()
+    vim.lsp.buf.hover({
+      border = "rounded",
+    })
   end
 end
 

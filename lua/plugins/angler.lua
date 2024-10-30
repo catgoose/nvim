@@ -28,7 +28,7 @@ local keys = {
   -- m("<leader>tc", angler_str .. [[.compile()]]),
   -- m("<leader>tf", [[AnglerRenameFile]]),
   m("<leader>rn", [[AnglerRenameSymbol]]),
-  m("<leader>k", [[AnglerFixAll]]),
+  -- m("<leader>k", [[AnglerFixAll]]),
 }
 keys = project.get_keys("angler", keys)
 

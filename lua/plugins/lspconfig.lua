@@ -41,14 +41,6 @@ local config = function()
   })
 
   -- handler overrides
-  l.handlers["textDocument/hover"] = function(_, result, ctx, config)
-    if not (result and result.contents) then
-      return
-    end
-    config = config or {}
-    config.border = "rounded"
-    h.hover(_, result, ctx, config)
-  end
   h["textDocument/signatureHelp"] = l.with(h.signature_help, {
     border = "rounded",
   })
@@ -116,6 +108,11 @@ local config = function()
   local function on_attach(client, bufnr)
     virtual_types_on_attach(client, bufnr)
     inlay_hints_on_attach(client, bufnr)
+  end
+  local function angular_on_attach(client, bufnr)
+    on_attach(client, bufnr)
+    vim.cmd.compiler([[angular]])
+    client.server_capabilities.renameProvider = false
   end
   local function go_on_attach(client, bufnr)
     if not client.server_capabilities.semanticTokensProvider then
@@ -208,6 +205,25 @@ local config = function()
   local server_enabled = function(server)
     return not require("neoconf").get("lsp.servers." .. server .. ".disable")
   end
+
+  --  TODO: 2024-10-30 - How well does this work with vue/volar?
+  require("typescript-tools").setup({
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+      local bufopts = { noremap = true, silent = true, buffer = bufnr }
+      km("n", "<leader>k", function()
+        vim.cmd([[TSToolsAddMissingImports sync]])
+        vim.cmd([[TSToolsOrganizeImports sync]])
+      end, bufopts)
+    end,
+    settings = {
+      expose_as_code_action = {
+        "add_missing_imports",
+        "remove_unused_imports",
+        "organize_imports",
+      },
+    },
+  })
 
   local lspconfig_setups = {
     language_servers = {
@@ -342,8 +358,7 @@ local config = function()
     },
     angularls = {
       on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-        client.server_capabilities.renameProvider = false
+        angular_on_attach(client, bufnr)
       end,
     },
     gopls = {
@@ -468,6 +483,11 @@ return {
         },
         autoEnableHints = false,
       },
+    },
+    {
+      "pmizio/typescript-tools.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      config = true,
     },
   },
 }
