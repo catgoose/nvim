@@ -111,7 +111,6 @@ local config = function()
   end
   local function angular_on_attach(client, bufnr)
     on_attach(client, bufnr)
-    vim.cmd.compiler([[angular]])
     client.server_capabilities.renameProvider = false
   end
   local function go_on_attach(client, bufnr)
