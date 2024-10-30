@@ -286,14 +286,14 @@ local config = function()
     cssmodules_ls = {
       filetypes = vue_ft,
     },
-    ts_ls = {
-      filetypes = ts_ft,
-      init_options = {
-        typescript = {
-          tsdk = tsdk(),
-        },
-      },
-    },
+    -- ts_ls = {
+    --   filetypes = ts_ft,
+    --   init_options = {
+    --     typescript = {
+    --       tsdk = tsdk(),
+    --     },
+    --   },
+    -- },
     volar = {
       filetypes = { "vue" },
       init_options = {
