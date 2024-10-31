@@ -1,7 +1,7 @@
 if exists("current_compiler")
   finish
 endif
-let current_compiler = "vue-tsc"
+let current_compiler = "tsc"
 
 " Define CompilerSet if it doesn't exist
 if exists(":CompilerSet") != 2
@@ -12,11 +12,11 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-" If vue-tsc is not installed globally
-if executable("vue-tsc")
-  CompilerSet makeprg=vue-tsc
+" Set makeprg to use `tsc --noEmit`. If `tsc` is unavailable, use `npx tsc --noEmit`
+if executable("tsc")
+  CompilerSet makeprg=tsc\ --noEmit
 else
-  CompilerSet makeprg=npx\ vue-tsc\
+  CompilerSet makeprg=npx\ tsc\ --noEmit
 endif
 
 " Set errorformat to capture TypeScript errors
@@ -27,3 +27,4 @@ CompilerSet errorformat=%f\ %#(%l\\,%c):\ %trror\ TS%n:\ %m,
 " Restore 'cpo' and clean up
 let &cpo = s:cpo_save
 unlet s:cpo_save
+

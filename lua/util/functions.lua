@@ -225,4 +225,12 @@ function M.testing_function()
   vim.cmd.make()
 end
 
+function M.typescript_compile()
+  cmd.compiler("tsc")
+  cmd.make()
+  if #vim.fn.getqflist() > 0 then
+    cmd.copen()
+  end
+end
+
 return M
