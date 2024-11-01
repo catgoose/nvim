@@ -6,6 +6,8 @@ local ACTIONS = {
   remove = "source.removeUnused.ts",
 }
 
+--  TODO: 2024-11-01 - create TS query to remove unused imports over line range
+
 local function code_action(actions, bufnr)
   if not actions then
     return
