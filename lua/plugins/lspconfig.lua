@@ -109,6 +109,16 @@ local config = function()
     virtual_types_on_attach(client, bufnr)
     inlay_hints_on_attach(client, bufnr)
   end
+
+  local tu = require("util.typescript")
+  local function ts_on_attach(client, bufnr)
+    on_attach(client, bufnr)
+    vim.cmd.compiler("tsc")
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    km("n", "<leader>k", function()
+      tu.actions(bufnr)
+    end, bufopts)
+  end
   local function angular_on_attach(client, bufnr)
     on_attach(client, bufnr)
     client.server_capabilities.renameProvider = false
@@ -205,25 +215,6 @@ local config = function()
     return not require("neoconf").get("lsp.servers." .. server .. ".disable")
   end
 
-  --  TODO: 2024-10-30 - How well does this work with vue/volar?
-  require("typescript-tools").setup({
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
-      local bufopts = { noremap = true, silent = true, buffer = bufnr }
-      km("n", "<leader>k", function()
-        vim.cmd([[TSToolsAddMissingImports sync]])
-        vim.cmd([[TSToolsOrganizeImports sync]])
-      end, bufopts)
-    end,
-    settings = {
-      expose_as_code_action = {
-        "add_missing_imports",
-        "remove_unused_imports",
-        "organize_imports",
-      },
-    },
-  })
-
   local lspconfig_setups = {
     language_servers = {
       "awk_ls",
@@ -286,14 +277,15 @@ local config = function()
     cssmodules_ls = {
       filetypes = vue_ft,
     },
-    -- ts_ls = {
-    --   filetypes = ts_ft,
-    --   init_options = {
-    --     typescript = {
-    --       tsdk = tsdk(),
-    --     },
-    --   },
-    -- },
+    ts_ls = {
+      on_attach = ts_on_attach,
+      filetypes = ts_ft,
+      init_options = {
+        typescript = {
+          tsdk = tsdk(),
+        },
+      },
+    },
     volar = {
       filetypes = { "vue" },
       init_options = {
@@ -482,11 +474,6 @@ return {
         },
         autoEnableHints = false,
       },
-    },
-    {
-      "pmizio/typescript-tools.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = true,
     },
   },
 }

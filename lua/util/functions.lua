@@ -225,9 +225,14 @@ function M.testing_function()
   vim.cmd.make()
 end
 
-function M.typescript_compile()
-  cmd.compiler("tsc")
-  cmd.make()
+function M.make_open_qf()
+  vim.print(
+    string.format(
+      "Compiling with '%s'",
+      vim.api.nvim_get_option_value("makeprg", { scope = "local" })
+    )
+  )
+  cmd("silent! make")
   if #vim.fn.getqflist() > 0 then
     cmd.copen()
   end

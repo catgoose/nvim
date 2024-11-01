@@ -42,7 +42,7 @@ m("<leader>tl", "TermOpenRight")
 m("<leader>tL", "TermOpenRightResized")
 m("<leader>tq", "tabclose")
 m("<leader>tp", "InspectTree")
-m("<leader>tc", "TypescriptCompiler")
+m("<leader>tc", "MakeOpenQF")
 
 -- User commands
 m("<leader>cz", "ToggleCmdHeight")

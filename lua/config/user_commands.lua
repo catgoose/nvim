@@ -185,6 +185,6 @@ c("TermOpenRightResized", function()
     "vertical resize 50%",
   })
 end)
-c("TypescriptCompiler", f.typescript_compile)
+c("MakeOpenQF", f.make_open_qf)
 
 c("TestingFunction", f.testing_function)
