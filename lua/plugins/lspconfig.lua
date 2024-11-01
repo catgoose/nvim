@@ -1,6 +1,6 @@
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
 local h, p = l.handlers, l.protocol
--- local c = require("util").create_cmd
+local c = require("util").create_cmd
 
 local config = function()
   local lspconfig = require("lspconfig")
@@ -113,20 +113,21 @@ local config = function()
 
   local function ts_on_attach(client, bufnr)
     on_attach(client, bufnr)
-    -- local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    -- local t = require("util.typescript")
-    -- c("TSSortImports", function()
-    --   t.sort_imports(bufnr)
-    -- end)
-    -- c("TSAddMissingImports", function()
-    --   t.add_missing_imports(bufnr)
-    -- end)
-    -- c("TSRemoveUnused", function()
-    --   t.remove_unused(bufnr)
-    -- end)
-    -- km("n", "<leader>k", function()
-    --   t.fix(bufnr)
-    -- end, bufopts)
+    vim.cmd.compiler("tsc")
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    local t = require("util.typescript")
+    km("n", "<leader>k", function()
+      t.fix(bufnr)
+    end, bufopts)
+    c("TSSortImports", function()
+      t.sort_imports(bufnr)
+    end)
+    c("TSAddMissingImports", function()
+      t.add_missing_imports(bufnr)
+    end)
+    c("TSRemoveUnused", function()
+      t.remove_unused(bufnr)
+    end)
   end
   local function angular_on_attach(client, bufnr)
     on_attach(client, bufnr)
