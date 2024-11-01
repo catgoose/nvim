@@ -1,6 +1,16 @@
 local M = {}
 
-function M.actions(bufnr)
+local ACTIONS = {
+  sort = "source.sortImports.ts",
+  add_missing = "source.addMissingImports.ts",
+  remove = "source.removeUnused.ts",
+}
+
+local function code_action(actions, bufnr)
+  if not actions then
+    return
+  end
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({
     name = "ts_ls",
     bufnr = bufnr,
@@ -9,11 +19,11 @@ function M.actions(bufnr)
     return
   end
 
-  local onlies = {
-    "source.addMissingImports.ts",
-    "source.sortImports.ts",
-  }
-  for _, only in ipairs(onlies) do
+  if type(actions) == "string" then
+    actions = { actions }
+  end
+
+  for _, only in ipairs(actions) do
     local params = vim.lsp.util.make_range_params()
     params.context = { only = { only } }
     local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
@@ -31,6 +41,26 @@ function M.actions(bufnr)
       end
     end
   end
+end
+
+function M.fix(bufnr)
+  local actions = {
+    ACTIONS.add_missing,
+    ACTIONS.sort,
+  }
+  code_action(actions, bufnr)
+end
+
+function M.add_missing_imports(bufnr)
+  code_action(ACTIONS.add_missing, bufnr)
+end
+
+function M.sort_imports(bufnr)
+  code_action(ACTIONS.sort, bufnr)
+end
+
+function M.remove_unused(bufnr)
+  code_action(ACTIONS.remove, bufnr)
 end
 
 return M
