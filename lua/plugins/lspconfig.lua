@@ -283,9 +283,6 @@ local config = function()
         typescript = {
           tsdk = tsdk(),
         },
-        preferences = {
-          organizeImports = true,
-        },
       },
     },
     volar = {

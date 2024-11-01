@@ -9,14 +9,13 @@ function M.actions(bufnr)
     return
   end
 
-  local actions = {
+  local onlies = {
     "source.addMissingImports.ts",
     "source.sortImports.ts",
   }
-
-  for _, action in ipairs(actions) do
+  for _, only in ipairs(onlies) do
     local params = vim.lsp.util.make_range_params()
-    params.context = { only = { action } }
+    params.context = { only = { only } }
     local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
     if result then
       for _, res in pairs(result) do
