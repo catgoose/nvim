@@ -110,13 +110,12 @@ local config = function()
     inlay_hints_on_attach(client, bufnr)
   end
 
-  local tu = require("util.typescript")
   local function ts_on_attach(client, bufnr)
     on_attach(client, bufnr)
     vim.cmd.compiler("tsc")
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     km("n", "<leader>k", function()
-      tu.actions(bufnr)
+      require("util.typescript").actions(bufnr)
     end, bufopts)
   end
   local function angular_on_attach(client, bufnr)
@@ -283,6 +282,9 @@ local config = function()
       init_options = {
         typescript = {
           tsdk = tsdk(),
+        },
+        preferences = {
+          organizeImports = true,
         },
       },
     },

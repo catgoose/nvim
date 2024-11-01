@@ -11,7 +11,7 @@ function M.actions(bufnr)
 
   local onlies = {
     "source.addMissingImports.ts",
-    "source.removeUnused.ts",
+    "source.sortImports.ts",
   }
 
   for _, only in ipairs(onlies) do
@@ -32,13 +32,6 @@ function M.actions(bufnr)
       end
     end
   end
-
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { "source.organizeImports.ts" },
-    },
-  })
 end
 
 return M
