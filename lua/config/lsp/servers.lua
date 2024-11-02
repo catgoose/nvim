@@ -1,3 +1,5 @@
+local at = require("config.lsp.on_attach")
+
 local M = {}
 
 --- Capabilities
@@ -41,11 +43,6 @@ function M.init(lspconfig)
     error("lspconfig is required", vim.diagnostic.severity.ERROR)
     return
   end
-  local at = require("config.lsp.on_attach")
-  local on_attach = at.on_attach()
-  local ts_on_attach = at.ts_on_attach()
-  local angular_on_attach = at.angular_on_attach()
-  local go_on_attach = at.go_on_attach()
 
   local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
   local vue_ft = { unpack(ts_ft) }
@@ -58,6 +55,12 @@ function M.init(lspconfig)
   local server_enabled = function(server)
     return not require("neoconf").get("lsp.servers." .. server .. ".disable")
   end
+
+  local named_on_attach = {
+    "ts_ls",
+    "angularls",
+    "gopls",
+  }
 
   local lspconfig_setups = {
     language_servers = {
@@ -122,7 +125,6 @@ function M.init(lspconfig)
       filetypes = vue_ft,
     },
     ts_ls = {
-      on_attach = ts_on_attach,
       filetypes = ts_ft,
       init_options = {
         typescript = {
@@ -171,7 +173,6 @@ function M.init(lspconfig)
       vimruntime = "",
     },
     lua_ls = {
-      on_attach = on_attach,
       settings = {
         Lua = {
           runtime = {
@@ -191,13 +192,8 @@ function M.init(lspconfig)
         },
       },
     },
-    angularls = {
-      on_attach = function(client, bufnr)
-        angular_on_attach(client, bufnr)
-      end,
-    },
+    angularls = {},
     gopls = {
-      on_attach = go_on_attach,
       settings = {
         gopls = {
           completeUnimported = true,
@@ -237,6 +233,7 @@ function M.init(lspconfig)
     },
   }
 
+  local on_attach = at.get()
   for srv, cfg in pairs(lspconfig_setups) do
     if srv == "language_servers" then
       for _, ls in ipairs(cfg) do
@@ -247,7 +244,7 @@ function M.init(lspconfig)
       end
     elseif server_enabled(srv) then
       if not cfg.on_attach then
-        cfg.on_attach = on_attach
+        cfg.on_attach = vim.tbl_contains(named_on_attach, srv) and at.get(srv) or on_attach
       end
       if not cfg.capabilities then
         cfg.capabilities = capabilities

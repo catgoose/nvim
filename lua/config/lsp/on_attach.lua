@@ -78,29 +78,17 @@ local function go_on_attach(client, bufnr)
   on_attach(client, bufnr)
 end
 
-function M.init()
-  return {
-    on_attach = on_attach,
-    ts_on_attach = ts_on_attach,
-    angular_on_attach = angular_on_attach,
-    go_on_attach = go_on_attach,
-  }
-end
-
-function M.on_attach()
+function M.get(lsp)
+  if lsp == "ts_ls" then
+    return ts_on_attach
+  end
+  if lsp == "angularls" then
+    return angular_on_attach
+  end
+  if lsp == "gopls" then
+    return go_on_attach
+  end
   return on_attach
-end
-
-function M.ts_on_attach()
-  return ts_on_attach
-end
-
-function M.angular_on_attach()
-  return angular_on_attach
-end
-
-function M.go_on_attach()
-  return go_on_attach
 end
 
 return M
