@@ -51,7 +51,10 @@ local opts = {
     mode = "background",
     method = "lsp",
     tailwind = true,
-    sass = { enable = true, parsers = { "css" } },
+    sass = {
+      enable = true,
+      parsers = { "css" },
+    },
     virtualtext = "■",
   },
   buftypes = { "!prompt", "!popup" },
