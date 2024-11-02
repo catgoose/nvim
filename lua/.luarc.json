@@ -1,4 +1,7 @@
 {
-  "workspace.checkThirdParty": false
+  "workspace.checkThirdParty": false,
+    "diagnostics.disable": [
+        "duplicate-set-field"
+    ]
 }
 
