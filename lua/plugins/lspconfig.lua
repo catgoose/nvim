@@ -44,28 +44,21 @@ local config = function()
   })
 
   -- handler overrides
-  --  TODO: 2024-11-01 - Deprecated
-  h["textDocument/signatureHelp"] = l.with(h.signature_help, {
-    border = "rounded",
-  })
-  --  TODO: 2024-11-01 - Deprecated
-  h["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+  h["textDocument/publishDiagnostics"] = function(err, result, ctx)
     local ts_lsp = { "ts_ls", "angularls", "volar" }
     local clients = l.get_clients({ id = ctx.client_id })
     if vim.tbl_contains(ts_lsp, clients[1].name) then
-      local filtered_result = {
+      local err_diag = {
         diagnostics = vim.tbl_filter(function(d)
-          return d.severity == 1
+          return d.severity == vim.diagnostic.severity.ERROR
         end, result.diagnostics),
       }
-      require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
+      require("ts-error-translator").translate_diagnostics(err, err_diag, ctx)
     end
-    --  TODO: 2024-11-01 - Deprecated
-    l.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+    l.diagnostic.on_publish_diagnostics(err, result, ctx)
   end
   local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
-  --  TODO: 2024-11-01 - Deprecated
-  h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
+  h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx)
     local client = l.get_client_by_id(ctx.client_id)
     if not result then
       result = {}
@@ -80,8 +73,7 @@ local config = function()
         end)
         :totable()
     end
-    --  TODO: 2024-11-01 - Deprecated
-    inlay_hint_handler(err, result, ctx, config)
+    inlay_hint_handler(err, result, ctx)
   end
 
   local function inlay_hints_autocmd(bufnr)
