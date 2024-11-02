@@ -42,9 +42,11 @@ local config = function()
   })
 
   -- handler overrides
+  --  TODO: 2024-11-01 - Deprecated
   h["textDocument/signatureHelp"] = l.with(h.signature_help, {
     border = "rounded",
   })
+  --  TODO: 2024-11-01 - Deprecated
   h["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
     local ts_lsp = { "ts_ls", "angularls", "volar" }
     local clients = l.get_clients({ id = ctx.client_id })
@@ -56,9 +58,11 @@ local config = function()
       }
       require("ts-error-translator").translate_diagnostics(err, filtered_result, ctx, config)
     end
+    --  TODO: 2024-11-01 - Deprecated
     l.diagnostic.on_publish_diagnostics(err, result, ctx, config)
   end
   local inlay_hint_handler = h[p.Methods["textDocument_inlayHint"]]
+  --  TODO: 2024-11-01 - Deprecated
   h[p.Methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
     local client = l.get_client_by_id(ctx.client_id)
     if not result then
@@ -74,6 +78,7 @@ local config = function()
         end)
         :totable()
     end
+    --  TODO: 2024-11-01 - Deprecated
     inlay_hint_handler(err, result, ctx, config)
   end
 
@@ -127,6 +132,9 @@ local config = function()
     end)
     c("TSRemoveUnused", function()
       t.remove_unused(bufnr)
+    end)
+    c("TSRemoveUnusedImports", function()
+      t.remove_unused_imports(bufnr)
     end)
   end
   local function angular_on_attach(client, bufnr)
