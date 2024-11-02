@@ -4,7 +4,6 @@ local opts = {
     ps1 = {
       RGB = false,
       css = false,
-      names = false,
     },
     typescript = {
       css = false,
@@ -12,36 +11,22 @@ local opts = {
     },
     javascript = {
       css = false,
-      names = false,
+    },
+    css = {
+      names = true,
     },
     json = {
       css = false,
-      names = false,
     },
     sh = {
       css = false,
-      names = false,
     },
     mason = {
       css = false,
-      names = false,
-    },
-    markdown = {
-      names = false,
-    },
-    help = {
-      names = false,
-    },
-    terminal = {
-      names = false,
     },
     lazy = {
       RGB = false,
       css = false,
-      names = false,
-    },
-    dbout = {
-      names = false,
     },
     cmp_docs = {
       always_update = true,
@@ -49,30 +34,14 @@ local opts = {
     cmp_menu = {
       always_update = true,
     },
-    NeogitLogView = {
-      names = false,
-    },
-    NeogitCommitMessage = {
-      names = false,
-    },
     TelescopeResults = {
-      names = false,
       RGB = false,
-    },
-    go = {
-      names = false,
-    },
-    make = {
-      names = false,
-    },
-    checkhealth = {
-      names = false,
     },
   },
   user_default_options = {
     RGB = true,
     RRGGBB = true,
-    names = true,
+    names = false,
     RRGGBBAA = true,
     AARRGGBB = true,
     rgb_fn = true,
