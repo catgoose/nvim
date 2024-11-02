@@ -16,8 +16,7 @@ local function apply_code_actions(result, client)
         if r.edit then
           vim.lsp.util.apply_workspace_edit(r.edit, client.offset_encoding)
         else
-          --  TODO: 2024-11-01 - Deprecated
-          vim.lsp.buf.execute_command(r.command)
+          client.exec_command(r.command)
         end
       end
     end
@@ -47,6 +46,7 @@ local function code_action(action, bufnr)
   apply_code_actions(result, client)
 end
 
+--  TODO: 2024-11-02 - Handle blocks of imports
 function M.remove_unused_imports(bufnr)
   local client = get_client(bufnr)
   if not client then
@@ -73,7 +73,7 @@ function M.remove_unused_imports(bufnr)
       )
     end
   end
-  if #ranges == 0 then
+  if next(ranges) == nil then
     return
   end
   local range = {
@@ -91,12 +91,6 @@ function M.remove_unused_imports(bufnr)
   params.context = { only = { ACTIONS.remove } }
   local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
   apply_code_actions(result, client)
-end
-
-function M.fix(bufnr)
-  code_action(ACTIONS.add_missing, bufnr)
-  M.remove_unused_imports(bufnr)
-  code_action(ACTIONS.sort, bufnr)
 end
 
 function M.add_missing_imports(bufnr)

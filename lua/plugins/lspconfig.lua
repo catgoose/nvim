@@ -1,6 +1,8 @@
 local km, l, api = vim.keymap.set, vim.lsp, vim.api
 local h, p = l.handlers, l.protocol
-local c = require("util").create_cmd
+local u = require("util")
+local c, au = u.create_cmd, u.create_augroup
+local ac = api.nvim_create_autocmd
 
 local config = function()
   local lspconfig = require("lspconfig")
@@ -119,10 +121,11 @@ local config = function()
   local function ts_on_attach(client, bufnr)
     on_attach(client, bufnr)
     vim.cmd.compiler("tsc")
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     local t = require("util.typescript")
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     km("n", "<leader>k", function()
-      t.fix(bufnr)
+      t.add_missing_imports(bufnr)
+      t.remove_unused_imports(bufnr)
     end, bufopts)
     c("TSSortImports", function()
       t.sort_imports(bufnr)
@@ -136,6 +139,13 @@ local config = function()
     c("TSRemoveUnusedImports", function()
       t.remove_unused_imports(bufnr)
     end)
+    ac({ "BufWrite" }, {
+      group = au("TypescriptWriteSortImports"),
+      pattern = { "*.ts" },
+      callback = function(ev)
+        t.sort_imports(ev.bufnr)
+      end,
+    })
   end
   local function angular_on_attach(client, bufnr)
     on_attach(client, bufnr)
