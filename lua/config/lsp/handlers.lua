@@ -1,6 +1,7 @@
 local M = {}
 
 function M.init()
+  ---@diagnostic disable-next-line: duplicate-set-field
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
     local ts_lsp = { "ts_ls", "angularls", "volar" }
     local clients = vim.lsp.get_clients({ id = ctx.client_id })
