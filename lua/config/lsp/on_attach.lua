@@ -28,7 +28,7 @@ local function on_attach(client, bufnr)
   inlay_hints_on_attach(client, bufnr)
 end
 
-local function ts_on_attach(client, bufnr)
+local function ts_ls_on_attach(client, bufnr)
   on_attach(client, bufnr)
   vim.cmd.compiler("tsc")
   local t = require("util.typescript")
@@ -58,12 +58,12 @@ local function ts_on_attach(client, bufnr)
   })
 end
 
-local function angular_on_attach(client, bufnr)
+local function angularls_on_attach(client, bufnr)
   on_attach(client, bufnr)
   client.server_capabilities.renameProvider = false
 end
 
-local function go_on_attach(client, bufnr)
+local function gopls_on_attach(client, bufnr)
   if not client.server_capabilities.semanticTokensProvider then
     local semantic = client.config.capabilities.textDocument.semanticTokens
     client.server_capabilities.semanticTokensProvider = {
@@ -78,17 +78,14 @@ local function go_on_attach(client, bufnr)
   on_attach(client, bufnr)
 end
 
+local attach_functions = {
+  ts_ls = ts_ls_on_attach,
+  angularls = angularls_on_attach,
+  gopls = gopls_on_attach,
+}
+
 function M.get(lsp)
-  if lsp == "ts_ls" then
-    return ts_on_attach
-  end
-  if lsp == "angularls" then
-    return angular_on_attach
-  end
-  if lsp == "gopls" then
-    return go_on_attach
-  end
-  return on_attach
+  return attach_functions[lsp] or on_attach
 end
 
 return M
