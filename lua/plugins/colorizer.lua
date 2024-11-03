@@ -1,3 +1,6 @@
+local dev = false
+local project = require("util.project")
+
 local opts = {
   filetypes = {
     "*",
@@ -60,10 +63,19 @@ local opts = {
   buftypes = { "!prompt", "!popup" },
 }
 
-return {
-  "NvChad/nvim-colorizer.lua",
-  -- "catgoose/nvim-colorizer.lua",
-  -- branch = "tailwind_add_ring_prefixes",
+local keys = project.get_keys("nvim-colorizer.lua")
+
+local plugin = {
   opts = opts,
+  keys = keys,
   event = "BufReadPre",
 }
+
+return dev
+    and vim.tbl_extend("keep", plugin, {
+      dir = "~/git/nvim-colorizer.lua",
+      lazy = false,
+    })
+  or vim.tbl_extend("keep", plugin, {
+    "NvChad/nvim-colorizer.lua",
+  })

@@ -54,6 +54,17 @@ local projects = {
         end,
       },
     },
+    ["nvim-colorizer.lua"] = {
+      keys = {},
+      dev_keys = {
+        {
+          dev_key,
+          function()
+            vim.cmd([[Lazy reload nvim-colorizer.lua]])
+          end,
+        },
+      },
+    },
   },
   angler = {
     keys = {},
