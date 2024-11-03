@@ -10,10 +10,8 @@ local opts = {
 
 local angler_str = [[lua require("angler")]]
 
---  TODO: 2024-03-07 - fix AnglerFixAll showing organize imports
--- use https://github.com/pmizio/typescript-tools.nvim instead of current
--- dependency
-
+--  TODO: 2024-11-03 - refactor angler to remove typescript actions
+--  TODO: 2024-11-03 - maybe just use other.nvim?
 local keys = {
   m("<leader>gc", angler_str .. [[.open({extension = "ts"})]]),
   m("<leader>gh", angler_str .. [[.open({extension = "html"})]]),
