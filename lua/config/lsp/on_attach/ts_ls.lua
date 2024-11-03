@@ -1,3 +1,6 @@
+local u = require("util")
+local c, au = u.create_cmd, u.create_augroup
+
 local M = {}
 
 local ACTIONS = {
@@ -103,6 +106,35 @@ end
 
 function M.remove_unused(bufnr)
   code_action(ACTIONS.remove, bufnr)
+end
+
+---@diagnostic disable-next-line: unused-local
+function M.on_attach(client, bufnr)
+  vim.cmd.compiler("tsc")
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set("n", "<leader>k", function()
+    M.add_missing_imports(bufnr)
+    M.remove_unused_imports(bufnr)
+  end, bufopts)
+  c("TSSortImports", function()
+    M.sort_imports(bufnr)
+  end)
+  c("TSAddMissingImports", function()
+    M.add_missing_imports(bufnr)
+  end)
+  c("TSRemoveUnused", function()
+    M.remove_unused(bufnr)
+  end)
+  c("TSRemoveUnusedImports", function()
+    M.remove_unused_imports(bufnr)
+  end)
+  vim.api.nvim_create_autocmd({ "BufWrite" }, {
+    group = au("TypescriptWriteSortImports"),
+    pattern = { "*.ts" },
+    callback = function(ev)
+      M.sort_imports(ev.bufnr)
+    end,
+  })
 end
 
 return M

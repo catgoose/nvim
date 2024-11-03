@@ -15,7 +15,6 @@ local angler_str = [[lua require("angler")]]
 -- dependency
 
 local keys = {
-  -- m("<leader>z", [[Lazy reload angler.nvim]]),
   m("<leader>gc", angler_str .. [[.open({extension = "ts"})]]),
   m("<leader>gh", angler_str .. [[.open({extension = "html"})]]),
   m("<leader>gt", angler_str .. [[.open({extension = "html", split = true})]]),
@@ -24,11 +23,6 @@ local keys = {
   m("<leader>gf", angler_str .. [[.open({extension = "spec.ts"})]]),
   m("gn", angler_str .. [[.open_cwd({order = "next"})]]),
   m("gp", angler_str .. [[.open_cwd({order = "prev"})]]),
-  -- m("<leader>tc", [[AnglerCompile]]),
-  -- m("<leader>tc", angler_str .. [[.compile()]]),
-  -- m("<leader>tf", [[AnglerRenameFile]]),
-  m("<leader>rn", [[AnglerRenameSymbol]]),
-  -- m("<leader>k", [[AnglerFixAll]]),
 }
 keys = project.get_keys("angler", keys)
 
@@ -37,7 +31,6 @@ local plugin = {
   keys = keys,
   ft = { "typescript", "vue" },
   dependencies = {
-    "jose-elias-alvarez/typescript.nvim",
     "nvim-lua/plenary.nvim",
   },
   enabled = true,

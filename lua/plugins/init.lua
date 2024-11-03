@@ -9,6 +9,7 @@ return {
     "litao91/lsp_lines",
     priority = 900,
     config = true,
+    enabled = false,
   },
   {
     "wakatime/vim-wakatime",

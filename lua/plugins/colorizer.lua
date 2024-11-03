@@ -61,8 +61,9 @@ local opts = {
 }
 
 return {
-  "catgoose/nvim-colorizer.lua",
-  branch = "tailwind_add_ring_prefixes",
+  "NvChad/nvim-colorizer.lua",
+  -- "catgoose/nvim-colorizer.lua",
+  -- branch = "tailwind_add_ring_prefixes",
   opts = opts,
   event = "BufReadPre",
 }
