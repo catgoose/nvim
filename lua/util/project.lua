@@ -1,3 +1,5 @@
+--  TODO: 2024-11-03 - refactor the way projects are set and configured
+
 local M = {}
 
 local dev_key = "<leader>z"
@@ -54,17 +56,6 @@ local projects = {
         end,
       },
     },
-    ["nvim-colorizer.lua"] = {
-      keys = {},
-      dev_keys = {
-        {
-          dev_key,
-          function()
-            vim.cmd([[Lazy reload nvim-colorizer.lua]])
-          end,
-        },
-      },
-    },
   },
   angler = {
     keys = {},
@@ -111,6 +102,19 @@ local projects = {
       },
     },
   },
+  ["nvim-colorizer.lua"] = {
+    keys = {},
+    dev_keys = {
+      {
+        dev_key,
+        function()
+          -- package.loaded["colorizer.trie"] = nil
+          vim.cmd([[Lazy reload nvim-colorizer.lua]])
+          -- local Trie = require("colorizer.trie")
+        end,
+      },
+    },
+  },
 }
 
 -- local current_project = nil
@@ -118,9 +122,10 @@ local projects = {
 -- local current_project = projects.twvalues
 -- local current_project = projects.angler
 -- local current_project = projects.helpgrep
-local current_project = projects["do-the-needful"]
+-- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]
 -- local current_project = projects["nvim-ts-autotag"]
+local current_project = projects["nvim-colorizer.lua"]
 
 local function get_project_property(project_name, property_type)
   local project = projects[project_name]

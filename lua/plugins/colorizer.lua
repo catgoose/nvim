@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local project = require("util.project")
 
 local opts = {
@@ -40,6 +40,9 @@ local opts = {
     TelescopeResults = {
       RGB = false,
     },
+    lua = {
+      names = true,
+    },
   },
   user_default_options = {
     RGB = true,
@@ -62,6 +65,8 @@ local opts = {
   },
   buftypes = { "!prompt", "!popup" },
 }
+
+-- red
 
 local keys = project.get_keys("nvim-colorizer.lua")
 
