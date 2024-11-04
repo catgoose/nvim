@@ -67,6 +67,8 @@ local opts = {
 }
 
 -- red
+-- 0x49B232AF
+-- 0xB232AF
 
 local keys = project.get_keys("nvim-colorizer.lua")
 
