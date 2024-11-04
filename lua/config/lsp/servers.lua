@@ -82,6 +82,8 @@ function M.init(lspconfig)
       end,
       filetypes = {
         "templ",
+        "vue",
+        "html",
         "astro",
         "javascript",
         "typescript",

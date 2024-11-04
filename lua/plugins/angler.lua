@@ -25,7 +25,7 @@ keys = project.get_keys("angler", keys)
 local plugin = {
   opts = opts,
   keys = keys,
-  ft = { "typescript", "vue" },
+  ft = { "typescript" },
   dependencies = {
     "nvim-lua/plenary.nvim",
   },

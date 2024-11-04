@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local project = require("util.project")
 
 local opts = {
@@ -41,6 +41,9 @@ local opts = {
       RGB = false,
     },
     lua = {
+      names = true,
+    },
+    vue = {
       names = true,
     },
   },
