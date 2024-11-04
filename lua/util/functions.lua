@@ -235,6 +235,8 @@ function M.make_open_qf()
   cmd("silent! make")
   if #vim.fn.getqflist() > 0 then
     cmd.copen()
+  else
+    vim.print("Compiling complete with no errors!")
   end
 end
 
