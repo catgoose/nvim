@@ -41,19 +41,16 @@ local opts = {
       RGB = false,
     },
     lua = {
-      names = true,
+      names = false,
     },
     vue = {
-      names = true,
-    },
-    txt = {
       names = true,
     },
   },
   user_default_options = {
     RGB = true,
     RRGGBB = true,
-    names = false,
+    names = true,
     RRGGBBAA = true,
     AARRGGBB = true,
     rgb_fn = true,
