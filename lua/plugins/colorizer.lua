@@ -46,6 +46,9 @@ local opts = {
     vue = {
       names = true,
     },
+    markdown = {
+      RGB = false,
+    },
   },
   user_default_options = {
     RGB = true,
@@ -66,6 +69,7 @@ local opts = {
     virtualtext = "■",
   },
   buftypes = { "!prompt", "!popup" },
+  user_commands = false,
 }
 
 local keys = project.get_keys("nvim-colorizer.lua")

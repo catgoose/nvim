@@ -1,5 +1,3 @@
-local at = require("config.lsp.on_attach")
-
 local M = {}
 
 --- Capabilities
@@ -55,12 +53,6 @@ function M.init(lspconfig)
   local server_enabled = function(server)
     return not require("neoconf").get("lsp.servers." .. server .. ".disable")
   end
-
-  local named_on_attach = {
-    "ts_ls",
-    "angularls",
-    "gopls",
-  }
 
   local lspconfig_setups = {
     language_servers = {
@@ -235,7 +227,9 @@ function M.init(lspconfig)
     },
   }
 
+  local at = require("config.lsp.on_attach")
   local on_attach = at.get()
+
   for srv, cfg in pairs(lspconfig_setups) do
     if srv == "language_servers" then
       for _, ls in ipairs(cfg) do
@@ -246,7 +240,7 @@ function M.init(lspconfig)
       end
     elseif server_enabled(srv) then
       if not cfg.on_attach then
-        cfg.on_attach = vim.tbl_contains(named_on_attach, srv) and at.get(srv) or on_attach
+        cfg.on_attach = at.get(srv)
       end
       if not cfg.capabilities then
         cfg.capabilities = capabilities
