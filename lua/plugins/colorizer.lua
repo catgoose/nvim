@@ -49,6 +49,9 @@ local opts = {
     markdown = {
       RGB = false,
     },
+    checkhealth = {
+      names = false,
+    },
   },
   user_default_options = {
     RGB = true,

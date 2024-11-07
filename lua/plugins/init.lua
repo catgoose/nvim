@@ -3,7 +3,6 @@ local m = require("util").lazy_map
 return {
   {
     "dstein64/vim-startuptime",
-    lazy = false,
   },
   {
     "litao91/lsp_lines",
@@ -35,5 +34,10 @@ return {
   {
     "rest-nvim/rest.nvim",
     lazy = false,
+  },
+  {
+    "seblj/roslyn.nvim",
+    ft = "cs",
+    config = true,
   },
 }
