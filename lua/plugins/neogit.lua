@@ -2,6 +2,7 @@ local m = require("util").lazy_map
 
 local opts = {
   disable_line_numbers = false,
+  process_spinner = false,
   integrations = {
     diffview = true,
     telescope = true,

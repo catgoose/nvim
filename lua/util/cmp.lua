@@ -24,7 +24,7 @@ local is_not_filetype = function()
   local exclude_ft = {
     "neorepl",
     "neoai-input",
-    "NeogitCommitMessage",
+    "gitcommit",
     "oil",
   }
   for _, v in pairs(exclude_ft) do

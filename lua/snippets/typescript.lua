@@ -28,11 +28,20 @@ local snippets = {
 console.group('{}');
 console.log({});
 console.groupEnd();
-  ]],
-        { i(1), r(2, "console_log") }
+  ]]
+  ,
+        { i(1), r(2, "console_log")}
       ),
     })
   ),
+  s("cg", fmt(
+    [[
+    console.group('{}')
+    console.log({})
+    console.groupEnd()
+    {}
+    ]], {i(1), smn(1), i(0) }
+  )),
   s(
     "cyg",
     fmt(

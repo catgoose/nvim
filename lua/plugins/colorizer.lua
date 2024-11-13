@@ -41,7 +41,7 @@ local opts = {
       RGB = false,
     },
     lua = {
-      names = false,
+      names = true,
     },
     vue = {
       names = true,
@@ -66,14 +66,15 @@ local opts = {
     mode = "background",
     tailwind = "lsp",
     sass = {
-      enable = true,
+      enable = false,
       parsers = { "css" },
     },
     virtualtext = "■",
   },
   buftypes = { "!prompt", "!popup" },
-  user_commands = false,
+  -- user_commands = true,
 }
+-- red
 
 local keys = project.get_keys("nvim-colorizer.lua")
 
