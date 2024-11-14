@@ -22,6 +22,8 @@ return {
     "folke/neoconf.nvim",
     {
       "dmmulroy/ts-error-translator.nvim",
+      -- dir = "~/git/ts-error-translator.nvim",
+      -- lazy = false,
       config = true,
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
     },
