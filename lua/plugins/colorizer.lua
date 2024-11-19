@@ -55,6 +55,9 @@ local opts = {
     sshconfig = {
       names = false,
     },
+    NeogitLogView = {
+      RGB = false,
+    },
   },
   user_default_options = {
     RGB = true,
