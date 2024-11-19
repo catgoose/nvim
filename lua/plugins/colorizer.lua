@@ -52,11 +52,14 @@ local opts = {
     checkhealth = {
       names = false,
     },
+    sshconfig = {
+      names = false,
+    },
   },
   user_default_options = {
     RGB = true,
     RRGGBB = true,
-    names = false,
+    names = true,
     RRGGBBAA = true,
     AARRGGBB = true,
     rgb_fn = true,
@@ -72,7 +75,7 @@ local opts = {
     virtualtext = "■",
   },
   buftypes = { "!prompt", "!popup" },
-  -- user_commands = true,
+  user_commands = true,
 }
 -- red
 
@@ -91,4 +94,6 @@ return dev
     })
   or vim.tbl_extend("keep", plugin, {
     "NvChad/nvim-colorizer.lua",
+    -- "catgoose/nvim-colorizer.lua",
+    -- commit = "f134063618a65cad4d7415fddbd96ff7e0c5b4ae",
   })
