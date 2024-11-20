@@ -94,6 +94,7 @@ end
   ),
   s("insp", fmt([[print(vim.inspect({}))]], i(1))),
   s("pp", fmt([[vim.print({})]], i(1))),
+  s("ppi", fmt([[vim.print(string.format("{}: %s", vim.inspect({})))]], { i(1), smn(1) })),
   s("p", fmt([[vim.print({})]], i(1))),
   s(
     "lazy",
