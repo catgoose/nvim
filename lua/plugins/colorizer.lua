@@ -41,7 +41,7 @@ local opts = {
       RGB = false,
     },
     lua = {
-      names = true,
+      names = false,
     },
     vue = {
       names = true,

@@ -108,9 +108,7 @@ local projects = {
       {
         dev_key,
         function()
-          -- package.loaded["colorizer.trie"] = nil
-          vim.cmd([[Lazy reload nvim-colorizer.lua]])
-          -- local Trie = require("colorizer.trie")
+          vim.cmd([[ColorizerToggle]])
         end,
       },
     },
