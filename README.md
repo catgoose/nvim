@@ -12,19 +12,19 @@ When I wrote this script, the main idea was to solve a problem that I though tem
 ## Usage
 
 ```bash
-   ___         __    ____         __  _     ___          __         
-  / _/_ ______/ /__ / __/__  ____/ /_(_)___/ (_)__ ___  / /_        
- / _/ // / __/  '_// _// _ \/ __/ __/ / __/ / / -_) _ \/ __/        
-/_/ \_,_/\__/_/\_\/_/  \___/_/  \__/_/\__/_/_/\__/_//_/\__/  v1.1 
+   ___         __    ____         __  _     ___          __
+  / _/_ ______/ /__ / __/__  ____/ /_(_)___/ (_)__ ___  / /_
+ / _/ // / __/  '_// _// _ \/ __/ __/ / __/ / / -_) _ \/ __/
+/_/ \_,_/\__/_/\_\/_/  \___/_/  \__/_/\__/_/_/\__/_//_/\__/  v1.1
 
-2022-2023 by: Toni Castillo Girona (@Disbauxes) 
+2022-2023 by: Toni Castillo Girona (@Disbauxes)
 
-[*] Detected distro: Debian, version: 12 
-[*] Auto-detected firefox profile: /home/user/.mozilla/firefox/vujtoola.default/sessionstore-backups 
-[*] Openfortivpn version: 1.20.5 
-[*] Openfortivpn installed from: GITHUB 
+[*] Detected distro: Debian, version: 12
+[*] Auto-detected firefox profile: /home/user/.mozilla/firefox/vujtoola.default/sessionstore-backups
+[*] Openfortivpn version: 1.20.5
+[*] Openfortivpn installed from: GITHUB
 
-Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s] 
+Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
  	-h Shows this help and exits.
  	-c Opens firefox to perform SAML Authentication.
  	-s Tries to re-use a previous SVPNCOOKIE.
@@ -40,18 +40,18 @@ Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
  	-i Shows current assigned VPN Ip address and exits.
  	-D Runs the script in debug mode.
  Examples:
- 	fuckForticlient.sh -L 
+ 	fuckForticlient.sh -L
  	fuckForticlient.sh -S myserver.org.edu -c
  	fuckForticlient.sh -i
- 	fuckForticlient.sh -t 200 -S myvpnserver.com -c 
+ 	fuckForticlient.sh -t 200 -S myvpnserver.com -c
  	fuckForticlient.sh -p /home/u1/.mozilla/firefox/myprofile -S vpnsrv -c
  	fuckForticlient.sh -p /home/u1/.mozilla/firefox/myprofile -P -S vpnsrv -c
  	fuckForticlient.sh -p /home/u1/.mozilla/firefox/myprofile -S vpnsrv -s
  	fuckForticlient.sh -t 200 -p /home/u1/.mozilla/firefox/myprofile -S vpnsrv -c
  	fuckForticlient.sh -S vpnsrv -U /remote/SAML/login -c
- 
- Extra options for openfortivpn 
- 	 FUCKFORTICLIENT_OPTS="--op1 --op2 ..." fuckForticlient.sh options ... 
+
+ Extra options for openfortivpn
+ 	 FUCKFORTICLIENT_OPTS="--op1 --op2 ..." fuckForticlient.sh options ...
  Example:
  	FUCKFORTICLIENT_OPTS="--no-dns" fuckForticlient.sh -S myserver.org.edu -c
 
@@ -63,6 +63,7 @@ Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
  * Mozilla Firefox
  * [jq](https://github.com/jqlang/jq) - ```sudo apt install jq``` on Debian/Ubuntu and derivatives
  * [lz4jsoncat](https://github.com/andikleen/lz4json) - ```sudo apt install lz4json``` on Debian/Ubuntu and derivatives
+ * [inotify-tools](https://github.com/inotify-tools/inotify-tools) - ```sudo apt install inotify-tools``` on Debian/Ubuntu and derivatives
 
 
 ## Alias
