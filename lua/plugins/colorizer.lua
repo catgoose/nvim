@@ -41,7 +41,12 @@ local opts = {
       RGB = false,
     },
     lua = {
-      names = false,
+      -- names = true,
+      extra_names = {
+        --  TODO: 2024-11-23 - this is not working from config, probably not
+        --  testing if extra_names is a table
+        lua = "#AA4A44",
+      },
     },
     markdown = {
       RGB = false,
@@ -61,14 +66,19 @@ local opts = {
   },
   user_default_options = {
     names = true,
-    RGB = false,
-    RRGGBB = false,
-    RRGGBBAA = false,
-    AARRGGBB = false,
-    rgb_fn = false,
-    hsl_fn = false,
-    css = false,
-    css_fn = false,
+    extra_names = {
+      cool = "#107dac",
+      ["notcool"] = "#ee9240",
+      names = "#701F47",
+    },
+    RGB = true,
+    RRGGBB = true,
+    RRGGBBAA = true,
+    AARRGGBB = true,
+    rgb_fn = true,
+    hsl_fn = true,
+    css = true,
+    css_fn = true,
     mode = "background",
     tailwind = "both",
     sass = {
@@ -78,7 +88,7 @@ local opts = {
     virtualtext = "■",
     virtualtext_inline = true,
     virtualtext_mode = "background",
-    always_update = true,
+    always_update = false,
   },
   buftypes = { "!prompt", "!popup" },
   user_commands = true,
