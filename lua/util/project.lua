@@ -108,6 +108,13 @@ local projects = {
       {
         dev_key,
         function()
+          require("colorizer").reload_on_save("expect.txt")
+          vim.cmd.write()
+        end,
+      },
+      {
+        "<leader>k",
+        function()
           vim.cmd([[ColorizerToggle]])
         end,
       },

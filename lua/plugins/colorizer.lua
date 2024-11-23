@@ -43,9 +43,6 @@ local opts = {
     lua = {
       names = false,
     },
-    vue = {
-      names = true,
-    },
     markdown = {
       RGB = false,
     },
@@ -58,17 +55,20 @@ local opts = {
     NeogitLogView = {
       RGB = false,
     },
+    NeogitStatus = {
+      RGB = false,
+    },
   },
   user_default_options = {
-    RGB = true,
-    RRGGBB = true,
     names = true,
-    RRGGBBAA = true,
-    AARRGGBB = true,
-    rgb_fn = true,
-    hsl_fn = true,
-    css = true,
-    css_fn = true,
+    RGB = false,
+    RRGGBB = false,
+    RRGGBBAA = false,
+    AARRGGBB = false,
+    rgb_fn = false,
+    hsl_fn = false,
+    css = false,
+    css_fn = false,
     mode = "background",
     tailwind = "both",
     sass = {
@@ -78,6 +78,7 @@ local opts = {
     virtualtext = "■",
     virtualtext_inline = true,
     virtualtext_mode = "background",
+    always_update = true,
   },
   buftypes = { "!prompt", "!popup" },
   user_commands = true,
