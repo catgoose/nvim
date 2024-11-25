@@ -4,19 +4,16 @@ local project = require("util.project")
 local opts = {
   filetypes = {
     "*",
+    "!dashboard",
     ps1 = {
       RGB = false,
       css = false,
     },
     typescript = {
       css = false,
-      names = true,
     },
     javascript = {
       css = false,
-    },
-    css = {
-      names = true,
     },
     json = {
       css = false,
@@ -41,10 +38,8 @@ local opts = {
       RGB = false,
     },
     lua = {
-      -- names = true,
+      names = false,
       extra_names = {
-        --  TODO: 2024-11-23 - this is not working from config, probably not
-        --  testing if extra_names is a table
         lua = "#AA4A44",
       },
     },
@@ -69,16 +64,17 @@ local opts = {
     extra_names = {
       cool = "#107dac",
       ["notcool"] = "#ee9240",
-      names = "#701F47",
+      -- names = "#1740F7",
+      -- lua = "#7407F1",
     },
-    RGB = true,
-    RRGGBB = true,
-    RRGGBBAA = true,
-    AARRGGBB = true,
-    rgb_fn = true,
-    hsl_fn = true,
-    css = true,
-    css_fn = true,
+    RGB = false,
+    RRGGBB = false,
+    RRGGBBAA = false,
+    AARRGGBB = false,
+    rgb_fn = false,
+    hsl_fn = false,
+    css = false,
+    css_fn = false,
     mode = "background",
     tailwind = "both",
     sass = {
