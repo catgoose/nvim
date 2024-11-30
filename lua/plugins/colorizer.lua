@@ -39,10 +39,14 @@ local opts = {
     },
     lua = {
       names = false,
-      extra_names = {
-        lua = "#AA4A44",
-      },
+      extra_names = function()
+        local colors = require("kanagawa.colors").setup()
+        return colors.palette
+      end,
     },
+    -- red
+    -- autumnGreen
+    -- sumiInk4
     markdown = {
       RGB = false,
     },
@@ -64,13 +68,11 @@ local opts = {
     extra_names = {
       cool = "#107dac",
       ["notcool"] = "#ee9240",
-      -- names = "#1740F7",
-      -- lua = "#7407F1",
     },
-    RGB = false,
-    RRGGBB = false,
-    RRGGBBAA = false,
-    AARRGGBB = false,
+    RGB = true,
+    RRGGBB = true,
+    RRGGBBAA = true,
+    AARRGGBB = true,
     rgb_fn = false,
     hsl_fn = false,
     css = false,
@@ -86,7 +88,11 @@ local opts = {
     virtualtext_mode = "background",
     always_update = false,
   },
-  buftypes = { "!prompt", "!popup" },
+  buftypes = {
+    "*",
+    "!prompt",
+    "!popup",
+  },
   user_commands = true,
 }
 -- red
@@ -105,7 +111,5 @@ return dev
       lazy = false,
     })
   or vim.tbl_extend("keep", plugin, {
-    "NvChad/nvim-colorizer.lua",
-    -- "catgoose/nvim-colorizer.lua",
-    -- commit = "f134063618a65cad4d7415fddbd96ff7e0c5b4ae",
+    "catgoose/nvim-colorizer.lua",
   })
