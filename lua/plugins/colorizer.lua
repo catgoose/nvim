@@ -62,6 +62,9 @@ local opts = {
     NeogitStatus = {
       RGB = false,
     },
+    Mason = {
+      names = false,
+    },
   },
   user_default_options = {
     names = true,
