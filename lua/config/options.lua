@@ -28,6 +28,7 @@ opt.shortmess = "aoOstTWAIcCFSqW"
 opt.updatetime = 100
 opt.splitkeep = "screen"
 opt.ruler = false
+opt.messagesopt = "hit-enter,history:1000"
 
 -- Window
 opt.splitright = true
