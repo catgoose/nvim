@@ -135,6 +135,7 @@ c("DiagnosticsJumpPrev", function()
     count = -1,
     float = true,
     severity = d.severity.HINT,
+    scan_direction = -1,
   })
 end)
 c("DiagnosticsJumpNext", function()
@@ -142,6 +143,7 @@ c("DiagnosticsJumpNext", function()
     count = 1,
     float = true,
     severity = d.severity.HINT,
+    scan_direction = -1,
   })
 end)
 c("DiagnosticsErrorJumpPrev", function()
@@ -149,6 +151,7 @@ c("DiagnosticsErrorJumpPrev", function()
     count = -1,
     float = true,
     severity = d.severity.ERROR,
+    scan_direction = 1,
   })
 end)
 c("DiagnosticsErrorJumpNext", function()
@@ -156,6 +159,7 @@ c("DiagnosticsErrorJumpNext", function()
     count = 1,
     float = true,
     severity = d.severity.ERROR,
+    scan_direction = 1,
   })
 end)
 c("QuickFixClear", function()

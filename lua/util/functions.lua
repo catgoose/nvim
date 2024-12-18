@@ -189,7 +189,8 @@ function M.diagnostics_jump(config)
   end
   config.float = config.float or false
   config.severity = config.severity or sev.ERROR
-  local get = config.count > 1 and vim.diagnostic.get_next or vim.diagnostic.get_prev
+  config.scan_direction = config.scan_direction or -1
+  local get = config.count > 0 and vim.diagnostic.get_next or vim.diagnostic.get_prev
   local diag = get({
     count = config.count,
     severity = config.severity,
@@ -201,10 +202,13 @@ function M.diagnostics_jump(config)
       float = config.float,
     })
   else
-    if config.severity == sev.HINT then
+    if
+      (config.severity == sev.ERROR and config.scan_direction == -1)
+      or (config.severity == sev.HINT and config.scan_direction == 1)
+    then
       return
     end
-    config.severity = config.severity + 1
+    config.severity = config.severity + config.scan_direction
     M.diagnostics_jump(config)
   end
 end
