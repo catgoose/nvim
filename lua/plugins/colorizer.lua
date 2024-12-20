@@ -112,6 +112,15 @@ return dev
     and vim.tbl_extend("keep", plugin, {
       dir = "~/git/nvim-colorizer.lua",
       lazy = false,
+      init = function()
+        vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+          group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
+          pattern = { "expect.txt" },
+          callback = function(evt)
+            require("colorizer").reload_on_save(evt.match)
+          end,
+        })
+      end,
     })
   or vim.tbl_extend("keep", plugin, {
     "catgoose/nvim-colorizer.lua",
