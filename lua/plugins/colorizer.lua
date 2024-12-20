@@ -66,6 +66,11 @@ local opts = {
       names = false,
     },
   },
+  buftypes = {
+    "*",
+    "!prompt",
+    "!popup",
+  },
   user_default_options = {
     names = true,
     extra_names = {
@@ -90,11 +95,6 @@ local opts = {
     virtualtext_inline = true,
     virtualtext_mode = "background",
     always_update = false,
-  },
-  buftypes = {
-    "*",
-    "!prompt",
-    "!popup",
   },
   user_commands = true,
 }
