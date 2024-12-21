@@ -39,7 +39,7 @@ local opts = {
     },
     lua = {
       names = true,
-      -- names_extra = function()
+      -- names_custom = function()
       --   local colors = require("kanagawa.colors").setup()
       --   return colors.palette
       -- end,
@@ -73,7 +73,7 @@ local opts = {
   },
   user_default_options = {
     names = true,
-    -- names_extra = {
+    -- names_custom = {
     --   cool = "#107dac",
     --   ["notcool"] = "#ee9240",
     -- },
