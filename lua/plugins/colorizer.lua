@@ -38,11 +38,11 @@ local opts = {
       RGB = false,
     },
     lua = {
-      names = false,
-      extra_names = function()
-        local colors = require("kanagawa.colors").setup()
-        return colors.palette
-      end,
+      names = true,
+      -- names_extra = function()
+      --   local colors = require("kanagawa.colors").setup()
+      --   return colors.palette
+      -- end,
     },
     -- red
     -- autumnGreen
@@ -73,10 +73,10 @@ local opts = {
   },
   user_default_options = {
     names = true,
-    extra_names = {
-      cool = "#107dac",
-      ["notcool"] = "#ee9240",
-    },
+    -- names_extra = {
+    --   cool = "#107dac",
+    --   ["notcool"] = "#ee9240",
+    -- },
     RGB = true,
     RRGGBB = true,
     RRGGBBAA = true,
@@ -115,7 +115,7 @@ return dev
       init = function()
         vim.api.nvim_create_autocmd({ "BufReadPre" }, {
           group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
-          pattern = { "expect.txt" },
+          pattern = { "expect.lua" },
           callback = function(evt)
             require("colorizer").reload_on_save(evt.match)
           end,
