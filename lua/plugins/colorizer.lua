@@ -37,13 +37,13 @@ local opts = {
     TelescopeResults = {
       RGB = false,
     },
-    lua = {
-      names = true,
-      -- names_custom = function()
-      --   local colors = require("kanagawa.colors").setup()
-      --   return colors.palette
-      -- end,
-    },
+    -- lua = {
+    -- names = true,
+    -- names_custom = function()
+    --   local colors = require("kanagawa.colors").setup()
+    --   return colors.palette
+    -- end,
+    -- },
     -- red
     -- autumnGreen
     -- sumiInk4
@@ -72,11 +72,13 @@ local opts = {
     "!popup",
   },
   user_default_options = {
-    names = true,
-    -- names_custom = {
-    --   cool = "#107dac",
-    --   ["notcool"] = "#ee9240",
-    -- },
+    -- names = true,
+    names_custom = {
+      red_purple = "#107dac",
+      redpurple = "#107dac",
+      green_blue = "#ee9240",
+      greenblue = "#ee9240",
+    },
     RGB = true,
     RRGGBB = true,
     RRGGBBAA = true,
