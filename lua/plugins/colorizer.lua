@@ -37,16 +37,13 @@ local opts = {
     TelescopeResults = {
       RGB = false,
     },
-    -- lua = {
-    -- names = true,
-    -- names_custom = function()
-    --   local colors = require("kanagawa.colors").setup()
-    --   return colors.palette
-    -- end,
-    -- },
-    -- red
-    -- autumnGreen
-    -- sumiInk4
+    lua = {
+      names = true,
+      names_custom = function()
+        local colors = require("kanagawa.colors").setup()
+        return colors.palette
+      end,
+    },
     markdown = {
       RGB = false,
     },
@@ -72,31 +69,32 @@ local opts = {
     "!popup",
   },
   user_default_options = {
-    -- names = true,
-    names_custom = {
-      red_purple = "#107dac",
-      redpurple = "#107dac",
-      green_blue = "#ee9240",
-      greenblue = "#ee9240",
-    },
-    RGB = true,
-    RRGGBB = true,
-    RRGGBBAA = true,
-    AARRGGBB = true,
-    rgb_fn = false,
-    hsl_fn = false,
-    css = false,
-    css_fn = false,
-    mode = "background",
-    tailwind = "both",
-    sass = {
-      enable = false,
-      parsers = { "css" },
-    },
-    virtualtext = "■",
-    virtualtext_inline = true,
-    virtualtext_mode = "background",
-    always_update = false,
+    names = true,
+    -- names_custom = {
+    --   red_purple = "#107dac",
+    --   redpurple = "#107dac",
+    --   green_blue = "#ee9240",
+    --   greenblue = "#ee9240",
+    -- },
+    -- RGB = true,
+    -- RRGGBB = true,
+    -- RRGGBBAA = true,
+    -- AARRGGBB = true,
+    -- rgb_fn = true,
+    -- hsl_fn = false,
+    css = true,
+    -- css_fn = false,
+    -- mode = "background",
+    -- tailwind = "both",
+    -- css = false,
+    -- sass = {
+    --   enable = true,
+    --   parsers = { "css" },
+    -- },
+    -- virtualtext = "■",
+    -- virtualtext_inline = true,
+    -- virtualtext_mode = "background",
+    always_update = true,
   },
   user_commands = true,
 }
