@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local project = require("util.project")
 
 local opts = {
@@ -70,12 +70,12 @@ local opts = {
   },
   user_default_options = {
     names = true,
-    -- names_custom = {
-    --   red_purple = "#107dac",
-    --   redpurple = "#107dac",
-    --   green_blue = "#ee9240",
-    --   greenblue = "#ee9240",
-    -- },
+    names_custom = {
+      red_purple = "#107dac",
+      redpurple = "#107dac",
+      green_blue = "#ee9240",
+      greenblue = "#ee9240",
+    },
     -- RGB = true,
     -- RRGGBB = true,
     -- RRGGBBAA = true,
@@ -106,22 +106,21 @@ local plugin = {
   opts = opts,
   keys = keys,
   event = "BufReadPre",
-}
-
-return dev
-    and vim.tbl_extend("keep", plugin, {
-      dir = "~/git/nvim-colorizer.lua",
-      lazy = false,
-      init = function()
-        vim.api.nvim_create_autocmd({ "BufReadPre" }, {
-          group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
-          pattern = { "expect.lua" },
-          callback = function(evt)
-            require("colorizer").reload_on_save(evt.match)
-          end,
-        })
+  lazy = false,
+  init = function()
+    vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+      group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
+      pattern = { "expect.lua" },
+      callback = function(evt)
+        require("colorizer").reload_on_save(evt.match)
       end,
     })
-  or vim.tbl_extend("keep", plugin, {
-    "catgoose/nvim-colorizer.lua",
-  })
+  end,
+  -- enabled = true,
+}
+
+return dev and vim.tbl_extend("keep", plugin, {
+  dir = "~/git/nvim-colorizer.lua",
+}) or vim.tbl_extend("keep", plugin, {
+  "catgoose/nvim-colorizer.lua",
+})
