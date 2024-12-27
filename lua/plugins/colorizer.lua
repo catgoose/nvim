@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local project = require("util.project")
 
 local opts = {
@@ -70,6 +70,12 @@ local opts = {
   },
   user_default_options = {
     names = true,
+    names_opts = {
+      lowercase = true,
+      camelcase = true,
+      uppercase = true,
+      strip_digits = false,
+    },
     names_custom = {
       red_purple = "#107dac",
       redpurple = "#107dac",
@@ -83,6 +89,7 @@ local opts = {
     -- rgb_fn = true,
     -- hsl_fn = false,
     css = true,
+    RGBA = true,
     -- css_fn = false,
     -- mode = "background",
     -- tailwind = "both",

@@ -199,7 +199,8 @@ local keys = {
   m("<leader>hh", [[Telescope help_tags]]),
   m("<leader>f", [[TelescopeFindFiles]]),
   m("<leader>F", [[TelescopeFindFilesPreview]]),
-  m("<leader>j", [[Telescope live_grep]]),
+  -- m("<leader>j", [[Telescope live_grep]]),
+  m("<leader>j", [[TelescopeLiveMultigrep]]),
   m("<leader>J", [[TelescopeLiveGrepHidden]]),
   m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
   m("<leader>bb", [[Telescope buffers]]),
@@ -271,6 +272,9 @@ return {
       require("telescope.builtin").live_grep({
         additional_args = { "--hidden" },
       })
+    end)
+    create_cmd("TelescopeLiveMultigrep", function()
+      require("config.telescope.multigrep").live_multigrep()
     end)
   end,
   cmd = "Telescope",
