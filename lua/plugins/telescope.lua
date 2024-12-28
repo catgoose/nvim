@@ -274,7 +274,7 @@ return {
       })
     end)
     create_cmd("TelescopeLiveMultigrep", function()
-      require("config.telescope.multigrep").live_multigrep()
+      require("config.telescope.tools").live_multigrep()
     end)
   end,
   cmd = "Telescope",
