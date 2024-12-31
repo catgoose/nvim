@@ -82,13 +82,14 @@ function M.init(lspconfig)
         "react",
         "htmlangular",
       },
-      settings = {
-        tailwindCSS = {
-          includeLanguages = {
-            templ = "html",
-          },
-        },
-      },
+      -- Shouldn't be required any more: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#tailwindcss
+      -- settings = {
+      --   tailwindCSS = {
+      --     includeLanguages = {
+      --       templ = "html",
+      --     },
+      --   },
+      -- },
     },
     -- csharp_ls = {
     --   capabilities = snippet_capabilities,

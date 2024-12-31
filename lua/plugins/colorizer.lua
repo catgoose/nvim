@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local project = require("util.project")
 
 local opts = {
@@ -34,11 +34,6 @@ local opts = {
     },
     cmp_docs = {
       always_update = true,
-      css = true,
-    },
-    cmp_menu = {
-      always_update = true,
-      tailwind = "normal",
       css = true,
     },
     TelescopeResults = {
@@ -102,7 +97,7 @@ local opts = {
     -- mode = "background",
     -- mode = "virtualtext",
     -- tailwind = "normal",
-    tailwind = "lsp",
+    tailwind = "both",
     -- css = false,
     -- sass = {
     --   enable = true,

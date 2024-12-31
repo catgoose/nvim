@@ -118,10 +118,9 @@ local config = function()
       format = lspkind.cmp_format({
         mode = "symbol_text",
         ellipsis_char = "...",
-        before = function(entry, vim_item)
-          -- cmp_tailwind.formatter(entry, vim_item)
-          cmp_tailwind.format(entry, vim_item)
-          return vim_item
+        before = function(entry, item)
+          cmp_tailwind.format(entry, item)
+          return item
         end,
         menu = source_mapping,
       }),
