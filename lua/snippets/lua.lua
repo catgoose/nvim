@@ -94,6 +94,16 @@ end
   ),
   s("insp", fmt([[print(vim.inspect({}))]], i(1))),
   s("pp", fmt([[vim.print({})]], i(1))),
+  --  TODO: 2024-12-30 - Prefix string.format with current function name
+  s(
+    "pf",
+    fmt(
+      [=[vim.print(string.format([[
+  {}
+]], {}))]=],
+      { i(1), i(2) }
+    )
+  ),
   s("ppi", fmt([[vim.print(string.format("{}: %s", vim.inspect({})))]], { i(1), smn(1) })),
   s("pi", fmt([[vim.print(string.format("{}: %s", vim.inspect({})))]], { i(1), smn(1) })),
   s("p", fmt([[vim.print({})]], i(1))),

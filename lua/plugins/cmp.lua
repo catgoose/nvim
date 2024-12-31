@@ -14,8 +14,7 @@ local config = function()
   local cmp = require("cmp")
   local lspkind = require("lspkind")
   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  local cmp_tailwind = require("tailwindcss-colorizer-cmp")
-
+  local cmp_tailwind = require("cmp-tailwind-colors")
   local autocomplete_group = vim.api.nvim_create_augroup("dadbod-autocomplete", { clear = true })
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "sql", "mysql", "plsql" },
@@ -120,7 +119,8 @@ local config = function()
         mode = "symbol_text",
         ellipsis_char = "...",
         before = function(entry, vim_item)
-          cmp_tailwind.formatter(entry, vim_item)
+          -- cmp_tailwind.formatter(entry, vim_item)
+          cmp_tailwind.format(entry, vim_item)
           return vim_item
         end,
         menu = source_mapping,
@@ -162,7 +162,8 @@ return {
       "hrsh7th/cmp-nvim-lua",
       "ray-x/cmp-treesitter",
       "saadparwaiz1/cmp_luasnip",
-      "roobert/tailwindcss-colorizer-cmp.nvim",
+      -- "roobert/tailwindcss-colorizer-cmp.nvim",
+      "js-everts/cmp-tailwind-colors",
       {
         "rcarriga/cmp-dap",
         dependencies = "mfussenegger/nvim-dap",

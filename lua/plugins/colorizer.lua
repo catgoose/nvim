@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local project = require("util.project")
 
 local opts = {
@@ -9,8 +9,12 @@ local opts = {
       RGB = false,
       css = false,
     },
+    vue = {
+      tailwind = "both",
+      css = true,
+    },
     typescript = {
-      css = false,
+      css = true,
     },
     javascript = {
       css = false,
@@ -30,9 +34,12 @@ local opts = {
     },
     cmp_docs = {
       always_update = true,
+      css = true,
     },
     cmp_menu = {
       always_update = true,
+      tailwind = "normal",
+      css = true,
     },
     TelescopeResults = {
       RGB = false,
@@ -46,6 +53,7 @@ local opts = {
     },
     markdown = {
       RGB = false,
+      always_update = true,
     },
     checkhealth = {
       names = false,
@@ -69,7 +77,7 @@ local opts = {
     "!popup",
   },
   user_default_options = {
-    names = true,
+    names = false,
     names_opts = {
       lowercase = true,
       camelcase = true,
@@ -83,16 +91,18 @@ local opts = {
       greenblue = "#ee9240",
     },
     -- RGB = true,
+    -- RGBA = true,
     -- RRGGBB = true,
     -- RRGGBBAA = true,
     -- AARRGGBB = true,
     -- rgb_fn = true,
     -- hsl_fn = false,
-    css = true,
-    RGBA = true,
-    -- css_fn = false,
+    -- css = false,
+    -- css_fn = true,
     -- mode = "background",
-    -- tailwind = "both",
+    -- mode = "virtualtext",
+    -- tailwind = "normal",
+    tailwind = "lsp",
     -- css = false,
     -- sass = {
     --   enable = true,
@@ -123,7 +133,7 @@ local plugin = {
       end,
     })
   end,
-  -- enabled = true,
+  enabled = true,
 }
 
 return dev and vim.tbl_extend("keep", plugin, {

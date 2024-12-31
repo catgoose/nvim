@@ -1,7 +1,7 @@
 local m = require("util").lazy_map
 
 local opts = {
-  keep_focus = false,
+  keep_focus = true,
 }
 
 return {
