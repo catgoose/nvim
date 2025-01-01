@@ -11,6 +11,8 @@ local opts = {
     },
     vue = {
       tailwind = "both",
+      -- mode = "virtualtext",
+      -- tailwind = "normal",
       css = true,
     },
     typescript = {
@@ -96,8 +98,8 @@ local opts = {
     -- css_fn = true,
     -- mode = "background",
     -- mode = "virtualtext",
-    -- tailwind = "normal",
-    tailwind = "both",
+    -- tailwind = "both",
+    tailwind = "normal",
     -- css = false,
     -- sass = {
     --   enable = true,
