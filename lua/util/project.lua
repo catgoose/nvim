@@ -24,7 +24,8 @@ local projects = {
       },
     },
     dependencies = {
-      "catgoose/telescope-helpgrep.nvim",
+      -- "catgoose/telescope-helpgrep.nvim",
+      "simonmandlik/telescope-helpgrep.nvim",
     },
   },
   ["vue-goto-definition"] = {

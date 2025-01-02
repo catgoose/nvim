@@ -10,7 +10,7 @@ local opts = {
       css = false,
     },
     vue = {
-      tailwind = "both",
+      tailwind = "lsp",
       -- mode = "virtualtext",
       -- tailwind = "normal",
       css = true,
