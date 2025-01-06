@@ -98,10 +98,10 @@ end
   s(
     "pf",
     fmt(
-      [=[vim.print(string.format([[
-  {}
+      [=[vim.print(string.format([[{}
+      {}
 ]], {}))]=],
-      { i(1), i(2) }
+      { i(1), i(2), i(3) }
     )
   ),
   s("ppi", fmt([[vim.print(string.format("{}: %s", vim.inspect({})))]], { i(1), smn(1) })),

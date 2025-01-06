@@ -10,9 +10,13 @@ local opts = {
       css = false,
     },
     vue = {
-      tailwind = "lsp",
+      tailwind = "both",
+      tailwind_opts = {
+        update_names = true,
+      },
+      -- names = true,
       -- mode = "virtualtext",
-      -- tailwind = "normal",
+      virtualtext_inline = false,
       css = true,
     },
     typescript = {
@@ -34,6 +38,12 @@ local opts = {
       RGB = false,
       css = false,
     },
+    cmp_menu = {
+      tailwind = "normal",
+      always_update = true,
+      css = true,
+      -- tailwind = "normal",
+    },
     cmp_docs = {
       always_update = true,
       css = true,
@@ -50,6 +60,7 @@ local opts = {
     },
     markdown = {
       RGB = false,
+      RRGGBB = true,
       always_update = true,
     },
     checkhealth = {
@@ -74,7 +85,6 @@ local opts = {
     "!popup",
   },
   user_default_options = {
-    names = false,
     names_opts = {
       lowercase = true,
       camelcase = true,
@@ -86,6 +96,7 @@ local opts = {
       redpurple = "#107dac",
       green_blue = "#ee9240",
       greenblue = "#ee9240",
+      ["a-asdf"] = "#ff0000",
     },
     -- RGB = true,
     -- RGBA = true,
@@ -99,18 +110,21 @@ local opts = {
     -- mode = "background",
     -- mode = "virtualtext",
     -- tailwind = "both",
-    tailwind = "normal",
+    -- names = false,
+    -- tailwind = "normal",
+    names = true,
+    -- virtualtext_inline = false,
     -- css = false,
     -- sass = {
     --   enable = true,
     --   parsers = { "css" },
     -- },
     -- virtualtext = "■",
-    -- virtualtext_inline = true,
     -- virtualtext_mode = "background",
-    always_update = true,
+    -- always_update = false,
   },
   user_commands = true,
+  lazy_load = false,
 }
 -- red
 
@@ -120,7 +134,9 @@ local plugin = {
   opts = opts,
   keys = keys,
   event = "BufReadPre",
-  lazy = false,
+  -- event = "VeryLazy",
+  -- branch = "lazyload",
+  -- lazy = true,
   init = function()
     vim.api.nvim_create_autocmd({ "BufReadPre" }, {
       group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
