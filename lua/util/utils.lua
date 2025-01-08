@@ -224,7 +224,7 @@ local function is_diag_neotest()
   local diagnostics = vim.diagnostic.get(0)
   local found = false
   for _, d in ipairs(diagnostics) do
-    if d.source:match("neotest") then
+    if d.source and d.source:match("neotest") then
       found = true
       break
     end
