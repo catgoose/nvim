@@ -11,8 +11,9 @@ local opts = {
     },
     vue = {
       tailwind = "both",
+      -- tailwind = "lsp",
       tailwind_opts = {
-        update_names = true,
+        update_names = false,
       },
       -- names = true,
       -- mode = "virtualtext",
@@ -116,10 +117,10 @@ local opts = {
     -- names = true,
     -- virtualtext_inline = false,
     -- css = false,
-    -- sass = {
-    --   enable = true,
-    --   parsers = { "css" },
-    -- },
+    sass = {
+      enable = true,
+      parsers = { "css" },
+    },
     -- virtualtext = "■",
     -- virtualtext_mode = "background",
     -- always_update = false,

@@ -5,7 +5,7 @@ local fn = vim.fn
 -- General
 opt.numberwidth = 1
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 -- opt.cursorline = true
 opt.fillchars = {
   horiz = "━",

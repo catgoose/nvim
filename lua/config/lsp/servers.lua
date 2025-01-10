@@ -91,9 +91,9 @@ function M.init(lspconfig)
       --   },
       -- },
     },
-    -- csharp_ls = {
-    --   capabilities = snippet_capabilities,
-    -- },
+    csharp_ls = {
+      capabilities = snippet_capabilities,
+    },
     cssls = {
       capabilities = snippet_capabilities,
       filetypes = css_ft,

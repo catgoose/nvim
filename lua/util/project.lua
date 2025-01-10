@@ -131,6 +131,7 @@ local projects = {
 -- local current_project = projects["do-the-needful"]
 -- local current_project = projects["vue-goto-definition"]
 -- local current_project = projects["nvim-ts-autotag"]
+-- local current_project = projects["nvim-colorizer.lua"]
 local current_project = projects["nvim-colorizer.lua"]
 
 local function get_project_property(project_name, property_type)

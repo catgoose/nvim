@@ -6,9 +6,9 @@ return {
   {
     "MaximilianLloyd/tw-values.nvim",
     opts = {
+      show_unknown_classes = true,
       focus_preview = true,
     },
-    lazy = true,
     ft = ft,
     keys = keys,
   },
