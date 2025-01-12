@@ -9,17 +9,7 @@ local opts = {
       RGB = false,
       css = false,
     },
-    vue = {
-      tailwind = "both",
-      -- tailwind = "lsp",
-      tailwind_opts = {
-        update_names = false,
-      },
-      -- names = true,
-      -- mode = "virtualtext",
-      virtualtext_inline = false,
-      css = true,
-    },
+    vue = {},
     typescript = {
       css = true,
     },
@@ -54,10 +44,11 @@ local opts = {
     },
     lua = {
       names = true,
-      names_custom = function()
-        local colors = require("kanagawa.colors").setup()
-        return colors.palette
-      end,
+      tailwind = true,
+      -- names_custom = function()
+      --   local colors = require("kanagawa.colors").setup()
+      --   return colors.palette
+      -- end,
     },
     markdown = {
       RGB = false,
@@ -86,19 +77,12 @@ local opts = {
     "!popup",
   },
   user_default_options = {
-    names_opts = {
-      lowercase = true,
-      camelcase = true,
-      uppercase = true,
-      strip_digits = false,
-    },
-    names_custom = {
-      red_purple = "#107dac",
-      redpurple = "#107dac",
-      green_blue = "#ee9240",
-      greenblue = "#ee9240",
-      ["a-asdf"] = "#ff0000",
-    },
+    -- names_opts = {
+    --   lowercase = true,
+    --   camelcase = true,
+    --   uppercase = true,
+    --   strip_digits = false,
+    -- },
     -- RGB = true,
     -- RGBA = true,
     -- RRGGBB = true,
@@ -113,6 +97,18 @@ local opts = {
     -- tailwind = "both",
     -- names = false,
     -- tailwind = "normal",
+    -- names_custom = {
+    --   [" NOTE:"] = "#5CA204",
+    -- ["TODO: "] = "#3457D5",
+    -- [" WARN: "] = "#EAFE01",
+    -- ["  FIX:  "] = "#FF0000",
+    -- one_two = "#017dac",
+    -- ["three=four"] = "#3700c2",
+    -- ["five@six"] = "#e9e240",
+    -- ["seven!eight"] = "#a9e042",
+    -- ["nine!!ten"] = "#09e392",
+    -- },
+    tailwind = true,
     css = true,
     -- names = true,
     -- virtualtext_inline = false,
@@ -128,7 +124,6 @@ local opts = {
   user_commands = true,
   lazy_load = false,
 }
--- red
 
 local keys = project.get_keys("nvim-colorizer.lua")
 
