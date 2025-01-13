@@ -45,6 +45,14 @@ local opts = {
     lua = {
       names = true,
       tailwind = true,
+      names_custom = {
+        -- ["  FIX:  "] = "#FF0000",
+        one_two = "#017dac",
+        ["three=four"] = "#3700c2",
+        ["five@six"] = "#e9e240",
+        ["seven!eight"] = "#a9e042",
+        ["nine!!ten"] = "#09e392",
+      },
       -- names_custom = function()
       --   local colors = require("kanagawa.colors").setup()
       --   return colors.palette
@@ -133,7 +141,6 @@ local plugin = {
   event = "BufReadPre",
   -- event = "VeryLazy",
   -- branch = "lazyload",
-  -- lazy = true,
   init = function()
     vim.api.nvim_create_autocmd({ "BufReadPre" }, {
       group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),

@@ -342,6 +342,17 @@ end,
     )
   ),
   s("lazymap", t([[local m = require("util").lazy_map]])),
+  s(
+    "schedule",
+    fmt(
+      [[
+vim.schedule(function()
+  {}
+end)
+      ]],
+      { i(1) }
+    )
+  ),
 }
 
 return snippets
