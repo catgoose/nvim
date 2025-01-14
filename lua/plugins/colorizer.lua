@@ -9,7 +9,20 @@ local opts = {
       RGB = false,
       css = false,
     },
-    vue = {},
+    vue = {
+      tailwind = "both",
+      -- tailwind = "lsp",
+      tailwind_opts = {
+        update_names = true,
+      },
+      -- tailwind = true,
+      virtualtext = "●",
+      mode = "virtualtext",
+      always_update = true,
+      RRGGBBAA = true,
+      AARRGGBB = true,
+      css = true,
+    },
     typescript = {
       css = true,
     },
@@ -42,22 +55,22 @@ local opts = {
     TelescopeResults = {
       RGB = false,
     },
-    lua = {
-      names = true,
-      tailwind = true,
-      names_custom = {
-        -- ["  FIX:  "] = "#FF0000",
-        one_two = "#017dac",
-        ["three=four"] = "#3700c2",
-        ["five@six"] = "#e9e240",
-        ["seven!eight"] = "#a9e042",
-        ["nine!!ten"] = "#09e392",
-      },
-      -- names_custom = function()
-      --   local colors = require("kanagawa.colors").setup()
-      --   return colors.palette
-      -- end,
-    },
+    -- lua = {
+    -- names = true,
+    -- tailwind = true,
+    -- names_custom = {
+    -- ["  FIX:  "] = "#FF0000",
+    -- one_two = "#017dac",
+    -- ["three=four"] = "#3700c2",
+    -- ["five@six"] = "#e9e240",
+    -- ["seven!eight"] = "#a9e042",
+    -- ["nine!!ten"] = "#09e392",
+    -- },
+    -- names_custom = function()
+    --   local colors = require("kanagawa.colors").setup()
+    --   return colors.palette
+    -- end,
+    -- },
     markdown = {
       RGB = false,
       RRGGBB = true,
@@ -102,9 +115,7 @@ local opts = {
     -- css_fn = true,
     -- mode = "background",
     -- mode = "virtualtext",
-    -- tailwind = "both",
     -- names = false,
-    -- tailwind = "normal",
     -- names_custom = {
     --   [" NOTE:"] = "#5CA204",
     -- ["TODO: "] = "#3457D5",
@@ -116,15 +127,15 @@ local opts = {
     -- ["seven!eight"] = "#a9e042",
     -- ["nine!!ten"] = "#09e392",
     -- },
-    tailwind = true,
-    css = true,
+    -- tailwind = true,
+    -- css = true,
     -- names = true,
     -- virtualtext_inline = false,
     -- css = false,
-    sass = {
-      enable = true,
-      parsers = { "css" },
-    },
+    -- sass = {
+    --   enable = true,
+    --   parsers = { "css" },
+    -- },
     -- virtualtext = "■",
     -- virtualtext_mode = "background",
     -- always_update = false,

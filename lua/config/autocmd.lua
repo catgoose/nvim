@@ -96,11 +96,7 @@ autocmd({ "TermOpen" }, {
   group = terminal,
   pattern = { "*" },
   callback = function(event)
-    opt_local.number = false
-    opt_local.relativenumber = false
     opt_local.cursorline = false
-    opt_local.signcolumn = "no"
-    opt_local.statuscolumn = ""
     local code_term_esc = api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
     for _, key in ipairs({ "h", "j", "k", "l" }) do
       vim.keymap.set("t", "<C-" .. key .. ">", function()
@@ -109,7 +105,7 @@ autocmd({ "TermOpen" }, {
       end, { noremap = true })
     end
     if bo.filetype == "" then
-      api.nvim_set_option_value("filetype", "terminal", { buf = event.bufnr })
+      api.nvim_set_option_value("filetype", "terminal", { buf = event.buf })
       if vim.g.catgoose_terminal_enable_startinsert == 1 then
         cmd.startinsert()
       end
