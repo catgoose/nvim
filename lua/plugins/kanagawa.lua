@@ -106,6 +106,10 @@ local config = function()
       },
     },
     overrides = overrides,
+    theme = "wave",
+    background = {
+      dark = "wave",
+    },
   })
   vim.cmd.colorscheme("kanagawa-wave")
 end
