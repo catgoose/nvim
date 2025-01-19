@@ -82,7 +82,7 @@ end
 
 local config = function()
   require("kanagawa").setup({
-    compile = false,
+    compile = true,
     undercurl = true,
     commentStyle = { italic = true },
     functionStyle = {},
