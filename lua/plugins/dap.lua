@@ -7,12 +7,12 @@ return {
     "mfussenegger/nvim-dap",
     event = "BufReadPre",
     keys = {
-      m("<F1>", [[DapContinue]]),
-      m("<F2>", [[DapStepInto]]),
-      m("<F3>", [[DapStepOver]]),
-      m("<F4>", [[DapStepOut]]),
-      m("<F5>", [[DapStepBack]]),
-      m("<F7>", [[DapRestartFrame]]),
+      m("<F1>", [[DapStepInto]]),
+      m("<F2>", [[DapStepOver]]),
+      m("<F3>", [[DapStepOut]]),
+      m("<F4>", [[DapStepBack]]),
+      m("<F5>", [[DapContinue]]),
+      m("<F11>", [[DapRestartFrame]]),
     },
     init = function()
       c("DapClearBreakpoints", require("dap").clear_breakpoints)
@@ -44,6 +44,7 @@ return {
         dapui.close()
       end
 
+      -- Go
       if not dap.adapters.go then
         dap.adapters.go = {
           type = "executable",
@@ -83,6 +84,8 @@ return {
           -- },
         }
       end
+
+      -- javascript/typescript
       if not dap.adapters["pwa-chrome"] then
         dap.adapters["pwa-chrome"] = {
           type = "server",
@@ -110,6 +113,22 @@ return {
           sourceMaps = false,
         })
       end
+
+      -- lua
+      dap.configurations.lua = {
+        {
+          type = "nlua",
+          request = "attach",
+          name = "Attach to running Neovim instance",
+        },
+      }
+      dap.adapters.nlua = function(callback, config)
+        callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
+      end
+      -- TODO: 2025-01-19 - Update this keybinding and only set it in lua files?
+      vim.keymap.set("n", "<leader>du", function()
+        require("osv").launch({ port = 8086 })
+      end, { noremap = true })
     end,
   },
   {
@@ -152,4 +171,5 @@ return {
     },
     dependencies = "mfussenegger/nvim-dap",
   },
+  "jbyuki/one-small-step-for-vimkind",
 }

@@ -36,9 +36,9 @@ local opts = {
       },
       {
         icon = "",
-        desc = "Lazy sync",
+        desc = "One step for vimkind",
         key = "l",
-        action = "Lazy sync",
+        action = "OneStepForVimKindLaunch",
       },
       {
         icon = "",

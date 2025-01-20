@@ -190,5 +190,8 @@ c("TermOpenRightResized", function()
   })
 end)
 c("MakeOpenQF", f.make_open_qf)
+c("OneStepForVimKindLaunch", function()
+  require("osv").launch({ port = 8086 })
+end)
 
 c("TestingFunction", f.testing_function)
