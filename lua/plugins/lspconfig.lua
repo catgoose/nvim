@@ -2,6 +2,8 @@ local config = function()
   require("config.lsp")
 end
 
+-- TODO: 2025-01-20 - Use new lspconfig: https://github.com/neovim/neovim/pull/31031
+
 return {
   "neovim/nvim-lspconfig",
   init = function()

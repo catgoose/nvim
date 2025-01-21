@@ -1,172 +1,111 @@
 local dev = true
 local project = require("util.project")
 
+local function is_comment_on_line(line_num, bufnr, filetype)
+  local parser_ok, parser = pcall(vim.treesitter.get_parser, bufnr, filetype)
+  if not parser_ok or not parser then
+    return
+  end
+  local tree = parser:parse()
+  if not tree or not tree[1] then
+    return
+  end
+  local node = tree[1]:root()
+  if not node then
+    return
+  end
+
+  local query_ok, query = pcall(vim.treesitter.query.parse, filetype, "(comment) @comment")
+  if not query_ok or not query then
+    return
+  end
+
+  for _, capture in query:iter_captures(node, 0) do
+    local start_row, _, end_row, _ = capture:range()
+    if
+      (start_row == line_num and end_row == line_num) -- single line comment
+      or (start_row <= line_num and end_row >= line_num) --[[ block comment ]]
+    then
+      return true
+    end
+  end
+end
+
 local opts = {
-  -- filetypes = {
-  --   "*",
-  --   "!dashboard",
-  --   ps1 = {
-  --     RGB = false,
-  --     css = false,
-  --   },
-  --   vue = {
-  --     tailwind = "both",
-  --     tailwind_opts = {
-  --       update_names = true,
-  --     },
-  --     -- tailwind = true,
-  --     virtualtext = "●",
-  --     virtualtext_inline = true,
-  --     mode = "virtualtext",
-  --     always_update = true,
-  --     RRGGBBAA = true,
-  --     AARRGGBB = true,
-  --     css = true,
-  --   },
-  --   typescript = {
-  --     css = true,
-  --   },
-  --   javascript = {
-  --     css = false,
-  --   },
-  --   json = {
-  --     css = false,
-  --   },
-  --   sh = {
-  --     css = false,
-  --   },
-  --   mason = {
-  --     css = false,
-  --   },
-  --   lazy = {
-  --     RGB = false,
-  --     css = false,
-  --   },
-  --   cmp_menu = {
-  --     tailwind = "normal",
-  --     always_update = true,
-  --     css = true,
-  --     -- tailwind = "normal",
-  --   },
-  --   cmp_docs = {
-  --     always_update = true,
-  --     css = true,
-  --   },
-  --   TelescopeResults = {
-  --     RGB = false,
-  --   },
-  --   -- lua = {
-  --   -- names = true,
-  --   -- tailwind = true,
-  --   -- names_custom = {
-  --   -- ["  FIX:  "] = "#FF0000",
-  --   -- one_two = "#017dac",
-  --   -- ["three=four"] = "#3700c2",
-  --   -- ["five@six"] = "#e9e240",
-  --   -- ["seven!eight"] = "#a9e042",
-  --   -- ["nine!!ten"] = "#09e392",
-  --   -- },
-  --   -- names_custom = function()
-  --   --   local colors = require("kanagawa.colors").setup()
-  --   --   return colors.palette
-  --   -- end,
-  --   -- },
-  --   markdown = {
-  --     RGB = false,
-  --     RRGGBB = true,
-  --     always_update = true,
-  --   },
-  --   checkhealth = {
-  --     names = false,
-  --   },
-  --   sshconfig = {
-  --     names = false,
-  --   },
-  --   NeogitLogView = {
-  --     RGB = false,
-  --   },
-  --   NeogitStatus = {
-  --     RGB = false,
-  --   },
-  --   Mason = {
-  --     names = false,
-  --   },
-  -- },
-  -- buftypes = {
-  --   "*",
-  --   "!prompt",
-  --   "!popup",
-  -- },
-  -- user_default_options = {
-  --   -- names_opts = {
-  --   --   lowercase = true,
-  --   --   camelcase = true,
-  --   --   uppercase = true,
-  --   --   strip_digits = false,
-  --   -- },
-  --   -- RGB = true,
-  --   -- RGBA = true,
-  --   -- RRGGBB = true,
-  --   -- RRGGBBAA = true,
-  --   -- AARRGGBB = true,
-  --   -- rgb_fn = true,
-  --   -- hsl_fn = false,
-  --   -- css = false,
-  --   -- css_fn = true,
-  --   -- mode = "background",
-  --   -- mode = "virtualtext",
-  --   -- names = false,
-  --   -- names_custom = {
-  --   --   [" NOTE:"] = "#5CA204",
-  --   -- ["TODO: "] = "#3457D5",
-  --   -- [" WARN: "] = "#EAFE01",
-  --   -- ["  FIX:  "] = "#FF0000",
-  --   -- one_two = "#017dac",
-  --   -- ["three=four"] = "#3700c2",
-  --   -- ["five@six"] = "#e9e240",
-  --   -- ["seven!eight"] = "#a9e042",
-  --   -- ["nine!!ten"] = "#09e392",
-  --   -- },
-  --   -- tailwind = true,
-  --   -- css = true,
-  --   -- names = true,
-  --   -- virtualtext_inline = false,
-  --   -- css = false,
-  --   -- sass = {
-  --   --   enable = true,
-  --   --   parsers = { "css" },
-  --   -- },
-  --   -- virtualtext = "■",
-  --   -- virtualtext_mode = "background",
-  --   -- always_update = false,
-  -- },
-  -- user_commands = true,
-  -- lazy_load = false,
   filetypes = {
     "*",
-    lua = {
-      names = true,
-      names_opts = {
-        lowercase = true,
-        uppercase = true,
-        camelcase = true,
-        strip_digits = false,
-      },
-      names_custom = {
-        lua1 = "#ffefaf",
-      },
-      tailwind = true,
+    "!dashboard",
+    ps1 = {
+      RGB = false,
+      css = false,
+    },
+    typescript = {
+      css = true,
+    },
+    javascript = {
+      css = false,
+    },
+    json = {
+      css = false,
+    },
+    sh = {
+      css = false,
+    },
+    mason = {
+      css = false,
+    },
+    lazy = {
+      RGB = false,
+      css = false,
+    },
+    cmp_menu = {
+      tailwind = "normal",
+      always_update = true,
+      css = true,
+    },
+    cmp_docs = {
+      always_update = true,
+      css = true,
+    },
+    TelescopeResults = {
+      RGB = false,
+    },
+    markdown = {
+      RGB = false,
+      RRGGBB = true,
+      always_update = true,
+    },
+    checkhealth = {
+      names = false,
+    },
+    sshconfig = {
+      names = false,
+    },
+    NeogitLogView = {
+      RGB = false,
+    },
+    NeogitStatus = {
+      RGB = false,
+    },
+    Mason = {
+      names = false,
     },
   },
+  buftypes = {
+    "*",
+    "!prompt",
+    "!popup",
+  },
   user_default_options = {
-    names = true,
-    names_custom = {
-      html1 = "#00ff00",
+    names_opts = {
+      lowercase = true,
+      camelcase = true,
+      uppercase = true,
+      strip_digits = false,
     },
-    -- local colors = require("kanagawa.colors").setup()
-    -- vim.print(string.format("colors: %s", vim.inspect(colors)))
-    -- return colors.palette
+    names = true,
     RGB = true,
+    RGBA = true,
     RRGGBB = true,
     RRGGBBAA = true,
     AARRGGBB = true,
@@ -175,13 +114,28 @@ local opts = {
     css = true,
     css_fn = true,
     mode = "background",
-    sass = { enable = false, parsers = { "css" } },
-    virtualtext = "",
-    virtualtext_inline = true,
-    virtualtext_mode = "foreground",
+    names_custom = function()
+      local colors = require("kanagawa.colors").setup()
+      return colors.palette
+    end,
+    tailwind = true,
+    virtualtext_inline = false,
+    sass = {
+      enable = true,
+      parsers = { "css" },
+    },
+    virtualtext = "■",
+    virtualtext_mode = "background",
     always_update = false,
+    -- hooks = {
+    --   do_parse_line = function(line, line_nr, bufnr)
+    --     local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+    --     local is_comment = is_comment_on_line(line_nr, bufnr, filetype)
+    --     return not is_comment
+    --     -- return string.sub(line, 1, 2) ~= "--"
+    --   end,
+    -- },
   },
-  buftypes = {},
   user_commands = true,
   lazy_load = false,
 }
@@ -193,7 +147,6 @@ local plugin = {
   keys = keys,
   event = "BufReadPre",
   -- event = "VeryLazy",
-  -- branch = "lazyload",
   init = function()
     vim.api.nvim_create_autocmd({ "BufReadPre" }, {
       group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
