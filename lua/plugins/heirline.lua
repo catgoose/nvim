@@ -481,6 +481,9 @@ local config = function()
 
   local StatusLines = {
     condition = function()
+      if vim.bo.filetype == "" then
+        return false
+      end
       for _, c in ipairs(cmdtype_inactive) do
         if vim.fn.getcmdtype() == c then
           return false

@@ -23,14 +23,19 @@ return {
     end,
     cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
-      local dap, mason = require("dap"), require("mason-registry")
-
-      dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
-      dap.defaults.fallback.focus_terminal = true
-      dap.set_exception_breakpoints({ "raised", "uncaught" })
+      local dap, widgets = require("dap"), require("dap.ui.widgets")
+      local sb_bufnr
+      dap.listeners.before.launch.dapui_config = function()
+        sb_bufnr = widgets.sidebar(widgets.scopes, { width = 50 }).open()
+        dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
+        dap.defaults.fallback.focus_terminal = true
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        vim.api.nvim_buf_delete(sb_bufnr, { force = true })
+      end
 
       local function get_install_path(package)
-        return mason.get_package(package):get_install_path()
+        return require("mason-registry").get_package(package):get_install_path()
       end
 
       -- Go
@@ -121,7 +126,6 @@ return {
         end
       end)
 
-      local widgets = require("dap.ui.widgets")
       vim.keymap.set("n", "<leader>ds", function()
         widgets.cursor_float(widgets.scopes, { border = "rounded" })
       end, { noremap = true })
@@ -135,19 +139,6 @@ return {
       vim.keymap.set("n", "<leader>dv", "<cmd>DapReplOpenVSplit<cr>", { noremap = true })
     end,
   },
-  -- {
-  --   "igorlfs/nvim-dap-view",
-  --   opts = {},
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   cmd = {
-  --     "DapViewOpen",
-  --     "DapViewClose",
-  --     "DapViewToggle",
-  --     "DapViewWatch",
-  --   },
-  -- },
   {
     "theHamsta/nvim-dap-virtual-text",
     config = true,

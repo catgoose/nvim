@@ -11,16 +11,16 @@ return {
         elements = {
           {
             id = "scopes",
-            size = 0.75,
+            size = 0.50,
           },
           {
             id = "breakpoints",
             size = 0.25,
           },
-          -- {
-          --   id = "stacks",
-          --   size = 0.25,
-          -- },
+          {
+            id = "stacks",
+            size = 0.25,
+          },
         },
         position = "left",
         size = 40,
@@ -29,17 +29,16 @@ return {
         elements = {
           {
             id = "repl",
-            -- size = 0.5,
-            size = 1,
+            size = 0.5,
           },
-          -- {
-          --   id = "console",
-          --   size = 0.5,
-          -- },
-          -- {
-          --   id = "watches",
-          --   size = 0.25,
-          -- },
+          {
+            id = "console",
+            size = 0.25,
+          },
+          {
+            id = "watches",
+            size = 0.25,
+          },
         },
         position = "bottom",
         size = 10,
@@ -53,4 +52,4 @@ return {
     "mfussenegger/nvim-dap",
     "nvim-neotest/nvim-nio",
   },
-}
+  enabled = false
