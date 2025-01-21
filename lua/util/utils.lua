@@ -235,6 +235,16 @@ end
 
 --  TODO: 2024-07-01 - add fallback for previewing githunk
 function M.hover_handler()
+  local dap_ok, dap = pcall(require, "dap")
+  if dap_ok then
+    if dap.session() ~= nil then
+      local dapui_ok, dapui = pcall(require, "dap.ui.widgets")
+      -- TODO: 2025-01-20 - add hover exclusion filetypes
+      if dapui_ok and vim.bo.filetype ~= "dap-float" then
+        dapui.hover()
+      end
+    end
+  end
   local ufo_ok, ufo = pcall(require, "ufo")
   if ufo_ok then
     local winid = ufo.peekFoldedLinesUnderCursor()

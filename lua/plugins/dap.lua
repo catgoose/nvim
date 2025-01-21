@@ -13,6 +13,7 @@ return {
       m("<F4>", [[DapStepBack]]),
       m("<F5>", [[DapContinue]]),
       m("<F11>", [[DapRestartFrame]]),
+      m("<F12>", [[DapDisconnect]]),
     },
     init = function()
       c("DapClearBreakpoints", require("dap").clear_breakpoints)
@@ -23,26 +24,27 @@ return {
     cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
       local dap, dapui, mason = require("dap"), require("dapui"), require("mason-registry")
+
+      dap.listeners.before.attach.dapui_config = function()
+        -- vim.cmd("silent! tabnew %")
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        -- vim.cmd("silent! tabnew %")
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        -- vim.cmd("silent! tabclose")
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        -- vim.cmd("silent! tabclose")
+        dapui.close()
+      end
+
       local function get_install_path(package)
         return mason.get_package(package):get_install_path()
       end
-
-      dap.listeners.before.attach.dapui_config = function()
-        vim.cmd("silent! tabnew %")
-        dapui.open()
-      end
-      -- dap.listeners.before.launch.dapui_config = function()
-      --   vim.cmd("silent! tabnew %")
-      --   dapui.open()
-      -- end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        vim.cmd("silent! tabclose")
-        dapui.close()
-      end
-      -- dap.listeners.before.event_exited.dapui_config = function()
-      --   vim.cmd("silent! tabclose")
-      --   dapui.close()
-      -- end
 
       -- Go
       if not dap.adapters.go then
@@ -125,9 +127,13 @@ return {
       dap.adapters.nlua = function(callback, config)
         callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
       end
-      -- TODO: 2025-01-19 - Update this keybinding and only set it in lua files?
+
+      local widgets = require("dap.ui.widgets")
+      vim.keymap.set("n", "<leader>ds", function()
+        widgets.centered_float(widgets.scopes, { border = "rounded" })
+      end, { noremap = true })
       vim.keymap.set("n", "<leader>du", function()
-        require("osv").launch({ port = 8086 })
+        widgets.centered_float(widgets.frames, { border = "rounded" })
       end, { noremap = true })
     end,
   },
@@ -150,6 +156,9 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     opts = {
+      floating = {
+        border = "rounded",
+      },
       layouts = {
         {
           elements = {
@@ -165,10 +174,6 @@ return {
               id = "stacks",
               size = 0.25,
             },
-            -- {
-            --   id = "watches",
-            --   size = 0.25,
-            -- },
           },
           position = "left",
           size = 40,
@@ -181,8 +186,12 @@ return {
             },
             {
               id = "console",
-              size = 0.5,
+              size = 0.50,
             },
+            -- {
+            --   id = "watches",
+            --   size = 0.25,
+            -- },
           },
           position = "bottom",
           size = 10,
