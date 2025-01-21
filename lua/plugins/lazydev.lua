@@ -6,6 +6,7 @@ return {
       library = {
         "luvit-meta/library",
         "neotest",
+        "nvim-dap-ui",
       },
     },
     dependencies = {

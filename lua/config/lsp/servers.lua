@@ -140,18 +140,18 @@ function M.init(lspconfig)
     },
     jsonls = {
       capabilities = snippet_capabilities,
-      settings = {
-        json = {
-          schemas = require("schemastore").json.schemas({
-            select = {
-              "package.json",
-              ".eslintrc",
-              "tsconfig.json",
-            },
-          }),
-          validate = { enable = true },
-        },
-      },
+      -- settings = {
+      --   json = {
+      --     schemas = require("schemastore").json.schemas({
+      --       select = {
+      --         "package.json",
+      --         ".eslintrc",
+      --         "tsconfig.json",
+      --       },
+      --     }),
+      --     validate = { enable = true },
+      --   },
+      -- },
     },
     vimls = {
       diagnostic = { enable = true },
@@ -250,28 +250,26 @@ function M.init(lspconfig)
     end
   end
 
-  if server_enabled("diagnosticls") then
-    lspconfig.diagnosticls.setup({
-      capabilities = capabilities,
-      on_attach = function(client, bufnr)
-        local stop_ft = {
-          "dap-repl",
-        }
-        for _, ft in pairs(stop_ft) do
-          if vim.bo.filetype == ft then
-            if vim.lsp.buf_is_attached(bufnr, client.id) then
-              local notify = vim.notify
-              ---@diagnostic disable-next-line: duplicate-set-field
-              vim.notify = function() end
-              vim.lsp.buf_detach_client(bufnr, client.id)
-              vim.notify = notify
-            end
-          end
-        end
-        on_attach(client, bufnr)
-      end,
-    })
-  end
+  -- lspconfig.diagnosticls.setup({
+  --   capabilities = capabilities,
+  --   on_attach = function(client, bufnr)
+  --     local stop_ft = {
+  --       "dap-repl",
+  --     }
+  --     for _, ft in pairs(stop_ft) do
+  --       if vim.bo.filetype == ft then
+  --         if vim.lsp.buf_is_attached(bufnr, client.id) then
+  --           local notify = vim.notify
+  --           ---@diagnostic disable-next-line: duplicate-set-field
+  --           vim.notify = function() end
+  --           vim.lsp.buf_detach_client(bufnr, client.id)
+  --           vim.notify = notify
+  --         end
+  --       end
+  --     end
+  --     on_attach(client, bufnr)
+  --   end,
+  -- })
 end
 
 return M

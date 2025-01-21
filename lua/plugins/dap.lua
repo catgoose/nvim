@@ -31,18 +31,18 @@ return {
         vim.cmd("silent! tabnew %")
         dapui.open()
       end
-      dap.listeners.before.launch.dapui_config = function()
-        vim.cmd("silent! tabnew %")
-        dapui.open()
-      end
+      -- dap.listeners.before.launch.dapui_config = function()
+      --   vim.cmd("silent! tabnew %")
+      --   dapui.open()
+      -- end
       dap.listeners.before.event_terminated.dapui_config = function()
         vim.cmd("silent! tabclose")
         dapui.close()
       end
-      dap.listeners.before.event_exited.dapui_config = function()
-        vim.cmd("silent! tabclose")
-        dapui.close()
-      end
+      -- dap.listeners.before.event_exited.dapui_config = function()
+      --   vim.cmd("silent! tabclose")
+      --   dapui.close()
+      -- end
 
       -- Go
       if not dap.adapters.go then
@@ -131,6 +131,13 @@ return {
       end, { noremap = true })
     end,
   },
+  -- {
+  --   "igorlfs/nvim-dap-view",
+  --   opts = {},
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  -- },
   {
     "theHamsta/nvim-dap-virtual-text",
     config = true,
@@ -142,7 +149,46 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    config = true,
+    opts = {
+      layouts = {
+        {
+          elements = {
+            {
+              id = "scopes",
+              size = 0.50,
+            },
+            {
+              id = "breakpoints",
+              size = 0.25,
+            },
+            {
+              id = "stacks",
+              size = 0.25,
+            },
+            -- {
+            --   id = "watches",
+            --   size = 0.25,
+            -- },
+          },
+          position = "left",
+          size = 40,
+        },
+        {
+          elements = {
+            {
+              id = "repl",
+              size = 0.5,
+            },
+            {
+              id = "console",
+              size = 0.5,
+            },
+          },
+          position = "bottom",
+          size = 10,
+        },
+      },
+    },
     keys = {
       m("<leader>?", [[lua require("dapui").toggle()]]),
     },
