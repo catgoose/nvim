@@ -239,7 +239,7 @@ function M.hover_handler()
   if dap_ok and dap.session() ~= nil then
     local dapui_ok, dapui = pcall(require, "dap.ui.widgets")
     if dapui_ok and vim.bo.filetype ~= "dap-float" then
-      dapui.hover()
+      dapui.hover(nil, { border = "rounded" })
     end
   end
   local ufo_ok, ufo = pcall(require, "ufo")

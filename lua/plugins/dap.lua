@@ -1,6 +1,7 @@
 local u = require("util")
 local c = u.create_cmd
 local m = u.lazy_map
+local f = require("util.functions")
 
 return {
   {
@@ -22,20 +23,11 @@ return {
     end,
     cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
-      local dap, dapui, mason = require("dap"), require("dapui"), require("mason-registry")
+      local dap, mason = require("dap"), require("mason-registry")
 
-      dap.listeners.before.attach.dapui_config = function()
-        dapui.open()
-      end
-      dap.listeners.before.launch.dapui_config = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited.dapui_config = function()
-        dapui.close()
-      end
+      dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
+      dap.defaults.fallback.focus_terminal = true
+      dap.set_exception_breakpoints({ "raised", "uncaught" })
 
       local function get_install_path(package)
         return mason.get_package(package):get_install_path()
@@ -118,6 +110,13 @@ return {
         callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
       end
 
+      c("DapReplOpenTab", function()
+        f.tab_cb(dap.repl.toggle)
+      end)
+      c("DapReplOpenVSplit", function()
+        dap.repl.toggle({}, "vsplit")
+      end)
+
       local widgets = require("dap.ui.widgets")
       vim.keymap.set("n", "<leader>ds", function()
         widgets.cursor_float(widgets.scopes, { border = "rounded" })
@@ -128,6 +127,8 @@ return {
       vim.keymap.set("n", "<leader>dt", function()
         widgets.cursor_float(widgets.threads, { border = "rounded" })
       end, { noremap = true })
+      vim.keymap.set("n", "<leader>dr", "<cmd>DapReplOpenTab<cr>", { noremap = true })
+      vim.keymap.set("n", "<leader>dv", "<cmd>DapReplOpenVSplit<cr>", { noremap = true })
     end,
   },
   -- {

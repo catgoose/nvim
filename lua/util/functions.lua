@@ -91,6 +91,21 @@ function M.run_system_command(config)
   end, 0)
 end
 
+function M.tab_cb(cb, eval)
+  if not cb then
+    return
+  end
+  if eval and type(eval) == "function" and not eval() then
+    return
+  end
+  if type(cb) == "function" then
+    vim.cmd.tabnew()
+    local winnr = api.nvim_get_current_win()
+    cb()
+    api.nvim_win_close(winnr, false)
+  end
+end
+
 local function open_help_tab(help_cmd, topic)
   cmd.tabe()
   local winnr = api.nvim_get_current_win()

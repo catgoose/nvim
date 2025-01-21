@@ -43,10 +43,14 @@ local function code_action(action, bufnr)
   if not client then
     return
   end
-  local params = vim.lsp.util.make_range_params()
+  local params = vim.lsp.util.make_range_params(0, "utf-16")
   params.context = { only = { action } }
-  local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
-  apply_code_actions(result, client)
+  pcall(function()
+    local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
+    if result then
+      apply_code_actions(result, client)
+    end
+  end)
 end
 
 --  TODO: 2024-11-02 - Handle blocks of imports
