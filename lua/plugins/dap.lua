@@ -5,7 +5,6 @@ local m = u.lazy_map
 return {
   {
     "mfussenegger/nvim-dap",
-    event = "BufReadPre",
     keys = {
       m("<F1>", [[DapStepInto]]),
       m("<F2>", [[DapStepOver]]),
@@ -58,14 +57,14 @@ return {
             program = "${file}",
             dlvToolPath = vim.fn.exepath("dlv"),
           },
-          {
-            type = "go",
-            name = "Debug test", -- configuration for debugging test files
-            request = "launch",
-            mode = "test",
-            program = "${file}",
-            dlvToolPath = vim.fn.exepath("dlv"),
-          },
+          -- {
+          --   type = "go",
+          --   name = "Debug test", -- configuration for debugging test files
+          --   request = "launch",
+          --   mode = "test",
+          --   program = "${file}",
+          --   dlvToolPath = vim.fn.exepath("dlv"),
+          -- },
           -- -- works with go.mod packages and sub packages
           -- {
           --   type = "go",
@@ -121,10 +120,13 @@ return {
 
       local widgets = require("dap.ui.widgets")
       vim.keymap.set("n", "<leader>ds", function()
-        widgets.centered_float(widgets.scopes, { border = "rounded" })
+        widgets.cursor_float(widgets.scopes, { border = "rounded" })
       end, { noremap = true })
       vim.keymap.set("n", "<leader>du", function()
-        widgets.centered_float(widgets.frames, { border = "rounded" })
+        widgets.cursor_float(widgets.frames, { border = "rounded" })
+      end, { noremap = true })
+      vim.keymap.set("n", "<leader>dt", function()
+        widgets.cursor_float(widgets.threads, { border = "rounded" })
       end, { noremap = true })
     end,
   },
@@ -133,6 +135,12 @@ return {
   --   opts = {},
   --   dependencies = {
   --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   cmd = {
+  --     "DapViewOpen",
+  --     "DapViewClose",
+  --     "DapViewToggle",
+  --     "DapViewWatch",
   --   },
   -- },
   {
