@@ -23,7 +23,6 @@ local is_not_filetype = function()
   local ft = vim.bo.filetype
   local exclude_ft = {
     "neorepl",
-    "neoai-input",
     "gitcommit",
     "oil",
   }
@@ -44,6 +43,7 @@ end
 
 function M.is_enabled()
   return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
+    or require("cmp_dap").is_dap_buffer()
 end
 
 return M
