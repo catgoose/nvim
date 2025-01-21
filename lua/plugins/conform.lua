@@ -53,7 +53,7 @@ local function init()
         level == "b" and string.format("for buffer id: %s", vim.api.nvim_get_current_buf())
           or "globally"
       ),
-      vim.log.levels.info,
+      vim.log.levels.INFO,
       ---@diagnostic disable-next-line: missing-fields
       {
         title = "conform.nvim formatting",

@@ -141,11 +141,11 @@ local config = function()
   })
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-  -- cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  --   sources = {
-  --     { name = "dap" },
-  --   },
-  -- })
+  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
 end
 
 return {

@@ -56,7 +56,7 @@ return {
         dap.configurations.go = {
           {
             type = "go",
-            name = "Debug",
+            name = "Debug current file",
             request = "launch",
             showLog = true,
             program = "${file}",
@@ -64,13 +64,6 @@ return {
           },
           -- {
           --   type = "go",
-          --   name = "Debug",
-          --   request = "launch",
-          --   program = "${file}",
-          --   dlvToolPath = vim.fn.exepath("dlv"),
-          -- },
-          -- {
-          --   type = "delve",
           --   name = "Debug test", -- configuration for debugging test files
           --   request = "launch",
           --   mode = "test",
@@ -78,7 +71,7 @@ return {
           -- },
           -- -- works with go.mod packages and sub packages
           -- {
-          --   type = "delve",
+          --   type = "go",
           --   name = "Debug test (go.mod)",
           --   request = "launch",
           --   mode = "test",
@@ -153,59 +146,6 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     event = "BufReadPre",
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    opts = {
-      floating = {
-        border = "rounded",
-      },
-      layouts = {
-        {
-          elements = {
-            {
-              id = "scopes",
-              size = 0.50,
-            },
-            {
-              id = "breakpoints",
-              size = 0.25,
-            },
-            {
-              id = "stacks",
-              size = 0.25,
-            },
-          },
-          position = "left",
-          size = 40,
-        },
-        {
-          elements = {
-            {
-              id = "repl",
-              size = 0.5,
-            },
-            {
-              id = "console",
-              size = 0.50,
-            },
-            -- {
-            --   id = "watches",
-            --   size = 0.25,
-            -- },
-          },
-          position = "bottom",
-          size = 10,
-        },
-      },
-    },
-    keys = {
-      m("<leader>?", [[lua require("dapui").toggle()]]),
-    },
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
-    },
   },
   {
     "ofirgall/goto-breakpoints.nvim",

@@ -35,6 +35,12 @@ local opts = {
   filetypes = {
     "*",
     "!dashboard",
+    go = {
+      names_opts = {
+        uppercase = false,
+        camelcase = false,
+      },
+    },
     ps1 = {
       RGB = false,
       css = false,

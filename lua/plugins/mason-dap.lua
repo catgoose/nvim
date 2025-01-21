@@ -5,6 +5,7 @@ local opts = {
     "chrome",
     "js",
     "node2",
+    "delve",
   },
   automatic_installation = true,
   automatic_setup = true,
