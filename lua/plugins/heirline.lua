@@ -468,6 +468,17 @@ local config = function()
   }
   QuickFixBlock = u.insert(QuickFixBlock, QuickFix, Space)
 
+  local DAPBlock = {
+    condition = function()
+      local session = require("dap").session()
+      return session ~= nil
+    end,
+    provider = function()
+      return string.format(" %s ", require("dap").status())
+    end,
+    hl = "Debug",
+  }
+
   local StatusLines = {
     condition = function()
       for _, c in ipairs(cmdtype_inactive) do
@@ -481,6 +492,7 @@ local config = function()
     MacroRecordingBlock,
     Align,
     QuickFixBlock,
+    DAPBlock,
     NeoTestBlock,
     DiagnosticsBlock,
     RulerBlock,

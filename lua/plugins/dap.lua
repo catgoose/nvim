@@ -111,10 +111,14 @@ return {
       end
 
       c("DapReplOpenTab", function()
-        f.tab_cb(dap.repl.toggle)
+        if dap.session() ~= nil then
+          f.tab_cb(dap.repl.toggle)
+        end
       end)
       c("DapReplOpenVSplit", function()
-        dap.repl.toggle({}, "vsplit")
+        if dap.session() ~= nil then
+          dap.repl.toggle({}, "vsplit")
+        end
       end)
 
       local widgets = require("dap.ui.widgets")
