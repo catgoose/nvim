@@ -26,19 +26,15 @@ return {
       local dap, dapui, mason = require("dap"), require("dapui"), require("mason-registry")
 
       dap.listeners.before.attach.dapui_config = function()
-        -- vim.cmd("silent! tabnew %")
         dapui.open()
       end
       dap.listeners.before.launch.dapui_config = function()
-        -- vim.cmd("silent! tabnew %")
         dapui.open()
       end
       dap.listeners.before.event_terminated.dapui_config = function()
-        -- vim.cmd("silent! tabclose")
         dapui.close()
       end
       dap.listeners.before.event_exited.dapui_config = function()
-        -- vim.cmd("silent! tabclose")
         dapui.close()
       end
 
@@ -62,13 +58,14 @@ return {
             program = "${file}",
             dlvToolPath = vim.fn.exepath("dlv"),
           },
-          -- {
-          --   type = "go",
-          --   name = "Debug test", -- configuration for debugging test files
-          --   request = "launch",
-          --   mode = "test",
-          --   program = "${file}",
-          -- },
+          {
+            type = "go",
+            name = "Debug test", -- configuration for debugging test files
+            request = "launch",
+            mode = "test",
+            program = "${file}",
+            dlvToolPath = vim.fn.exepath("dlv"),
+          },
           -- -- works with go.mod packages and sub packages
           -- {
           --   type = "go",
