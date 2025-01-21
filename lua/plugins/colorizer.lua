@@ -90,6 +90,9 @@ local opts = {
     Mason = {
       names = false,
     },
+    make = {
+      names = false,
+    },
   },
   buftypes = {
     "*",
