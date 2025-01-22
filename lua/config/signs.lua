@@ -27,11 +27,19 @@ local signs = {
     },
   },
   {
+    name = "DapBreakpointCondition",
+    dict = {
+      text = "󰓎",
+      texthl = hl.hint,
+      numhl = hl.hint,
+    },
+  },
+  {
     name = "DapBreakpointRejected",
     dict = {
-      text = "⭐️",
-      texthl = hl.info,
-      numhl = hl.info,
+      text = "",
+      texthl = hl.error,
+      numhl = hl.error,
     },
   },
 }

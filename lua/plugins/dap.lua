@@ -24,15 +24,12 @@ return {
     cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
       local dap, widgets = require("dap"), require("dap.ui.widgets")
-      local sb_bufnr
       dap.listeners.before.launch.dapui_config = function()
-        sb_bufnr = widgets.sidebar(widgets.scopes, { width = 50 }).open()
         dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
         dap.defaults.fallback.focus_terminal = true
       end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        vim.api.nvim_buf_delete(sb_bufnr, { force = true })
-      end
+      -- dap.listeners.before.event_terminated.dapui_config = function()
+      -- end
 
       local function get_install_path(package)
         return require("mason-registry").get_package(package):get_install_path()
@@ -45,6 +42,13 @@ return {
           command = "node",
           args = { get_install_path("go-debug-adapter") .. "/extension/dist/debugAdapter.js" },
         }
+        -- dlv debug main.go --headless --listen=:2345 --api-version=2 --accept-multiclient
+        -- dap.adapters.go = {
+        --   type = "server",
+        --   host = "127.0.0.1",
+        --   port = 2345,
+        -- }
+        local dlvToolPath = vim.fn.exepath("dlv")
         dap.configurations.go = {
           {
             type = "go",
@@ -52,24 +56,43 @@ return {
             request = "launch",
             showLog = true,
             program = "${file}",
-            dlvToolPath = vim.fn.exepath("dlv"),
+            dlvToolPath = dlvToolPath,
+          },
+          {
+            type = "go",
+            name = "Debug main.go",
+            request = "launch",
+            showLog = true,
+            program = "${workspaceFolder}/main.go",
+            dlvToolPath = dlvToolPath,
           },
           -- {
           --   type = "go",
-          --   name = "Debug test", -- configuration for debugging test files
-          --   request = "launch",
-          --   mode = "test",
-          --   program = "${file}",
-          --   dlvToolPath = vim.fn.exepath("dlv"),
+          --   name = "Attach to running process",
+          --   request = "attach",
+          --   mode = "remote",
+          --   pid = "${command:pickProcess}",
+          --   host = "127.0.0.1",
+          --   port = 2345,
+          --   dlvToolPath = dlvToolPath,
           -- },
-          -- -- works with go.mod packages and sub packages
-          -- {
-          --   type = "go",
-          --   name = "Debug test (go.mod)",
-          --   request = "launch",
-          --   mode = "test",
-          --   program = "./${relativeFileDirname}",
-          -- },
+          {
+            type = "go",
+            name = "Debug test", -- configuration for debugging test files
+            request = "launch",
+            showLog = true,
+            mode = "test",
+            program = "${file}",
+            dlvToolPath = dlvToolPath,
+          },
+          {
+            type = "go",
+            name = "Debug package",
+            request = "launch",
+            showLog = true,
+            program = "./${relativeFileDirname}",
+            dlvToolPath = dlvToolPath,
+          },
         }
       end
 
@@ -120,9 +143,9 @@ return {
           f.tab_cb(dap.repl.toggle)
         end
       end)
-      c("DapReplOpenVSplit", function()
+      c("DapScopesVSplit", function()
         if dap.session() ~= nil then
-          dap.repl.toggle({}, "vsplit")
+          widgets.sidebar(widgets.scopes, { width = 50 }).open()
         end
       end)
 
@@ -136,7 +159,7 @@ return {
         widgets.cursor_float(widgets.threads, { border = "rounded" })
       end, { noremap = true })
       vim.keymap.set("n", "<leader>dr", "<cmd>DapReplOpenTab<cr>", { noremap = true })
-      vim.keymap.set("n", "<leader>dv", "<cmd>DapReplOpenVSplit<cr>", { noremap = true })
+      vim.keymap.set("n", "<leader>dv", "<cmd>DapScopesVSplit<cr>", { noremap = true })
     end,
   },
   {

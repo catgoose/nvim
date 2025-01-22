@@ -29,16 +29,16 @@ return {
         elements = {
           {
             id = "repl",
-            size = 0.5,
+            size = 1,
           },
-          {
-            id = "console",
-            size = 0.25,
-          },
-          {
-            id = "watches",
-            size = 0.25,
-          },
+          -- {
+          --   id = "console",
+          --   size = 0.25,
+          -- },
+          -- {
+          --   id = "watches",
+          --   size = 0.25,
+          -- },
         },
         position = "bottom",
         size = 10,
@@ -52,4 +52,4 @@ return {
     "mfussenegger/nvim-dap",
     "nvim-neotest/nvim-nio",
   },
-  enabled = false
+}

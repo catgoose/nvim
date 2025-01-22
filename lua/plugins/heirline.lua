@@ -481,7 +481,7 @@ local config = function()
 
   local StatusLines = {
     condition = function()
-      if vim.bo.filetype == "" then
+      if vim.bo.filetype == "" or vim.bo.buftype == "prompt" or vim.bo.buftype == "nofile" then
         return false
       end
       for _, c in ipairs(cmdtype_inactive) do
