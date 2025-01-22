@@ -77,7 +77,6 @@ local config = function()
           ["]a"] = "@attribute.inner",
           ["]m"] = "@this_method_call",
           ["]s"] = { query = "@scope", query_group = "locals" },
-          --  TODO: 2024-01-08 - this is not working in typescript files
           ["]c"] = "@method_object_call",
           ["]o"] = "@object_declaration",
           ["]k"] = "@object_key",

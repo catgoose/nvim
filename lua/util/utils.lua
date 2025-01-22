@@ -167,7 +167,6 @@ function M.diag_error()
   return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
---  TODO: 2025-01-09 - Is this working?
 ---@diagnostic disable-next-line: unused-local, unused-function
 local function treesitter_is_css_class_under_cursor()
   local ft = bo.filetype

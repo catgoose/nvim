@@ -94,7 +94,6 @@ end
   ),
   s("insp", fmt([[print(vim.inspect({}))]], i(1))),
   s("pp", fmt([[vim.print({})]], i(1))),
-  --  TODO: 2024-12-30 - Prefix string.format with current function name
   s(
     "pf",
     fmt(
