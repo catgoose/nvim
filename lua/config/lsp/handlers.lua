@@ -5,7 +5,7 @@ function M.init()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
     local ts_lsp = { "ts_ls", "angularls", "volar" }
     local clients = vim.lsp.get_clients({ id = ctx.client_id })
-    if vim.tbl_contains(ts_lsp, clients[1].name) then
+    if clients and clients[1] and vim.tbl_contains(ts_lsp, clients[1].name) then
       local err_diag = {
         diagnostics = vim.tbl_filter(function(d)
           return d.severity == vim.diagnostic.severity.ERROR

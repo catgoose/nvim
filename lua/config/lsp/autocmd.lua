@@ -64,7 +64,7 @@ function M.lsp_attach()
             not enabled and "enabled" or "disabled",
             bufnr
           ),
-          vim.log.levels.info,
+          vim.log.levels.INFO,
           ---@diagnostic disable-next-line: missing-fields
           {
             title = "LSP inlay hints",
@@ -76,7 +76,7 @@ function M.lsp_attach()
         vim.lsp.inlay_hint.enable(not enabled)
         require("notify").notify(
           string.format("Inlay hints %s globally", not enabled and "enabled" or "disabled"),
-          vim.log.levels.info,
+          vim.log.levels.INFO,
           ---@diagnostic disable-next-line: missing-fields
           {
             title = "LSP inlay hints",

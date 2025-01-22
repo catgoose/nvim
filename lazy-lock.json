@@ -40,6 +40,7 @@
   "lazydev.nvim": { "branch": "main", "commit": "8620f82ee3f59ff2187647167b6b47387a13a018" },
   "leetcode.nvim": { "branch": "master", "commit": "db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951" },
   "lsp-lens.nvim": { "branch": "main", "commit": "48bb1a7e271424c15f3d588d54adc9b7c319d977" },
+  "lsp_lines": { "branch": "main", "commit": "fc695807ae66c8b89b04e4c124d3227333add330" },
   "lspkind-nvim": { "branch": "master", "commit": "d79a1c3299ad0ef94e255d045bed9fa26025dab6" },
   "luvit-meta": { "branch": "main", "commit": "1df30b60b1b4aecfebc785aa98943db6c6989716" },
   "marks.nvim": { "branch": "master", "commit": "bb25ae3f65f504379e3d08c8a02560b76eaf91e8" },
