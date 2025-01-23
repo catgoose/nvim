@@ -1,9 +1,47 @@
 local u = require("util")
 local m = u.lazy_map
+
+local Job = require("plenary.job")
+
+local function get_os_command_output(cmd, cwd)
+  if type(cmd) ~= "table" then
+    return {}
+  end
+  local command = table.remove(cmd, 1)
+  local stderr = {}
+  ---@diagnostic disable-next-line: missing-fields
+  local stdout, ret = Job:new({
+    command = command,
+    args = cmd,
+    cwd = cwd,
+    on_stderr = function(_, data)
+      table.insert(stderr, data)
+    end,
+  }):sync()
+  return stdout, ret, stderr
+end
+
+local function get_branch()
+  local branch = get_os_command_output({
+    "git",
+    "rev-parse",
+    "--abbrev-ref",
+    "HEAD",
+  })[1]
+  if branch then
+    return string.format("%s-%s", vim.fn.getcwd(), branch)
+  else
+    return vim.fn.getcwd()
+  end
+end
+
 local opts = {
   settings = {
     sync_on_ui_close = true,
     save_on_toggle = true,
+    -- key = function()
+    --   return get_branch()
+    -- end,
   },
 }
 
@@ -37,4 +75,5 @@ return {
     },
   },
   branch = "harpoon2",
+  -- commit = "e76cb03",
 }

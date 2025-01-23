@@ -12,18 +12,51 @@ return {
       m("<F3>", [[DapStepOut]]),
       m("<F4>", [[DapStepBack]]),
       m("<F5>", [[DapContinue]]),
-      m("<F11>", [[DapRestartFrame]]),
+      m("<F8>", [[DapStepOut]]),
+      m("<F9>", [[DapStepInto]]),
+      m("<F10>", [[DapStepOver]]),
+      m("<F11>", [[DapClearBreakpoints]]),
       m("<F12>", [[DapDisconnect]]),
     },
     init = function()
+      local dap, widgets = require("dap"), require("dap.ui.widgets")
       c("DapClearBreakpoints", require("dap").clear_breakpoints)
       c("DapConditionalBreakpoints", function()
         require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
       end)
+      local session_eval = function()
+        return dap.session() ~= nil
+      end
+      c("DapReplOpenTab", function()
+        f.tab_cb(dap.repl.toggle, session_eval)
+      end)
+      c("DapScopesVSplit", function()
+        if session_eval() then
+          widgets.sidebar(widgets.scopes, { width = 50 }).open()
+        end
+      end)
+      c("DapScopesOpenTab", function()
+        f.tab_cb(function()
+          widgets.sidebar(widgets.scopes, { width = 50 }).open()
+        end, session_eval)
+      end)
+
+      vim.keymap.set("n", "<leader>ds", function()
+        widgets.cursor_float(widgets.scopes, { border = "rounded" })
+      end, { noremap = true })
+      vim.keymap.set("n", "<leader>du", function()
+        widgets.cursor_float(widgets.frames, { border = "rounded" })
+      end, { noremap = true })
+      vim.keymap.set("n", "<leader>dt", function()
+        widgets.cursor_float(widgets.threads, { border = "rounded" })
+      end, { noremap = true })
+      vim.keymap.set("n", "<leader>dr", "<cmd>DapReplOpenTab<cr>", { noremap = true })
+      vim.keymap.set("n", "<leader>dj", "<cmd>DapScopesOpenTab<cr>", { noremap = true })
+      vim.keymap.set("n", "<leader>dv", "<cmd>DapScopesVSplit<cr>", { noremap = true })
     end,
     cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
     config = function()
-      local dap, widgets = require("dap"), require("dap.ui.widgets")
+      local dap = require("dap")
       -- dap.listeners.before.launch.dapui_config = function() end
       -- dap.listeners.before.event_terminated.dapui_config = function() end
 
@@ -133,36 +166,6 @@ return {
         ---@diagnostic disable-next-line: undefined-field
         callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
       end
-
-      local session_eval = function()
-        return dap.session() ~= nil
-      end
-      c("DapReplOpenTab", function()
-        f.tab_cb(dap.repl.toggle, session_eval)
-      end)
-      c("DapScopesVSplit", function()
-        if session_eval() then
-          widgets.sidebar(widgets.scopes, { width = 50 }).open()
-        end
-      end)
-      c("DapScopesOpenTab", function()
-        f.tab_cb(function()
-          widgets.sidebar(widgets.scopes, { width = 50 }).open()
-        end, session_eval)
-      end)
-
-      vim.keymap.set("n", "<leader>ds", function()
-        widgets.cursor_float(widgets.scopes, { border = "rounded" })
-      end, { noremap = true })
-      vim.keymap.set("n", "<leader>du", function()
-        widgets.cursor_float(widgets.frames, { border = "rounded" })
-      end, { noremap = true })
-      vim.keymap.set("n", "<leader>dt", function()
-        widgets.cursor_float(widgets.threads, { border = "rounded" })
-      end, { noremap = true })
-      vim.keymap.set("n", "<leader>dr", "<cmd>DapReplOpenTab<cr>", { noremap = true })
-      vim.keymap.set("n", "<leader>dj", "<cmd>DapScopesOpenTab<cr>", { noremap = true })
-      vim.keymap.set("n", "<leader>dv", "<cmd>DapScopesVSplit<cr>", { noremap = true })
     end,
   },
   {
