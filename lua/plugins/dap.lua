@@ -12,9 +12,11 @@ return {
       m("<F3>", [[DapStepOut]]),
       m("<F4>", [[DapStepBack]]),
       m("<F5>", [[DapContinue]]),
-      m("<F8>", [[DapStepOut]]),
-      m("<F9>", [[DapStepInto]]),
-      m("<F10>", [[DapStepOver]]),
+      ---
+      m("<F8>", [[DapStepInto]]),
+      m("<F9>", [[DapStepOver]]),
+      m("<F10>", [[DapStepOut]]),
+      ---
       m("<F11>", [[DapClearBreakpoints]]),
       m("<F12>", [[DapDisconnect]]),
     },
