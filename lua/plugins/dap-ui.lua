@@ -52,4 +52,5 @@ return {
     "mfussenegger/nvim-dap",
     "nvim-neotest/nvim-nio",
   },
+  enabled = true,
 }

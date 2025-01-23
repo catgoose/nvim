@@ -56,7 +56,11 @@ return {
       vim.keymap.set("n", "<leader>dj", "<cmd>DapScopesOpenTab<cr>", { noremap = true })
       vim.keymap.set("n", "<leader>dv", "<cmd>DapScopesVSplit<cr>", { noremap = true })
     end,
-    cmd = { "DapClearBreakpoints", "DapConditionalBreakpoints" },
+    cmd = {
+      "DapContinue",
+      "DapClearBreakpoints",
+      "DapConditionalBreakpoints",
+    },
     config = function()
       local dap = require("dap")
       -- dap.listeners.before.launch.dapui_config = function() end
@@ -83,18 +87,18 @@ return {
         dap.configurations.go = {
           {
             type = "go",
-            name = "Debug current file",
-            request = "launch",
-            showLog = true,
-            program = "${file}",
-            dlvToolPath = dlvToolPath,
-          },
-          {
-            type = "go",
             name = "Debug main.go",
             request = "launch",
             showLog = true,
             program = "${workspaceFolder}/main.go",
+            dlvToolPath = dlvToolPath,
+          },
+          {
+            type = "go",
+            name = "Debug current file",
+            request = "launch",
+            showLog = true,
+            program = "${file}",
             dlvToolPath = dlvToolPath,
           },
           -- {

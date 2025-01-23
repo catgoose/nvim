@@ -17,7 +17,7 @@ return {
   {
     "lambdalisue/suda.vim",
     event = "BufReadPre",
-    enabled = true,
+    enabled = false,
   },
   {
     "romainl/vim-cool",
