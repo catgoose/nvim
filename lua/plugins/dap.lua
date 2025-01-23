@@ -3,6 +3,10 @@ local c = u.create_cmd
 local m = u.lazy_map
 local f = require("util.functions")
 
+local session_eval = function()
+  return require("dap").session() ~= nil
+end
+
 return {
   {
     "mfussenegger/nvim-dap",
@@ -22,13 +26,16 @@ return {
     },
     init = function()
       local dap, widgets = require("dap"), require("dap.ui.widgets")
-      c("DapClearBreakpoints", require("dap").clear_breakpoints)
+      c("DapClearBreakpoints", function()
+        local message = session_eval()
+            and string.format("Breakpoints disabled for '%s'", dap.session().config.name)
+          or string.format("Breakpoints disabled")
+        vim.notify(message, vim.log.levels.INFO)
+        dap.clear_breakpoints()
+      end)
       c("DapConditionalBreakpoints", function()
         require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
       end)
-      local session_eval = function()
-        return dap.session() ~= nil
-      end
       c("DapReplOpenTab", function()
         f.tab_cb(dap.repl.toggle, session_eval)
       end)
