@@ -39,20 +39,34 @@ return {
       c("DapReplOpenTab", function()
         f.tab_cb(dap.repl.toggle, session_eval)
       end)
+      c("DapScopesOpenTab", function()
+        widgets.scopes.new_buf()
+      end)
       c("DapScopesVSplit", function()
         if session_eval() then
           widgets.sidebar(widgets.scopes, { width = 50 }).open()
         end
       end)
       c("DapScopesOpenTab", function()
-        f.tab_cb(function()
-          widgets.sidebar(widgets.scopes, { width = 50 }).open()
-        end, session_eval)
+        if session_eval() then
+          vim.api.nvim_command("tabnew")
+          widgets
+            .builder(widgets.scopes)
+            .new_buf(function()
+              return vim.api.nvim_create_buf(false, true)
+            end)
+            .new_win(function()
+              return vim.api.nvim_get_current_win()
+            end)
+            .build()
+            .open()
+        end
       end)
 
       vim.keymap.set("n", "<leader>ds", function()
         widgets.cursor_float(widgets.scopes, { border = "rounded" })
       end, { noremap = true })
+      vim.keymap.set("n", "<leader>dS", "<cmd>DapScopesOpenTab<cr>", { noremap = true })
       vim.keymap.set("n", "<leader>du", function()
         widgets.cursor_float(widgets.frames, { border = "rounded" })
       end, { noremap = true })
