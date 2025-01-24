@@ -20,7 +20,7 @@ return {
     },
     init = function()
       local dap = require("dap")
-      require("config.dap.keys").setup(dap)
+      require("config.dap.keymaps").setup(dap)
     end,
     cmd = {
       "DapContinue",
@@ -29,8 +29,6 @@ return {
     },
     config = function()
       local dap = require("dap")
-      -- dap.listeners.before.launch.dapui_config = function() end
-      -- dap.listeners.before.event_terminated.dapui_config = function() end
       require("config.dap.adapters").setup(dap)
     end,
   },
@@ -53,20 +51,6 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    "igorlfs/nvim-dap-view",
-    opts = {},
-    dependencies = "mfussenegger/nvim-dap",
-    cmd = {
-      "DapViewOpen",
-      "DapViewClose",
-      "DapViewToggle",
-      "DapViewWatch",
-    },
-    keys = {
-      m("<leader>?", [[lua require("dap-view").toggle()]]),
-    },
-  },
-  {
     "Weissle/persistent-breakpoints.nvim",
     event = "BufReadPre",
     opts = {
@@ -78,4 +62,38 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   "jbyuki/one-small-step-for-vimkind",
+  {
+    -- "igorlfs/nvim-dap-view",
+    dir = "~/git/nvim-dap-view",
+    opts = {
+      winbar = {
+        show = true,
+        sections = { "watches", "breakpoints", "repl" },
+        -- Must be one of the sections declared above
+        default_section = "repl",
+      },
+      windows = {
+        height = 12,
+      },
+    },
+    init = function()
+      local dap = require("dap")
+      dap.listeners.before.launch["dap-view-custom"] = function()
+        require("dap-view").open()
+      end
+      dap.listeners.before.event_exited["dap-view-custom"] = function()
+        require("dap-view").close()
+      end
+    end,
+    dependencies = "mfussenegger/nvim-dap",
+    cmd = {
+      "DapViewOpen",
+      "DapViewClose",
+      "DapViewToggle",
+      "DapViewWatch",
+    },
+    keys = {
+      m("<leader>?", [[lua require("dap-view").toggle()]]),
+    },
+  },
 }
