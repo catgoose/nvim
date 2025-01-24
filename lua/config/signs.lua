@@ -13,7 +13,7 @@ local signs = {
   {
     name = "DapBreakpoint",
     dict = {
-      text = "󰙦",
+      text = "",
       texthl = hl.error,
       numhl = hl.error,
     },
@@ -21,7 +21,7 @@ local signs = {
   {
     name = "DapStopped",
     dict = {
-      text = "",
+      text = "",
       texthl = hl.warn,
       numhl = hl.warn,
     },
@@ -29,7 +29,7 @@ local signs = {
   {
     name = "DapBreakpointCondition",
     dict = {
-      text = "󰼈",
+      text = "󰋗",
       texthl = hl.hint,
       numhl = hl.hint,
     },
@@ -37,7 +37,7 @@ local signs = {
   {
     name = "DapBreakpointRejected",
     dict = {
-      text = "",
+      text = "󰅙",
       texthl = hl.error,
       numhl = hl.error,
     },

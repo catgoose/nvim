@@ -57,6 +57,9 @@ function M.setup(dap)
     widgets.cursor_float(widgets.threads, win_opts)
   end)
 
+  vim.keymap.set({ "n", "v" }, "<leader>dP", function()
+    require("dap.ui.widgets").preview()
+  end)
   -- keybindings
   local function set_km(key, cmd)
     vim.keymap.set("n", "<leader>" .. key, cmd, { noremap = true })
