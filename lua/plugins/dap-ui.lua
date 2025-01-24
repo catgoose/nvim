@@ -29,7 +29,7 @@ return {
         elements = {
           {
             id = "repl",
-            size = 1,
+            size = 0.75,
           },
           -- {
           --   id = "console",
@@ -52,5 +52,5 @@ return {
     "mfussenegger/nvim-dap",
     "nvim-neotest/nvim-nio",
   },
-  enabled = true,
+  enabled = false,
 }

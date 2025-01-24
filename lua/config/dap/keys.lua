@@ -20,18 +20,23 @@ function M.setup(dap)
   c("DapConditionalBreakpoints", function()
     require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
   end)
-  c("DapReplOpenTab", function()
+  c("DapReplTab", function()
     f.tab_cb(dap.repl.toggle, session_eval)
   end)
-  c("DapScopesOpenTab", function()
+  c("DapReplSplit", function()
+    if session_eval() then
+      dap.repl.toggle({ height = 12 }, "split")
+    end
+  end)
+  c("DapScopesTab", function()
     widgets.scopes.new_buf()
   end)
   c("DapScopesVSplit", function()
     if session_eval() then
-      widgets.sidebar(widgets.scopes, { width = 50 }).open()
+      widgets.sidebar(widgets.scopes, { width = 50 }, "vsplit").open()
     end
   end)
-  c("DapScopesOpenTab", function()
+  c("DapScopesTab", function()
     if session_eval() then
       vim.api.nvim_command("tabnew")
       widgets
@@ -66,11 +71,11 @@ function M.setup(dap)
   end
   local keymaps = {
     ds = "DapScopesFloat",
-    dS = "DapScopesOpenTab",
+    dS = "DapScopesTab",
     du = "DapFramesFloat",
     dt = "DapThreadsFloat",
-    dr = "DapReplOpenTab",
-    dj = "DapScopesOpenTab",
+    dr = "DapReplSplit",
+    dR = "DapReplTab",
     dv = "DapScopesVSplit",
   }
   for key, cmd in pairs(keymaps) do

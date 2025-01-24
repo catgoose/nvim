@@ -31,8 +31,6 @@ return {
       local dap = require("dap")
       -- dap.listeners.before.launch.dapui_config = function() end
       -- dap.listeners.before.event_terminated.dapui_config = function() end
-      dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
-      dap.defaults.fallback.focus_terminal = true
       require("config.dap.adapters").setup(dap)
     end,
   },
@@ -53,6 +51,20 @@ return {
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
+  },
+  {
+    "igorlfs/nvim-dap-view",
+    opts = {},
+    dependencies = "mfussenegger/nvim-dap",
+    cmd = {
+      "DapViewOpen",
+      "DapViewClose",
+      "DapViewToggle",
+      "DapViewWatch",
+    },
+    keys = {
+      m("<leader>?", [[lua require("dap-view").toggle()]]),
+    },
   },
   {
     "Weissle/persistent-breakpoints.nvim",
