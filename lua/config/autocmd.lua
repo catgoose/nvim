@@ -91,17 +91,17 @@ autocmd({ "BufEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "dap-view-term" },
-  callback = function(event)
-    vim.schedule(function()
-      local session = require("dap").session()
-      if session and session.config and session.config.dlvToolPath then
-        vim.api.nvim_buf_delete(event.buf, { force = true })
-      end
-    end)
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   pattern = { "dap-view-term" },
+--   callback = function(event)
+--     vim.schedule(function()
+--       local session = require("dap").session()
+--       if session and session.config and session.config.dlvToolPath then
+--         -- vim.api.nvim_buf_delete(event.buf, { force = true })
+--       end
+--     end)
+--   end,
+-- })
 
 -- Terminal
 local terminal = augroup("TerminalLocalOptions")

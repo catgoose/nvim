@@ -74,6 +74,9 @@ return {
       },
       windows = {
         height = 12,
+        terminal = {
+          position = "left",
+        },
       },
     },
     init = function()
@@ -86,6 +89,7 @@ return {
       end
     end,
     dependencies = "mfussenegger/nvim-dap",
+    event = "BufReadPre",
     cmd = {
       "DapViewOpen",
       "DapViewClose",
