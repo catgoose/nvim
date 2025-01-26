@@ -29,6 +29,15 @@ local config = function()
     filetype = {
       "neotest-summary",
       "help",
+      "dap-view-term",
+    },
+  }
+  local dap_inactive = {
+    filetype = {
+      "dap-view-term",
+    },
+    buftype = {
+      "nofile",
     },
   }
   local cmdtype_inactive = {
@@ -472,9 +481,13 @@ local config = function()
     condition = function()
       local session = require("dap").session()
       return session ~= nil
+        and conditions.is_active()
+        and not conditions.buffer_matches(dap_inactive)
     end,
     provider = function()
-      return string.format(" %s ", require("dap").status())
+      local status = require("dap").status()
+      status = string.gsub(status, "^Running", "DAP")
+      return string.format(" %s ", status)
     end,
     hl = "Debug",
   }

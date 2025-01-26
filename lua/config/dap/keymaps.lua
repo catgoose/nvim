@@ -28,6 +28,11 @@ function M.setup(dap)
       dap.repl.toggle({ height = 12 }, "split")
     end
   end)
+  c("DapReplVSplit", function()
+    if session_eval() then
+      dap.repl.toggle({ width = 50 }, "vsplit")
+    end
+  end)
   c("DapScopesTab", function()
     widgets.scopes.new_buf()
   end)
@@ -72,6 +77,7 @@ function M.setup(dap)
     du = "DapFramesFloat",
     dt = "DapThreadsFloat",
     dr = "DapReplSplit",
+    dV = "DapReplVSplit",
     dR = "DapReplTab",
     dv = "DapScopesVSplit",
     dw = "DapViewWatch",

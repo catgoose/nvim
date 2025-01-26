@@ -75,13 +75,17 @@ return {
       windows = {
         height = 12,
         terminal = {
-          position = "left",
+          position = "right",
         },
       },
     },
+    enabled = true,
     init = function()
       local dap = require("dap")
       dap.listeners.before.launch["dap-view-custom"] = function()
+        require("dap-view").open()
+      end
+      dap.listeners.before.attach["dap-view-custom"] = function()
         require("dap-view").open()
       end
       dap.listeners.before.event_exited["dap-view-custom"] = function()
