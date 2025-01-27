@@ -1,23 +1,21 @@
-local colors = require("config.colors")
-
 local opts = {
-  autoselect_one = false,
-  include_current_win = true,
+  selection_chars = "FJDKSLA;CMRUEIWOQP",
+  show_prompt = false,
+  hint = "floating-big-letter",
   filter_rules = {
     bo = {
-      filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+      filetype = { "notify", "quickfix" },
       buftype = { "terminal" },
     },
+    wo = {},
+    file_path_contains = {},
+    file_name_contains = {},
   },
-  selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-  use_winbar = "always",
-  fg_color = colors.sumiInk2,
-  current_win_hl_color = colors.roninYellow,
-  other_win_hl_color = colors.oniViolet,
 }
 
 return {
   "s1n7ax/nvim-window-picker",
-  version = "v1.*",
+  event = "VeryLazy",
+  version = "2.*",
   opts = opts,
 }
