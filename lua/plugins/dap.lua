@@ -15,18 +15,13 @@ return {
       m("<F9>", [[DapStepOver]]),
       m("<F10>", [[DapStepOut]]),
       ---
-      m("<F11>", [[DapClearBreakpoints]]),
       m("<F12>", [[DapDisconnect]]),
     },
     init = function()
       local dap = require("dap")
       require("config.dap.keymaps").setup(dap)
     end,
-    cmd = {
-      "DapContinue",
-      "DapClearBreakpoints",
-      "DapConditionalBreakpoints",
-    },
+    cmd = { "DapContinue" },
     config = function()
       local dap = require("dap")
       require("config.dap.adapters").setup(dap)
@@ -58,10 +53,10 @@ return {
     },
     keys = {
       m("<leader>/", [[lua require('persistent-breakpoints.api').toggle_breakpoint()]]),
+      m("<F11>", [[lua require('persistent-breakpoints.api').clear_all_breakpoints()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
   },
-  "jbyuki/one-small-step-for-vimkind",
   {
     -- "igorlfs/nvim-dap-view",
     dir = "~/git/nvim-dap-view",
@@ -69,7 +64,6 @@ return {
       winbar = {
         show = true,
         sections = { "watches", "breakpoints", "repl" },
-        -- Must be one of the sections declared above
         default_section = "repl",
       },
       windows = {
@@ -104,4 +98,5 @@ return {
       m("<leader>?", [[lua require("dap-view").toggle()]]),
     },
   },
+  "jbyuki/one-small-step-for-vimkind",
 }
