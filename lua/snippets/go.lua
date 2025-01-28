@@ -1,19 +1,22 @@
 local ls = require("luasnip")
 ---@diagnostic disable-next-line: unused-local
-local s, t, i, c, r, f, sn =
+local s, t, i, c, r, f, sn, d =
   ls.snippet,
   ls.text_node,
   ls.insert_node,
   ls.choice_node,
   ls.restore_node,
   ls.function_node,
-  ls.snippet_node
+  ls.snippet_node,
+  ls.dynamic_node
+
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local u = require("util.luasnip")
 local smn = u.same_node
 
 local snippets = {
+  -- printing
   s(
     "pr",
     fmt(
@@ -117,6 +120,7 @@ fmt.Sprintln({})
       { i(1), i(2), smn(1), i(3), smn(1), i(0) }
     )
   ),
+  -- range
   s(
     "rn",
     fmta(
@@ -133,6 +137,7 @@ fmt.Sprintln({})
       }
     )
   ),
+  -- main package
   s(
     "packmain",
     fmt(
@@ -148,6 +153,7 @@ fmt.Sprintln({})
       }
     )
   ),
+  -- main
   s(
     "main",
     fmt(
@@ -159,6 +165,7 @@ fmt.Sprintln({})
       i(0)
     )
   ),
+  -- ok
   s(
     "ok",
     fmt(
@@ -169,8 +176,9 @@ fmt.Sprintln({})
       { i(1), i(2), i(0) }
     )
   ),
+  -- function
   s(
-    "func",
+    "fn",
     c(1, {
       fmta(
         [[
@@ -190,8 +198,9 @@ func (<>) <>(<>) <> {
       ),
     })
   ),
+  -- interface
   s(
-    "inter",
+    "int",
     fmta(
       [[
 type <> interface {
@@ -201,19 +210,41 @@ type <> interface {
       { i(1), i(0) }
     )
   ),
+  -- struct
   s(
-    "struct",
+    "str",
     fmta(
       [[
-type <> struct {
-  <>
-}
-     ]],
+  type <> struct {
+    <>
+  }
+       ]],
       { i(1), i(2) }
     )
   ),
   s(
-    "map",
+    "db",
+    fmt(
+      [[
+  {} {} `db:"{}"`
+  {}
+  ]],
+      { i(1, "Field"), i(2, "type"), smn(1), i(0) }
+    )
+  ),
+  s(
+    "form",
+    fmt(
+      [[
+  {} {} `form:"{}" {}`
+  {}
+  ]],
+      { i(1, "Field"), i(2, "type"), smn(1), i(3), i(0) }
+    )
+  ),
+  -- map
+  s(
+    "ma",
     fmt(
       [[
 map[{}]{}
@@ -226,8 +257,9 @@ map[{}]{}
       }
     )
   ),
+  -- err
   s(
-    "iferr",
+    "er",
     c(1, {
       fmta(
         [[
@@ -236,18 +268,29 @@ map[{}]{}
 	}
   <>
    ]],
-        { i(1), i(0) }
+        { r(1, "if_err_nil"), i(0) }
       ),
       fmta(
         [[
 	if err == nil {
     <>
 	}
+  <>
    ]],
-        i(0)
+        { r(1, "if_err_nil"), i(0) }
       ),
     })
   ),
+  s(
+    "ferr",
+    fmt(
+      [[
+     fmt.Errorf("{}: %{}", err)
+     ]],
+      { i(1), c(2, { t("v"), t("w") }) }
+    )
+  ),
+  -- slice
   s(
     "sl",
     fmta(

@@ -207,7 +207,7 @@ local keys = {
   m("<leader>tg", [[Telescope git_status]]),
   m("<leader>ta", [[Telescope autocommands]]),
   m("<leader>th", [[Telescope highlights]]),
-  -- m("<leader>O", [[Telescope oldfiles]]),
+  m("<leader>O", [[Telescope oldfiles]]),
 }
 keys = project.get_keys("helpgrep", keys)
 local dependencies = {

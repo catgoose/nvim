@@ -113,12 +113,12 @@ local projects = {
           vim.cmd.write()
         end,
       },
-      {
-        "<leader>k",
-        function()
-          vim.cmd([[ColorizerToggle]])
-        end,
-      },
+      -- {
+      --   "<leader>k",
+      --   function()
+      --     vim.cmd([[ColorizerToggle]])
+      --   end,
+      -- },
     },
   },
 }

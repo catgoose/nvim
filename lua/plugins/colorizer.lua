@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local project = require("util.project")
 
 local function is_comment_on_line(line_num, bufnr, filetype)
