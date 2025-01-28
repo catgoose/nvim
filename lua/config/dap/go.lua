@@ -33,9 +33,17 @@ function M.setup(dap, host)
     vim.api.nvim_buf_call(bufnr, function()
       -- -- reset buffer so a new job can start
       h.reset_buffer(bufnr)
-      vim.fn.jobstart({ "dlv", "dap", "-l", string.format("%s:%d", host, port) }, {
+      local cmd = { "dlv", "dap", "-l", string.format("%s:%d", host, port) }
+      local code = vim.fn.jobstart(cmd, {
         term = true,
       })
+      if code == 0 then
+        vim.notify("Invalid arguments", vim.log.levels.ERROR)
+        return
+      elseif code == -1 then
+        vim.notify(("Cmd `%s` is not executable"):format(cmd[1]), vim.log.levels.ERROR)
+        return
+      end
     end)
     vim.defer_fn(function()
       callback({ type = "server", host = host, port = port })
