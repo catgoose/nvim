@@ -30,15 +30,13 @@ function M.setup(dap, host)
       print("Failed to create manual window for dap adapter")
       return
     end
-    local current_winnr = vim.api.nvim_get_current_win()
-    vim.api.nvim_set_current_win(winnr)
-    -- reset buffer so a new job can start
-    h.reset_buffer(bufnr)
-    vim.fn.jobstart({ "dlv", "dap", "-l", string.format("%s:%d", host, port) }, {
-      term = true,
-    })
-    -- end
-    vim.api.nvim_set_current_win(current_winnr)
+    vim.api.nvim_buf_call(bufnr, function()
+      -- -- reset buffer so a new job can start
+      h.reset_buffer(bufnr)
+      vim.fn.jobstart({ "dlv", "dap", "-l", string.format("%s:%d", host, port) }, {
+        term = true,
+      })
+    end)
     vim.defer_fn(function()
       callback({ type = "server", host = host, port = port })
     end, 100)
