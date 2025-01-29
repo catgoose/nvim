@@ -43,6 +43,7 @@ function M.setup(dap, host)
         vim.notify(("Cmd `%s` is not executable"):format(cmd[1]), vim.log.levels.ERROR)
         return
       end
+      vim.cmd("normal! G") -- tail the output without having to startinsert
     end)
     vim.defer_fn(function()
       callback({ type = "server", host = host, port = port })

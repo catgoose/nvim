@@ -122,10 +122,7 @@ autocmd({ "WinEnter" }, {
   group = terminal,
   pattern = { "*" },
   callback = function()
-    if
-      (bo.filetype == "terminal" or bo.filetype == "dap-view-term")
-      and vim.g.catgoose_terminal_enable_startinsert
-    then
+    if bo.filetype == "terminal" and vim.g.catgoose_terminal_enable_startinsert then
       cmd.startinsert()
     end
   end,
