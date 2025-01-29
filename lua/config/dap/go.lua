@@ -31,16 +31,15 @@ function M.setup(dap, host)
       return
     end
     vim.api.nvim_buf_call(bufnr, function()
-      -- -- reset buffer so a new job can start
-      h.reset_buffer(bufnr)
-      local cmd = { "dlv", "dap", "-l", string.format("%s:%d", host, port) }
-      local code = vim.fn.jobstart(cmd, {
+      h.reset_buffer(bufnr) -- reset buffer so a new job can start
+      local cmd = { "dlv", "dap", "-l", ("%s:%d"):format(host, port) }
+      local jobid = vim.fn.jobstart(cmd, {
         term = true,
       })
-      if code == 0 then
+      if jobid == 0 then
         vim.notify("Invalid arguments", vim.log.levels.ERROR)
         return
-      elseif code == -1 then
+      elseif jobid == -1 then
         vim.notify(("Cmd `%s` is not executable"):format(cmd[1]), vim.log.levels.ERROR)
         return
       end
@@ -75,7 +74,6 @@ function M.setup(dap, host)
   for _, cfg in pairs(dap.configurations.go) do
     cfg.type = "go"
     cfg.request = "launch"
-    cfg.showLog = true
     cfg.dlvToolPath = dlvToolPath
   end
 end

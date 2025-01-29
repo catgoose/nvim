@@ -96,20 +96,25 @@ local terminal = augroup("TerminalLocalOptions")
 autocmd({ "TermOpen" }, {
   group = terminal,
   pattern = { "*" },
-  callback = function(event)
+  callback = function(evt)
     opt_local.cursorline = false
     local code_term_esc = api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
     for _, key in ipairs({ "h", "j", "k", "l" }) do
       vim.keymap.set("t", "<C-" .. key .. ">", function()
         local code_dir = api.nvim_replace_termcodes("<C-" .. key .. ">", true, true, true)
         api.nvim_feedkeys(code_term_esc .. code_dir, "t", true)
-      end, { noremap = true })
+      end, { noremap = true, buffer = evt.buf })
     end
     if bo.filetype == "" then
-      api.nvim_set_option_value("filetype", "terminal", { buf = event.buf })
+      api.nvim_set_option_value("filetype", "terminal", { buf = evt.buf })
       if vim.g.catgoose_terminal_enable_startinsert == 1 then
         cmd.startinsert()
       end
+    end
+    if bo.filetype == "dap-view-term" then
+      vim.keymap.set("t", "<esc>", function()
+        api.nvim_feedkeys(code_term_esc, "t", true)
+      end, { noremap = true, buffer = evt.buf })
     end
   end,
 })
@@ -117,7 +122,10 @@ autocmd({ "WinEnter" }, {
   group = terminal,
   pattern = { "*" },
   callback = function()
-    if bo.filetype == "terminal" and vim.g.catgoose_terminal_enable_startinsert then
+    if
+      (bo.filetype == "terminal" or bo.filetype == "dap-view-term")
+      and vim.g.catgoose_terminal_enable_startinsert
+    then
       cmd.startinsert()
     end
   end,
