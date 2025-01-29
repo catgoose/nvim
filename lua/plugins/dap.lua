@@ -76,13 +76,16 @@ return {
     enabled = true,
     init = function()
       local dap = require("dap")
-      dap.listeners.before.launch["dap-view-custom"] = function()
+      dap.listeners.before.launch["catgoose_dap"] = function()
         require("dap-view").open()
       end
-      dap.listeners.before.attach["dap-view-custom"] = function()
+      dap.listeners.before.attach["catgoose_dap"] = function()
         require("dap-view").open()
       end
-      dap.listeners.before.event_exited["dap-view-custom"] = function()
+      dap.listeners.after.event_exited["catgoose_dap"] = function()
+        require("dap-view").close()
+      end
+      dap.listeners.after.event_terminated["catgoose_dap"] = function()
         require("dap-view").close()
       end
     end,
