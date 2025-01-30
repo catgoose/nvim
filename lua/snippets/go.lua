@@ -182,11 +182,11 @@ fmt.Sprintln({})
     c(1, {
       fmta(
         [[
-func <>() {
+func <>()<> {
   <>
 }
     ]],
-        { r(1, "func_name"), i(2) }
+        { r(1, "func_name"), i(2), i(3) }
       ),
       fmta(
         [[
@@ -298,6 +298,30 @@ map[{}]{}
      []<>{<>}
      ]],
       { i(1), i(2) }
+    )
+  ),
+  s(
+    "handler",
+    fmta(
+      [[
+func <>() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		return <>
+	}
+}
+    ]],
+      { i(1), i(0) }
+    )
+  ),
+  s(
+    "pkg",
+    fmt(
+      [[
+     package {}
+
+     {}
+     ]],
+      { i(1), i(0) }
     )
   ),
 }

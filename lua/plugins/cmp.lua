@@ -7,7 +7,6 @@ local source_mapping = {
   path = "[PATH]",
   treesitter = "[TREE]",
   ["vim-dadbod-completion"] = "[DB]",
-  dap = "[DAP]",
 }
 
 local config = function()
@@ -140,12 +139,6 @@ local config = function()
     },
   })
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-    sources = {
-      { name = "dap" },
-    },
-  })
 end
 
 return {
@@ -163,10 +156,6 @@ return {
       "saadparwaiz1/cmp_luasnip",
       -- "roobert/tailwindcss-colorizer-cmp.nvim",
       "js-everts/cmp-tailwind-colors",
-      {
-        "rcarriga/cmp-dap",
-        dependencies = "mfussenegger/nvim-dap",
-      },
     },
   },
 }

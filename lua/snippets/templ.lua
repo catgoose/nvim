@@ -82,6 +82,38 @@ local snippets = {
       { i(1) }
     )
   ),
+  s(
+    "fn",
+    c(1, {
+      fmta(
+        [[
+func <>() {
+  <>
+}
+    ]],
+        { r(1, "func_name"), i(2) }
+      ),
+      fmta(
+        [[
+func (<>) <>(<>) <> {
+  <>
+}
+    ]],
+        { i(1), r(2, "func_name"), i(3), i(4), i(5) }
+      ),
+    })
+  ),
+  s(
+    "templ",
+    fmta(
+      [[
+templ <>(<>) {
+  <>
+}
+     ]],
+      { i(1), i(2), i(0) }
+    )
+  ),
 }
 
 return snippets

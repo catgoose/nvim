@@ -49,7 +49,6 @@ function M.setup(dap, host)
       callback({ type = "server", host = host, port = port })
     end, 100)
   end
-  -- dap.defaults.go.switchbuf = "useopen"
 
   dap.configurations.go = {
     {

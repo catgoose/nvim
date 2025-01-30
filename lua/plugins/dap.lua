@@ -3,6 +3,7 @@ local m = u.lazy_map
 
 return {
   {
+    -- dir = "~/git/nvim-dap",
     "mfussenegger/nvim-dap",
     keys = {
       m("<F1>", [[DapStepInto]]),
@@ -25,6 +26,7 @@ return {
     config = function()
       local dap = require("dap")
       require("config.dap.adapters").setup(dap)
+      dap.defaults.go.autostart = "Debug main.go"
     end,
   },
   {
@@ -44,6 +46,7 @@ return {
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
+    enabled = false,
   },
   {
     "Weissle/persistent-breakpoints.nvim",
@@ -58,8 +61,7 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    -- "igorlfs/nvim-dap-view",
-    dir = "~/git/nvim-dap-view",
+    "igorlfs/nvim-dap-view",
     opts = {
       winbar = {
         show = true,

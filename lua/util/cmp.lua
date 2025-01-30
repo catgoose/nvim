@@ -43,7 +43,6 @@ end
 
 function M.is_enabled()
   return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
-    or require("cmp_dap").is_dap_buffer()
 end
 
 return M

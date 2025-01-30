@@ -128,6 +128,16 @@ autocmd({ "WinEnter" }, {
   end,
 })
 
+autocmd({ "WinEnter" }, {
+  group = terminal,
+  pattern = { "*" },
+  callback = function()
+    if bo.filetype == "dap-view-term" and vim.g.catgoose_terminal_enable_startinsert then
+      cmd.startinsert()
+    end
+  end,
+})
+
 -- Buffer
 local buffer = augroup("BufferDetectChanges")
 autocmd({ "FocusGained", "BufEnter" }, {

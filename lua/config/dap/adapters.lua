@@ -31,13 +31,41 @@ function M.setup(dap)
     "javascript",
   }) do
     dap.configurations[lang] = dap.configurations[lang] or {}
-    table.insert(dap.configurations[lang], {
-      type = "pwa-chrome",
-      request = "launch",
-      name = "Launch Chrome",
-      url = string.format("http://%s:4200", host),
-      sourceMaps = false,
-    })
+    -- table.insert(dap.configurations[lang], {
+    --   type = "pwa-chrome",
+    --   request = "launch",
+    --   name = "Launch Chrome",
+    --   url = string.format("http://%s:4200", "localhost"),
+    --   sourceMaps = true,
+    --   resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" },
+    --   protocol = "inspector",
+    --   port = 9222,
+    -- })
+    dap.configurations[lang] = {
+      -- {
+      --   type = "pwa-node",
+      --   request = "launch",
+      --   name = "Launch file",
+      --   program = "${file}",
+      --   cwd = "${workspaceFolder}",
+      -- },
+      -- {
+      --   type = "pwa-node",
+      --   request = "attach",
+      --   name = "Attach",
+      --   processId = require("dap.utils").pick_process,
+      --   cwd = "${workspaceFolder}",
+      -- },
+      {
+        type = "pwa-chrome",
+        request = "launch",
+        name = 'Start Chrome with "localhost"',
+        url = "http://localhost:4200",
+        webRoot = "${workspaceFolder}",
+        userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
+        sourceMaps = true,
+      },
+    }
   end
 
   -- lua
