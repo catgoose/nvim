@@ -84,12 +84,12 @@ return {
       dap.listeners.before.attach["catgoose_dap"] = function()
         require("dap-view").open()
       end
-      dap.listeners.after.event_exited["catgoose_dap"] = function()
-        require("dap-view").close()
-      end
-      dap.listeners.after.event_terminated["catgoose_dap"] = function()
-        require("dap-view").close()
-      end
+      -- dap.listeners.after.event_exited["catgoose_dap"] = function()
+      --   require("dap-view").close()
+      -- end
+      -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
+      --   require("dap-view").close()
+      -- end
     end,
     dependencies = "mfussenegger/nvim-dap",
     event = "BufReadPre",
