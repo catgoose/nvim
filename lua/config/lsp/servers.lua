@@ -69,7 +69,8 @@ function M.init(lspconfig)
     },
     tailwindcss = {
       root_dir = function(fname)
-        local root_pattern = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts")
+        local root_pattern =
+          lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts", ".tailwindcss")
         return root_pattern(fname)
       end,
       filetypes = {

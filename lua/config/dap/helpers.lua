@@ -1,16 +1,28 @@
 local M = {}
 
+local port
+
 function M.get_install_path(package)
   return require("mason-registry").get_package(package):get_install_path()
 end
 function M.get_unused_port(host)
   host = host or "127.0.0.1"
   local server = vim.uv.new_tcp()
+  if port then
+    local ok = pcall(function()
+      server:bind(host, port)
+    end)
+    if ok then
+      server:close()
+      return port
+    end
+  end
   assert(server:bind(host, 0)) -- OS allocates an unused port
   local tcp_t = server:getsockname()
   server:close()
   assert(tcp_t and tcp_t.port > 0, "Failed to get an unused port")
-  return tcp_t.port
+  port = tcp_t.port
+  return port
 end
 function M.create_manual_window()
   local bufnr = vim.api.nvim_create_buf(true, false)
