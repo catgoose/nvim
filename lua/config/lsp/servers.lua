@@ -27,7 +27,7 @@ vim.diagnostic.config({
   -- },
   -- https://github.com/neovim/neovim/pull/31959
   -- https://github.com/neovim/neovim/pull/32187
-  virtual_lines = true,
+  -- virtual_lines = true,
   update_in_insert = false,
   underline = true,
   severity_sort = true,
