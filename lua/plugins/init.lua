@@ -5,12 +5,6 @@ return {
     "dstein64/vim-startuptime",
   },
   {
-    "litao91/lsp_lines",
-    priority = 900,
-    config = true,
-    enabled = false,
-  },
-  {
     "wakatime/vim-wakatime",
     event = "BufReadPre",
   },

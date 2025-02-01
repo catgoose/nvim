@@ -19,7 +19,6 @@ return {
       dependencies = "williamboman/mason.nvim",
     },
     "b0o/schemastore.nvim",
-    "litao91/lsp_lines",
     "kevinhwang91/nvim-ufo",
     "VidocqH/lsp-lens.nvim",
     "jubnzv/virtual-types.nvim",
