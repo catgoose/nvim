@@ -99,6 +99,9 @@ local opts = {
     make = {
       names = false,
     },
+    templ = {
+      tailwind = "both",
+    },
   },
   buftypes = {
     "*",

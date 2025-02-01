@@ -304,13 +304,13 @@ map[{}]{}
     "handler",
     fmta(
       [[
-func <>() echo.HandlerFunc {
+func <>(<>) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return <>
 	}
 }
     ]],
-      { i(1), i(0) }
+      { i(1), i(2), i(0) }
     )
   ),
   s(

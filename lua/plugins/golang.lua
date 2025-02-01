@@ -5,6 +5,7 @@ return {
       require("auto-fix-return").setup({})
     end,
     lazy = false,
+    enabled = true,
   },
   {
     "jack-rabe/impl.nvim",

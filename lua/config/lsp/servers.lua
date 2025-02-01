@@ -27,7 +27,9 @@ vim.diagnostic.config({
   -- },
   -- https://github.com/neovim/neovim/pull/31959
   -- https://github.com/neovim/neovim/pull/32187
-  -- virtual_lines = true,
+  virtual_lines = {
+    current_line = true,
+  },
   update_in_insert = false,
   underline = true,
   severity_sort = true,
@@ -72,8 +74,7 @@ function M.init(lspconfig)
     },
     tailwindcss = {
       root_dir = function(fname)
-        local root_pattern =
-          lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts", ".tailwindcss")
+        local root_pattern = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts")
         return root_pattern(fname)
       end,
       filetypes = {
@@ -107,10 +108,9 @@ function M.init(lspconfig)
     },
     html = {
       capabilities = snippet_capabilities,
-      filetypes = { "html", "vue" },
+      filetypes = { "html", "vue", "templ" },
     },
     htmx = {
-      -- filetypes = { "html", "templ" },
       filetypes = { "html", "templ" },
     },
     cssmodules_ls = {
