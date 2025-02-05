@@ -61,7 +61,8 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    "igorlfs/nvim-dap-view",
+    -- "igorlfs/nvim-dap-view",
+    dir = "~/git/nvim-dap-view",
     opts = {
       winbar = {
         show = true,
@@ -71,7 +72,7 @@ return {
       windows = {
         height = 12,
         terminal = {
-          position = "right",
+          position = "left",
         },
       },
     },

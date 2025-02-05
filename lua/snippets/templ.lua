@@ -114,6 +114,17 @@ templ <>(<>) {
       { i(1), i(2), i(0) }
     )
   ),
+  s(
+    "for",
+    fmta(
+      [[
+  for _, <> := range <> {
+    <>
+  }
+    ]],
+      { i(1), i(2), i(0) }
+    )
+  ),
 }
 
 return snippets

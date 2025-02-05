@@ -18,7 +18,10 @@ local opts = {
     bash = { "shfmt", "shellharden" },
     markdown = { "cbfmt", "prettierd", "markdownlint" },
     go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
-    templ = { "templ", "injected" },
+    templ = {
+      "templ",
+      "injected",
+    },
   },
   format_on_save = function(bufnr)
     local disabled = require("neoconf").get("plugins.conform.disabled")
