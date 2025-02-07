@@ -82,6 +82,27 @@ local snippets = {
       { i(1) }
     )
   ),
+  -- TODO: 2025-02-05 - convert to choice
+  s(
+    "htas",
+    fmt(
+      [[
+        on htmx:afterSwap if not event.detail.failed
+          {}
+]],
+      { i(1) }
+    )
+  ),
+  s(
+    "htar",
+    fmt(
+      [[
+        on htmx:afterRequest if not event.detail.failed
+          {}
+]],
+      { i(1) }
+    )
+  ),
   s(
     "fn",
     c(1, {
@@ -123,6 +144,18 @@ templ <>(<>) {
   }
     ]],
       { i(1), i(2), i(0) }
+    )
+  ),
+  s(
+    "spf",
+    fmta(
+      [[
+      {fmt.Sprintf("<>", <>)}
+    ]],
+      {
+        i(1),
+        i(0),
+      }
     )
   ),
 }

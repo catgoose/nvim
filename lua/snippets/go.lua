@@ -324,6 +324,17 @@ func <>(<>) echo.HandlerFunc {
       { i(1), i(0) }
     )
   ),
+  s(
+    "iferr",
+    fmta(
+      [[
+     if err := <>; err != nil {
+       <>
+     }
+     ]],
+      { i(1), i(0) }
+    )
+  ),
 }
 
 return snippets
