@@ -236,7 +236,7 @@ return {
         layout_strategy = "vertical",
         layout_config = {
           width = 0.5,
-          height = 0.50,
+          height = 0.65,
           vertical = {
             prompt_position = "bottom",
           },

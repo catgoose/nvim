@@ -3,7 +3,6 @@ local m = u.lazy_map
 
 return {
   {
-    -- dir = "~/git/nvim-dap",
     "mfussenegger/nvim-dap",
     keys = {
       m("<F1>", [[DapStepInto]]),
@@ -71,9 +70,9 @@ return {
       },
       windows = {
         height = 12,
-        terminal = {
-          position = "left",
-        },
+        -- terminal = {
+        --   position = "left",
+        -- },
       },
     },
     enabled = true,
