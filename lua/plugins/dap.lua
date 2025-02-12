@@ -60,19 +60,20 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    "igorlfs/nvim-dap-view",
-    -- dir = "~/git/nvim-dap-view",
+    -- "igorlfs/nvim-dap-view",
+    dir = "~/git/nvim-dap-view",
     opts = {
       winbar = {
         show = true,
         sections = { "watches", "breakpoints", "repl" },
-        default_section = "repl",
+        default_section = "breakpoints",
       },
       windows = {
         height = 12,
-        -- terminal = {
-        --   position = "left",
-        -- },
+        terminal = {
+          position = "right",
+          hide = {},
+        },
       },
     },
     enabled = true,
@@ -90,6 +91,7 @@ return {
       -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
       --   require("dap-view").close()
       -- end
+      dap.defaults.fallback.switchbuf = "useopen"
     end,
     dependencies = "mfussenegger/nvim-dap",
     event = "BufReadPre",

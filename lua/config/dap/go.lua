@@ -19,7 +19,7 @@ function M.setup(dap, host)
   dap.adapters.go = function(callback, config)
     local port = config.port or h.get_unused_port(host)
     if not port then
-      print("No available port found for dap adapter")
+      vim.notify("No available port found for dap adapter")
       return
     end
     local bufnr, winnr = h.get_dap_view_window()
@@ -27,7 +27,7 @@ function M.setup(dap, host)
       bufnr, winnr = h.create_manual_window()
     end
     if not (bufnr and winnr) then
-      print("Failed to create manual window for dap adapter")
+      vim.notify("Failed to create manual window for dap adapter")
       return
     end
     vim.api.nvim_buf_call(bufnr, function()

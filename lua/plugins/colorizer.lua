@@ -40,6 +40,7 @@ local opts = {
         uppercase = false,
         camelcase = false,
       },
+      names = false,
     },
     ps1 = {
       RGB = false,
