@@ -45,7 +45,7 @@ return {
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
-    enabled = false,
+    enabled = true,
   },
   {
     "Weissle/persistent-breakpoints.nvim",
@@ -60,8 +60,9 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    -- "igorlfs/nvim-dap-view",
-    dir = "~/git/nvim-dap-view",
+    "igorlfs/nvim-dap-view",
+    commit = "3b79d9de31c45f461e0e39570b176113aeb93e2c",
+    -- dir = "~/git/nvim-dap-view",
     opts = {
       winbar = {
         show = true,
@@ -91,7 +92,7 @@ return {
       -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
       --   require("dap-view").close()
       -- end
-      dap.defaults.fallback.switchbuf = "useopen"
+      -- dap.defaults.fallback.switchbuf = "useopen"
     end,
     dependencies = "mfussenegger/nvim-dap",
     event = "BufReadPre",
