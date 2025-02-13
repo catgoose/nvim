@@ -21,4 +21,5 @@ return {
   "tzachar/highlight-undo.nvim",
   opts = opts,
   event = { "BufReadPre" },
+  commit = "795fc36f8bb7e4cf05e31bd7e354b86d27643a9e",
 }
