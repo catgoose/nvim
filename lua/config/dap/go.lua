@@ -45,9 +45,9 @@ function M.setup(dap, host)
       end
       vim.cmd("normal! G") -- tail the output without having to startinsert
     end)
-    vim.defer_fn(function()
+    vim.schedule(function()
       callback({ type = "server", host = host, port = port })
-    end, 100)
+    end)
   end
 
   dap.configurations.go = {

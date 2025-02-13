@@ -38,11 +38,13 @@ function M.get_dap_view_window()
   if not state_ok then
     return nil, nil
   end
+  ---@diagnostic disable-next-line: undefined-field
   local bufnr, winnr = state.term_bufnr, state.term_winnr
   if bufnr and winnr then
     return bufnr, winnr
   end
   require("dap-view").open()
+  ---@diagnostic disable-next-line: undefined-field
   bufnr, winnr = state.term_bufnr, state.term_winnr
   return bufnr, winnr
 end

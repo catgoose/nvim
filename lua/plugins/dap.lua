@@ -61,7 +61,7 @@ return {
   },
   {
     "igorlfs/nvim-dap-view",
-    commit = "3b79d9de31c45f461e0e39570b176113aeb93e2c",
+    commit = "7d75930dc7203eef924079df75c2393f4d3180d9",
     -- dir = "~/git/nvim-dap-view",
     opts = {
       winbar = {
@@ -71,21 +71,21 @@ return {
       },
       windows = {
         height = 12,
-        terminal = {
-          position = "right",
-          hide = {},
-        },
+        -- terminal = {
+        --   position = "right",
+        --   hide = {},
+        -- },
       },
     },
     enabled = true,
     init = function()
-      local dap = require("dap")
-      dap.listeners.before.launch["catgoose_dap"] = function()
-        require("dap-view").open()
-      end
-      dap.listeners.before.attach["catgoose_dap"] = function()
-        require("dap-view").open()
-      end
+      -- local dap = require("dap")
+      -- dap.listeners.before.launch["catgoose_dap"] = function()
+      --   require("dap-view").open()
+      -- end
+      -- dap.listeners.before.attach["catgoose_dap"] = function()
+      --   require("dap-view").open()
+      -- end
       -- dap.listeners.after.event_exited["catgoose_dap"] = function()
       --   require("dap-view").close()
       -- end
