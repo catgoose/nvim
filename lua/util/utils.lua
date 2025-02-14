@@ -231,27 +231,7 @@ end
 
 local function should_html_hover()
   local client = vim.lsp.get_clients({ name = "html" })
-  if not client[1] then
-    return false
-  end
-  client[1].request("textDocument/hover", {
-    textDocument = vim.lsp.util.make_text_document_params(),
-    position = {
-      line = vim.api.nvim_win_get_cursor(0)[1] - 1,
-      character = vim.api.nvim_win_get_cursor(0)[2],
-    },
-  }, function(err, result, _, _)
-    if err or not result or not result.contents then
-      return
-    end
-    local lines = vim.split(result.contents.value, "\n")
-    local _, winnr = vim.lsp.util.open_floating_preview(lines, result.contents.kind, {
-      border = "rounded",
-      width = get_longest(lines),
-      height = #lines,
-    })
-    vim.api.nvim_set_current_win(winnr)
-  end)
+  return client[1]
 end
 
 local function is_diag_for_cur_pos()
@@ -295,12 +275,30 @@ function M.hover_handler()
     end
   end
   local ft = bo.filetype
+  local html_client = vim.lsp.get_clients({ name = "html" })[1]
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
   elseif should_tw_values(ft) then
     cmd("TWValues")
-  elseif should_html_hover() then
-    -- vim.print("html")
+  elseif html_client then
+    html_client.request("textDocument/hover", {
+      textDocument = vim.lsp.util.make_text_document_params(),
+      position = {
+        line = vim.api.nvim_win_get_cursor(0)[1] - 1,
+        character = vim.api.nvim_win_get_cursor(0)[2],
+      },
+    }, function(err, result, _, _)
+      if err or not result or not result.contents then
+        return
+      end
+      local lines = vim.split(result.contents.value, "\n")
+      local _, winnr = vim.lsp.util.open_floating_preview(lines, result.contents.kind, {
+        border = "rounded",
+        width = get_longest(lines),
+        height = #lines,
+      })
+      vim.api.nvim_set_current_win(winnr)
+    end)
   elseif tbl_contains({ "man" }, ft) then
     cmd("silent! Man " .. fn.expand("<cword>"))
   elseif is_diag_for_cur_pos() then
