@@ -167,6 +167,50 @@ function M.diag_error()
   return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
+-- TODO: 2025-02-13 - Combine the two css treesitter functions
+local function treesitter_is_css_class_value_under_cursor()
+  local ft = bo.filetype
+  if
+    not tbl_contains(
+      { "typescript", "typescriptreact", "vue", "html", "svelt", "astro", "templ" },
+      ft
+    )
+  then
+    return false
+  end
+  local ft_query = [[
+    (attribute
+      (attribute_name) @attr_name
+        (quoted_attribute_value (attribute_value) @attr_val)
+        (#match? @attr_name "class")
+    )
+    ]]
+  local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
+  if not ok or not query then
+    return
+  end
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.treesitter.get_node({
+    bufnr = bufnr,
+    ignore_injections = false,
+  })
+  if cursor == nil then
+    return false
+  end
+  local node = cursor:parent()
+  if not node then
+    return false
+  end
+  node = node:parent()
+  if not node then
+    return false
+  end
+  for id, _ in query:iter_captures(node, bufnr, 0, -1) do
+    local name = query.captures[id]
+    return #name > 0
+  end
+end
+
 ---@diagnostic disable-next-line: unused-local, unused-function
 local function treesitter_is_css_class_under_cursor()
   local ft = bo.filetype
@@ -178,40 +222,33 @@ local function treesitter_is_css_class_under_cursor()
   then
     return false
   end
-  -- local ft_query = [[
-  --   (attribute
-  --     (attribute_name) @attr_name
-  --       (quoted_attribute_value (attribute_value) @attr_val)
-  --       (#match? @attr_name "class")
-  --   )
-  --   ]]
-  -- local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
-  -- if not ok or not query then
-  --   return
-  -- end
-  -- local bufnr = vim.api.nvim_get_current_buf()
-  -- local cursor = vim.treesitter.get_node({
-  --   bufnr = bufnr,
-  --   ignore_injections = false,
-  -- })
-  -- if cursor == nil then
-  --   return false
-  -- end
-  -- local parent = cursor:parent()
-
-  -- if not parent then
-  --   return false
-  -- end
-
-  -- if query == nil then
-  --   return false
-  -- end
-
-  -- for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
-  --   local name = query.captures[id]
-  --   return #name > 0
-  -- end
-  return true
+  local ft_query = [[
+    (attribute
+      (attribute_name) @attr_name
+        (quoted_attribute_value (attribute_value) @attr_val)
+        (#match? @attr_name "class")
+    )
+    ]]
+  local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
+  if not ok or not query then
+    return
+  end
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.treesitter.get_node({
+    bufnr = bufnr,
+    ignore_injections = false,
+  })
+  if cursor == nil then
+    return false
+  end
+  local parent = cursor:parent()
+  if not parent then
+    return false
+  end
+  for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
+    local name = query.captures[id]
+    return #name > 0
+  end
 end
 
 local function is_diag_for_cur_pos()
@@ -258,6 +295,11 @@ function M.hover_handler()
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
   elseif treesitter_is_css_class_under_cursor() then
+    local clients = vim.lsp.get_clients({ name = "tailwindcss" })
+    if clients[1] then
+      cmd("TWValues")
+    end
+  elseif treesitter_is_css_class_value_under_cursor() then
     local clients = vim.lsp.get_clients({ name = "tailwindcss" })
     if clients[1] then
       cmd("TWValues")
