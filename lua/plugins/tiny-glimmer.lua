@@ -42,6 +42,14 @@ local opts = {
         rhs = "<Plug>(YankyPutBefore)",
       },
     },
+    animations = {
+      fade = {
+        max_duration = 750,
+        min_duration = 500,
+        easing = "outQuad",
+        chars_for_max_duration = 10,
+      },
+    },
   },
 }
 

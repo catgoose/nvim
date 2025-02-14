@@ -167,59 +167,19 @@ function M.diag_error()
   return #diag.get(0, { severity = diag.severity.ERROR }) ~= 0
 end
 
--- TODO: 2025-02-13 - Combine the two css treesitter functions
-local function treesitter_is_css_class_value_under_cursor()
-  local ft = bo.filetype
-  if
-    not tbl_contains(
-      { "typescript", "typescriptreact", "vue", "html", "svelt", "astro", "templ" },
-      ft
-    )
-  then
-    return false
-  end
-  local ft_query = [[
-    (attribute
-      (attribute_name) @attr_name
-        (quoted_attribute_value (attribute_value) @attr_val)
-        (#match? @attr_name "class")
-    )
-    ]]
-  local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
-  if not ok or not query then
-    return
-  end
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor = vim.treesitter.get_node({
-    bufnr = bufnr,
-    ignore_injections = false,
-  })
-  if cursor == nil then
-    return false
-  end
-  local node = cursor:parent()
-  if not node then
-    return false
-  end
-  node = node:parent()
-  if not node then
-    return false
-  end
-  for id, _ in query:iter_captures(node, bufnr, 0, -1) do
-    local name = query.captures[id]
-    return #name > 0
-  end
-end
-
 ---@diagnostic disable-next-line: unused-local, unused-function
-local function treesitter_is_css_class_under_cursor()
-  local ft = bo.filetype
-  if
-    not tbl_contains(
-      { "typescript", "typescriptreact", "vue", "html", "svelt", "astro", "templ" },
-      ft
-    )
-  then
+local function should_tw_values(ft)
+  ft = ft or bo.filetype
+  if not tbl_contains({
+    "typescript",
+    "vue",
+    "html",
+    "templ",
+  }, ft) then
+    return false
+  end
+  local clients = vim.lsp.get_clients({ name = "tailwindcss" })
+  if not clients[1] then
     return false
   end
   local ft_query = [[
@@ -245,10 +205,53 @@ local function treesitter_is_css_class_under_cursor()
   if not parent then
     return false
   end
+  local isclass_attr = vim.treesitter.get_node_text(cursor, bufnr) == "class"
   for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
-    local name = query.captures[id]
-    return #name > 0
+    return isclass_attr and #query.captures[id] > 0
   end
+  parent = parent:parent()
+  if not parent then
+    return false
+  end
+  isclass_attr = vim.treesitter.get_node_text(parent, bufnr):match("^class=")
+  for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
+    return isclass_attr and #query.captures[id] > 0
+  end
+end
+
+local function get_longest(t, init_len)
+  local longest = init_len or 0
+  for _, value in ipairs(t) do
+    if #value > longest then
+      longest = #value
+    end
+  end
+  return longest
+end
+
+local function should_html_hover()
+  local client = vim.lsp.get_clients({ name = "html" })
+  if not client[1] then
+    return false
+  end
+  client[1].request("textDocument/hover", {
+    textDocument = vim.lsp.util.make_text_document_params(),
+    position = {
+      line = vim.api.nvim_win_get_cursor(0)[1] - 1,
+      character = vim.api.nvim_win_get_cursor(0)[2],
+    },
+  }, function(err, result, _, _)
+    if err or not result or not result.contents then
+      return
+    end
+    local lines = vim.split(result.contents.value, "\n")
+    local _, winnr = vim.lsp.util.open_floating_preview(lines, result.contents.kind, {
+      border = "rounded",
+      width = get_longest(lines),
+      height = #lines,
+    })
+    vim.api.nvim_set_current_win(winnr)
+  end)
 end
 
 local function is_diag_for_cur_pos()
@@ -294,16 +297,10 @@ function M.hover_handler()
   local ft = bo.filetype
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
-  elseif treesitter_is_css_class_under_cursor() then
-    local clients = vim.lsp.get_clients({ name = "tailwindcss" })
-    if clients[1] then
-      cmd("TWValues")
-    end
-  elseif treesitter_is_css_class_value_under_cursor() then
-    local clients = vim.lsp.get_clients({ name = "tailwindcss" })
-    if clients[1] then
-      cmd("TWValues")
-    end
+  elseif should_tw_values(ft) then
+    cmd("TWValues")
+  elseif should_html_hover() then
+    -- vim.print("html")
   elseif tbl_contains({ "man" }, ft) then
     cmd("silent! Man " .. fn.expand("<cword>"))
   elseif is_diag_for_cur_pos() then

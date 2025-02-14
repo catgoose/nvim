@@ -109,6 +109,14 @@ function M.init(lspconfig)
     html = {
       capabilities = snippet_capabilities,
       filetypes = { "html", "vue", "templ" },
+      init_options = {
+        configurationSection = { "html", "css", "javascript", "templ" },
+      },
+      embeddedLanguages = {
+        css = true,
+        javascript = true,
+        templ = true,
+      },
     },
     htmx = {
       filetypes = { "html", "templ" },
