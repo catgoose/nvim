@@ -275,12 +275,13 @@ function M.hover_handler()
     end
   end
   local ft = bo.filetype
-  local html_client = vim.lsp.get_clients({ name = "html" })[1]
+  local html_client = vim.lsp.get_clients({ name = "html", bufnr = 0 })[1]
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
   elseif should_tw_values(ft) then
     cmd("TWValues")
   elseif html_client then
+    vim.print("html")
     html_client.request("textDocument/hover", {
       textDocument = vim.lsp.util.make_text_document_params(),
       position = {
