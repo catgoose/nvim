@@ -170,42 +170,48 @@ end
 ---@diagnostic disable-next-line: unused-local, unused-function
 local function treesitter_is_css_class_under_cursor()
   local ft = bo.filetype
-  if not tbl_contains({ "typescript", "typescriptreact", "vue", "html", "svelt", "astro" }, ft) then
-    return false
-  end
-  local ft_query = [[
-    (attribute
-      (attribute_name) @attr_name
-        (quoted_attribute_value (attribute_value) @attr_val)
-        (#match? @attr_name "class")
+  if
+    not tbl_contains(
+      { "typescript", "typescriptreact", "vue", "html", "svelt", "astro", "templ" },
+      ft
     )
-    ]]
-  local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
-  if not ok or not query then
-    return
-  end
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor = vim.treesitter.get_node({
-    bufnr = bufnr,
-    ignore_injections = false,
-  })
-  if cursor == nil then
+  then
     return false
   end
-  local parent = cursor:parent()
+  -- local ft_query = [[
+  --   (attribute
+  --     (attribute_name) @attr_name
+  --       (quoted_attribute_value (attribute_value) @attr_val)
+  --       (#match? @attr_name "class")
+  --   )
+  --   ]]
+  -- local ok, query = pcall(vim.treesitter.query.parse, ft, ft_query)
+  -- if not ok or not query then
+  --   return
+  -- end
+  -- local bufnr = vim.api.nvim_get_current_buf()
+  -- local cursor = vim.treesitter.get_node({
+  --   bufnr = bufnr,
+  --   ignore_injections = false,
+  -- })
+  -- if cursor == nil then
+  --   return false
+  -- end
+  -- local parent = cursor:parent()
 
-  if not parent then
-    return false
-  end
+  -- if not parent then
+  --   return false
+  -- end
 
-  if query == nil then
-    return false
-  end
+  -- if query == nil then
+  --   return false
+  -- end
 
-  for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
-    local name = query.captures[id]
-    return #name > 0
-  end
+  -- for id, _ in query:iter_captures(parent, bufnr, 0, -1) do
+  --   local name = query.captures[id]
+  --   return #name > 0
+  -- end
+  return true
 end
 
 local function is_diag_for_cur_pos()

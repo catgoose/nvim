@@ -4,7 +4,8 @@ local ft = { "vue", "html", "templ" }
 
 return {
   {
-    "MaximilianLloyd/tw-values.nvim",
+    -- "MaximilianLloyd/tw-values.nvim",
+    dir = "~/git/tw-values.nvim",
     opts = {
       show_unknown_classes = true,
       focus_preview = true,
