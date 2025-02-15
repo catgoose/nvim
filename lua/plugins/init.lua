@@ -27,11 +27,6 @@ return {
     lazy = true,
   },
   {
-    "rest-nvim/rest.nvim",
-    lazy = false,
-    enabled = false
-  },
-  {
     "seblj/roslyn.nvim",
     ft = "cs",
     config = true,
