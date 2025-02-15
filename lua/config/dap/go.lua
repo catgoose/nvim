@@ -51,6 +51,10 @@ function M.setup(dap, host)
         group = augroup,
         callback = function(evt)
           if evt.buf == bufnr then
+            local code_term_esc = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
+            vim.keymap.set("t", "<esc>", function()
+              vim.api.nvim_feedkeys(code_term_esc, "t", true)
+            end, { noremap = true, buffer = evt.buf })
             vim.schedule(function()
               vim.api.nvim_buf_call(bufnr, function()
                 vim.cmd("normal! G")
