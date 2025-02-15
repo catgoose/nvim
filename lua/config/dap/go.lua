@@ -22,17 +22,22 @@ function M.setup(dap, host)
       vim.notify("No available port found for dap adapter")
       return
     end
-    local dv_bufnr = h.get_dap_view_window()
-    if not dv_bufnr then
+    local bufnr = h.get_dap_view_window()
+    if not bufnr then
+      bufnr = h.create_manual_window()
+    end
+    if not bufnr then
       vim.notify("Failed to create manual window for dap adapter")
       return
     end
-    vim.api.nvim_buf_call(dv_bufnr, function()
-      h.reset_buffer(dv_bufnr)
+    vim.api.nvim_buf_call(bufnr, function()
+      h.reset_buffer(bufnr)
       local cmd = { "dlv", "dap", "-l", ("%s:%d"):format(host, port) }
+      vim.g.catgoose_terminal_enable_startinsert = 0
       local jobid = vim.fn.jobstart(cmd, {
         term = true,
       })
+      vim.g.catgoose_terminal_enable_startinsert = 1
       if jobid == 0 then
         vim.notify("Invalid arguments", vim.log.levels.ERROR)
         return
@@ -41,6 +46,20 @@ function M.setup(dap, host)
         return
       end
       vim.cmd("normal! G") -- tail the output without having to startinsert
+      local augroup = vim.api.nvim_create_augroup("nvim-dap-view-term", { clear = true })
+      vim.api.nvim_create_autocmd({ "WinNew" }, { -- required to tail output on first window open
+        group = augroup,
+        callback = function(evt)
+          if evt.buf == bufnr then
+            vim.schedule(function()
+              vim.api.nvim_buf_call(bufnr, function()
+                vim.cmd("normal! G")
+              end)
+            end)
+            vim.api.nvim_create_augroup("nvim-dap-view-term", { clear = true })
+          end
+        end,
+      })
     end)
     vim.schedule(function()
       callback({ type = "server", host = host, port = port })

@@ -71,10 +71,10 @@ return {
       windows = {
         height = 12,
         terminal = {
-          position = "right",
+          position = "left",
           ignore_session = true,
           -- hide = { "delve" },
-          -- start_hidden = true,
+          start_hidden = false,
         },
       },
     },
