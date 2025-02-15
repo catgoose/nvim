@@ -229,11 +229,6 @@ local function get_longest(t, init_len)
   return longest
 end
 
-local function should_html_hover()
-  local client = vim.lsp.get_clients({ name = "html" })
-  return client[1]
-end
-
 local function is_diag_for_cur_pos()
   local diagnostics = vim.diagnostic.get(0)
   local pos = api.nvim_win_get_cursor(0)
@@ -281,7 +276,6 @@ function M.hover_handler()
   elseif should_tw_values(ft) then
     cmd("TWValues")
   elseif html_client then
-    vim.print("html")
     html_client.request("textDocument/hover", {
       textDocument = vim.lsp.util.make_text_document_params(),
       position = {
