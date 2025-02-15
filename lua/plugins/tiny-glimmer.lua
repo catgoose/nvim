@@ -51,5 +51,5 @@ return {
   "rachartier/tiny-glimmer.nvim",
   event = "VeryLazy",
   opts = opts,
-  commit = "92383c5c2abc31fcefb771f062c0b776f1212c89",
+  -- commit = "92383c5c2abc31fcefb771f062c0b776f1212c89",
 }
