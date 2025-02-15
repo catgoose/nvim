@@ -6,7 +6,6 @@ local opts = {
   },
   aliases = {
     ["vue"] = "html",
-    ["templ"] = "html",
   },
 }
 
