@@ -61,7 +61,6 @@ return {
   },
   {
     "igorlfs/nvim-dap-view",
-    commit = "7d75930dc7203eef924079df75c2393f4d3180d9",
     -- dir = "~/git/nvim-dap-view",
     opts = {
       winbar = {
@@ -71,10 +70,11 @@ return {
       },
       windows = {
         height = 12,
-        -- terminal = {
-        --   position = "right",
-        --   hide = {},
-        -- },
+        terminal = {
+          position = "right",
+          -- hide = { "delve" },
+          -- start_hidden = true,
+        },
       },
     },
     enabled = true,

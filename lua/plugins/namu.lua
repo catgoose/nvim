@@ -4,6 +4,12 @@ local opts = {
   namu_symbols = {
     enable = true,
     options = {
+      movement = {
+        next = "<C-n>",
+        previous = "<C-p>",
+        alternative_next = "<C-j>",
+        alternative_previous = "<C-k>",
+      },
       auto_select = true,
       AllowKinds = {
         default = {
