@@ -13,11 +13,6 @@ local h = require("config.dap.helpers")
 --   end, 100)
 -- end
 
-local state = {
-  bufnr = nil,
-  winnr = nil,
-}
-
 function M.setup(dap, host)
   dap = dap or require("dap")
   host = host or "127.0.0.1"
@@ -27,35 +22,25 @@ function M.setup(dap, host)
       vim.notify("No available port found for dap adapter")
       return
     end
-    local dv_bufnr, dv_winnr = h.get_dap_view_window()
-    if not (dv_bufnr and dv_winnr) then
+    local dv_bufnr = h.get_dap_view_window()
+    if not dv_bufnr then
       vim.notify("Failed to create manual window for dap adapter")
       return
     end
-    if state.bufnr then
-      vim.api.nvim_buf_delete(state.bufnr, { force = true })
-    end
     vim.api.nvim_buf_call(dv_bufnr, function()
-      state.bufnr = vim.api.nvim_create_buf(true, false)
-      state.winnr = vim.api.nvim_open_win(state.bufnr, false, {
-        split = "right",
-        win = dv_winnr,
-        height = 10,
+      h.reset_buffer(dv_bufnr)
+      local cmd = { "dlv", "dap", "-l", ("%s:%d"):format(host, port) }
+      local jobid = vim.fn.jobstart(cmd, {
+        term = true,
       })
-      vim.api.nvim_buf_call(state.bufnr, function()
-        local cmd = { "dlv", "dap", "-l", ("%s:%d"):format(host, port) }
-        local jobid = vim.fn.jobstart(cmd, {
-          term = true,
-        })
-        if jobid == 0 then
-          vim.notify("Invalid arguments", vim.log.levels.ERROR)
-          return
-        elseif jobid == -1 then
-          vim.notify(("Cmd `%s` is not executable"):format(cmd[1]), vim.log.levels.ERROR)
-          return
-        end
-        vim.cmd("normal! G") -- tail the output without having to startinsert
-      end)
+      if jobid == 0 then
+        vim.notify("Invalid arguments", vim.log.levels.ERROR)
+        return
+      elseif jobid == -1 then
+        vim.notify(("Cmd `%s` is not executable"):format(cmd[1]), vim.log.levels.ERROR)
+        return
+      end
+      vim.cmd("normal! G") -- tail the output without having to startinsert
     end)
     vim.schedule(function()
       callback({ type = "server", host = host, port = port })

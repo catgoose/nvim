@@ -25,7 +25,7 @@ return {
     config = function()
       local dap = require("dap")
       require("config.dap.adapters").setup(dap)
-      dap.defaults.go.autostart = "Debug main.go"
+      -- dap.defaults.go.autostart = "Debug main.go"
     end,
   },
   {
@@ -60,8 +60,8 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    "igorlfs/nvim-dap-view",
-    -- dir = "~/git/nvim-dap-view",
+    -- "igorlfs/nvim-dap-view",
+    dir = "~/git/nvim-dap-view",
     opts = {
       winbar = {
         show = true,
@@ -72,6 +72,7 @@ return {
         height = 12,
         terminal = {
           position = "right",
+          ignore_session = true,
           -- hide = { "delve" },
           -- start_hidden = true,
         },
@@ -79,10 +80,10 @@ return {
     },
     enabled = true,
     init = function()
-      -- local dap = require("dap")
-      -- dap.listeners.before.launch["catgoose_dap"] = function()
-      --   require("dap-view").open()
-      -- end
+      local dap = require("dap")
+      dap.listeners.before.launch["catgoose_dap"] = function()
+        require("dap-view").open()
+      end
       -- dap.listeners.before.attach["catgoose_dap"] = function()
       --   require("dap-view").open()
       -- end

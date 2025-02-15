@@ -3,12 +3,86 @@ local M = {}
 local host = "127.0.0.1"
 local h = require("config.dap.helpers")
 
+local function get_install_path(package)
+  return require("mason-registry").get_package(package):get_install_path()
+end
+
+local use_fallback = false
+
 function M.setup(dap)
   dap = dap or require("dap")
 
   -- Go
   if not dap.adapters.go then
-    require("config.dap.go").setup(dap, host)
+    if not use_fallback then
+      require("config.dap.go").setup(dap, host)
+    else
+      dap.adapters.go = {
+        type = "executable",
+        command = "node",
+        args = { get_install_path("go-debug-adapter") .. "/extension/dist/debugAdapter.js" },
+      }
+      -- dlv debug main.go --headless --listen=:2345 --api-version=2 --accept-multiclient
+      -- dap.adapters.go = {
+      --   type = "server",
+      --   host = "127.0.0.1",
+      --   port = 2345,
+      -- }
+      local dlvToolPath = vim.fn.exepath("dlv")
+      dap.configurations.go = {
+        {
+          type = "go",
+          name = "Debug main.go test",
+          request = "launch",
+          showLog = true,
+          program = "${workspaceFolder}/main.go",
+          dlvToolPath = dlvToolPath,
+        },
+        {
+          type = "go",
+          name = "Debug current file",
+          request = "launch",
+          showLog = true,
+          program = "${file}",
+          dlvToolPath = dlvToolPath,
+        },
+        -- {
+        --   type = "go",
+        --   name = "Attach to running process",
+        --   request = "attach",
+        --   mode = "remote",
+        --   pid = "${command:pickProcess}",
+        --   host = "127.0.0.1",
+        --   port = 2345,
+        --   dlvToolPath = dlvToolPath,
+        -- },
+        {
+          type = "go",
+          name = "Debug test", -- configuration for debugging test files
+          request = "launch",
+          showLog = true,
+          mode = "test",
+          program = "${file}",
+          dlvToolPath = dlvToolPath,
+        },
+        {
+          type = "go",
+          name = "Debug package",
+          request = "launch",
+          showLog = true,
+          program = "./${relativeFileDirname}",
+          dlvToolPath = dlvToolPath,
+        },
+        {
+          type = "go",
+          name = "Debug package",
+          request = "launch",
+          showLog = true,
+          program = "./${relativeFileDirname}",
+          dlvToolPath = dlvToolPath,
+        },
+      }
+    end
   end
 
   -- javascript/typescript
