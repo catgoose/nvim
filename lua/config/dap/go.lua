@@ -54,11 +54,11 @@ function M.setup(dap, host)
         end
         vim.cmd("normal! G") -- tail the output without having to startinsert
         local augroup = vim.api.nvim_create_augroup("nvim-dap-view-term", { clear = true })
-        vim.api.nvim_create_autocmd({ "WinNew" }, { -- required to tail output on first window open
+        vim.api.nvim_create_autocmd({ "winnew" }, { -- required to tail output on first window open
           group = augroup,
           callback = function(evt)
             if evt.buf == bufnr then
-              local code_term_esc = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
+              local code_term_esc = vim.api.nvim_replace_termcodes("<c-\\><c-n>", true, true, true)
               vim.keymap.set("t", "<esc>", function()
                 vim.api.nvim_feedkeys(code_term_esc, "t", true)
               end, { noremap = true, buffer = evt.buf })
