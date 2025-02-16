@@ -6,8 +6,6 @@ local opts = {
         name = "fade",
         settings = {
           from_color = "DiffDelete",
-          min_duration = 500,
-          max_duration = 750,
         },
       },
       undo_mapping = "u",
@@ -18,11 +16,18 @@ local opts = {
         name = "fade",
         settings = {
           from_color = "DiffAdd",
-          min_duration = 500,
-          max_duration = 750,
         },
       },
       redo_mapping = "<c-r>",
+    },
+    yank = {
+      enabled = true,
+      default_animation = {
+        name = "fade",
+        settings = {
+          from_color = "Visual",
+        },
+      },
     },
     paste = {
       enabled = true,
@@ -51,5 +56,4 @@ return {
   "rachartier/tiny-glimmer.nvim",
   event = "VeryLazy",
   opts = opts,
-  -- commit = "92383c5c2abc31fcefb771f062c0b776f1212c89",
 }

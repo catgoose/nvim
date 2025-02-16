@@ -48,8 +48,6 @@ function M.setup(dap, host)
         })
         vim.g.catgoose_terminal_enable_startinsert = 1
         if jobid == 0 then
-          vim.notify("Invalid arguments", vim.log.levels.ERROR)
-          return
         elseif jobid == -1 then
           vim.notify(("Cmd `%s` is not executable"):format(cmd[1]), vim.log.levels.ERROR)
           return
