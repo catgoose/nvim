@@ -202,9 +202,7 @@ local dependencies = {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
   },
-  {
-    "nvim-telescope/telescope-ui-select.nvim",
-  },
+  "nvim-telescope/telescope-ui-select.nvim",
   "catgoose/do-the-needful.nvim",
   "folke/neoconf.nvim",
 }

@@ -7,7 +7,7 @@ c("BufOnlyWindowOnly", function()
   if #api.nvim_list_wins() > 1 then
     cmd.only()
   end
-  cmd.BufOnly()
+  require("snacks").bufdelete.other()
 end)
 c("WinOnly", function()
   f.win_only()
@@ -103,7 +103,7 @@ c("UpdateAndSyncAll", function()
   }
   for _, cm in ipairs(cmds) do
     cmd(cm)
-    print(string.format("Running: %s", cm))
+    vim.print(string.format("Running: %s", cm))
   end
 end)
 c("FoldParagraph", function()
