@@ -23,12 +23,7 @@ local opts = {
     },
     yank = {
       enabled = true,
-      default_animation = {
-        name = "fade",
-        settings = {
-          from_color = "Visual",
-        },
-      },
+      default_animation = "fade",
     },
     paste = {
       enabled = true,
@@ -45,10 +40,11 @@ local opts = {
   },
   animations = {
     fade = {
-      min_duration = 500,
-      max_duration = 750,
+      min_duration = 750,
+      max_duration = 1000,
       easing = "outQuad",
       chars_for_max_duration = 10,
+      from_color = "Visual",
     },
   },
 }
