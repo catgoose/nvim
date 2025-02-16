@@ -1,4 +1,5 @@
 local opts = {
+  refresh_interval = 3,
   overwrite = {
     undo = {
       enabled = true,
