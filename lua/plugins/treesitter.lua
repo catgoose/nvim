@@ -81,7 +81,7 @@ local config = function()
           ["]o"] = "@object_declaration",
           ["]k"] = "@object_key",
           ["]v"] = "@object_value",
-          ["]w"] = "@method_parameter",
+          ["]w"] = "@class.outer",
         },
         goto_next_end = {
           ["]F"] = "@function.inner",
@@ -95,7 +95,7 @@ local config = function()
           ["]O"] = "@object_declaration",
           ["]K"] = "@object_key",
           ["]V"] = "@object_value",
-          ["]W"] = "@method_parameter",
+          ["]W"] = "@class.outer",
         },
         goto_previous_start = {
           ["[f"] = "@function.inner",
@@ -109,7 +109,7 @@ local config = function()
           ["[o"] = "@object_declaration",
           ["[k"] = "@object_key",
           ["[v"] = "@object_value",
-          ["[w"] = "@method_parameter",
+          ["[w"] = "@class.outer",
         },
         goto_previous_end = {
           ["[F"] = "@function.inner",
@@ -123,7 +123,7 @@ local config = function()
           ["[O"] = "@object_declaration",
           ["[K"] = "@object_key",
           ["[V"] = "@object_value",
-          ["[W"] = "@method_parameter",
+          ["[W"] = "@class.outer",
         },
       },
       select = {

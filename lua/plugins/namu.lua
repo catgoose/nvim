@@ -5,10 +5,8 @@ local opts = {
     enable = true,
     options = {
       movement = {
-        next = "<C-n>",
-        previous = "<C-p>",
-        alternative_next = "<C-j>",
-        alternative_previous = "<C-k>",
+        next = { "<C-n>", "<C-j>" },
+        previous = { "<C-p>", "<C-k>" },
       },
       auto_select = true,
       AllowKinds = {
