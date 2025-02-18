@@ -50,5 +50,5 @@ return {
     -- m("<leader>O", "UfoToggleFold"),
     m("\\", "FoldParagraph"),
   },
-  enabled = true,
+  enabled = false,
 }
