@@ -72,9 +72,8 @@ return {
         height = 12,
         terminal = {
           position = "right",
-          bootstrap = true,
-          -- hide = { "delve" },
-          start_hidden = false,
+          -- hide = { "go" },
+          start_hidden = true,
         },
       },
     },
@@ -104,7 +103,7 @@ return {
       "DapViewWatch",
     },
     keys = {
-      m("<leader>?", [[lua require("dap-view").toggle()]]),
+      m("<leader>?", [[lua require("dap-view").toggle(true)]]),
     },
   },
   "jbyuki/one-small-step-for-vimkind",

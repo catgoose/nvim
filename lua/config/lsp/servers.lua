@@ -73,10 +73,6 @@ function M.init(lspconfig)
       "azure_pipelines_ls",
     },
     tailwindcss = {
-      root_dir = function(fname)
-        local root_pattern = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts")
-        return root_pattern(fname)
-      end,
       filetypes = {
         "templ",
         "vue",
