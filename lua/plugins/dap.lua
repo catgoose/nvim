@@ -72,7 +72,7 @@ return {
         height = 12,
         terminal = {
           position = "right",
-          ignore_session = true,
+          bootstrap = true,
           -- hide = { "delve" },
           start_hidden = false,
         },

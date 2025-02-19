@@ -35,11 +35,11 @@ function M.create_manual_window()
 end
 function M.get_dap_view_window()
   require("dap-view").open()
-  local term_ok, term = pcall(require, "dap-view.term.init")
+  local term_ok, state = pcall(require, "dap-view.state")
   if not term_ok then
     return nil, nil
   end
-  local bufnr, winnr = term.state.bufnr, term.state.winnr
+  local bufnr, winnr = state.term_bufnr, state.term_winnr
   return bufnr, winnr
 end
 function M.reset_buffer(bufnr)

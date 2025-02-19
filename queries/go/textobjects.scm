@@ -32,6 +32,19 @@
   (#not-match? @id "strings")
   (#not-match? @id "log")
 
+(call_expression
+  function: (selector_expression
+    operand: (selector_expression
+      operand: (selector_expression
+        operand: (identifier) @id
+        field: (field_identifier))
+      field: (field_identifier))
+    field: (field_identifier) @method_object_call ))
+  (#not-match? @id "fmt")
+  (#not-match? @id "errors")
+  (#not-match? @id "strings")
+  (#not-match? @id "log")
+
 ; inner function textobject
 (function_declaration
   body: (block
