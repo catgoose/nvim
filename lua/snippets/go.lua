@@ -121,13 +121,19 @@ local snippets = {
       {
         name1 = rep(2),
         desc = i(5, "description"),
+        -- TODO: 2025-02-19 - Create treesitter query to find other receiver
+        -- function in file and use that signature for receiver
         rec = c(1, {
           t(""),
           sn(
             nil,
-            fmt("({} {}) ", {
+            fmt("({} {}{}) ", {
               i(1, "r"),
-              i(2, "receiver"),
+              c(2, {
+                t("*"),
+                t(""),
+              }),
+              i(3, "receiver"),
             })
           ),
         }),
@@ -150,10 +156,14 @@ local snippets = {
   ),
   -- Errors
   s(
-    "ife",
-    fmt("if {} != nil {{\n\treturn {}\n}}\n{}", {
+    "er",
+    fmt("if {} {} nil {{\n\treturn {}\n}}\n{}", {
       i(1, "err"),
-      d(2, ft.make_return_nodes, { 1 }, { user_args = { { "a1", "a2" } } }),
+      c(2, {
+        t("=="),
+        t("!="),
+      }),
+      d(3, ft.make_return_nodes, { 1 }, { user_args = { { "a1", "a2" } } }),
       i(0),
     }),
     in_func
@@ -201,10 +211,10 @@ for {{
       ]],
       {
         d(1, function(_, snip)
-          return sn(1, ls.i(1, snip.captures[1]))
+          return sn(1, i(1, snip.captures[1]))
         end),
         rep(1),
-        c(2, { ls.i(1, "num"), ls.sn(1, { ls.t("len("), ls.i(1, "arr"), ls.t(")") }) }),
+        c(2, { i(1, "num"), sn(1, { t("len("), i(1, "arr"), t(")") }) }),
         rep(1),
         i(3, "// TODO:"),
         i(4),
@@ -243,7 +253,7 @@ switch {} := {}.(type) {{
         fmt("[]{}, 0, {}", { r(1, "type"), ls.i(2, "len") }),
         fmt("map[{}]{}, {}", { r(1, "type"), ls.i(2, "values"), ls.i(3, "len") }),
       }, {
-        stored = { -- FIXME: the default value is not set.
+        stored = {
           type = i(1, "type"),
         },
       }),
@@ -256,10 +266,23 @@ switch {} := {}.(type) {{
     "ok",
     fmt(
       [[
-     {}, ok := {}
-     {}
+     {val}, ok := {var}.({type})
+     if {ok} {{
+       {todo}
+     }}
+     {finally}
      ]],
-      { i(1), i(2), i(0) }
+      {
+        val = i(1, { "val" }),
+        var = i(2, { "var" }),
+        type = i(3, { "type" }),
+        ok = c(4, {
+          t("ok"),
+          t("!ok"),
+        }),
+        todo = i(5, { "// TODO:" }),
+        finally = i(0),
+      }
     )
   ),
   -- interface
@@ -279,13 +302,15 @@ type <> interface {
     "str",
     fmta(
       [[
-  type <> struct {
-    <>
-  }
+type <> struct {
+  <>
+}
        ]],
       { i(1), i(2) }
     )
   ),
+  -- TODO: 2025-02-19 - Create treesitter query to check if inside struct
+  -- definition
   s(
     "db",
     fmt(
@@ -320,30 +345,6 @@ map[{}]{}
         i(0),
       }
     )
-  ),
-  -- err
-  s(
-    "er",
-    c(1, {
-      fmta(
-        [[
-	if err != nil {
-    <>
-	}
-  <>
-   ]],
-        { r(1, "if_err_nil"), i(0) }
-      ),
-      fmta(
-        [[
-	if err == nil {
-    <>
-	}
-  <>
-   ]],
-        { r(1, "if_err_nil"), i(0) }
-      ),
-    })
   ),
   -- slice
   s(
