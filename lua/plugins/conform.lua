@@ -19,6 +19,7 @@ local opts = {
     markdown = { "cbfmt", "prettierd", "markdownlint" },
     go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
     templ = {
+      "gofumpt",
       "templ",
       "injected",
     },

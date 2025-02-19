@@ -160,8 +160,8 @@ local snippets = {
     fmt("if {} {} nil {{\n\treturn {}\n}}\n{}", {
       i(1, "err"),
       c(2, {
-        t("=="),
         t("!="),
+        t("=="),
       }),
       d(3, ft.make_return_nodes, { 1 }, { user_args = { { "a1", "a2" } } }),
       i(0),
@@ -476,6 +476,16 @@ fmt.Sprintln({})
         i(3),
         i(4),
       }
+    )
+  ),
+  s(
+    "ectx",
+    fmt(
+      [[
+ctx := c.Request().Context()
+{}
+     ]],
+      { i(0) }
     )
   ),
 }
