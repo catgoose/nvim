@@ -42,7 +42,8 @@ local is_not_luasnip = function()
 end
 
 function M.is_enabled()
-  return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
+  -- return is_not_comment() and is_not_buftype() and is_not_filetype() and is_not_luasnip()
+  return is_not_comment() and is_not_buftype() and is_not_filetype()
 end
 
 return M

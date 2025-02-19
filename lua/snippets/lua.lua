@@ -10,8 +10,8 @@ local s, t, i, c, r, f, sn =
   ls.snippet_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local u = require("util.luasnip")
-local smn = u.same_node
+local ft = require("snippets.util.filetype.lua")
+local smn = require("snippets.util.snip").same_node
 
 local snippets = {
   s(
@@ -46,7 +46,7 @@ return snippets
   s(
     "req",
     fmt([[local {} = require("{}")]], {
-      f(u.lua_require, { 1 }),
+      f(ft.lua_require, { 1 }),
       i(1),
     })
   ),

@@ -9,7 +9,7 @@ local s, t, i, c, r, f, sn =
   ls.function_node,
   ls.snippet_node
 local fmt = require("luasnip.extras.fmt").fmt
-local u = require("util.luasnip")
+local u = require("snippets.util.snip")
 local today = u.today
 local comment_open = u.comment_open
 local comment_close = u.comment_close

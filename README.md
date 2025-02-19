@@ -4,7 +4,7 @@
 <a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/leaderkey?style=flat" /></a>
 <a href="https://dotfyle.com/catgoose/nvim"><img src="https://dotfyle.com/catgoose/nvim/badges/plugin-manager?style=flat" /></a>
 
-Neovim config for Typescript, Lua plugin development, always WIP
+Neovim config for Go, Typescript, Lua plugin development, always WIP
 
 <!--toc:start-->
 
@@ -28,7 +28,7 @@ Neovim config for Typescript, Lua plugin development, always WIP
 ![image](https://github.com/catgoose/nvim/blob/d28f5304602c0f45fe994b0b61db292cf131383d/dashboard.png)
 
 I have curated this neovim config for about two years now. I use it for
-Angular, NestJS, and now Vue.
+Angular, NestJS, Vue, Go/HTMX.
 
 ## Screenshot
 

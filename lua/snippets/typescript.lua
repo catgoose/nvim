@@ -9,7 +9,8 @@ local s, t, i, c, r, f, sn =
   ls.snippet_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local u = require("util.luasnip")
+local ft = require("snippets.util.filetype.typescript")
+local u = require("snippets.util.snip")
 local smn = u.same_node
 local low = u.lower
 
@@ -28,20 +29,23 @@ local snippets = {
 console.group('{}');
 console.log({});
 console.groupEnd();
-  ]]
-  ,
-        { i(1), r(2, "console_log")}
+  ]],
+        { i(1), r(2, "console_log") }
       ),
     })
   ),
-  s("cg", fmt(
-    [[
+  s(
+    "cg",
+    fmt(
+      [[
     console.group('{}')
     console.log({})
     console.groupEnd()
     {}
-    ]], {i(1), smn(1), i(0) }
-  )),
+    ]],
+      { i(1), smn(1), i(0) }
+    )
+  ),
   s(
     "cyg",
     fmt(
@@ -85,7 +89,7 @@ expect({}).toHaveBeenCalled();
           t("warn"),
         }),
         smn(1),
-        f(u.nest_classname),
+        f(ft.nest_classname),
       }
     )
   ),
@@ -165,7 +169,7 @@ expect({}).toHaveBeenCalled();
     });
   }
   ]],
-      f(u.nest_classname)
+      f(ft.nest_classname)
     )
   ),
   s(
@@ -333,7 +337,7 @@ export class <>Entity {
         }),
         i(2, "method"),
         i(3),
-        f(u.nest_method_args, { 3 }),
+        f(ft.nest_method_args, { 3 }),
         i(0),
         smn(2),
       }
@@ -375,7 +379,7 @@ export class <>Entity {
   }
   ]],
       {
-        f(u.nest_classname),
+        f(ft.nest_classname),
         i(1, "AppName"),
       }
     )

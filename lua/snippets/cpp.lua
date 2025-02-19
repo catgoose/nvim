@@ -10,7 +10,7 @@ local s, t, i, c, r, f, sn =
   ls.snippet_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local u = require("util.luasnip")
+local u = require("snippets.util.snip")
 local smn = u.same_node
 
 local snippets = {
