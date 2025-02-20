@@ -66,13 +66,19 @@ M.go_err_snippet = function(args, _, _, spec)
       -- ls.sn(nil, fmt('fmt.Errorf("{}", {}, {})', { ls.t(err_name), ls.i(1, msg), ls.i(2) })),
       ls.sn(
         nil,
-        fmt('internal.GrpcError({},\n\t\tcodes.{}, "{}", "{}", {})', {
-          ls.t(err_name),
-          ls.i(1, "Internal"),
-          ls.i(2, "Description"),
-          ls.i(3, "Field"),
-          ls.i(4, "fields"),
-        })
+        fmt(
+          [[
+  internal.GrpcError({},
+  codes.{}, "{}", "{}", {})
+        ]],
+          {
+            ls.t(err_name),
+            ls.i(1, "Internal"),
+            ls.i(2, "Description"),
+            ls.i(3, "Field"),
+            ls.i(4, "fields"),
+          }
+        )
       ),
       ls.t(err_name),
     }),
@@ -187,9 +193,11 @@ local function return_value_nodes(info)
   end
 
   local query = vim.treesitter.query.get("go", "LuaSnip_Result")
-  for _, node in query:iter_captures(function_node, 0) do
-    if handlers[node:type()] then
-      return handlers[node:type()](node, info)
+  if query then
+    for _, node in query:iter_captures(function_node, 0) do
+      if handlers[node:type()] then
+        return handlers[node:type()](node, info)
+      end
     end
   end
   return ls.t({ "" })
@@ -205,6 +213,54 @@ M.make_return_nodes = function(args)
   local info = { index = 0, err_name = args[1][1] }
 
   return ls.sn(nil, return_value_nodes(info))
+end
+
+function M.get_receiver()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor_row = vim.api.nvim_win_get_cursor(0)[1]
+  local query_string = [[
+    (method_declaration
+      receiver: (parameter_list 
+        (parameter_declaration) @receiver_param)
+      name: (field_identifier) @method_name)
+  ]]
+  -- Parse the query
+  local lang = vim.treesitter.language.get_lang("go")
+  if not lang then
+    return
+  end
+  local query = vim.treesitter.query.parse(lang, query_string)
+  -- Get the root of the syntax tree
+  local parser = vim.treesitter.get_parser(bufnr, "go")
+  if not parser then
+    return
+  end
+  local tree = parser:parse()[1]
+  local root = tree:root()
+  local best_match = nil
+  local best_row = 0
+  for _, match, _ in query:iter_matches(root, bufnr, 0, cursor_row) do
+    for id, nodes in pairs(match) do
+      local name = query.captures[id]
+      if name == "receiver_param" then
+        for _, node in ipairs(nodes) do
+          local start_row = node:range() -- Get start position
+          if start_row < cursor_row and start_row > best_row then
+            local text = vim.treesitter.get_node_text(node, bufnr)
+            if text ~= nil then
+              best_match = node
+              best_row = start_row
+            end
+          end
+        end
+      end
+    end
+  end
+  -- If we found a match, return its text
+  if best_match then
+    local receiver_text = vim.treesitter.get_node_text(best_match, bufnr)
+    return receiver_text
+  end
 end
 
 return M

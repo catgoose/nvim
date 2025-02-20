@@ -44,58 +44,63 @@ local snippets = {
     "pkg",
     fmt(
       [[
-     package {}
+     package {name}
 
-     {}
+     {finally}
      ]],
-      { i(1), i(0) }
+      {
+        name = i(1),
+        finally = i(0),
+      }
     ),
     not_in_func_first_line
   ),
   s(
     "pmain",
-    fmt(
+    fmta(
       [[
      package main
 
-     func main() {{
-       {}
-     }}
+     func main() {
+       <body>
+     }
      ]],
       {
-        i(1),
+        body = i(0),
       }
     ),
     not_in_func_first_line
   ),
   s(
     "main",
-    fmt(
+    fmta(
       [[
-     func main() {{
-       {}
-     }}
+     func main() {
+       <body>
+     }
      ]],
-      i(0)
+      {
+        body = i(0),
+      }
     ),
     not_in_func
   ),
   -- Function
-  s({ trig = "rt", hidden = true }, {
+  s({ trig = "rt", hidden = false }, {
     t("return "),
-    ls.i(1),
-    ls.t({ "" }),
+    i(1),
+    t({ "" }),
     d(2, ft.make_default_return_nodes, { 1 }),
   }, in_func),
   s(
     "ifc",
-    fmt(
+    fmta(
       [[
-        {val}, {err1} := {func}({args})
-        if {err2} != nil {{
-          return {err3}
-        }}
-        {finally}
+        <val>, <err1> := <func>(<args>)
+        if <err2> != nil {
+          return <err3>
+        }
+        <finally>
       ]],
       {
         val = i(1, { "val" }),
@@ -109,31 +114,24 @@ local snippets = {
     ),
     in_func
   ),
-  ls.s(
+  s(
     "fn",
-    fmt(
+    fmta(
       [[
-        // {name1} {desc}
-        func {rec}{name2}({args}) {ret} {{
-          {finally}
-        }}
+        // <name1> <desc>
+        func <rec><name2>(<args>) <ret> {
+          <finally>
+        }
       ]],
       {
         name1 = rep(2),
         desc = i(5, "description"),
-        -- TODO: 2025-02-19 - Create treesitter query to find other receiver
-        -- function in file and use that signature for receiver
         rec = c(1, {
           t(""),
           sn(
             nil,
-            fmt("({} {}{}) ", {
-              i(1, "r"),
-              c(2, {
-                t("*"),
-                t(""),
-              }),
-              i(3, "receiver"),
+            fmt("({}) ", {
+              f(ft.get_receiver),
             })
           ),
         }),
@@ -154,27 +152,86 @@ local snippets = {
     ),
     not_in_func
   ),
+  s(
+    "fnr",
+    fmta(
+      [[
+  // <name1> <desc>
+  func <rec><name2>(<args>) <ret> {
+    <finally>
+  }
+     ]],
+      {
+        name1 = rep(2),
+        desc = i(5, "description"),
+        rec = sn(
+          1,
+          fmt("({}) ", {
+            f(ft.get_receiver),
+          })
+        ),
+        name2 = i(2, "Name"),
+        args = i(3),
+        ret = c(4, {
+          i(1, "error"),
+          sn(
+            nil,
+            fmt("({}, {}) ", {
+              i(1, "ret"),
+              i(2, "error"),
+            })
+          ),
+        }),
+        finally = i(0),
+      }
+    )
+  ),
   -- Errors
   s(
     "er",
-    fmt("if {} {} nil {{\n\treturn {}\n}}\n{}", {
-      i(1, "err"),
-      c(2, {
-        t("!="),
-        t("=="),
-      }),
-      d(3, ft.make_return_nodes, { 1 }, { user_args = { { "a1", "a2" } } }),
-      i(0),
-    }),
+    fmta(
+      [[
+if <> <> nil {
+  return <>
+}
+<>
+      ]],
+      {
+        i(1, "err"),
+        c(2, {
+          t("!="),
+          t("=="),
+        }),
+        d(3, ft.make_return_nodes, { 1 }, { user_args = { { "a1", "a2" } } }),
+        i(0),
+      }
+    ),
     in_func
+  ),
+  s(
+    "iferr",
+    fmta(
+      [[
+if err := <>; err != nil {
+  return <>
+}
+<>
+     ]],
+      {
+        i(1),
+        d(2, ft.make_return_nodes, { 1 }, { user_args = { { "a1", "a2" } } }),
+        i(0),
+      }
+    )
   ),
   s(
     "fer",
     fmt(
       [[
-     fmt.Errorf("{}: %{}", err)
+     fmt.Errorf("{}: {} %{}", {}, err)
+     {}
      ]],
-      { i(1), c(2, { t("w"), t("v") }) }
+      { i(1), i(2), c(3, { t("w"), t("v") }), i(4), i(0) }
     )
   ),
   -- For
@@ -224,14 +281,14 @@ for {{
   ),
   s(
     "tysw",
-    fmt(
+    fmta(
       [[
-switch {} := {}.(type) {{
-    case {}:
-        {}
+switch <> := <>.(type) {
+    case <>:
+        <>
     default:
-        {}
-}}
+        <>
+}
 ]],
       {
         i(1, "v"),
@@ -245,20 +302,26 @@ switch {} := {}.(type) {{
   -- Slices and maps
   s(
     "mk",
-    fmt("{} {}= make({})\n{}", {
-      i(1, "name"),
-      i(2),
-      c(3, {
-        fmt("[]{}, {}", { r(1, "type"), ls.i(2, "len") }),
-        fmt("[]{}, 0, {}", { r(1, "type"), ls.i(2, "len") }),
-        fmt("map[{}]{}, {}", { r(1, "type"), ls.i(2, "values"), ls.i(3, "len") }),
-      }, {
-        stored = {
-          type = i(1, "type"),
-        },
-      }),
-      i(0),
-    }),
+    fmt(
+      [[
+{} {}= make({})
+{}
+    ]],
+      {
+        i(1, "name"),
+        i(2),
+        c(3, {
+          fmt("[]{}, {}", { r(1, "type"), ls.i(2, "len") }),
+          fmt("[]{}, 0, {}", { r(1, "type"), ls.i(2, "len") }),
+          fmt("map[{}]{}, {}", { r(1, "type"), ls.i(2, "values"), ls.i(3, "len") }),
+        }, {
+          stored = {
+            type = i(1, "type"),
+          },
+        }),
+        i(0),
+      }
+    ),
     in_func
   ),
   -- ok
@@ -266,11 +329,11 @@ switch {} := {}.(type) {{
     "ok",
     fmt(
       [[
-     {val}, ok := {var}.({type})
-     if {ok} {{
-       {todo}
-     }}
-     {finally}
+ {val}, ok := {var}.({type})
+ if {ok} {{
+   {todo}
+ }}
+ {finally}
      ]],
       {
         val = i(1, { "val" }),
@@ -295,7 +358,8 @@ type <> interface {
 }
      ]],
       { i(1), i(0) }
-    )
+    ),
+    not_in_func
   ),
   -- struct
   s(
@@ -307,7 +371,8 @@ type <> struct {
 }
        ]],
       { i(1), i(2) }
-    )
+    ),
+    not_in_func
   ),
   -- TODO: 2025-02-19 - Create treesitter query to check if inside struct
   -- definition
@@ -354,19 +419,6 @@ map[{}]{}
      []<>{<>}
      ]],
       { i(1), i(2) }
-    )
-  ),
-  s(
-    "handler",
-    fmta(
-      [[
-func <>(<>) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return <>
-	}
-}
-    ]],
-      { i(1), i(2), i(0) }
     )
   ),
   -- printing

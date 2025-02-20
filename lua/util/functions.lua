@@ -241,7 +241,56 @@ function M.term_open(c)
 end
 
 function M.testing_function()
-  vim.cmd.make()
+  local get_text = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local cursor_row = vim.api.nvim_win_get_cursor(0)[1]
+    local query_string = [[
+    (method_declaration
+      receiver: (parameter_list 
+        (parameter_declaration) @receiver_param)
+      name: (field_identifier) @method_name)
+  ]]
+    -- Parse the query
+    local lang = vim.treesitter.language.get_lang("go")
+    if not lang then
+      return
+    end
+    local query = vim.treesitter.query.parse(lang, query_string)
+    -- Get the root of the syntax tree
+    local parser = vim.treesitter.get_parser(bufnr, "go")
+    if not parser then
+      return
+    end
+    local tree = parser:parse()[1]
+    local root = tree:root()
+    local best_match = nil
+    local best_row = 0
+    for _, match, _ in query:iter_matches(root, bufnr, 0, cursor_row) do
+      for id, nodes in pairs(match) do
+        local name = query.captures[id]
+        if name == "receiver_param" then
+          for _, node in ipairs(nodes) do
+            local start_row = node:range() -- Get start position
+            if start_row < cursor_row and start_row > best_row then
+              local text = vim.treesitter.get_node_text(node, bufnr)
+              if text ~= nil then
+                best_match = node
+                best_row = start_row
+              end
+            end
+          end
+        end
+      end
+    end
+    -- If we found a match, return its text
+    if best_match then
+      local receiver_text = vim.treesitter.get_node_text(best_match, bufnr)
+      return receiver_text
+    end
+    return
+  end
+  local res = get_text()
+  vim.print(string.format("res: %s", vim.inspect(res)))
 end
 
 function M.make_open_qf()
