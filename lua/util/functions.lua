@@ -289,8 +289,33 @@ function M.testing_function()
     end
     return
   end
-  local res = get_text()
-  vim.print(string.format("res: %s", vim.inspect(res)))
+  -- local res = get_text()
+  -- vim.print(string.format("res: %s", vim.inspect(res)))
+
+  -- code action
+  -- local client = vim.lsp.get_clients({ name = "templ", bufnr = 0 })[1]
+  -- if not client then
+  --   vim.print("client not found")
+  --   return
+  -- end
+  -- local params = vim.lsp.util.make_range_params(0, "utf-16")
+  -- local result = client:request_sync("textDocument/codeAction", params, 1000, 0)
+  -- vim.print(string.format("result: %s", vim.inspect(result)))
+
+  -- hover
+  local client = vim.lsp.get_clients({ name = "templ", bufnr = 0 })[1]
+  client:request("textDocument/hover", {
+    textDocument = vim.lsp.util.make_text_document_params(),
+    position = {
+      line = vim.api.nvim_win_get_cursor(0)[1] - 1,
+      character = vim.api.nvim_win_get_cursor(0)[2],
+    },
+  }, function(err, result, _, _)
+    vim.print(string.format("result: %s", vim.inspect(result)))
+    -- if err or not result or not result.contents then
+    --   return
+    -- end
+  end)
 end
 
 function M.make_open_qf()

@@ -219,16 +219,6 @@ local function should_tw_values(ft)
   end
 end
 
-local function get_longest(t, init_len)
-  local longest = init_len or 0
-  for _, value in ipairs(t) do
-    if #value > longest then
-      longest = #value
-    end
-  end
-  return longest
-end
-
 local function is_diag_for_cur_pos()
   local diagnostics = vim.diagnostic.get(0)
   local pos = api.nvim_win_get_cursor(0)
@@ -270,30 +260,10 @@ function M.hover_handler()
     end
   end
   local ft = bo.filetype
-  local html_client = vim.lsp.get_clients({ name = "html", bufnr = 0 })[1]
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
   elseif should_tw_values(ft) then
     cmd("TWValues")
-  elseif html_client then
-    html_client.request("textDocument/hover", {
-      textDocument = vim.lsp.util.make_text_document_params(),
-      position = {
-        line = vim.api.nvim_win_get_cursor(0)[1] - 1,
-        character = vim.api.nvim_win_get_cursor(0)[2],
-      },
-    }, function(err, result, _, _)
-      if err or not result or not result.contents then
-        return
-      end
-      local lines = vim.split(result.contents.value, "\n")
-      local _, winnr = vim.lsp.util.open_floating_preview(lines, result.contents.kind, {
-        border = "rounded",
-        width = get_longest(lines),
-        height = #lines,
-      })
-      vim.api.nvim_set_current_win(winnr)
-    end)
   elseif tbl_contains({ "man" }, ft) then
     cmd("silent! Man " .. fn.expand("<cword>"))
   elseif is_diag_for_cur_pos() then
@@ -311,6 +281,10 @@ function M.hover_handler()
   else
     vim.lsp.buf.hover({
       border = "rounded",
+      silent = true,
+      winopts = {
+        conceallevel = 3,
+      },
     })
   end
 end

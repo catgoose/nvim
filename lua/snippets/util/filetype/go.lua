@@ -244,7 +244,7 @@ function M.get_receiver()
       local name = query.captures[id]
       if name == "receiver_param" then
         for _, node in ipairs(nodes) do
-          local start_row = node:range() -- Get start position
+          local start_row = node:range()
           if start_row < cursor_row and start_row > best_row then
             local text = vim.treesitter.get_node_text(node, bufnr)
             if text ~= nil then

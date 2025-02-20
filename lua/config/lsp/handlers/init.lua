@@ -1,6 +1,8 @@
 local M = {}
 
 function M.init()
+  require("config.lsp.handlers.hover").init()
+
   ---@diagnostic disable-next-line: duplicate-set-field
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
     local ts_lsp = { "ts_ls", "angularls", "volar" }
@@ -15,6 +17,8 @@ function M.init()
     end
     vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
   end
+  ---@diagnostic disable-next-line: duplicate-set-field
+
   local inlay_hint_handler = vim.lsp.handlers[vim.lsp.protocol.Methods["textDocument_inlayHint"]]
   vim.lsp.handlers[vim.lsp.protocol.Methods["textDocument_inlayHint"]] = function(err, result, ctx)
     local client = vim.lsp.get_client_by_id(ctx.client_id)
