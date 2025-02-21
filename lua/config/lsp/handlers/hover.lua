@@ -1,24 +1,26 @@
+local util = require("vim.lsp.util")
+local ms = require("vim.lsp.protocol").Methods
+local api = vim.api
+local lsp = vim.lsp
+
 local M = {}
+
+local function client_positional_params(params)
+  local win = api.nvim_get_current_win()
+  return function(client)
+    local ret = util.make_position_params(win, client.offset_encoding)
+    if params then
+      ret = vim.tbl_extend("force", ret, params)
+    end
+    return ret
+  end
+end
 
 local function override_hover()
   vim.lsp.buf.hover = function(config)
-    local api = vim.api
-    local lsp = vim.lsp
-    local util = require("vim.lsp.util")
-    local ms = require("vim.lsp.protocol").Methods
     config = config or {}
     config.focus_id = ms.textDocument_hover
     local hover_ns = api.nvim_create_namespace("nvim.lsp.hover_range")
-    local function client_positional_params(params)
-      local win = api.nvim_get_current_win()
-      return function(client)
-        local ret = util.make_position_params(win, client.offset_encoding)
-        if params then
-          ret = vim.tbl_extend("force", ret, params)
-        end
-        return ret
-      end
-    end
     lsp.buf_request_all(0, ms.textDocument_hover, client_positional_params(), function(results, ctx)
       local bufnr = assert(ctx.bufnr)
       if api.nvim_get_current_buf() ~= bufnr then
