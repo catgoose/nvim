@@ -14,6 +14,11 @@ return {
     enabled = false,
   },
   {
+    "famiu/bufdelete.nvim",
+    dependencies = "schickling/vim-bufonly",
+    cmd = { "BufOnly", "Bdelete" },
+  },
+  {
     "romainl/vim-cool",
     event = "BufReadPre",
   },
