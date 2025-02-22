@@ -2,7 +2,7 @@ local m = require("util").lazy_map
 
 local opts = {
   autoresize = {
-    enable = false,
+    enable = true,
     quickfixheight = 60,
   },
   excluded_buftypes = { "nofile", "prompt", "popup", "quickfix" },
@@ -14,7 +14,7 @@ return {
   "nvim-focus/focus.nvim",
   config = function()
     require("focus").setup(opts)
-    local ignore_filetypes = { "harpoon" }
+    local ignore_filetypes = { "harpoon", "grapple" }
     local ignore_buftypes = { "nofile", "prompt", "popup", "quickfix" }
 
     local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
@@ -39,7 +39,7 @@ return {
       desc = "Disable focus autoresize for FileType",
     })
 
-    vim.cmd("FocusEqualise")
+    -- vim.cmd("FocusEqualise")
   end,
   cmd = {
     "FocusSplitDown",

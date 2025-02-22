@@ -4,11 +4,15 @@ local function inlay_hints_on_attach(client, bufnr)
   local inlay_lsp = {
     "gopls",
   }
-  if vim.tbl_contains(inlay_lsp, client.name) then
-    vim.lsp.inlay_hint.enable()
+  if vim.tbl_contains(inlay_lsp, client.name) and vim.fn.expand("%:t") ~= "magefile.go" then
+    vim.lsp.inlay_hint.enable(true, {
+      bufnr = 0,
+    })
     require("config.lsp.autocmd").inlay_hints()(bufnr)
   else
-    vim.lsp.inlay_hint.enable(false)
+    vim.lsp.inlay_hint.enable(false, {
+      bufnr = 0,
+    })
   end
 end
 

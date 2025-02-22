@@ -13,9 +13,10 @@ local h = require("config.dap.helpers")
 --   end, 100)
 -- end
 
-local use_executable = false
+local use_executable = true
 
 function M.setup(dap, host)
+  local dlvToolPath = use_executable and vim.fn.exepath("dlv") or h.get_install_path("delve")
   if use_executable then
     dap.adapters.go = {
       type = "executable",
@@ -98,7 +99,6 @@ function M.setup(dap, host)
     },
   }
 
-  local dlvToolPath = h.get_install_path("delve")
   for _, cfg in pairs(dap.configurations.go) do
     cfg.type = "go"
     cfg.request = "launch"

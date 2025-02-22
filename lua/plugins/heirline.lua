@@ -7,6 +7,7 @@ local config = function()
   heirline.load_colors(colors)
   local fn, api, bo = vim.fn, vim.api, vim.bo
   local neotest_ok, neotest = pcall(require, "neotest")
+  local grapple_ok, grapple = pcall(require, "grapple")
 
   local winbar_inactive = {
     buftype = {
@@ -50,6 +51,21 @@ local config = function()
   local Space = { provider = " " }
   local LeftSep = { provider = "" }
   -- local RightSep = { provider = "" }
+
+  local GrappleBlock = {
+    condition = function()
+      return grapple_ok and grapple.exists()
+    end,
+    hl = {
+      fg = colors.springBlue,
+      italic = true,
+    },
+    provider = function()
+      local s = vim.g.catgoose_grapple_scope
+      local scope = s == "git" and " " or s == "git_branch" and ""
+      return ("%s%s "):format(scope, grapple.statusline())
+    end,
+  }
 
   local NeoTestBlock = {
     condition = function()
@@ -494,6 +510,14 @@ local config = function()
 
   local StatusLines = {
     condition = function()
+      local accept = {
+        ".env.development",
+        ".env.production",
+        ".env",
+      }
+      if vim.tbl_contains(accept, vim.fn.expand("%:t")) then
+        return true
+      end
       if vim.bo.filetype == "" or vim.bo.buftype == "prompt" or vim.bo.buftype == "nofile" then
         return false
       end
@@ -507,6 +531,7 @@ local config = function()
     GitBlock,
     MacroRecordingBlock,
     Align,
+    GrappleBlock,
     QuickFixBlock,
     DAPBlock,
     NeoTestBlock,

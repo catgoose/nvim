@@ -1,7 +1,9 @@
 local m = require("util").lazy_map
 
+local scope = "git_branch"
+
 local opts = {
-  scope = "git_branch",
+  scope = scope,
   icons = true,
   status = true,
   win_opts = {
@@ -11,12 +13,18 @@ local opts = {
     lsp = false,
     static = false,
   },
+  statusline = {
+    icon = "",
+    active = "|%s|",
+    inactive = " %s ",
+  },
 }
 
-local function switch(scope, direction)
+local function switch(_scope, dirx)
   return function()
-    vim.cmd(("silent! Grapple use_scope %s"):format(scope or "git_branch"))
-    vim.cmd(("silent! Grapple cycle_tags %s"):format(direction or "next"))
+    vim.cmd(("silent! Grapple use_scope %s"):format(_scope or "git_branch"))
+    vim.cmd(("silent! Grapple cycle_tags %s"):format(dirx or "next"))
+    vim.g.catgoose_grapple_scope = _scope
   end
 end
 
@@ -37,4 +45,8 @@ return {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
   },
+  init = function()
+    vim.g.catgoose_grapple_scope = scope
+  end,
+  event = "BufReadPre",
 }

@@ -73,16 +73,16 @@ return {
         terminal = {
           position = "right",
           -- hide = { "go" },
-          start_hidden = true,
+          -- start_hidden = true,
         },
       },
     },
     enabled = true,
     init = function()
       local dap = require("dap")
-      dap.listeners.before.launch["catgoose_dap"] = function()
-        require("dap-view").open()
-      end
+      -- dap.listeners.before.launch["catgoose_dap"] = function()
+      --   require("dap-view").open()
+      -- end
       -- dap.listeners.before.attach["catgoose_dap"] = function()
       --   require("dap-view").open()
       -- end
