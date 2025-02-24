@@ -18,10 +18,31 @@ return {
         width = 0.5,
       },
     },
+    ft = { "go" },
   },
   {
     "catgoose/templ-goto-definition",
     ft = { "go", "templ" },
     config = true,
+  },
+  {
+    "fredrikaverpil/godoc.nvim",
+    version = "*",
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+          ensure_installed = { "go" },
+        },
+      },
+    },
+    build = "go install github.com/lotusirous/gostdsym/stdsym@latest", -- optional
+    cmd = { "GoDoc" },
+    opts = {
+      picker = {
+        type = "telescope",
+      },
+    },
   },
 }
