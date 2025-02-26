@@ -258,6 +258,22 @@ for {{
     in_func
   ),
   s(
+    "forkv",
+    fmta(
+      [[
+		for <key>, <val> := range <var> {
+      <finally>
+		}
+   ]],
+      {
+        key = i(1, "key"),
+        val = i(2, "val"),
+        var = i(3, "var"),
+        finally = i(0),
+      }
+    )
+  ),
+  s(
     { trig = "for([%w_]+)", regTrig = true, hidden = true },
     fmt(
       [[

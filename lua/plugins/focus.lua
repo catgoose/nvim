@@ -39,7 +39,7 @@ return {
       desc = "Disable focus autoresize for FileType",
     })
 
-    -- vim.cmd("FocusEqualise")
+    vim.cmd("FocusEqualise")
   end,
   cmd = {
     "FocusSplitDown",
