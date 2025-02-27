@@ -25,18 +25,18 @@ local opts = {
       enabled = true,
       default_animation = "fade",
     },
-    paste = {
-      enabled = true,
-      default_animation = "fade",
-      paste_mapping = {
-        lhs = "p",
-        rhs = "<Plug>(YankyPutAfter)",
-      },
-      Paste_mapping = {
-        lhs = "P",
-        rhs = "<Plug>(YankyPutBefore)",
-      },
-    },
+    -- paste = {
+    --   enabled = true,
+    --   default_animation = "fade",
+    --   paste_mapping = {
+    --     lhs = "p",
+    --     rhs = "<Plug>(YankyPutAfter)",
+    --   },
+    --   Paste_mapping = {
+    --     lhs = "P",
+    --     rhs = "<Plug>(YankyPutBefore)",
+    --   },
+    -- },
   },
   animations = {
     fade = {
