@@ -13,7 +13,7 @@ local h = require("config.dap.helpers")
 --   end, 100)
 -- end
 
-local use_executable = true
+local use_executable = false
 
 function M.setup(dap, host)
   local dlvToolPath = use_executable and vim.fn.exepath("dlv") or h.get_install_path("delve")

@@ -556,6 +556,7 @@ ctx := c.Request().Context()
       { i(0) }
     )
   ),
+  s("hx", t([[hx := c.Request().Header.Get("HX-Request") == "true"]])),
 }
 
 return snippets

@@ -200,6 +200,7 @@ function M.init(lspconfig)
             upgrade_dependency = true,
             vendor = true,
           },
+          buildFlags = { "-tags=mage" },
           hints = {
             assignVariableTypes = true,
             compositeLiteralFields = true,
