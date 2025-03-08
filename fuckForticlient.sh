@@ -7,7 +7,7 @@
 #	Script to authenticate against Fortinet SAML servers using Firefox and
 #	openfortivpn. This replaces Forticlient for GNU/Linux completely.
 #	Because openfortivpn does not support SAML login (yet), this script uses Firefox
-#	to authenticate, grabs SVPNCOOKIE and then calls openfortivpn to setup 
+#	to authenticate, grabs SVPNCOOKIE and then calls openfortivpn to setup
 #   the VPN service.
 #
 #   See:
@@ -21,7 +21,7 @@
 #			     libssl-dev autoconf make gcc pkg-config
 #		> Next, install all the dependencies to build openfortivpn:
 #			sudo apt-get build-dep openfortivpn
-#       
+#
 #           Please notice that if your OS provides an openfortivpn package with
 #           support for the "--cookie-on-stdin" parameter, you do not need to
 #           install these dependencies or build openfortivpn from scratch.
@@ -42,8 +42,8 @@
 #		1. Opens firefox and navigates to https://${SERVER}/remote/login
 #		2. After a successful authentication, SVPNCOOKIE
 #		   is saved to sessionstore-backups/recovery.jsonlz4 on Firefox's profile.
-#		2. The script will use openfortivpn to start the tunnel providing it 
-#          with SVPNCOOKIE (--cookie-on-stdin < cookie_file) because 
+#		2. The script will use openfortivpn to start the tunnel providing it
+#          with SVPNCOOKIE (--cookie-on-stdin < cookie_file) because
 #          it does not support SAML (yet!).
 #
 #	NOTES
@@ -178,7 +178,7 @@ getProfilePath(){
 				profilepath="${HOME}/snap/firefox/common/.mozilla/firefox"
 			elif [ -d ${HOME}/.mozilla/firefox ]; then
 				profilepath="${HOME}/.mozilla/firefox"
-			else 
+			else
 				return 1
 			fi
 			;;
@@ -346,6 +346,8 @@ sanityCheck(){
 	type lz4jsoncat >/dev/null 2>&1 || return 1
 	# Test for openfortivpn:
 	type openfortivpn >/dev/null 2>&1|| return 1
+	# Test for inotify-tools:
+	type inotifywait >/dev/null 2>&1|| return 1
 	# Make sure openfortivpn supports "--cookie-on-stdin":
 	"${OPENFORTIVPN}" --help|grep cookie >/dev/null|| return 1
 	# Make sure we have Firefox installed:
@@ -381,7 +383,7 @@ checkFirefoxSettings(){
                     return 1
                 else
                     return 0
-                fi  
+                fi
             else
                 return 0
             fi
@@ -432,7 +434,7 @@ checkAnotherInstance(){
 # checkOpenfortivpn()
 #   Returns 0 if the installed version of Openfortivpn is from the repo or 1
 #   otherwise. For some distros, the included openfortivpn from the official repos
-#   does not support "--cookie-on-stdin"  
+#   does not support "--cookie-on-stdin"
 #####################################################################################
 checkOpenfortivpn(){
     dpkg -l |grep openfortivpn|grep -E "^ii" >/dev/null 2>&1
@@ -499,7 +501,7 @@ checkOpenfortivpn
 if [ $? -eq 0 ]; then
     echo -e "[*] Openfortivpn installed from: ${clRed}REPO"
 else
-    echo -e "[*] Openfortivpn installed from: ${clRed}GITHUB" 
+    echo -e "[*] Openfortivpn installed from: ${clRed}GITHUB"
 fi
 echo -en "${clNone}"
 # Show any extra openfortivpn parameter:
