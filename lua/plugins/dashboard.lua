@@ -51,7 +51,7 @@ local opts = {
         icon = "",
         desc = "Find files",
         key = "f",
-        action = "TelescopeFindFiles",
+        action = "Telescope find_files",
       },
       {
         icon = "",
