@@ -1,5 +1,10 @@
 # fuckForticlient
 
+> [!IMPORTANT]
+> Now, openfortivpn natively supports SAML authentication at last! So this script is no longer needed. Thanks to all
+> who has worked on it, helping me fix bugs or testing the script. I will stop supporting this script as of now, and
+> I will no longer accept more pull-requests. Feel free to fork/clone it if you want.
+
 **fuckForticlient** is a command-line utility to connect to SAML fortivpn servers by using **openfortivpn** and the --cookie-in-stdin parameter.
 This repo was formerly a [Github gist](https://gist.github.com/nonamed01).
 This script has been written for and tested on Debian GNU/Linux distros and derivatives. With minor changes, it may also work on RPM-based distros such as Fedora, etc.
