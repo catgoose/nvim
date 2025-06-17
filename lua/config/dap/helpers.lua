@@ -3,7 +3,7 @@ local M = {}
 local port
 
 function M.get_install_path(package)
-  return require("mason-registry").get_package(package):get_install_path()
+  return vim.fn.expand("$MASON/packages/" .. package)
 end
 function M.get_unused_port(host)
   host = host or "127.0.0.1"
