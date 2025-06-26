@@ -1,6 +1,6 @@
 # fuckForticlient
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > This repository is now officially **archived**. Again, thanks a lot to all the contributors and users for their support and
 > feedback. Time to move on!
 
