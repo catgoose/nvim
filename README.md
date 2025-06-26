@@ -1,5 +1,9 @@
 # fuckForticlient
 
+> ![IMPORTANT]
+> This repository is now officially **archived**. Again, thanks a lot to all the contributors and users for their support and
+> feedback. Time to move on!
+
 > [!IMPORTANT]
 > Now, openfortivpn natively supports SAML authentication at last! So this script is no longer needed. Thanks to all
 > those who have worked on it, helping me fix bugs or testing the script. I will stop supporting this script as of now, and
