@@ -106,9 +106,9 @@ function M.init(lspconfig)
       capabilities = snippet_capabilities,
       filetypes = { "html", "vue", "templ" },
     },
-    -- htmx = {
-    --   filetypes = { "html", "templ" },
-    -- },
+    htmx = {
+      filetypes = { "html", "templ" },
+    },
     cssmodules_ls = {
       filetypes = vue_ft,
     },
