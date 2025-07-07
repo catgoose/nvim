@@ -17,7 +17,7 @@ function M.setup(dap)
       executable = {
         command = "node",
         args = {
-          "$MASON/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+          vim.fn.expand("$MASON") .. "/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
           "${port}",
         },
       },
