@@ -25,7 +25,6 @@ return {
     config = function()
       local dap = require("dap")
       require("config.dap.adapters").setup(dap)
-      -- dap.defaults.go.autostart = "Debug main.go"
     end,
   },
   {
@@ -60,40 +59,57 @@ return {
     dependencies = "mfussenegger/nvim-dap",
   },
   {
-    -- "igorlfs/nvim-dap-view",
-    dir = "~/git/nvim-dap-view",
+    "igorlfs/nvim-dap-view",
     opts = {
       winbar = {
         show = true,
-        sections = { "watches", "breakpoints", "repl" },
+        sections = {
+          "watches",
+          "scopes",
+          "exceptions",
+          "breakpoints",
+          "threads",
+          "repl",
+          "console",
+        },
         default_section = "breakpoints",
+        headers = {
+          breakpoints = "Breakpoints [B]",
+          scopes = "Scopes [S]",
+          exceptions = "Exceptions [E]",
+          watches = "Watches [W]",
+          threads = "Threads [T]",
+          repl = "REPL [R]",
+          console = "Console [C]",
+        },
       },
       windows = {
         height = 12,
         terminal = {
           position = "right",
-          -- hide = { "go" },
-          -- start_hidden = true,
         },
+      },
+      help = {
+        border = "rounded",
       },
     },
     enabled = true,
-    init = function()
-      local dap = require("dap")
-      -- dap.listeners.before.launch["catgoose_dap"] = function()
-      --   require("dap-view").open()
-      -- end
-      -- dap.listeners.before.attach["catgoose_dap"] = function()
-      --   require("dap-view").open()
-      -- end
-      -- dap.listeners.after.event_exited["catgoose_dap"] = function()
-      --   require("dap-view").close()
-      -- end
-      -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
-      --   require("dap-view").close()
-      -- end
-      -- dap.defaults.fallback.switchbuf = "useopen"
-    end,
+    -- init = function()
+    -- local dap = require("dap")
+    -- dap.listeners.before.launch["catgoose_dap"] = function()
+    --   require("dap-view").open()
+    -- end
+    -- dap.listeners.before.attach["catgoose_dap"] = function()
+    --   require("dap-view").open()
+    -- end
+    -- dap.listeners.after.event_exited["catgoose_dap"] = function()
+    --   require("dap-view").close()
+    -- end
+    -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
+    --   require("dap-view").close()
+    -- end
+    -- dap.defaults.fallback.switchbuf = "useopen"
+    -- end,
     dependencies = "mfussenegger/nvim-dap",
     event = "BufReadPre",
     cmd = {

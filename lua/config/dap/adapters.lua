@@ -1,26 +1,23 @@
 local M = {}
 
-local host = "127.0.0.1"
-local h = require("config.dap.helpers")
-
 function M.setup(dap)
   dap = dap or require("dap")
 
   -- Go
   if not dap.adapters.go then
-    require("config.dap.go").setup(dap, host)
+    require("config.dap.go").setup(dap)
   end
 
   -- javascript/typescript
   if not dap.adapters["pwa-chrome"] then
     dap.adapters["pwa-chrome"] = {
       type = "server",
-      host = host,
+      host = "${host}",
       port = "${port}",
       executable = {
         command = "node",
         args = {
-          h.get_install_path("js-debug-adapter") .. "/js-debug/src/dapDebugServer.js",
+          "$MASON/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
           "${port}",
         },
       },
