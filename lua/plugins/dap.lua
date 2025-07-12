@@ -66,11 +66,11 @@ return {
         sections = {
           "watches",
           "scopes",
-          "exceptions",
+          -- "exceptions",
           "breakpoints",
           "threads",
           "repl",
-          "console",
+          -- "console",
         },
         default_section = "breakpoints",
         headers = {

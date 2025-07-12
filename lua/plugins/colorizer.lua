@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local project = require("util.project")
 
 local function is_comment_on_line(line_num, bufnr, filetype)
@@ -40,7 +40,6 @@ local opts = {
         uppercase = false,
         camelcase = false,
       },
-      names = false,
     },
     ps1 = {
       RGB = false,
@@ -126,19 +125,21 @@ local opts = {
     hsl_fn = true,
     css = true,
     css_fn = true,
+    xterm = true,
+    xcolor = true,
     mode = "background",
     names_custom = function()
       local colors = require("kanagawa.colors").setup()
       return colors.palette
     end,
-    tailwind = true,
+    tailwind = false,
     virtualtext_inline = false,
     sass = {
       enable = true,
       parsers = { "css" },
     },
     virtualtext = "■",
-    virtualtext_mode = "background",
+    virtualtext_mode = "foreground",
     always_update = false,
     -- hooks = {
     --   do_parse_line = function(line, line_nr, bufnr)
@@ -146,6 +147,26 @@ local opts = {
     --     local is_comment = is_comment_on_line(line_nr, bufnr, filetype)
     --     return not is_comment
     --     -- return string.sub(line, 1, 2) ~= "--"
+    --   end,
+    -- },
+    -- hooks = {
+    --   disable_line_highlight = function(line, bufnr, line_num)
+    --     for _, ns_id in pairs(vim.api.nvim_get_namespaces()) do
+    --       local extmarks = vim.api.nvim_buf_get_extmarks(
+    --         bufnr,
+    --         ns_id,
+    --         { line_num, 0 },
+    --         { line_num, -1 },
+    --         { details = true }
+    --       )
+    --       for _, mark in ipairs(extmarks) do
+    --         local details = mark[4]
+    --         if details and details.hl_group == "TailwindConceal" then
+    --           return true
+    --         end
+    --       end
+    --     end
+    --     return false
     --   end,
     -- },
   },

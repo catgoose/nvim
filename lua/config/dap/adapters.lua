@@ -74,7 +74,7 @@ function M.setup(dap)
     },
   }
   dap.adapters.nlua = function(callback, config)
-    callback({ type = "server", host = config.host or host, port = config.port or 8086 })
+    callback({ type = "server", host = config.host, port = config.port or 8086 })
   end
 end
 
