@@ -7,7 +7,7 @@ c("BufOnlyWindowOnly", function()
   if #api.nvim_list_wins() > 1 then
     cmd.only()
   end
-  require("snacks").bufdelete.other()
+  cmd("silent! BufOnly")
 end)
 c("WinOnly", function()
   f.win_only()
