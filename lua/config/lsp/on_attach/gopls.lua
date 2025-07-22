@@ -16,6 +16,7 @@ function M.on_attach(client, bufnr)
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "<leader>k", function()
+    vim.print("hi")
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
     for _, _client in pairs(clients) do
       if _client.name == "gopls" or _client.name == "golangci_lint_ls" then
