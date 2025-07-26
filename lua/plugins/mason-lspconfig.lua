@@ -22,7 +22,7 @@ local opts = {
     "sqlls",
     "tailwindcss",
     -- "tsserver",
-    "volar",
+    -- "volar",
     "yamlls",
   },
   automatic_installation = true,

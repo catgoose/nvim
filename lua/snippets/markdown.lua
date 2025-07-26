@@ -51,6 +51,22 @@ local snippets = {
       return sn(nil, nodes)
     end),
   }),
+  s(
+    { trig = "c(%w+)", regTrig = true, hidden = true },
+    fmt(
+      [[
+   ```{}
+   {}
+   ```
+   ]],
+      {
+        d(1, function(_, snip)
+          return sn(1, i(1, snip.captures[1]))
+        end),
+        i(0),
+      }
+    )
+  ),
 }
 
 return snippets

@@ -1,6 +1,11 @@
 return {
   "chrisgrieser/nvim-origami",
-  config = true,
+  opts = {
+    autoFold = {
+      enabled = true,
+      kinds = { "comment", "imports" }, ---@type lsp.FoldingRangeKind[]
+    },
+  },
   event = "BufReadPost",
   init = function()
     vim.opt.foldlevel = 99

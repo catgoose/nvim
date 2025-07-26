@@ -120,17 +120,17 @@ function M.init(lspconfig)
         },
       },
     },
-    volar = {
-      filetypes = { "vue" },
-      init_options = {
-        vue = {
-          hybridMode = false,
-        },
-        typescript = {
-          tsdk = tsdk(),
-        },
-      },
-    },
+    -- volar = {
+    --   filetypes = { "vue" },
+    --   init_options = {
+    --     vue = {
+    --       hybridMode = false,
+    --     },
+    --     typescript = {
+    --       tsdk = tsdk(),
+    --     },
+    --   },
+    -- },
     jsonls = {
       capabilities = snippet_capabilities,
       -- settings = {
