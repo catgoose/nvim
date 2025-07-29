@@ -26,9 +26,10 @@ local opts = {
     },
   },
   format_on_save = function(bufnr)
-    local disabled = require("neoconf").get("plugins.conform.disabled")
+    -- local disabled = require("neoconf").get("plugins.conform.disabled")
     ---@diagnostic disable-next-line: undefined-field
-    if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
+    -- if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
+    if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
       return
     end
     return { timeout_ms = 500, lsp_fallback = true }
@@ -58,7 +59,7 @@ local function init()
         "Auto formatting %s %s",
         vim[level].disable_autoformat and "enabled" or "disabled",
         level == "b" and string.format("for buffer id: %s", vim.api.nvim_get_current_buf())
-        or "globally"
+          or "globally"
       ),
       vim.log.levels.INFO,
       ---@diagnostic disable-next-line: missing-fields

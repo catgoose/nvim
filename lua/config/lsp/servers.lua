@@ -30,9 +30,9 @@ function M.init()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
 
-  local server_enabled = function(server)
-    return not require("neoconf").get("lsp.servers." .. server .. ".disable")
-  end
+  -- local server_enabled = function(server)
+  --   return not require("neoconf").get("lsp.servers." .. server .. ".disable")
+  -- end
 
   local lspconfig_setups = {
     language_servers = {
@@ -70,19 +70,19 @@ function M.init()
           validate = true,
           lint = {
             unknownAtRules = "ignore",
-          }
+          },
         },
         scss = {
           validate = true,
           lint = {
             unknownAtRules = "ignore",
-          }
+          },
         },
         less = {
           validate = true,
           lint = {
             unknownAtRules = "ignore",
-          }
+          },
         },
       },
     },
@@ -194,15 +194,10 @@ function M.init()
           on_attach = on_attach,
         })
       end
-    elseif server_enabled(srv) then
-      if not cfg.on_attach then
-        cfg.on_attach = at.get(srv)
-      end
-      if not cfg.capabilities then
-        cfg.capabilities = capabilities
-      end
-      vim.lsp.config(srv, cfg)
     end
+    cfg.on_attach = cfg.on_attach or at.get(srv)
+    cfg.capabilities = cfg.capabilities or capabilities
+    vim.lsp.config(srv, cfg)
   end
 
   -- lspconfig.diagnosticls.setup({
