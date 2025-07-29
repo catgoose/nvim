@@ -34,7 +34,7 @@ function M.init()
   --   return not require("neoconf").get("lsp.servers." .. server .. ".disable")
   -- end
 
-  local lspconfig_setups = {
+  local servers = {
     language_servers = {
       "awk_ls",
       "bashls",
@@ -46,6 +46,7 @@ function M.init()
       "templ",
       "yamlls",
       "azure_pipelines_ls",
+      "diagnosticls",
     },
     tailwindcss = {
       filetypes = {
@@ -186,7 +187,7 @@ function M.init()
   local at = require("config.lsp.on_attach")
   local on_attach = at.get()
 
-  for srv, cfg in pairs(lspconfig_setups) do
+  for srv, cfg in pairs(servers) do
     if srv == "language_servers" then
       for _, ls in ipairs(cfg) do
         vim.lsp.config(ls, {
