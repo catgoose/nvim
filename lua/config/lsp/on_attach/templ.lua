@@ -2,7 +2,6 @@ local M = {}
 
 ---@diagnostic disable-next-line: unused-local
 function M.on_attach(client, bufnr)
-  vim.print("templ on_attach")
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "<leader>k", function()
     local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "templ" })
