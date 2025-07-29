@@ -22,10 +22,10 @@ return {
     "romainl/vim-cool",
     event = "BufReadPre",
   },
-  -- {
-  --   "folke/neoconf.nvim",
-  --   lazy = true,
-  -- },
+  {
+    "folke/neoconf.nvim",
+    lazy = true,
+  },
   {
     "seblj/roslyn.nvim",
     ft = "cs",

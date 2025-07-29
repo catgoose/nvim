@@ -3,7 +3,6 @@ local opts = {
     "angularls",
     "awk_ls",
     "bashls",
-    "clangd",
     "csharp_ls",
     "cssls",
     "cssmodules_ls",

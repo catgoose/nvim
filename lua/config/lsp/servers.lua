@@ -30,9 +30,9 @@ function M.init()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
 
-  -- local server_enabled = function(server)
-  --   return not require("neoconf").get("lsp.servers." .. server .. ".disable")
-  -- end
+  local server_enabled = function(server)
+    return not require("neoconf").get("lsp.servers." .. server .. ".disable")
+  end
 
   local servers = {
     language_servers = {

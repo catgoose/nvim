@@ -26,10 +26,9 @@ local opts = {
     },
   },
   format_on_save = function(bufnr)
-    -- local disabled = require("neoconf").get("plugins.conform.disabled")
+    local disabled = require("neoconf").get("plugins.conform.disabled")
     ---@diagnostic disable-next-line: undefined-field
-    -- if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
-    if vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
+    if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
       return
     end
     return { timeout_ms = 500, lsp_fallback = true }
