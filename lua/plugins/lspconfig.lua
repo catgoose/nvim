@@ -2,10 +2,6 @@ local config = function()
   require("config.lsp")
 end
 
--- TODO: 2025-01-20 - Use new lspconfig:
--- https://github.com/neovim/neovim/pull/31031
--- https://github.com/neovim/nvim-lspconfig/issues/3494
-
 return {
   "neovim/nvim-lspconfig",
   init = function()
@@ -19,7 +15,6 @@ return {
       dependencies = "williamboman/mason.nvim",
     },
     "b0o/schemastore.nvim",
-    "kevinhwang91/nvim-ufo",
     "VidocqH/lsp-lens.nvim",
     "jubnzv/virtual-types.nvim",
     "folke/neoconf.nvim",

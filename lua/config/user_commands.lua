@@ -54,14 +54,16 @@ c("SpectreOpenCwd", function()
 end)
 c("SpotifyNext", function()
   f.run_system_command({
-    cmd = [[spotify_player playback next && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
+    cmd =
+    [[spotify_player playback next && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
     notify = true,
     notify_config = { title = "Spotify", render = "compact" },
   })
 end)
 c("SpotifyPrev", function()
   f.run_system_command({
-    cmd = [[spotify_player playback previous && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
+    cmd =
+    [[spotify_player playback previous && spotify_player get key playback | jq -r '.item | "\(.artists | map(.name) | join(", ")) - \(.name)"']],
     notify = true,
     notify_config = { title = "Spotify", render = "compact" },
   })
@@ -111,7 +113,7 @@ c("FoldParagraph", function()
   if foldclosed == -1 then
     cmd([[silent! normal! zfip]])
   else
-    cmd("silent! normal! zo")
+    cmd([[silent! normal! zo]])
   end
 end)
 c("HoverHandler", require("util").hover_handler)

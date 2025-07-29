@@ -71,7 +71,7 @@ local config = function()
         entry_filter = function()
           local context = require("cmp.config.context")
           return not context.in_treesitter_capture("string")
-            and not context.in_syntax_group("String")
+              and not context.in_syntax_group("String")
         end,
       },
       {
@@ -154,7 +154,6 @@ return {
       "hrsh7th/cmp-nvim-lua",
       "ray-x/cmp-treesitter",
       "saadparwaiz1/cmp_luasnip",
-      -- "roobert/tailwindcss-colorizer-cmp.nvim",
       "js-everts/cmp-tailwind-colors",
     },
   },

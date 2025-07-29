@@ -9,6 +9,7 @@ return {
     opts = {
       show_unknown_classes = true,
       focus_preview = true,
+      hover_single_class = true
     },
     ft = ft,
     keys = keys,

@@ -9,7 +9,7 @@ local opts = {
     javascript = { "prettierd" },
     json = { "prettierd" },
     jsonc = { "prettierd" },
-    -- lua = { "stylua" },
+    lua = { "stylua" },
     scss = { "prettierd" },
     typescript = { "prettierd" },
     vue = { "prettierd" },
@@ -20,6 +20,7 @@ local opts = {
     go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
     templ = {
       "gofumpt",
+      "goimports",
       "templ",
       "injected",
     },
@@ -57,7 +58,7 @@ local function init()
         "Auto formatting %s %s",
         vim[level].disable_autoformat and "enabled" or "disabled",
         level == "b" and string.format("for buffer id: %s", vim.api.nvim_get_current_buf())
-          or "globally"
+        or "globally"
       ),
       vim.log.levels.INFO,
       ---@diagnostic disable-next-line: missing-fields

@@ -32,11 +32,20 @@ function M.init()
       vim.keymap.set("n", "]G", function()
         vim.cmd("DiagnosticsJumpNext")
       end, bufopts)
+
+      -- :help lsp-defaults
+      -- - "grn" is mapped in Normal mode to |vim.lsp.buf.rename()|
+      -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
+      -- - "grr" is mapped in Normal mode to |vim.lsp.buf.references()|
+      -- - "gri" is mapped in Normal mode to |vim.lsp.buf.implementation()|
+      -- - "grt" is mapped in Normal mode to |vim.lsp.buf.type_definition()|
+      -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
+
       vim.keymap.set("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-      vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, bufopts)
+
       vim.keymap.set("n", "L", function()
         vim.lsp.buf.hover({ border = "rounded" })
       end, bufopts)
