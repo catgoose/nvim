@@ -30,9 +30,9 @@ function M.init()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
 
-  local server_enabled = function(server)
-    return not require("neoconf").get("lsp.servers." .. server .. ".disable")
-  end
+  -- local server_enabled = function(server)
+  --   return not require("neoconf").get("lsp.servers." .. server .. ".disable")
+  -- end
 
   local servers = {
     language_servers = {
@@ -47,6 +47,7 @@ function M.init()
       "yamlls",
       "azure_pipelines_ls",
       "diagnosticls",
+      "lua_ls",
     },
     tailwindcss = {
       filetypes = {
@@ -122,31 +123,10 @@ function M.init()
       suggest = { fromRuntimepath = true, fromVimruntime = true },
       vimruntime = "",
     },
-    lua_ls = {
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-          },
-          diagnostics = {
-            globals = { "vim", "require" },
-          },
-          workspace = {
-            library = vim.api.nvim_get_runtime_file("", true),
-            checkThirdParty = false,
-          },
-          telemetry = { enable = false },
-          hint = {
-            enable = false,
-          },
-        },
-      },
-    },
     -- angularls = {},
     gopls = {
       settings = {
         gopls = {
-          completeUnimported = true,
           usePlaceholders = true,
           staticcheck = true,
           directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
@@ -173,7 +153,6 @@ function M.init()
             rangeVariableTypes = true,
           },
           analyses = {
-            -- fieldalignment = true,
             nilness = true,
             unusedparams = true,
             unusedwrite = true,
