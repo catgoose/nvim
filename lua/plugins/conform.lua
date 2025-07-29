@@ -9,7 +9,7 @@ local opts = {
     javascript = { "prettierd" },
     json = { "prettierd" },
     jsonc = { "prettierd" },
-    lua = { "stylua" },
+    -- lua = { "stylua" },
     scss = { "prettierd" },
     typescript = { "prettierd" },
     vue = { "prettierd" },
@@ -84,4 +84,5 @@ return {
     m("<leader>ci", [[ConformInfo]]),
   },
   init = init,
+  enabled = true,
 }

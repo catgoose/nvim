@@ -1,5 +1,5 @@
 local fn, api, cmd, diag, o, g, tbl_contains, bo, keymap =
-  vim.fn, vim.api, vim.cmd, vim.diagnostic, vim.o, vim.g, vim.tbl_contains, vim.bo, vim.keymap
+    vim.fn, vim.api, vim.cmd, vim.diagnostic, vim.o, vim.g, vim.tbl_contains, vim.bo, vim.keymap
 
 local M = {}
 
@@ -7,7 +7,6 @@ local function get_config_modules(exclude_map)
   exclude_map = exclude_map or {
     "lazy",
     "init",
-    "statuscol",
   }
   local files = {}
   for _, file in ipairs(fn.glob(fn.stdpath("config") .. "/lua/config/*.lua", true, true)) do
@@ -171,11 +170,11 @@ end
 local function should_tw_values(ft)
   ft = ft or bo.filetype
   if not tbl_contains({
-    "typescript",
-    "vue",
-    "html",
-    "templ",
-  }, ft) then
+        "typescript",
+        "vue",
+        "html",
+        "templ",
+      }, ft) then
     return false
   end
   local clients = vim.lsp.get_clients({ name = "tailwindcss" })
@@ -323,16 +322,16 @@ end
 
 function M.set_formatoptions()
   vim.opt_local.formatoptions = vim.opt_local.formatoptions
-    - "t"
-    + "c"
-    - "r"
-    - "o"
-    - "q"
-    - "a"
-    + "n"
-    - "2"
-    + "l"
-    + "j"
+      - "t"
+      + "c"
+      - "r"
+      - "o"
+      - "q"
+      - "a"
+      + "n"
+      - "2"
+      + "l"
+      + "j"
 end
 
 function M.find_path(path, pattern)

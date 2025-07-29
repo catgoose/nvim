@@ -11,15 +11,11 @@ local function inlay_hints_autocmd(bufnr)
   })
 end
 
-function M.init()
-  return { inlay_hints_autocmd = inlay_hints_autocmd }
-end
-
 function M.inlay_hints()
   return inlay_hints_autocmd
 end
 
-function M.lsp_attach()
+function M.init()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)
@@ -38,14 +34,9 @@ function M.lsp_attach()
       end, bufopts)
       vim.keymap.set("n", "<leader>dd", vim.diagnostic.setqflist, bufopts)
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-      -- if not require("neoconf").get("lsp.keys.goto_definition.disable") then
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-      -- end
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-      vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+      vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, bufopts)
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
       vim.keymap.set("n", "L", function()
         vim.lsp.buf.hover({ border = "rounded" })
       end, bufopts)
@@ -55,7 +46,7 @@ function M.lsp_attach()
         if enabled then
           vim.api.nvim_create_augroup("LSP_inlayHints", { clear = true })
         else
-          require("config.lsp.autocmd").inlay_hints()(bufnr)
+          M.inlay_hints()(bufnr)
         end
         vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
         require("notify").notify(

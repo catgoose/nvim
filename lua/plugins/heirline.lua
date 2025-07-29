@@ -348,7 +348,7 @@ local config = function()
     init = function(self)
       local max = 0.35 * vim.api.nvim_win_get_width(0)
       self.status.head = u.count_chars(self.status.head) < max and self.status.head
-        or string.format("%s...", string.sub(self.status.head, 1, max))
+          or string.format("%s...", string.sub(self.status.head, 1, max))
     end,
     {
       provider = function(self)
@@ -470,8 +470,8 @@ local config = function()
         local found = false
         for i, item in ipairs(self.quickfix.items) do
           if
-            item.user_data and item.user_data.uri == self.uri
-            or item.text and item.text == self.filename
+              item.user_data and item.user_data.uri == self.uri
+              or item.text and item.text == self.filename
           then
             idx = i
             found = true
@@ -497,8 +497,8 @@ local config = function()
     condition = function()
       local session = require("dap").session()
       return session ~= nil
-        and conditions.is_active()
-        and not conditions.buffer_matches(dap_inactive)
+          and conditions.is_active()
+          and not conditions.buffer_matches(dap_inactive)
     end,
     provider = function()
       local status = require("dap").status()

@@ -20,33 +20,8 @@ _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = tr
 
 local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
 -- Diagnostic
-vim.diagnostic.config({
-  virtual_text = false,
-  -- virtual_lines = {
-  --   only_current_line = true,
-  -- },
-  -- https://github.com/neovim/neovim/pull/31959
-  -- https://github.com/neovim/neovim/pull/32187
-  virtual_lines = {
-    current_line = true,
-  },
-  update_in_insert = false,
-  underline = true,
-  severity_sort = true,
-  float = {
-    focusable = true,
-    border = "rounded",
-    header = "",
-    prefix = "",
-  },
-})
 
-function M.init(lspconfig)
-  if not lspconfig then
-    error("lspconfig is required", vim.diagnostic.severity.ERROR)
-    return
-  end
-
+function M.init()
   local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
   local vue_ft = { unpack(ts_ft) }
   table.insert(vue_ft, "vue")
@@ -91,15 +66,24 @@ function M.init(lspconfig)
       capabilities = snippet_capabilities,
       filetypes = css_ft,
       settings = {
-        css = { validate = true, lint = {
-          unknownAtRules = "ignore",
-        } },
-        scss = { validate = true, lint = {
-          unknownAtRules = "ignore",
-        } },
-        less = { validate = true, lint = {
-          unknownAtRules = "ignore",
-        } },
+        css = {
+          validate = true,
+          lint = {
+            unknownAtRules = "ignore",
+          }
+        },
+        scss = {
+          validate = true,
+          lint = {
+            unknownAtRules = "ignore",
+          }
+        },
+        less = {
+          validate = true,
+          lint = {
+            unknownAtRules = "ignore",
+          }
+        },
       },
     },
     html = {
@@ -120,31 +104,8 @@ function M.init(lspconfig)
         },
       },
     },
-    -- volar = {
-    --   filetypes = { "vue" },
-    --   init_options = {
-    --     vue = {
-    --       hybridMode = false,
-    --     },
-    --     typescript = {
-    --       tsdk = tsdk(),
-    --     },
-    --   },
-    -- },
     jsonls = {
       capabilities = snippet_capabilities,
-      -- settings = {
-      --   json = {
-      --     schemas = require("schemastore").json.schemas({
-      --       select = {
-      --         "package.json",
-      --         ".eslintrc",
-      --         "tsconfig.json",
-      --       },
-      --     }),
-      --     validate = { enable = true },
-      --   },
-      -- },
     },
     vimls = {
       diagnostic = { enable = true },
@@ -180,7 +141,7 @@ function M.init(lspconfig)
         },
       },
     },
-    angularls = {},
+    -- angularls = {},
     gopls = {
       settings = {
         gopls = {
@@ -228,7 +189,7 @@ function M.init(lspconfig)
   for srv, cfg in pairs(lspconfig_setups) do
     if srv == "language_servers" then
       for _, ls in ipairs(cfg) do
-        lspconfig[ls].setup({
+        vim.lsp.config(ls, {
           capabilities = capabilities,
           on_attach = on_attach,
         })
@@ -240,7 +201,7 @@ function M.init(lspconfig)
       if not cfg.capabilities then
         cfg.capabilities = capabilities
       end
-      lspconfig[srv].setup(cfg)
+      vim.lsp.config(srv, cfg)
     end
   end
 

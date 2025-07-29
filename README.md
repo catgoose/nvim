@@ -75,4 +75,3 @@ Tmux theme:
 ## Todo
 
 - Diagnostic highlights override
-- neovim .11 lsp setup
