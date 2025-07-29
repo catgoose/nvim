@@ -35,7 +35,7 @@ function M.init()
   -- end
 
   local servers = {
-    language_servers = {
+    no_cfg_ls = {
       "awk_ls",
       "bashls",
       "docker_compose_language_service",
@@ -164,14 +164,13 @@ function M.init()
   }
 
   local at = require("config.lsp.on_attach")
-  local on_attach = at.get()
 
   for srv, cfg in pairs(servers) do
-    if srv == "language_servers" then
+    if srv == "no_cfg_ls" then
       for _, ls in ipairs(cfg) do
         vim.lsp.config(ls, {
           capabilities = capabilities,
-          on_attach = on_attach,
+          on_attach = at.get(ls),
         })
       end
     end
@@ -179,27 +178,6 @@ function M.init()
     cfg.capabilities = cfg.capabilities or capabilities
     vim.lsp.config(srv, cfg)
   end
-
-  -- lspconfig.diagnosticls.setup({
-  --   capabilities = capabilities,
-  --   on_attach = function(client, bufnr)
-  --     local stop_ft = {
-  --       "dap-repl",
-  --     }
-  --     for _, ft in pairs(stop_ft) do
-  --       if vim.bo.filetype == ft then
-  --         if vim.lsp.buf_is_attached(bufnr, client.id) then
-  --           local notify = vim.notify
-  --           ---@diagnostic disable-next-line: duplicate-set-field
-  --           vim.notify = function() end
-  --           vim.lsp.buf_detach_client(bufnr, client.id)
-  --           vim.notify = notify
-  --         end
-  --       end
-  --     end
-  --     on_attach(client, bufnr)
-  --   end,
-  -- })
 end
 
 return M
