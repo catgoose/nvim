@@ -14,7 +14,7 @@ return {
       editorconfig = { "editorconfig-checker" },
       sh = { "shellcheck" },
       bash = { "shellcheck" },
-      go = { "golangcilint" },
+      go = { "golangcilint", "fieldalignment" },
     }
 
     lint.linters.codespell.args = { "--ignore-words ~/.config/codespell/ignore_words" }
@@ -36,6 +36,25 @@ return {
       }),
     }
 
+    lint.linters.fieldalignment = {
+      name = "fieldalignment",
+      cmd = "fieldalignment",
+      -- args = {
+      --   function()
+      --     local f = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), "%")
+      --     return f
+      --   end,
+      -- },
+      stdin = false,
+      stream = "stderr",
+      ignore_exitcode = true,
+      parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+        source = "fieldalignment",
+        severity = vim.diagnostic.severity.WARN,
+      }),
+    }
+
+    -- TODO: 2025-07-31 - Do we need to do this?
     lint.linters.golangcilint.args = {
       "run",
       "--output.json.path=stdout",

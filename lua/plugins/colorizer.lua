@@ -92,6 +92,7 @@ local opts = {
     },
     NeogitStatus = {
       RGB = false,
+      css = false,
     },
     Mason = {
       names = false,
@@ -116,22 +117,22 @@ local opts = {
       strip_digits = false,
     },
     names = true,
-    RGB = false,
-    RGBA = false,
-    RRGGBB = false,
-    RRGGBBAA = false,
-    AARRGGBB = false,
-    rgb_fn = false,
-    hsl_fn = false,
-    css = false,
-    css_fn = false,
-    xterm = false,
-    xcolor = false,
+    names_exclude = {
+      "Azure",
+      "azure",
+    },
+    RGB = true,
+    RGBA = true,
+    RRGGBB = true,
+    RRGGBBAA = true,
+    AARRGGBB = true,
+    rgb_fn = true,
+    hsl_fn = true,
+    css = true,
+    css_fn = true,
+    xterm = true,
+    xcolor = true,
     mode = "background",
-    names_custom = function()
-      local colors = require("kanagawa.colors").setup()
-      return colors.palette
-    end,
     tailwind = "lsp",
     virtualtext_inline = false,
     sass = {
@@ -140,35 +141,7 @@ local opts = {
     },
     virtualtext = "■",
     virtualtext_mode = "foreground",
-    always_update = false,
-    -- hooks = {
-    --   do_parse_line = function(line, line_nr, bufnr)
-    --     local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-    --     local is_comment = is_comment_on_line(line_nr, bufnr, filetype)
-    --     return not is_comment
-    --     -- return string.sub(line, 1, 2) ~= "--"
-    --   end,
-    -- },
-    -- hooks = {
-    --   disable_line_highlight = function(line, bufnr, line_num)
-    --     for _, ns_id in pairs(vim.api.nvim_get_namespaces()) do
-    --       local extmarks = vim.api.nvim_buf_get_extmarks(
-    --         bufnr,
-    --         ns_id,
-    --         { line_num, 0 },
-    --         { line_num, -1 },
-    --         { details = true }
-    --       )
-    --       for _, mark in ipairs(extmarks) do
-    --         local details = mark[4]
-    --         if details and details.hl_group == "TailwindConceal" then
-    --           return true
-    --         end
-    --       end
-    --     end
-    --     return false
-    --   end,
-    -- },
+    always_update = true,
   },
   user_commands = true,
   lazy_load = false,
@@ -190,7 +163,6 @@ local plugin = {
       end,
     })
   end,
-  enabled = true,
 }
 
 return dev and vim.tbl_extend("keep", plugin, {
