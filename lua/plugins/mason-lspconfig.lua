@@ -23,7 +23,7 @@ local opts = {
     "yamlls",
   },
   automatic_installation = true,
-  -- automatic_enable = false,
+  automatic_enable = false,
 }
 
 return {

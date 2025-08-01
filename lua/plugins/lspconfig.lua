@@ -16,7 +16,7 @@ return {
       event = "LspAttach",
     },
     {
-      "jubnzv/virtual-types.nvim"
+      "jubnzv/virtual-types.nvim",
       event = "LspAttach",
     },
     {

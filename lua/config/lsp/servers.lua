@@ -10,7 +10,6 @@ local capabilities = vim.tbl_deep_extend(
 capabilities.offsetEncoding = { "utf-16" }
 -- snippets
 local _snippet_capabilities = vim.lsp.protocol.make_client_capabilities()
----@diagnostic disable-next-line: inject-field
 _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
@@ -27,6 +26,7 @@ function M.init()
 
   local servers = {
     no_cfg_ls = {
+      "angularls",
       "awk_ls",
       "bashls",
       "docker_compose_language_service",
@@ -124,15 +124,13 @@ function M.init()
           },
           workspace = {
             library = vim.api.nvim_get_runtime_file("", true),
-            checkThirdParty = false,
           },
           hint = {
-            enable = false,
+            enable = true,
           },
         },
       },
     },
-    angularls = {},
     gopls = {
       settings = {
         gopls = {
@@ -186,6 +184,7 @@ function M.init()
     cfg.on_attach = cfg.on_attach or at.get(srv)
     cfg.capabilities = cfg.capabilities or capabilities
     vim.lsp.config(srv, cfg)
+    vim.lsp.enable(srv)
   end
 end
 
