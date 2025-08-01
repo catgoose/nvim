@@ -14,6 +14,7 @@ return {
     {
       "b0o/schemastore.nvim",
       event = "LspAttach",
+      ft = { "json" },
     },
     {
       "jubnzv/virtual-types.nvim",

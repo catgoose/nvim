@@ -31,7 +31,7 @@ local opts = {
     center = {
       {
         icon = "",
-        desc = "Lazy sync / TSUpdate / MasonToolsUpdate",
+        desc = "Lazy sync / TSUpdate",
         key = "s",
         action = "UpdateAndSyncAll",
       },
