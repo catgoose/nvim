@@ -26,7 +26,8 @@ local opts = {
     },
   },
   format_on_save = function(bufnr)
-    local disabled = require("neoconf").get("plugins.conform.disabled")
+    -- local disabled = require("neoconf").get("plugins.conform.disabled")
+    local disabled = false
     ---@diagnostic disable-next-line: undefined-field
     if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
       return
@@ -85,5 +86,4 @@ return {
     m("<leader>ci", [[ConformInfo]]),
   },
   init = init,
-  enabled = true,
 }

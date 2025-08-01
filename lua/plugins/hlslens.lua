@@ -53,5 +53,4 @@ return {
     { "g*", "g*" .. [[<cmd>lua require("hlslens").start()<cr>]] },
     { "g#", "g#" .. [[<cmd>lua require("hlslens").start()<cr>]] },
   },
-  enabled = true,
 }

@@ -56,5 +56,4 @@ return {
     m("<leader>tr", [[TodoQuickFix]]),
   },
   dependencies = "nvim-lua/plenary.nvim",
-  enabled = true,
 }

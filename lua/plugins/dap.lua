@@ -44,7 +44,6 @@ return {
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
     dependencies = "mfussenegger/nvim-dap",
-    enabled = true,
   },
   {
     "Weissle/persistent-breakpoints.nvim",
@@ -66,22 +65,11 @@ return {
         sections = {
           "watches",
           "scopes",
-          -- "exceptions",
           "breakpoints",
           "threads",
           "repl",
-          -- "console",
         },
         default_section = "breakpoints",
-        -- headers = {
-        --   breakpoints = "Breakpoints [B]",
-        --   scopes = "Scopes [S]",
-        --   exceptions = "Exceptions [E]",
-        --   watches = "Watches [W]",
-        --   threads = "Threads [T]",
-        --   repl = "REPL [R]",
-        --   console = "Console [C]",
-        -- },
       },
       windows = {
         height = 12,
@@ -93,23 +81,6 @@ return {
         border = "rounded",
       },
     },
-    enabled = true,
-    -- init = function()
-    -- local dap = require("dap")
-    -- dap.listeners.before.launch["catgoose_dap"] = function()
-    --   require("dap-view").open()
-    -- end
-    -- dap.listeners.before.attach["catgoose_dap"] = function()
-    --   require("dap-view").open()
-    -- end
-    -- dap.listeners.after.event_exited["catgoose_dap"] = function()
-    --   require("dap-view").close()
-    -- end
-    -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
-    --   require("dap-view").close()
-    -- end
-    -- dap.defaults.fallback.switchbuf = "useopen"
-    -- end,
     dependencies = "mfussenegger/nvim-dap",
     event = "BufReadPre",
     cmd = {

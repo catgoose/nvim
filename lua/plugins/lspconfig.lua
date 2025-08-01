@@ -4,9 +4,9 @@ end
 
 return {
   "neovim/nvim-lspconfig",
-  init = function()
-    require("neoconf").setup({})
-  end,
+  -- init = function()
+  --   require("neoconf").setup({})
+  -- end,
   config = config,
   dependencies = {
     "windwp/nvim-autopairs",
@@ -17,7 +17,7 @@ return {
     "b0o/schemastore.nvim",
     "VidocqH/lsp-lens.nvim",
     "jubnzv/virtual-types.nvim",
-    "folke/neoconf.nvim",
+    -- "folke/neoconf.nvim",
     {
       "dmmulroy/ts-error-translator.nvim",
       config = true,

@@ -40,14 +40,12 @@ function M.init()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
-      -- "golangci_lint_ls",
       "marksman",
       "sqlls",
       "templ",
       "yamlls",
       "azure_pipelines_ls",
       "diagnosticls",
-      "lua_ls",
     },
     tailwindcss = {
       filetypes = {
@@ -123,27 +121,26 @@ function M.init()
       suggest = { fromRuntimepath = true, fromVimruntime = true },
       vimruntime = "",
     },
-    -- lua_ls = {
-    --   settings = {
-    --     Lua = {
-    --       runtime = {
-    --         version = "LuaJIT",
-    --       },
-    --       diagnostics = {
-    --         globals = { "vim", "require" },
-    --       },
-    --       workspace = {
-    --         library = vim.api.nvim_get_runtime_file("", true),
-    --         checkThirdParty = false,
-    --       },
-    --       telemetry = { enable = false },
-    --       hint = {
-    --         enable = false,
-    --       },
-    --     },
-    --   },
-    -- },
-    -- angularls = {},
+    lua_ls = {
+      settings = {
+        Lua = {
+          runtime = {
+            version = "LuaJIT",
+          },
+          diagnostics = {
+            globals = { "vim", "require" },
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
+          },
+          hint = {
+            enable = false,
+          },
+        },
+      },
+    },
+    angularls = {},
     gopls = {
       settings = {
         gopls = {

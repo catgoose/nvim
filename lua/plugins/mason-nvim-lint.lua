@@ -10,5 +10,4 @@ return {
     "williamboman/mason.nvim",
     "mfussenegger/nvim-lint",
   },
-  enabled = true,
 }
