@@ -19,15 +19,13 @@ local opts = {
     markdown = { "cbfmt", "prettierd", "markdownlint" },
     go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
     templ = {
-      -- "gofumpt",
-      "goimports",
       "templ",
+      "goimports",
       "injected",
     },
   },
   format_on_save = function(bufnr)
-    -- local disabled = require("neoconf").get("plugins.conform.disabled")
-    local disabled = false
+    local disabled = require("neoconf").get("plugins.conform.disabled")
     ---@diagnostic disable-next-line: undefined-field
     if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
       return

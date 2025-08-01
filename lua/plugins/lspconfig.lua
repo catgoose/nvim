@@ -4,23 +4,25 @@ end
 
 return {
   "neovim/nvim-lspconfig",
-  -- init = function()
-  --   require("neoconf").setup({})
-  -- end,
+  init = function()
+    require("neoconf").setup({})
+  end,
   config = config,
   dependencies = {
-    "windwp/nvim-autopairs",
+    "folke/neoconf.nvim",
+    "williamboman/mason-lspconfig.nvim",
     {
-      "williamboman/mason-lspconfig.nvim",
-      dependencies = "williamboman/mason.nvim",
+      "b0o/schemastore.nvim",
+      event = "LspAttach",
     },
-    "b0o/schemastore.nvim",
-    "VidocqH/lsp-lens.nvim",
-    "jubnzv/virtual-types.nvim",
-    -- "folke/neoconf.nvim",
+    {
+      "jubnzv/virtual-types.nvim"
+      event = "LspAttach",
+    },
     {
       "dmmulroy/ts-error-translator.nvim",
       config = true,
+      event = "LspAttach",
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
     },
     {

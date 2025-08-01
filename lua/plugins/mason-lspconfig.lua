@@ -20,11 +20,10 @@ local opts = {
     "powershell_es",
     "sqlls",
     "tailwindcss",
-    -- "tsserver",
-    -- "volar",
     "yamlls",
   },
   automatic_installation = true,
+  -- automatic_enable = false,
 }
 
 return {

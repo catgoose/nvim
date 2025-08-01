@@ -6,11 +6,6 @@ local capabilities = vim.tbl_deep_extend(
   vim.lsp.protocol.make_client_capabilities(),
   require("cmp_nvim_lsp").default_capabilities()
 )
--- ufo
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
 ---@diagnostic disable-next-line: inject-field
 capabilities.offsetEncoding = { "utf-16" }
 -- snippets
@@ -29,10 +24,6 @@ function M.init()
   local tsdk = function()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
-
-  -- local server_enabled = function(server)
-  --   return not require("neoconf").get("lsp.servers." .. server .. ".disable")
-  -- end
 
   local servers = {
     no_cfg_ls = {
@@ -106,6 +97,7 @@ function M.init()
     },
     jsonls = {
       capabilities = snippet_capabilities,
+      schemas = require("schemastore").json.schemas(),
     },
     vimls = {
       diagnostic = { enable = true },

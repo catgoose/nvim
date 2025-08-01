@@ -3,17 +3,17 @@ local m = u.lazy_map
 local project = require("util.project")
 
 local base_file_ignore_patterns = { "node_modules", "\\.git" }
--- local function get_ignore_patterns()
---   local patterns = require("neoconf").get("telescope.defaults.file_ignore_patterns")
---   local ignore_patterns = u.deep_copy(base_file_ignore_patterns)
---   if not patterns or not vim.islist(patterns) then
---     return ignore_patterns
---   end
---   for _, p in ipairs(patterns) do
---     table.insert(ignore_patterns, p)
---   end
---   return ignore_patterns
--- end
+local function get_ignore_patterns()
+  local patterns = require("neoconf").get("telescope.defaults.file_ignore_patterns")
+  local ignore_patterns = u.deep_copy(base_file_ignore_patterns)
+  if not patterns or not vim.islist(patterns) then
+    return ignore_patterns
+  end
+  for _, p in ipairs(patterns) do
+    table.insert(ignore_patterns, p)
+  end
+  return ignore_patterns
+end
 
 local config = function()
   local telescope = require("telescope")
@@ -204,7 +204,7 @@ local dependencies = {
   },
   "nvim-telescope/telescope-ui-select.nvim",
   "catgoose/do-the-needful.nvim",
-  -- "folke/neoconf.nvim",
+  "folke/neoconf.nvim",
 }
 dependencies = project.get_dependencies("helpgrep", dependencies)
 
@@ -215,7 +215,7 @@ return {
     local create_cmd = require("util").create_cmd
     create_cmd("TelescopeFindFiles", function()
       require("telescope.builtin").find_files({
-        -- file_ignore_patterns = get_ignore_patterns(),
+        file_ignore_patterns = get_ignore_patterns(),
         layout_strategy = "vertical",
         layout_config = {
           width = 0.5,
@@ -228,7 +228,7 @@ return {
     end)
     create_cmd("TelescopeFindFilesPreview", function()
       require("telescope.builtin").find_files({
-        -- file_ignore_patterns = get_ignore_patterns(),
+        file_ignore_patterns = get_ignore_patterns(),
         layout_config = {
           horizontal = {
             prompt_position = "bottom",
