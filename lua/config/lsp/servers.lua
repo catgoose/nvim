@@ -40,7 +40,7 @@ function M.init()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
-      "golangci_lint_ls",
+      -- "golangci_lint_ls",
       "marksman",
       "sqlls",
       "templ",
