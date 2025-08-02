@@ -76,12 +76,23 @@ local function init()
 end
 
 return {
-  "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  opts = opts,
-  cmd = { "ConformInfo" },
-  keys = {
-    m("<leader>ci", [[ConformInfo]]),
+  {
+    "zapling/mason-conform.nvim",
+    event = "BufReadPre",
+    config = true,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "stevearc/conform.nvim",
+    },
   },
-  init = init,
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    opts = opts,
+    cmd = { "ConformInfo" },
+    keys = {
+      m("<leader>ci", [[ConformInfo]]),
+    },
+    init = init,
+  },
 }

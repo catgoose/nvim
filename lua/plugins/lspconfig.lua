@@ -1,16 +1,57 @@
-local config = function()
-  require("config.lsp")
-end
-
 return {
   "neovim/nvim-lspconfig",
   init = function()
     require("neoconf").setup({})
   end,
-  config = config,
+  config = function()
+    require("config.lsp")
+  end,
   dependencies = {
     "folke/neoconf.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    {
+      "williamboman/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = {
+          "angularls",
+          "bashls",
+          "csharp_ls",
+          "cssls",
+          "cssmodules_ls",
+          "diagnosticls",
+          "docker_compose_language_service",
+          "dockerls",
+          "emmet_ls",
+          "eslint",
+          "golangci_lint_ls",
+          "gopls",
+          "html",
+          "jsonls",
+          "lua_ls",
+          "marksman",
+          "powershell_es",
+          "sqlls",
+          "tailwindcss",
+          "yamlls",
+        },
+        automatic_installation = true,
+        automatic_enable = false,
+      },
+      event = "BufReadPre",
+      dependencies = {
+        "williamboman/mason.nvim",
+        opts = {
+          ui = {
+            icons = {
+              package_installed = "✓",
+              package_pending = "➜",
+              package_uninstalled = "✗",
+            },
+          },
+        },
+        cmd = "Mason",
+        event = "BufReadPre",
+      },
+    },
     {
       "b0o/schemastore.nvim",
       event = "LspAttach",

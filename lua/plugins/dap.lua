@@ -3,6 +3,23 @@ local m = u.lazy_map
 
 return {
   {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "delve",
+        "js",
+      },
+      automatic_installation = true,
+      automatic_setup = true,
+    },
+    event = "BufReadPre",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+  },
+  {
     "mfussenegger/nvim-dap",
     keys = {
       m("<F1>", [[DapStepInto]]),

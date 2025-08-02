@@ -43,7 +43,6 @@
   "mason-lspconfig.nvim": { "branch": "main", "commit": "844d247d998c2f9a6a3baad8bb9748edc55ce69f" },
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "86389a3dd687cfaa647b6f44731e492970034baa" },
   "mason-nvim-lint": { "branch": "main", "commit": "767b8ccdddaa977bec8987fd7507b9865a279235" },
-  "mason-tool-installer.nvim": { "branch": "main", "commit": "517ef5994ef9d6b738322664d5fdd948f0fdeb46" },
   "mason.nvim": { "branch": "main", "commit": "9e25c98d4826998460926f8c5c2284848d80ae89" },
   "namu.nvim": { "branch": "main", "commit": "6759df3cddb1d6d11442b953f8b63e64350229f3" },
   "neoconf.nvim": { "branch": "main", "commit": "24b371c43e016da1d23413a6d39dd8a987e34d76" },

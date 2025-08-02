@@ -27,7 +27,6 @@ function M.init()
   local servers = {
     no_cfg_ls = {
       "angularls",
-      "awk_ls",
       "bashls",
       "docker_compose_language_service",
       "dockerls",
