@@ -1,11 +1,10 @@
 return {
   "neovim/nvim-lspconfig",
-  init = function()
-    require("neoconf").setup({})
-  end,
   config = function()
+    require("neoconf").setup({})
     require("config.lsp")
   end,
+  event = "BufReadPre",
   dependencies = {
     "folke/neoconf.nvim",
     {

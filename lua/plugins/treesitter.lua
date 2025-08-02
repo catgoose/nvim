@@ -173,7 +173,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     config = config,
-    lazy = false,
+    lazy = true,
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",

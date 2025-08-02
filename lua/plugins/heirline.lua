@@ -569,4 +569,5 @@ return {
   config = config,
   event = "BufReadPre",
   dependencies = "nvim-tree/nvim-web-devicons",
+  lazy = true
 }

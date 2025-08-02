@@ -84,7 +84,6 @@ return {
       "williamboman/mason.nvim",
       "stevearc/conform.nvim",
     },
-    enabled = false,
   },
   {
     "stevearc/conform.nvim",
@@ -95,6 +94,5 @@ return {
       m("<leader>ci", [[ConformInfo]]),
     },
     init = init,
-    enabled = false,
   },
 }

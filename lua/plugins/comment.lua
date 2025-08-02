@@ -25,11 +25,12 @@ return {
         extended = false,
       },
       pre_hook = prehook,
+      ---@diagnostic disable-next-line: assign-type-mismatch
       post_hook = nil,
     })
   end,
-  event = "BufReadPre",
-  lazy = false,
+  event = "BufReadPost",
+  lazy = true,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "JoosepAlviste/nvim-ts-context-commentstring",

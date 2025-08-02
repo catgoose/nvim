@@ -34,15 +34,13 @@ return {
       ---
       m("<F12>", [[DapDisconnect]]),
     },
-    init = function()
-      local dap = require("dap")
-      require("config.dap.keymaps").setup(dap)
-    end,
     cmd = { "DapContinue" },
     config = function()
       local dap = require("dap")
+      require("config.dap.keymaps").setup(dap)
       require("config.dap.adapters").setup(dap)
     end,
+    lazy = true
   },
   {
     "theHamsta/nvim-dap-virtual-text",

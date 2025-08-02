@@ -4,7 +4,8 @@ return {
     config = function()
       require("auto-fix-return").setup({})
     end,
-    lazy = false,
+    ft = "go",
+    lazy = true,
   },
   {
     "catgoose/templ-goto-definition",
