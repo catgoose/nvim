@@ -6,13 +6,13 @@ local capabilities = vim.tbl_deep_extend(
   vim.lsp.protocol.make_client_capabilities(),
   require("cmp_nvim_lsp").default_capabilities()
 )
----@diagnostic disable-next-line: inject-field
-capabilities.offsetEncoding = { "utf-16" }
+-- -@diagnostic disable-next-line: inject-field
+-- capabilities.offsetEncoding = { "utf-16" }
 -- snippets
-local _snippet_capabilities = vim.lsp.protocol.make_client_capabilities()
-_snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- local _snippet_capabilities = vim.lsp.protocol.make_client_capabilities()
+-- _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
+-- local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
 -- Diagnostic
 
 function M.init()
@@ -36,6 +36,7 @@ function M.init()
       "yamlls",
       "azure_pipelines_ls",
       "diagnosticls",
+      "csharp_ls",
     },
     tailwindcss = {
       filetypes = {
@@ -49,11 +50,7 @@ function M.init()
         "htmlangular",
       },
     },
-    csharp_ls = {
-      capabilities = snippet_capabilities,
-    },
     cssls = {
-      capabilities = snippet_capabilities,
       filetypes = css_ft,
       settings = {
         css = {
@@ -77,7 +74,6 @@ function M.init()
       },
     },
     html = {
-      capabilities = snippet_capabilities,
       filetypes = { "html", "vue", "templ" },
     },
     htmx = {
@@ -95,7 +91,6 @@ function M.init()
       },
     },
     jsonls = {
-      capabilities = snippet_capabilities,
       schemas = require("schemastore").json.schemas(),
     },
     vimls = {
@@ -124,9 +119,6 @@ function M.init()
           workspace = {
             library = vim.api.nvim_get_runtime_file("", true),
           },
-          hint = {
-            enable = true,
-          },
         },
       },
     },
@@ -148,7 +140,6 @@ function M.init()
             upgrade_dependency = true,
             vendor = true,
           },
-          buildFlags = { "-tags=mage" },
           hints = {
             assignVariableTypes = true,
             compositeLiteralFields = true,
