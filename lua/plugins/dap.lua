@@ -3,23 +3,6 @@ local m = u.lazy_map
 
 return {
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    opts = {
-      ensure_installed = {
-        "bash",
-        "delve",
-        "js",
-      },
-      automatic_installation = true,
-      automatic_setup = true,
-    },
-    event = "BufReadPre",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
-    },
-  },
-  {
     "mfussenegger/nvim-dap",
     keys = {
       m("<F1>", [[DapStepInto]]),
@@ -40,16 +23,30 @@ return {
       require("config.dap.keymaps").setup(dap)
       require("config.dap.adapters").setup(dap)
     end,
-    lazy = true
+    ft = { "go", "javascript", "typescript", "bash", "lua" },
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
+      "jay-babu/mason-nvim-dap.nvim",
+      "ofirgall/goto-breakpoints.nvim",
+      "Weissle/persistent-breakpoints.nvim",
+      "jbyuki/one-small-step-for-vimkind",
+    },
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "delve",
+        "js",
+      },
+      automatic_installation = true,
+      automatic_setup = true,
+    },
   },
   {
     "theHamsta/nvim-dap-virtual-text",
     config = true,
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    event = "BufReadPre",
   },
   {
     "ofirgall/goto-breakpoints.nvim",
@@ -58,11 +55,9 @@ return {
       m("]r", [[lua require('goto-breakpoints').next()]]),
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
-    dependencies = "mfussenegger/nvim-dap",
   },
   {
     "Weissle/persistent-breakpoints.nvim",
-    event = "BufReadPre",
     opts = {
       load_breakpoints_event = { "BufReadPost" },
     },
@@ -70,7 +65,6 @@ return {
       m("<leader>/", [[lua require('persistent-breakpoints.api').toggle_breakpoint()]]),
       m("<F11>", [[lua require('persistent-breakpoints.api').clear_all_breakpoints()]]),
     },
-    dependencies = "mfussenegger/nvim-dap",
   },
   {
     "igorlfs/nvim-dap-view",
@@ -96,8 +90,6 @@ return {
         border = "rounded",
       },
     },
-    dependencies = "mfussenegger/nvim-dap",
-    event = "BufReadPre",
     cmd = {
       "DapViewOpen",
       "DapViewClose",
@@ -108,5 +100,4 @@ return {
       m("<leader>?", [[lua require("dap-view").toggle(true)]]),
     },
   },
-  "jbyuki/one-small-step-for-vimkind",
 }

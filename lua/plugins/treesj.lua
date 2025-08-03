@@ -7,9 +7,6 @@ local opts = {
 
 return {
   "Wansmer/treesj",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-  },
   keys = {
     m("<leader>I", [[lua require("treesj").toggle({split = {recursive = true}})]]),
   },

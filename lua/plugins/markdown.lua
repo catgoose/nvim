@@ -1,7 +1,7 @@
 return {
   {
     "jamessan/vim-gnupg",
-    lazy = false,
+    event = "VeryLazy",
     ft = "markdown",
   },
   {

@@ -11,5 +11,4 @@ return {
     vim.opt.foldlevel = 99
     vim.opt.foldlevelstart = 99
   end,
-  enabled = false,
 }

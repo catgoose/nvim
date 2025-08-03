@@ -26,17 +26,18 @@ function M.init()
 
   local servers = {
     no_cfg_ls = {
-      "angularls",
-      "bashls",
-      "docker_compose_language_service",
-      "dockerls",
-      "marksman",
-      "sqlls",
+      -- "angularls",
+      -- "bashls",
+      -- "docker_compose_language_service",
+      -- "dockerls",
+      -- "marksman",
+      -- "sqlls",
       "templ",
-      "yamlls",
-      "azure_pipelines_ls",
-      "diagnosticls",
-      "csharp_ls",
+      -- "jsonls",
+      -- "yamlls",
+      -- "azure_pipelines_ls",
+      -- "diagnosticls",
+      -- "csharp_ls",
     },
     tailwindcss = {
       filetypes = {
@@ -89,9 +90,6 @@ function M.init()
           tsdk = tsdk(),
         },
       },
-    },
-    jsonls = {
-      schemas = require("schemastore").json.schemas(),
     },
     vimls = {
       diagnostic = { enable = true },
@@ -169,12 +167,14 @@ function M.init()
           capabilities = capabilities,
           on_attach = at.get(ls),
         })
+        vim.lsp.enable(ls)
       end
+    else
+      cfg.on_attach = cfg.on_attach or at.get(srv)
+      cfg.capabilities = cfg.capabilities or capabilities
+      vim.lsp.config(srv, cfg)
+      vim.lsp.enable(srv)
     end
-    cfg.on_attach = cfg.on_attach or at.get(srv)
-    cfg.capabilities = cfg.capabilities or capabilities
-    vim.lsp.config(srv, cfg)
-    vim.lsp.enable(srv)
   end
 end
 

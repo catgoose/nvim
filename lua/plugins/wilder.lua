@@ -114,11 +114,10 @@ end
 return {
   "gelguy/wilder.nvim",
   config = config,
-  event = "CmdlineEnter",
   keys = { "/", "?", ":" },
   build = ":UpdateRemotePlugins",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  lazy = true
+  event = "VeryLazy",
 }

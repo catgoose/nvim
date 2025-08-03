@@ -4,6 +4,7 @@ return {
     require("neoconf").setup({})
     require("config.lsp")
   end,
+  -- lazy = true,
   event = "BufReadPre",
   dependencies = {
     "folke/neoconf.nvim",
@@ -50,11 +51,6 @@ return {
         cmd = "Mason",
         event = "BufReadPre",
       },
-    },
-    {
-      "b0o/schemastore.nvim",
-      event = "LspAttach",
-      ft = { "json" },
     },
     {
       "jubnzv/virtual-types.nvim",

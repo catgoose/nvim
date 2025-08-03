@@ -43,10 +43,8 @@ return {
   },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
-    lazy = true,
   },
   init = function()
     vim.g.catgoose_grapple_scope = scope
   end,
-  event = "BufReadPre",
 }

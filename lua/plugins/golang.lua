@@ -1,10 +1,8 @@
 return {
   {
     "Jay-Madden/auto-fix-return.nvim",
-    config = function()
-      require("auto-fix-return").setup({})
-    end,
-    ft = "go",
+    ft = { "go" },
+    config = true,
     lazy = true,
   },
   {
@@ -14,16 +12,8 @@ return {
   },
   {
     "fredrikaverpil/godoc.nvim",
+    ft = { "go" },
     version = "*",
-    dependencies = {
-      { "nvim-telescope/telescope.nvim" },
-      {
-        "nvim-treesitter/nvim-treesitter",
-        opts = {
-          ensure_installed = { "go" },
-        },
-      },
-    },
     build = "go install github.com/lotusirous/gostdsym/stdsym@latest", -- optional
     cmd = { "GoDoc" },
     opts = {
