@@ -62,3 +62,7 @@
   (component_block) @class.inner))
 
 (comment) @comment.outer
+
+(component_declaration name: (component_identifier) @function_field)
+(component_if_statement) @block.inner
+(component_for_statement) @block.inner
