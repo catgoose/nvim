@@ -76,7 +76,3 @@ My other neovim projects
 Tmux theme:
 
 [kanagawa-tmux](https://github.com/catgoose/kanagawa-tmux)
-
-## Todo
-
-- Diagnostic highlights override
