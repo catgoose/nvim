@@ -23,7 +23,6 @@ return {
       require("config.dap.keymaps").setup(dap)
       require("config.dap.adapters").setup(dap)
     end,
-    ft = { "go", "javascript", "typescript", "bash", "lua" },
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
       "jay-babu/mason-nvim-dap.nvim",
@@ -31,6 +30,7 @@ return {
       "Weissle/persistent-breakpoints.nvim",
       "jbyuki/one-small-step-for-vimkind",
     },
+    lazy = true,
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
@@ -47,6 +47,7 @@ return {
   {
     "theHamsta/nvim-dap-virtual-text",
     config = true,
+    lazy = true,
   },
   {
     "ofirgall/goto-breakpoints.nvim",
@@ -55,6 +56,7 @@ return {
       m("]r", [[lua require('goto-breakpoints').next()]]),
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
+    lazy = true,
   },
   {
     "Weissle/persistent-breakpoints.nvim",
@@ -65,6 +67,7 @@ return {
       m("<leader>/", [[lua require('persistent-breakpoints.api').toggle_breakpoint()]]),
       m("<F11>", [[lua require('persistent-breakpoints.api').clear_all_breakpoints()]]),
     },
+    lazy = true,
   },
   {
     "igorlfs/nvim-dap-view",
@@ -99,5 +102,6 @@ return {
     keys = {
       m("<leader>?", [[lua require("dap-view").toggle(true)]]),
     },
+    lazy = true,
   },
 }

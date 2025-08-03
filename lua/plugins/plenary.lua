@@ -27,4 +27,5 @@ return {
   "nvim-lua/plenary.nvim",
   config = config,
   event = "BufReadPost",
+  lazy = true,
 }

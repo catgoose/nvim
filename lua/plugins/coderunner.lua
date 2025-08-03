@@ -63,5 +63,6 @@ else
     "catgoose/coderunner.nvim",
     config = true,
     event = "BufReadPost",
+    lazy = true,
   })
 end

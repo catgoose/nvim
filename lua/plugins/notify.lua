@@ -10,4 +10,5 @@ return {
   "rcarriga/nvim-notify",
   opts = opts,
   event = "BufReadPost",
+  lazy = true,
 }

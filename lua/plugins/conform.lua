@@ -84,6 +84,7 @@ return {
       "williamboman/mason.nvim",
       "stevearc/conform.nvim",
     },
+    lazy = true,
   },
   {
     "stevearc/conform.nvim",
@@ -94,5 +95,6 @@ return {
       m("<leader>ci", [[ConformInfo]]),
     },
     init = init,
+    lazy = true,
   },
 }

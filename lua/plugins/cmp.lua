@@ -71,7 +71,7 @@ local config = function()
         entry_filter = function()
           local context = require("cmp.config.context")
           return not context.in_treesitter_capture("string")
-              and not context.in_syntax_group("String")
+            and not context.in_syntax_group("String")
         end,
       },
       {
@@ -157,4 +157,5 @@ return {
       "js-everts/cmp-tailwind-colors",
     },
   },
+  lazy = true,
 }

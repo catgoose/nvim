@@ -39,5 +39,6 @@ if dev == true then
 else
   return e("keep", plugin, {
     "catgoose/angler.nvim",
+    lazy = true,
   })
 end

@@ -144,7 +144,7 @@ local opts = {
     always_update = true,
   },
   user_commands = true,
-  lazy_load = false,
+  lazy_load = true,
 }
 
 local keys = project.get_keys("nvim-colorizer.lua")
@@ -152,8 +152,7 @@ local keys = project.get_keys("nvim-colorizer.lua")
 local plugin = {
   opts = opts,
   keys = keys,
-  event = "BufReadPost",
-  -- event = "VeryLazy",
+  event = "VeryLazy",
   init = function()
     vim.api.nvim_create_autocmd({ "BufReadPre" }, {
       group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),

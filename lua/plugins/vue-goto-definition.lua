@@ -45,5 +45,6 @@ else
   return e("keep", plugin, {
     "catgoose/vue-goto-definition.nvim",
     event = "BufReadPost",
+    lazy = true,
   })
 end

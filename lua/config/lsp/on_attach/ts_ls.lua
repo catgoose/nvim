@@ -132,13 +132,13 @@ function M.on_attach(client, bufnr)
   c("TSRemoveUnusedImports", function()
     M.remove_unused_imports(bufnr)
   end)
-  -- vim.api.nvim_create_autocmd({ "BufWrite" }, {
-  --   group = au("TypescriptWriteSortImports"),
-  --   pattern = { "*.ts" },
-  --   callback = function(ev)
-  --     M.sort_imports(ev.bufnr)
-  --   end,
-  -- })
+  vim.api.nvim_create_autocmd({ "BufWrite" }, {
+    group = au("TypescriptWriteSortImports"),
+    pattern = { "*.ts" },
+    callback = function(ev)
+      M.sort_imports(ev.bufnr)
+    end,
+  })
 end
 
 return M

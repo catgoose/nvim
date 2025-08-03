@@ -46,4 +46,5 @@ return {
   keys = {
     m("<leader>y", [[lua require("namu.namu_symbols").show()]]),
   },
+  lazy = true,
 }

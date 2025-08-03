@@ -26,18 +26,18 @@ function M.init()
 
   local servers = {
     no_cfg_ls = {
-      -- "angularls",
-      -- "bashls",
-      -- "docker_compose_language_service",
-      -- "dockerls",
-      -- "marksman",
-      -- "sqlls",
+      "angularls",
+      "azure_pipelines_ls",
+      "bashls",
+      "csharp_ls",
+      "diagnosticls",
+      "docker_compose_language_service",
+      "dockerls",
+      "jsonls",
+      "marksman",
+      "sqlls",
       "templ",
-      -- "jsonls",
-      -- "yamlls",
-      -- "azure_pipelines_ls",
-      -- "diagnosticls",
-      -- "csharp_ls",
+      "yamlls",
     },
     tailwindcss = {
       filetypes = {

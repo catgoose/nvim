@@ -4,4 +4,5 @@ return {
     vim.g.matchup_matchparen_offscreen = { method = "popup" }
   end,
   event = "BufReadPost",
+  lazy = true,
 }

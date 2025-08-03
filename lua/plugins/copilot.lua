@@ -56,4 +56,5 @@ return {
   opts = opts,
   cmd = "Copilot",
   event = "InsertEnter",
+  lazy = true,
 }

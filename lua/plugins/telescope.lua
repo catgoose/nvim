@@ -263,4 +263,5 @@ return {
   cmd = "Telescope",
   keys = keys,
   dependencies = dependencies,
+  lazy = true,
 }

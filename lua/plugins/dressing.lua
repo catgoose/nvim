@@ -99,4 +99,5 @@ return {
   "stevearc/dressing.nvim",
   opts = opts,
   event = "BufReadPost",
+  lazy = true,
 }
