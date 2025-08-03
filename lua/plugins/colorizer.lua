@@ -152,7 +152,7 @@ local keys = project.get_keys("nvim-colorizer.lua")
 local plugin = {
   opts = opts,
   keys = keys,
-  event = "BufReadPre",
+  event = "BufReadPost",
   -- event = "VeryLazy",
   init = function()
     vim.api.nvim_create_autocmd({ "BufReadPre" }, {

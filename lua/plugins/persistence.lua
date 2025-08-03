@@ -4,7 +4,7 @@ local m = u.lazy_map
 
 return {
   "folke/persistence.nvim",
-  event = "BufReadPre",
+  event = "BufReadPost",
   config = true,
   init = function()
     local persistence = require("persistence")

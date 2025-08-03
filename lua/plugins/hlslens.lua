@@ -36,7 +36,7 @@ local opts = {
 return {
   "kevinhwang91/nvim-hlslens",
   opts = opts,
-  event = "BufReadPre",
+  event = "BufReadPost",
   keys = {
     {
       "n",

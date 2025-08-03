@@ -66,6 +66,6 @@ if dev == true then
 else
   return e("keep", plugin, {
     "catgoose/do-the-needful.nvim",
-    event = "BufReadPre",
+    event = "BufReadPost",
   })
 end

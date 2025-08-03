@@ -12,5 +12,5 @@ local opts = {
 return {
   "windwp/nvim-ts-autotag",
   opts = opts,
-  event = "BufReadPre",
+  event = "BufReadPost",
 }

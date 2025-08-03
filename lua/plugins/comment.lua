@@ -28,7 +28,7 @@ return {
       post_hook = nil,
     })
   end,
-  event = "BufReadPre",
+  event = "BufReadPost",
   lazy = true,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",

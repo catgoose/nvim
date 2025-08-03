@@ -5,7 +5,7 @@ return {
     require("config.lsp")
   end,
   -- lazy = true,
-  event = "BufReadPre",
+  event = "VeryLazy",
   dependencies = {
     "folke/neoconf.nvim",
     {
@@ -36,7 +36,7 @@ return {
         automatic_installation = true,
         automatic_enable = false,
       },
-      event = "BufReadPre",
+      event = "BufReadPost",
       dependencies = {
         "williamboman/mason.nvim",
         opts = {
@@ -49,7 +49,7 @@ return {
           },
         },
         cmd = "Mason",
-        event = "BufReadPre",
+        event = "BufReadPost",
       },
     },
     {

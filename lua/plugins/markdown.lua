@@ -7,7 +7,7 @@ return {
   {
     "lukas-reineke/virt-column.nvim",
     config = true,
-    event = "BufReadPre",
+    event = "BufReadPost",
     ft = { "markdown" },
   },
 }

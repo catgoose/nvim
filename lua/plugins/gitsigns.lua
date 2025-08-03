@@ -33,7 +33,7 @@ local opts = {
 return {
   "lewis6991/gitsigns.nvim",
   opts = opts,
-  event = "BufReadPre",
+  event = "BufReadPost",
   keys = {
     m("[h", "Gitsigns nav_hunk prev"),
     m("]h", "Gitsigns nav_hunk next"),

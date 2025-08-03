@@ -98,5 +98,5 @@ local opts = {
 return {
   "stevearc/dressing.nvim",
   opts = opts,
-  event = "BufReadPre",
+  event = "BufReadPost",
 }

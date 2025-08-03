@@ -26,5 +26,5 @@ end
 return {
   "nvim-lua/plenary.nvim",
   config = config,
-  event = "BufReadPre",
+  event = "BufReadPost",
 }

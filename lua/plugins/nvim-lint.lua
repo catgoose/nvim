@@ -2,7 +2,7 @@ return {
   {
     "rshkarin/mason-nvim-lint",
     opts = { quiet_mode = true },
-    event = "BufReadPre",
+    event = "VeryLazy",
     dependencies = {
       "mfussenegger/nvim-lint",
     },
@@ -10,7 +10,7 @@ return {
   {
     "mfussenegger/nvim-lint",
     -- dir = "~/git/nvim-lint",
-    event = "BufReadPre",
+    event = "VeryLazy",
     config = function()
       local lint = require("lint")
       lint.linters_by_ft = {

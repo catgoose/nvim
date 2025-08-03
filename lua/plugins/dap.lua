@@ -50,7 +50,7 @@ return {
   },
   {
     "ofirgall/goto-breakpoints.nvim",
-    event = "BufReadPre",
+    event = "BufReadPost",
     keys = {
       m("]r", [[lua require('goto-breakpoints').next()]]),
       m("[r", [[lua require('goto-breakpoints').prev()]]),

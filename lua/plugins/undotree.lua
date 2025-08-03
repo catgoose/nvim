@@ -27,7 +27,7 @@ local opts = {
 return {
   "jiaoshijie/undotree",
   opts = opts,
-  event = "BufReadPre",
+  event = "BufReadPost",
   keys = {
     m("<leader>u", [[lua require("undotree").toggle()]], { "n", "x" }),
   },

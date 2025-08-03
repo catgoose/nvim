@@ -1,6 +1,5 @@
 local fn, cmd, api, o, g, ui = vim.fn, vim.cmd, vim.api, vim.o, vim.g, vim.ui
 local set_cur = api.nvim_win_set_cursor
-local t = require("util.toggle")
 local u = require("util")
 
 local M = {}
@@ -49,28 +48,6 @@ function M.toggle_cmdheight()
     o.cmdheight = 1
     ---@diagnostic disable-next-line: inject-field
     g.CMDHEIGHTZERO = 0
-  end
-end
-
-function M.toggle_term_cmd(config)
-  if not config or not config.count then
-    return
-  end
-  if config.cmd[1] ~= nil then
-    ui.select(config.cmd, {
-      prompt = "Select command",
-    }, function(selected)
-      if not selected then
-        return
-      end
-      config.cmd = selected
-      M.toggle_term_cmd(config)
-    end)
-  else
-    local term_config = t.toggleterm_opts(config)
-    local Terminal = require("toggleterm.terminal").Terminal
-    local term = Terminal:new(term_config)
-    term:toggle()
   end
 end
 

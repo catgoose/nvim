@@ -3,7 +3,7 @@ local m = require("util").lazy_map
 return {
   {
     "lambdalisue/suda.vim",
-    event = "BufReadPre",
+    event = "BufReadPost",
     enabled = false,
   },
   {
@@ -13,7 +13,7 @@ return {
   },
   {
     "romainl/vim-cool",
-    event = "BufReadPre",
+    event = "BufReadPost",
   },
   {
     "folke/neoconf.nvim",
