@@ -4,8 +4,8 @@ return {
     require("neoconf").setup({})
     require("config.lsp")
   end,
-  -- lazy = true,
   event = "VeryLazy",
+  lazy = true,
   dependencies = {
     "folke/neoconf.nvim",
     {
@@ -36,7 +36,6 @@ return {
         automatic_installation = true,
         automatic_enable = false,
       },
-      event = "BufReadPost",
       dependencies = {
         "mason-org/mason.nvim",
         opts = {
@@ -49,7 +48,7 @@ return {
           },
         },
         cmd = "Mason",
-        event = "BufReadPost",
+        lazy = true,
       },
     },
     {
@@ -61,6 +60,7 @@ return {
       config = true,
       event = "LspAttach",
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+      lazy = true,
     },
     {
       "chrisgrieser/nvim-lsp-endhints",
@@ -77,6 +77,7 @@ return {
         },
         autoEnableHints = false,
       },
+      lazy = true,
     },
   },
 }

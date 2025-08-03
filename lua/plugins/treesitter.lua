@@ -2,10 +2,8 @@ local config = function()
   local opts = {
     ensure_installed = {
       "angular",
-      "awk",
       "bash",
       "c",
-      "cpp",
       "css",
       "csv",
       "dap_repl",
@@ -20,7 +18,6 @@ local config = function()
       "html",
       "http",
       "javascript",
-      "xml",
       "jq",
       "json",
       "jsonc",
@@ -32,16 +29,16 @@ local config = function()
       "python",
       "query",
       "regex",
-      "ruby",
       "scheme",
       "scss",
       "sql",
+      "templ",
       "toml",
       "typescript",
-      "templ",
       "vim",
       "vimdoc",
       "vue",
+      "xml",
       "yaml",
     },
     highlight = {
@@ -70,11 +67,13 @@ local config = function()
         enable = true,
         set_jumps = true,
         goto_next_start = {
+          -- TODO: 2025-08-03 - For go we need a textobject for targetting function name
           ["]e"] = "@function.inner",
           ["]f"] = "@function.outer",
           ["]w"] = "@parameter.outer",
           ["]d"] = "@block.inner",
           ["]a"] = "@attribute.inner",
+          -- TODO: 2025-08-03 - I don't think this is used anywhere
           ["]b"] = { query = "@scope", query_group = "locals" },
           ["]c"] = "@method_object_call",
           ["]s"] = "@class.outer",

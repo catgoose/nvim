@@ -16,8 +16,9 @@ local opts = {
 return {
   "VidocqH/lsp-lens.nvim",
   opts = opts,
-  event = "BufReadPost",
+  event = "LspAttach",
   keys = {
     m("<leader>dl", "LspLensToggle"),
   },
+  lazy = true,
 }
