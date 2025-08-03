@@ -11,6 +11,7 @@ Neovim config for Go, Typescript, Lua plugin development, always WIP
 - [catgoose neovim](#catgoose-neovim)
   - [About](#about)
   - [Screenshot](#screenshot)
+    - [Startup Time](#startup-time)
     - [Heirline](#heirline)
     - [Wilder](#wilder)
       - [Search](#search)
@@ -27,8 +28,7 @@ Neovim config for Go, Typescript, Lua plugin development, always WIP
 
 ![image](https://github.com/catgoose/nvim/blob/d28f5304602c0f45fe994b0b61db292cf131383d/dashboard.png)
 
-I have curated this neovim config for about two years now. I use it for
-Angular, NestJS, Vue, Go/HTMX.
+Welcome to my neovim config that I use for lua, Angular, NestJS, Vue, Go/HTMX
 
 ## Screenshot
 
