@@ -32,6 +32,10 @@ Angular, NestJS, Vue, Go/HTMX.
 
 ## Screenshot
 
+### Startup Time
+
+![image](https://github.com/catgoose/nvim/blob/89fcfad764e622ca9798fee4d5db5c95b2ef38fa/startuptime.png)
+
 ### Heirline
 
 ![image](https://github.com/catgoose/nvim/blob/c3d07e870b87590d0acaa89be8f3a17fcf30ec9e/neovim1.png)
