@@ -81,7 +81,7 @@ return {
     event = "BufReadPost",
     config = true,
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "stevearc/conform.nvim",
     },
     lazy = true,

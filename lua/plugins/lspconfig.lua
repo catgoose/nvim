@@ -9,7 +9,7 @@ return {
   dependencies = {
     "folke/neoconf.nvim",
     {
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason-lspconfig.nvim",
       opts = {
         ensure_installed = {
           "angularls",
@@ -38,7 +38,7 @@ return {
       },
       event = "BufReadPost",
       dependencies = {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         opts = {
           ui = {
             icons = {
