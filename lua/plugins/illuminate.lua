@@ -29,6 +29,5 @@ return {
   event = "BufReadPost",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "rebelot/kanagawa.nvim",
   },
 }

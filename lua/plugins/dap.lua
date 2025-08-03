@@ -51,17 +51,17 @@ return {
   },
   {
     "ofirgall/goto-breakpoints.nvim",
-    event = "BufReadPost",
     keys = {
       m("]r", [[lua require('goto-breakpoints').next()]]),
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
     lazy = true,
   },
+  -- TODO: 2025-08-03 - persistent breakpoints is not working
   {
     "Weissle/persistent-breakpoints.nvim",
     opts = {
-      load_breakpoints_event = { "BufReadPost" },
+      load_breakpoints_event = { "BufReadPre" },
     },
     keys = {
       m("<leader>/", [[lua require('persistent-breakpoints.api').toggle_breakpoint()]]),

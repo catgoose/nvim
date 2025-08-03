@@ -78,7 +78,7 @@ end
 return {
   {
     "zapling/mason-conform.nvim",
-    event = "BufReadPost",
+    event = "BufWritePost",
     config = true,
     dependencies = {
       "mason-org/mason.nvim",

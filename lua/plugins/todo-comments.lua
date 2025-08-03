@@ -50,7 +50,6 @@ local opts = {
 return {
   "folke/todo-comments.nvim",
   opts = opts,
-  event = "BufReadPost",
   keys = {
     m("<leader>td", [[TodoTelescope]]),
     m("<leader>tr", [[TodoQuickFix]]),
