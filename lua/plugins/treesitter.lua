@@ -70,13 +70,11 @@ local config = function()
           ["]f"] = "@function.outer",
           ["]e"] = "@function_field",
           ["]s"] = "@method_object_call",
-
           ["]c"] = "@class.outer",
-
           ["]w"] = "@parameter.inner",
           ["]d"] = "@block.inner",
-
           ["]a"] = "@attribute.inner",
+
           -- ["]b"] = { query = "@scope", query_group = "locals" },
           -- ["]o"] = "@object_declaration",
           -- ["]k"] = "@object_key",
@@ -87,12 +85,11 @@ local config = function()
           ["[f"] = "@function.outer",
           ["[e"] = "@function_field",
           ["[s"] = "@method_object_call",
-
           ["[w"] = "@parameter.inner",
           ["[d"] = "@block.inner",
-
           ["[a"] = "@attribute.inner",
           ["[c"] = "@class.outer",
+
           -- ["[b"] = { query = "@scope", query_group = "locals" },
           -- ["[o"] = "@object_declaration",
           -- ["[k"] = "@object_key",
