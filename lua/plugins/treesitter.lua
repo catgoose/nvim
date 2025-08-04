@@ -67,15 +67,16 @@ local config = function()
         enable = true,
         set_jumps = true,
         goto_next_start = {
-          -- TODO: 2025-08-03 - For go we need a textobject for targetting function name
           ["]f"] = "@function.outer",
           ["]e"] = "@function_field",
-          ["]c"] = "@method_object_call",
+          ["]s"] = "@method_object_call",
+
+          ["]c"] = "@class.outer",
+
           ["]w"] = "@parameter.inner",
           ["]d"] = "@block.inner",
 
           ["]a"] = "@attribute.inner",
-          ["]s"] = "@class.outer",
           -- ["]b"] = { query = "@scope", query_group = "locals" },
           -- ["]o"] = "@object_declaration",
           -- ["]k"] = "@object_key",
@@ -85,12 +86,13 @@ local config = function()
         goto_previous_start = {
           ["[f"] = "@function.outer",
           ["[e"] = "@function_field",
-          ["[c"] = "@method_object_call",
+          ["[s"] = "@method_object_call",
+
           ["[w"] = "@parameter.inner",
           ["[d"] = "@block.inner",
 
           ["[a"] = "@attribute.inner",
-          ["[s"] = "@class.outer",
+          ["[c"] = "@class.outer",
           -- ["[b"] = { query = "@scope", query_group = "locals" },
           -- ["[o"] = "@object_declaration",
           -- ["[k"] = "@object_key",
