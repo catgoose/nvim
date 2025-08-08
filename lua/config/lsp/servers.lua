@@ -77,9 +77,9 @@ function M.init()
     html = {
       filetypes = { "html", "vue", "templ" },
     },
-    htmx = {
-      filetypes = { "html", "templ" },
-    },
+    -- htmx = {
+    --   filetypes = { "html", "templ" },
+    -- },
     cssmodules_ls = {
       filetypes = vue_ft,
     },

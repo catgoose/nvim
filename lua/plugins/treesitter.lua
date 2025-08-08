@@ -138,6 +138,19 @@ local config = function()
   local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
   -- k({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
   -- k({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+
+  vim.filetype.add({ extension = { _hs = "hyperscript" } })
+  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+  parser_config.hyperscript = {
+    install_info = {
+      url = "https://github.com/mbaraa/tree-sitter-hyperscript.git",
+      files = { "src/parser.c" },
+      branch = "main",
+    },
+    filetype = "hyperscript",
+  }
+
+  vim.treesitter.language.register("hyperscript", "hyperscript")
 end
 
 return {

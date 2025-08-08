@@ -28,3 +28,5 @@ end
 
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
+
+vim.filetype.add({ extension = { _hs = "hyperscript" } })
