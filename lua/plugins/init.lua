@@ -34,6 +34,9 @@ return {
     end,
     opts = {
       prompt = " ",
+      preview = {
+        enabled = false,
+      },
       keymaps = {
         close = "<Esc>",
         select = "<CR>",
