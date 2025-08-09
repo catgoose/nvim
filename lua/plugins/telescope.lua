@@ -184,8 +184,8 @@ end
 local keys = {
   m("<leader>tk", [[Telescope keymaps]]),
   m("<leader>hh", [[Telescope help_tags]]),
-  m("<leader>f", [[TelescopeFindFiles]]),
-  m("<leader>F", [[TelescopeFindFilesPreview]]),
+  m("<leader>F", [[TelescopeFindFiles]]),
+  -- m("<leader>F", [[TelescopeFindFilesPreview]]),
   m("<leader>j", [[TelescopeLiveMultigrep]]),
   m("<leader>J", [[TelescopeLiveGrepHidden]]),
   m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
