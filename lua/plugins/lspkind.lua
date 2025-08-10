@@ -40,5 +40,4 @@ return {
   dependencies = {
     "hrsh7th/nvim-cmp",
   },
-  lazy = true,
 }

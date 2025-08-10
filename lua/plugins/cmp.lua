@@ -154,8 +154,8 @@ return {
       "hrsh7th/cmp-nvim-lua",
       "ray-x/cmp-treesitter",
       "saadparwaiz1/cmp_luasnip",
+      -- "roobert/tailwindcss-colorizer-cmp.nvim",
       "js-everts/cmp-tailwind-colors",
     },
   },
-  lazy = true,
 }

@@ -13,5 +13,4 @@ return {
     m("<leader>sw", [[SpectreOpenWord]]),
     m("<leader>sc", [[SpectreOpenCwd]]),
   },
-  lazy = true,
 }

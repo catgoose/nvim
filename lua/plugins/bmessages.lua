@@ -6,7 +6,7 @@ local opts = {
 
 return {
   "ariel-frischer/bmessages.nvim",
-  event = "VeryLazy",
+  event = "CmdlineEnter",
   opts = opts,
   keys = {
     m("<leader>bm", "Bmessages"),

@@ -26,8 +26,9 @@ end
 return {
   "RRethy/vim-illuminate",
   config = config,
-  event = "BufReadPost",
+  event = "BufReadPre",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
+    "rebelot/kanagawa.nvim",
   },
 }

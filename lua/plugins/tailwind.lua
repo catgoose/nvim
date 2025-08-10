@@ -1,5 +1,7 @@
 local keys = require("util.project").get_keys("twvalues")
 
+local ft = { "vue", "html", "templ" }
+
 return {
   {
     -- "MaximilianLloyd/tw-values.nvim",
@@ -7,11 +9,9 @@ return {
     opts = {
       show_unknown_classes = true,
       focus_preview = true,
-      hover_single_class = true,
     },
+    ft = ft,
     keys = keys,
-    ft = { "vue", "html", "templ" },
-    lazy = true,
   },
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -19,6 +19,5 @@ return {
       color_square_width = 2,
     },
     event = "InsertEnter",
-    lazy = true,
   },
 }

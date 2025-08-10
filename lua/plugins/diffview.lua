@@ -19,5 +19,4 @@ return {
     m("<leader>dm", [[DiffviewMain]]),
     m("<leader>dp", [[DiffviewPrompt]]),
   },
-  lazy = true,
 }

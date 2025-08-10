@@ -28,5 +28,5 @@ return {
     { "<c-n>", "<Plug>(YankyCycleBackward)" },
     { "<leader>pp", "<cmd>YankyRingHistory<cr>" },
   },
-  event = "BufReadPost",
+  event = "BufReadPre",
 }

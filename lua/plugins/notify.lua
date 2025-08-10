@@ -9,6 +9,5 @@ local opts = {
 return {
   "rcarriga/nvim-notify",
   opts = opts,
-  event = "BufReadPost",
-  lazy = true,
+  event = "BufReadPre",
 }

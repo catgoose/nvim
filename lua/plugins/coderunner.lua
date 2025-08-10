@@ -62,7 +62,6 @@ else
   return e("keep", plugin, {
     "catgoose/coderunner.nvim",
     config = true,
-    event = "BufReadPost",
-    lazy = true,
+    event = "BufReadPre",
   })
 end

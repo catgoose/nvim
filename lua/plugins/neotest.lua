@@ -138,5 +138,4 @@ return {
       require("neotest").playwright.attachment()
     end),
   },
-  lazy = true,
 }

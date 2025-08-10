@@ -6,16 +6,47 @@ local capabilities = vim.tbl_deep_extend(
   vim.lsp.protocol.make_client_capabilities(),
   require("cmp_nvim_lsp").default_capabilities()
 )
--- -@diagnostic disable-next-line: inject-field
--- capabilities.offsetEncoding = { "utf-16" }
+-- ufo
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+---@diagnostic disable-next-line: inject-field
+capabilities.offsetEncoding = { "utf-16" }
 -- snippets
--- local _snippet_capabilities = vim.lsp.protocol.make_client_capabilities()
--- _snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
+local _snippet_capabilities = vim.lsp.protocol.make_client_capabilities()
+---@diagnostic disable-next-line: inject-field
+_snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
+local snippet_capabilities = vim.tbl_extend("keep", capabilities, _snippet_capabilities)
 -- Diagnostic
+vim.diagnostic.config({
+  virtual_text = false,
+  -- virtual_lines = {
+  --   only_current_line = true,
+  -- },
+  -- https://github.com/neovim/neovim/pull/31959
+  -- https://github.com/neovim/neovim/pull/32187
+  virtual_lines = {
+    current_line = true,
+  },
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = true,
+    border = "rounded",
+    header = "",
+    prefix = "",
+  },
+})
 
-function M.init()
+function M.init(lspconfig)
+  if not lspconfig then
+    error("lspconfig is required", vim.diagnostic.severity.ERROR)
+    return
+  end
+
   local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
   local vue_ft = { unpack(ts_ft) }
   table.insert(vue_ft, "vue")
@@ -24,20 +55,22 @@ function M.init()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
 
-  local servers = {
-    no_cfg_ls = {
-      "angularls",
-      "azure_pipelines_ls",
+  local server_enabled = function(server)
+    return not require("neoconf").get("lsp.servers." .. server .. ".disable")
+  end
+
+  local lspconfig_setups = {
+    language_servers = {
+      "awk_ls",
       "bashls",
-      "csharp_ls",
-      "diagnosticls",
       "docker_compose_language_service",
       "dockerls",
-      "jsonls",
+      "golangci_lint_ls",
       "marksman",
       "sqlls",
       "templ",
       "yamlls",
+      "azure_pipelines_ls",
     },
     tailwindcss = {
       filetypes = {
@@ -51,35 +84,31 @@ function M.init()
         "htmlangular",
       },
     },
+    csharp_ls = {
+      capabilities = snippet_capabilities,
+    },
     cssls = {
+      capabilities = snippet_capabilities,
       filetypes = css_ft,
       settings = {
-        css = {
-          validate = true,
-          lint = {
-            unknownAtRules = "ignore",
-          },
-        },
-        scss = {
-          validate = true,
-          lint = {
-            unknownAtRules = "ignore",
-          },
-        },
-        less = {
-          validate = true,
-          lint = {
-            unknownAtRules = "ignore",
-          },
-        },
+        css = { validate = true, lint = {
+          unknownAtRules = "ignore",
+        } },
+        scss = { validate = true, lint = {
+          unknownAtRules = "ignore",
+        } },
+        less = { validate = true, lint = {
+          unknownAtRules = "ignore",
+        } },
       },
     },
     html = {
+      capabilities = snippet_capabilities,
       filetypes = { "html", "vue", "templ" },
     },
-    -- htmx = {
-    --   filetypes = { "html", "templ" },
-    -- },
+    htmx = {
+      filetypes = { "html", "templ" },
+    },
     cssmodules_ls = {
       filetypes = vue_ft,
     },
@@ -90,6 +119,32 @@ function M.init()
           tsdk = tsdk(),
         },
       },
+    },
+    volar = {
+      filetypes = { "vue" },
+      init_options = {
+        vue = {
+          hybridMode = false,
+        },
+        typescript = {
+          tsdk = tsdk(),
+        },
+      },
+    },
+    jsonls = {
+      capabilities = snippet_capabilities,
+      -- settings = {
+      --   json = {
+      --     schemas = require("schemastore").json.schemas({
+      --       select = {
+      --         "package.json",
+      --         ".eslintrc",
+      --         "tsconfig.json",
+      --       },
+      --     }),
+      --     validate = { enable = true },
+      --   },
+      -- },
     },
     vimls = {
       diagnostic = { enable = true },
@@ -116,13 +171,20 @@ function M.init()
           },
           workspace = {
             library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
+          },
+          telemetry = { enable = false },
+          hint = {
+            enable = false,
           },
         },
       },
     },
+    angularls = {},
     gopls = {
       settings = {
         gopls = {
+          completeUnimported = true,
           usePlaceholders = true,
           staticcheck = true,
           directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
@@ -138,6 +200,7 @@ function M.init()
             upgrade_dependency = true,
             vendor = true,
           },
+          buildFlags = { "-tags=mage" },
           hints = {
             assignVariableTypes = true,
             compositeLiteralFields = true,
@@ -148,6 +211,7 @@ function M.init()
             rangeVariableTypes = true,
           },
           analyses = {
+            -- fieldalignment = true,
             nilness = true,
             unusedparams = true,
             unusedwrite = true,
@@ -159,23 +223,47 @@ function M.init()
   }
 
   local at = require("config.lsp.on_attach")
+  local on_attach = at.get()
 
-  for srv, cfg in pairs(servers) do
-    if srv == "no_cfg_ls" then
+  for srv, cfg in pairs(lspconfig_setups) do
+    if srv == "language_servers" then
       for _, ls in ipairs(cfg) do
-        vim.lsp.config(ls, {
+        lspconfig[ls].setup({
           capabilities = capabilities,
-          on_attach = at.get(ls),
+          on_attach = on_attach,
         })
-        vim.lsp.enable(ls)
       end
-    else
-      cfg.on_attach = cfg.on_attach or at.get(srv)
-      cfg.capabilities = cfg.capabilities or capabilities
-      vim.lsp.config(srv, cfg)
-      vim.lsp.enable(srv)
+    elseif server_enabled(srv) then
+      if not cfg.on_attach then
+        cfg.on_attach = at.get(srv)
+      end
+      if not cfg.capabilities then
+        cfg.capabilities = capabilities
+      end
+      lspconfig[srv].setup(cfg)
     end
   end
+
+  -- lspconfig.diagnosticls.setup({
+  --   capabilities = capabilities,
+  --   on_attach = function(client, bufnr)
+  --     local stop_ft = {
+  --       "dap-repl",
+  --     }
+  --     for _, ft in pairs(stop_ft) do
+  --       if vim.bo.filetype == ft then
+  --         if vim.lsp.buf_is_attached(bufnr, client.id) then
+  --           local notify = vim.notify
+  --           ---@diagnostic disable-next-line: duplicate-set-field
+  --           vim.notify = function() end
+  --           vim.lsp.buf_detach_client(bufnr, client.id)
+  --           vim.notify = notify
+  --         end
+  --       end
+  --     end
+  --     on_attach(client, bufnr)
+  --   end,
+  -- })
 end
 
 return M

@@ -17,7 +17,6 @@ local function client_positional_params(params)
 end
 
 local function override_hover()
-  ---@diagnostic disable-next-line: duplicate-set-field
   vim.lsp.buf.hover = function(config)
     config = config or {}
     config.focus_id = ms.textDocument_hover
@@ -97,7 +96,6 @@ local function override_hover()
       local _, winid = lsp.util.open_floating_preview(contents, format, config)
       ---@diagnostic disable-next-line: undefined-field
       if config.winopts then
-        ---@diagnostic disable-next-line: undefined-field
         for k, v in pairs(config.winopts) do
           vim.api.nvim_set_option_value(k, v, { win = winid })
         end

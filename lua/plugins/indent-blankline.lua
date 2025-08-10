@@ -24,6 +24,7 @@ return {
   "lukas-reineke/indent-blankline.nvim",
   opts = opts,
   config = config,
-  event = "BufReadPost",
+  event = "BufReadPre",
   main = "ibl",
+  enabled = true,
 }

@@ -12,5 +12,4 @@ return {
     m("<leader>xL", [[Trouble loclist toggle]]),
     m("<leader>xQ", [[Trouble qflist toggle]]),
   },
-  lazy = true,
 }

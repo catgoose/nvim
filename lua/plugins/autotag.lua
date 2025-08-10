@@ -12,6 +12,5 @@ local opts = {
 return {
   "windwp/nvim-ts-autotag",
   opts = opts,
-  event = "InsertEnter",
-  lazy = true,
+  event = "BufReadPre",
 }

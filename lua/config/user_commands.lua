@@ -7,7 +7,7 @@ c("BufOnlyWindowOnly", function()
   if #api.nvim_list_wins() > 1 then
     cmd.only()
   end
-  cmd("silent! BufOnly")
+  require("snacks").bufdelete.other()
 end)
 c("WinOnly", function()
   f.win_only()
@@ -73,9 +73,31 @@ c("TagStackUp", function()
   f.tagstack_navigate({ direction = "up" })
 end)
 c("ToggleCmdHeight", f.toggle_cmdheight)
+c("ToggleTermFish", function()
+  f.toggle_term_cmd({ count = 4, cmd = "fish" })
+end)
+c("ToggleTermLazyDocker", function()
+  f.toggle_term_cmd({ count = 2, cmd = "lazydocker" })
+end)
+c("ToggleTermLazyGit", function()
+  f.toggle_term_cmd({ count = 3, cmd = "lazygit" })
+end)
+c("ToggleTermWeeChat", function()
+  f.toggle_term_cmd({ count = 5, cmd = "weechat" })
+end)
+c("ToggleTermPowershell", function()
+  f.toggle_term_cmd({ count = 10, cmd = "pwsh" })
+end)
+c("ToggleTermRepl", function()
+  f.toggle_term_cmd({ count = 8, cmd = { "node", "lua", "irb", "fish", "bash", "python" } })
+end)
+c("ToggleTermSpotify", function()
+  f.toggle_term_cmd({ count = 1, cmd = "spotify_player" })
+end)
 c("UpdateAndSyncAll", function()
   local cmds = {
     "MasonUpdate",
+    "MasonToolsUpdate",
     "TSUpdate",
     "Lazy sync",
   }
@@ -89,7 +111,7 @@ c("FoldParagraph", function()
   if foldclosed == -1 then
     cmd([[silent! normal! zfip]])
   else
-    cmd([[silent! normal! zo]])
+    cmd("silent! normal! zo")
   end
 end)
 c("HoverHandler", require("util").hover_handler)

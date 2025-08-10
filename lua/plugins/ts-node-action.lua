@@ -98,5 +98,4 @@ return {
   keys = {
     m("<leader>i", [[lua require("ts-node-action").node_action()]]),
   },
-  lazy = true,
 }

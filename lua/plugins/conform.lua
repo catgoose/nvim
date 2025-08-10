@@ -19,8 +19,8 @@ local opts = {
     markdown = { "cbfmt", "prettierd", "markdownlint" },
     go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
     templ = {
+      "gofumpt",
       "templ",
-      "goimports",
       "injected",
     },
   },
@@ -76,25 +76,12 @@ local function init()
 end
 
 return {
-  {
-    "zapling/mason-conform.nvim",
-    event = "BufWritePost",
-    config = true,
-    dependencies = {
-      "mason-org/mason.nvim",
-      "stevearc/conform.nvim",
-    },
-    lazy = true,
+  "stevearc/conform.nvim",
+  event = { "BufWritePre" },
+  opts = opts,
+  cmd = { "ConformInfo" },
+  keys = {
+    m("<leader>ci", [[ConformInfo]]),
   },
-  {
-    "stevearc/conform.nvim",
-    event = { "BufWritePre" },
-    opts = opts,
-    cmd = { "ConformInfo" },
-    keys = {
-      m("<leader>ci", [[ConformInfo]]),
-    },
-    init = init,
-    lazy = true,
-  },
+  init = init,
 }

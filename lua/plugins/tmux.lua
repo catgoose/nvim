@@ -16,7 +16,6 @@ local opts = {
 
 return {
   "aserowy/tmux.nvim",
-  event = "BufReadPost",
+  event = "BufReadPre",
   opts = opts,
-  lazy = true,
 }

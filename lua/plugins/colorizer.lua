@@ -1,4 +1,4 @@
-local dev = true
+local dev = false
 local project = require("util.project")
 
 local function is_comment_on_line(line_num, bufnr, filetype)
@@ -40,6 +40,7 @@ local opts = {
         uppercase = false,
         camelcase = false,
       },
+      names = false,
     },
     ps1 = {
       RGB = false,
@@ -92,7 +93,6 @@ local opts = {
     },
     NeogitStatus = {
       RGB = false,
-      css = false,
     },
     Mason = {
       names = false,
@@ -117,10 +117,6 @@ local opts = {
       strip_digits = false,
     },
     names = true,
-    names_exclude = {
-      "Azure",
-      "azure",
-    },
     RGB = true,
     RGBA = true,
     RRGGBB = true,
@@ -130,21 +126,31 @@ local opts = {
     hsl_fn = true,
     css = true,
     css_fn = true,
-    xterm = true,
-    xcolor = true,
     mode = "background",
-    tailwind = "lsp",
+    names_custom = function()
+      local colors = require("kanagawa.colors").setup()
+      return colors.palette
+    end,
+    tailwind = true,
     virtualtext_inline = false,
     sass = {
       enable = true,
       parsers = { "css" },
     },
     virtualtext = "■",
-    virtualtext_mode = "foreground",
-    always_update = true,
+    virtualtext_mode = "background",
+    always_update = false,
+    -- hooks = {
+    --   do_parse_line = function(line, line_nr, bufnr)
+    --     local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+    --     local is_comment = is_comment_on_line(line_nr, bufnr, filetype)
+    --     return not is_comment
+    --     -- return string.sub(line, 1, 2) ~= "--"
+    --   end,
+    -- },
   },
   user_commands = true,
-  lazy_load = true,
+  lazy_load = false,
 }
 
 local keys = project.get_keys("nvim-colorizer.lua")
@@ -152,7 +158,8 @@ local keys = project.get_keys("nvim-colorizer.lua")
 local plugin = {
   opts = opts,
   keys = keys,
-  event = "VeryLazy",
+  event = "BufReadPre",
+  -- event = "VeryLazy",
   init = function()
     vim.api.nvim_create_autocmd({ "BufReadPre" }, {
       group = vim.api.nvim_create_augroup("ColorizerReloadOnSave", { clear = true }),
@@ -162,6 +169,7 @@ local plugin = {
       end,
     })
   end,
+  enabled = true,
 }
 
 return dev and vim.tbl_extend("keep", plugin, {

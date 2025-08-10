@@ -3,6 +3,10 @@ local header = {
   [[]],
   [[]],
   [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
   [[╔══╗ ╔╗   ╔═══╗╔═══╗╔╗╔═╗    ╔═══╗╔═══╗╔═══╗╔═══╗╔═══╗╔═╗ ╔╗    ╔═══╗╔════╗╔╗ ╔╗ ╔═══╗ ╔═══╗]],
   [[║╔╗║ ║║   ║╔═╗║║╔═╗║║║║╔╝    ║╔═╗║║╔═╗║║╔═╗║║╔══╝║╔══╝║║╚╗║║    ║╔═╗║║╔╗╔╗║║║ ║║ ║╔══╝ ║╔══╝]],
   [[║╚╝╚╗║║   ║║ ║║║║ ╚╝║╚╝╝     ║╚══╗║║ ╚╝║╚═╝║║╚══╗║╚══╗║╔╗╚╝║    ║╚══╗╚╝║║╚╝║║ ║║ ║╚══╗ ║╚══╗]],
@@ -27,7 +31,7 @@ local opts = {
     center = {
       {
         icon = "",
-        desc = "Lazy sync / TSUpdate",
+        desc = "Lazy sync / TSUpdate / MasonToolsUpdate",
         key = "s",
         action = "UpdateAndSyncAll",
       },
@@ -47,7 +51,7 @@ local opts = {
         icon = "",
         desc = "Find files",
         key = "f",
-        action = "FFF",
+        action = "TelescopeFindFiles",
       },
       {
         icon = "",
@@ -92,13 +96,12 @@ local opts = {
       local footer = vim.list_extend(info, fortune)
       return footer
     end,
-    vertical_center = true,
   },
 }
 
 local padding = {
-  left = 4,
-  right = 16,
+  left = 3,
+  right = 3,
 }
 for _, i in ipairs(opts.config.center) do
   i.desc = string.rep(" ", padding.left) .. i.desc .. string.rep(" ", padding.right)

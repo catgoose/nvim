@@ -5,9 +5,11 @@ return {
       "html",
       "typescript",
       "javascript",
+      "typescriptreact",
+      "javascriptreact",
+      "python",
       "vue",
     },
   },
-  event = "InsertEnter",
-  lazy = true,
+  event = "BufReadPre",
 }

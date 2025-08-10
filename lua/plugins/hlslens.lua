@@ -36,7 +36,7 @@ local opts = {
 return {
   "kevinhwang91/nvim-hlslens",
   opts = opts,
-  event = "BufReadPost",
+  event = "BufReadPre",
   keys = {
     {
       "n",
@@ -53,4 +53,5 @@ return {
     { "g*", "g*" .. [[<cmd>lua require("hlslens").start()<cr>]] },
     { "g#", "g#" .. [[<cmd>lua require("hlslens").start()<cr>]] },
   },
+  enabled = true,
 }

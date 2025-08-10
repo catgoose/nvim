@@ -27,7 +27,6 @@ local opts = {
 return {
   "kylechui/nvim-surround",
   opts = opts,
-  event = "InsertEnter",
+  event = "BufReadPre",
   version = "*",
-  lazy = true,
 }

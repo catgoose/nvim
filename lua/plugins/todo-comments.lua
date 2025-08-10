@@ -50,11 +50,11 @@ local opts = {
 return {
   "folke/todo-comments.nvim",
   opts = opts,
+  event = "BufReadPre",
   keys = {
     m("<leader>td", [[TodoTelescope]]),
     m("<leader>tr", [[TodoQuickFix]]),
   },
   dependencies = "nvim-lua/plenary.nvim",
-  event = "VeryLazy",
-  lazy = true,
+  enabled = true,
 }
