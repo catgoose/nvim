@@ -270,3 +270,5 @@
     name: (_) @assignment.inner
     type: (_))) @assignment.outer
 
+(method_declaration name: (field_identifier) @function_field)
+(function_declaration name: (identifier) @function_field)

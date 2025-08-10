@@ -1,6 +1,5 @@
 local fn, cmd, api, o, g, ui = vim.fn, vim.cmd, vim.api, vim.o, vim.g, vim.ui
 local set_cur = api.nvim_win_set_cursor
-local t = require("util.toggle")
 local u = require("util")
 
 local M = {}
@@ -49,28 +48,6 @@ function M.toggle_cmdheight()
     o.cmdheight = 1
     ---@diagnostic disable-next-line: inject-field
     g.CMDHEIGHTZERO = 0
-  end
-end
-
-function M.toggle_term_cmd(config)
-  if not config or not config.count then
-    return
-  end
-  if config.cmd[1] ~= nil then
-    ui.select(config.cmd, {
-      prompt = "Select command",
-    }, function(selected)
-      if not selected then
-        return
-      end
-      config.cmd = selected
-      M.toggle_term_cmd(config)
-    end)
-  else
-    local term_config = t.toggleterm_opts(config)
-    local Terminal = require("toggleterm.terminal").Terminal
-    local term = Terminal:new(term_config)
-    term:toggle()
   end
 end
 
@@ -170,7 +147,7 @@ function M.terminal_send_cmd(cmd_text)
   if not cmd_text then
     ui.input({ prompt = "Send to terminal: " }, function(input_cmd_text)
       if not input_cmd_text then
-        return nil
+        return
       end
       send_to_terminal(terminal, input_cmd_text)
     end)
@@ -240,83 +217,7 @@ function M.term_open(c)
   end
 end
 
-function M.testing_function()
-  local get_text = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local cursor_row = vim.api.nvim_win_get_cursor(0)[1]
-    local query_string = [[
-    (method_declaration
-      receiver: (parameter_list 
-        (parameter_declaration) @receiver_param)
-      name: (field_identifier) @method_name)
-  ]]
-    -- Parse the query
-    local lang = vim.treesitter.language.get_lang("go")
-    if not lang then
-      return
-    end
-    local query = vim.treesitter.query.parse(lang, query_string)
-    -- Get the root of the syntax tree
-    local parser = vim.treesitter.get_parser(bufnr, "go")
-    if not parser then
-      return
-    end
-    local tree = parser:parse()[1]
-    local root = tree:root()
-    local best_match = nil
-    local best_row = 0
-    for _, match, _ in query:iter_matches(root, bufnr, 0, cursor_row) do
-      for id, nodes in pairs(match) do
-        local name = query.captures[id]
-        if name == "receiver_param" then
-          for _, node in ipairs(nodes) do
-            local start_row = node:range() -- Get start position
-            if start_row < cursor_row and start_row > best_row then
-              local text = vim.treesitter.get_node_text(node, bufnr)
-              if text ~= nil then
-                best_match = node
-                best_row = start_row
-              end
-            end
-          end
-        end
-      end
-    end
-    -- If we found a match, return its text
-    if best_match then
-      local receiver_text = vim.treesitter.get_node_text(best_match, bufnr)
-      return receiver_text
-    end
-    return
-  end
-  -- local res = get_text()
-  -- vim.print(string.format("res: %s", vim.inspect(res)))
-
-  -- code action
-  -- local client = vim.lsp.get_clients({ name = "templ", bufnr = 0 })[1]
-  -- if not client then
-  --   vim.print("client not found")
-  --   return
-  -- end
-  -- local params = vim.lsp.util.make_range_params(0, "utf-16")
-  -- local result = client:request_sync("textDocument/codeAction", params, 1000, 0)
-  -- vim.print(string.format("result: %s", vim.inspect(result)))
-
-  -- hover
-  local client = vim.lsp.get_clients({ name = "templ", bufnr = 0 })[1]
-  client:request("textDocument/hover", {
-    textDocument = vim.lsp.util.make_text_document_params(),
-    position = {
-      line = vim.api.nvim_win_get_cursor(0)[1] - 1,
-      character = vim.api.nvim_win_get_cursor(0)[2],
-    },
-  }, function(err, result, _, _)
-    vim.print(string.format("result: %s", vim.inspect(result)))
-    -- if err or not result or not result.contents then
-    --   return
-    -- end
-  end)
-end
+function M.testing_function() end
 
 function M.make_open_qf()
   vim.print(

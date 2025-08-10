@@ -68,4 +68,5 @@ return {
   keys = {
     m("<leader>sn", [[lua require("luasnip.loaders").edit_snippet_files()]]),
   },
+  lazy = true,
 }

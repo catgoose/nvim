@@ -7,6 +7,7 @@ return {
         "luvit-meta/library",
         "neotest",
         "nvim-dap-ui",
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
     dependencies = {

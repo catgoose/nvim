@@ -27,9 +27,9 @@ local opts = {
 return {
   "jiaoshijie/undotree",
   opts = opts,
-  event = "BufReadPre",
   keys = {
     m("<leader>u", [[lua require("undotree").toggle()]], { "n", "x" }),
   },
   dependencies = "nvim-lua/plenary.nvim",
+  lazy = true,
 }

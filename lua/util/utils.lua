@@ -7,7 +7,6 @@ local function get_config_modules(exclude_map)
   exclude_map = exclude_map or {
     "lazy",
     "init",
-    "statuscol",
   }
   local files = {}
   for _, file in ipairs(fn.glob(fn.stdpath("config") .. "/lua/config/*.lua", true, true)) do

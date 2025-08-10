@@ -44,6 +44,7 @@ if dev == true then
 else
   return e("keep", plugin, {
     "catgoose/vue-goto-definition.nvim",
-    event = "BufReadPre",
+    event = "BufReadPost",
+    lazy = true,
   })
 end

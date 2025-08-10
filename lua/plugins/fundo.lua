@@ -4,6 +4,6 @@ return {
   build = function()
     require("fundo").install()
   end,
-  event = "BufReadPre",
+  event = "BufReadPost",
   config = true,
 }

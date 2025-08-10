@@ -53,8 +53,6 @@ autocmd({ "FileType" }, {
     "spectre_panel",
     "tsplayground",
     "octo",
-    "ClangdAST",
-    "ClangdTypeHierarchy",
     "dap-repl",
     "dapui_watches",
     "dapui_stacks",

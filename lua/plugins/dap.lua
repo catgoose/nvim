@@ -17,46 +17,57 @@ return {
       ---
       m("<F12>", [[DapDisconnect]]),
     },
-    init = function()
-      local dap = require("dap")
-      require("config.dap.keymaps").setup(dap)
-    end,
     cmd = { "DapContinue" },
     config = function()
       local dap = require("dap")
+      require("config.dap.keymaps").setup(dap)
       require("config.dap.adapters").setup(dap)
     end,
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
+      "jay-babu/mason-nvim-dap.nvim",
+      "ofirgall/goto-breakpoints.nvim",
+      "Weissle/persistent-breakpoints.nvim",
+      "jbyuki/one-small-step-for-vimkind",
+    },
+    lazy = true,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "delve",
+        "js",
+      },
+      automatic_installation = true,
+      automatic_setup = true,
+    },
   },
   {
     "theHamsta/nvim-dap-virtual-text",
     config = true,
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    event = "BufReadPre",
+    lazy = true,
   },
   {
     "ofirgall/goto-breakpoints.nvim",
-    event = "BufReadPre",
     keys = {
       m("]r", [[lua require('goto-breakpoints').next()]]),
       m("[r", [[lua require('goto-breakpoints').prev()]]),
     },
-    dependencies = "mfussenegger/nvim-dap",
-    enabled = true,
+    lazy = true,
   },
+  -- TODO: 2025-08-03 - persistent breakpoints is not working
   {
     "Weissle/persistent-breakpoints.nvim",
-    event = "BufReadPre",
     opts = {
-      load_breakpoints_event = { "BufReadPost" },
+      load_breakpoints_event = { "BufReadPre" },
     },
     keys = {
       m("<leader>/", [[lua require('persistent-breakpoints.api').toggle_breakpoint()]]),
       m("<F11>", [[lua require('persistent-breakpoints.api').clear_all_breakpoints()]]),
     },
-    dependencies = "mfussenegger/nvim-dap",
+    lazy = true,
   },
   {
     "igorlfs/nvim-dap-view",
@@ -66,22 +77,11 @@ return {
         sections = {
           "watches",
           "scopes",
-          -- "exceptions",
           "breakpoints",
           "threads",
           "repl",
-          -- "console",
         },
         default_section = "breakpoints",
-        headers = {
-          breakpoints = "Breakpoints [B]",
-          scopes = "Scopes [S]",
-          exceptions = "Exceptions [E]",
-          watches = "Watches [W]",
-          threads = "Threads [T]",
-          repl = "REPL [R]",
-          console = "Console [C]",
-        },
       },
       windows = {
         height = 12,
@@ -93,25 +93,6 @@ return {
         border = "rounded",
       },
     },
-    enabled = true,
-    -- init = function()
-    -- local dap = require("dap")
-    -- dap.listeners.before.launch["catgoose_dap"] = function()
-    --   require("dap-view").open()
-    -- end
-    -- dap.listeners.before.attach["catgoose_dap"] = function()
-    --   require("dap-view").open()
-    -- end
-    -- dap.listeners.after.event_exited["catgoose_dap"] = function()
-    --   require("dap-view").close()
-    -- end
-    -- dap.listeners.after.event_terminated["catgoose_dap"] = function()
-    --   require("dap-view").close()
-    -- end
-    -- dap.defaults.fallback.switchbuf = "useopen"
-    -- end,
-    dependencies = "mfussenegger/nvim-dap",
-    event = "BufReadPre",
     cmd = {
       "DapViewOpen",
       "DapViewClose",
@@ -121,6 +102,6 @@ return {
     keys = {
       m("<leader>?", [[lua require("dap-view").toggle(true)]]),
     },
+    lazy = true,
   },
-  "jbyuki/one-small-step-for-vimkind",
 }

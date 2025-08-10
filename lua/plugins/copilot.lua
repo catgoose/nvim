@@ -52,10 +52,9 @@ local opts = {
 }
 
 return {
-  -- "zbirenbaum/copilot.lua",
   "mosheavni/copilot.lua",
   opts = opts,
   cmd = "Copilot",
   event = "InsertEnter",
-  enabled = true,
+  lazy = true,
 }

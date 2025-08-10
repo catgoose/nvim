@@ -53,4 +53,5 @@ return {
   "rachartier/tiny-glimmer.nvim",
   event = "VeryLazy",
   opts = opts,
+  lazy = true,
 }

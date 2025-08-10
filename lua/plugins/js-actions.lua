@@ -15,5 +15,4 @@ return {
   keys = {
     m("<leader>tA", [[lua require('nvim-js-actions').js_arrow_fn.toggle()]]),
   },
-  enabled = true,
 }

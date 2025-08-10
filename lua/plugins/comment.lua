@@ -28,8 +28,8 @@ return {
       post_hook = nil,
     })
   end,
-  event = "BufReadPre",
-  lazy = false,
+  event = "InsertEnter",
+  lazy = true,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "JoosepAlviste/nvim-ts-context-commentstring",

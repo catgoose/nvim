@@ -567,6 +567,9 @@ end
 return {
   "rebelot/heirline.nvim",
   config = config,
-  event = "BufReadPre",
-  dependencies = "nvim-tree/nvim-web-devicons",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+  event = "VeryLazy",
+  lazy = true,
 }

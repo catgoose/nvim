@@ -98,6 +98,6 @@ local opts = {
 return {
   "stevearc/dressing.nvim",
   opts = opts,
-  event = "BufReadPre",
-  enabled = true,
+  event = "BufReadPost",
+  lazy = true,
 }

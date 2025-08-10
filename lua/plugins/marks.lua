@@ -1,5 +1,6 @@
 return {
   "chentoast/marks.nvim",
   config = true,
-  event = "BufReadPre",
+  event = "BufReadPost",
+  lazy = true,
 }

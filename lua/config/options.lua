@@ -30,6 +30,7 @@ opt.splitkeep = "screen"
 opt.ruler = false
 -- opt.messagesopt = "hit-enter,history:1000"
 -- opt.messagesopt = "wait:0,history:1000"
+opt.foldlevel = 0
 
 -- Window
 opt.splitright = true
