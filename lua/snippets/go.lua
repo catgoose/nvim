@@ -557,6 +557,28 @@ ctx := c.Request().Context()
     )
   ),
   s("hx", t([[hx := c.Request().Header.Get("HX-Request") == "true"]])),
+  s(
+    "fn",
+    fmt(
+      [[
+     func() {{
+     {}
+     }}
+     ]],
+      { i(1) }
+    )
+  ),
+  s(
+    "gf",
+    fmt(
+      [[
+     go func() {{
+     {}
+     }}()
+     ]],
+      { i(1) }
+    )
+  ),
 }
 
 return snippets

@@ -95,7 +95,7 @@ return {
               end
             end
           end
-          lint.try_lint()
+          pcall(lint, "try_lint")
           lint.try_lint({ "codespell" })
         end,
       })

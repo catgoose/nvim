@@ -30,5 +30,3 @@ end
 vim.deprecate = function() end
 
 vim.filetype.add({ extension = { _hs = "hyperscript" } })
-
-require("vim._extui").enable({})
