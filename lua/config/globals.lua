@@ -31,4 +31,10 @@ vim.deprecate = function() end
 
 vim.filetype.add({ extension = { _hs = "hyperscript" } })
 
-require("vim._extui").enable({})
+-- -- g< to enter pager
+-- require("vim._extui").enable({
+--   msg = {
+--     target = "cmd",
+--     timeout = 4000,
+--   },
+-- })

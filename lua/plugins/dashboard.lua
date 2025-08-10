@@ -47,7 +47,7 @@ local opts = {
         icon = "",
         desc = "Find files",
         key = "f",
-        action = "FFF",
+        action = "FFFFind",
       },
       {
         icon = "",
