@@ -1,10 +1,9 @@
 local u = require("util")
 local m = u.lazy_map
-local c = u.create_cmd
 
 return {
   "dmtrKovalenko/fff.nvim",
-  build = "cargo build --release",
+  build = "cargo build --release -Znext-lockfile-bump",
   opts = {
     prompt = " ",
     preview = {

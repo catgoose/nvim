@@ -46,8 +46,7 @@ m("<leader>tc", "MakeOpenQF")
 
 -- User commands
 m("<leader>cz", "ToggleCmdHeight")
-m("<bs>", "LoadPreviousBuffer")
-m("<del>", "LoadPreviousBuffer")
+m({ "<bs>", "<del>" }, "LoadPreviousBuffer")
 m("[t", "TagStackUp")
 m("]t", "TagStackDown")
 m("[p", "SpotifyPrev", { "n", "t" })

@@ -4,6 +4,7 @@ local config = function()
       "angular",
       "bash",
       "c",
+      "commonlisp",
       "css",
       "csv",
       "dap_repl",

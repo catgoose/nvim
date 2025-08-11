@@ -53,7 +53,13 @@ function M.cmd_map(lhs, rhs, modes, opts)
   modes = str_to_tbl(modes) or { "n" }
   opts = opts or { silent = true, noremap = true }
   for _, mode in ipairs(modes) do
-    keymap.set(mode, lhs, cmd_string(rhs), opts)
+    if type(lhs) == "table" then
+      for _, _lhs in ipairs(lhs) do
+        keymap.set(mode, _lhs, cmd_string(rhs), opts)
+      end
+    else
+      keymap.set(mode, lhs, cmd_string(rhs), opts)
+    end
   end
 end
 
