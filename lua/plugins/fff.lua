@@ -7,7 +7,9 @@ return {
   opts = {
     prompt = " ",
     preview = {
-      enabled = false,
+      enabled = true,
+      binary_file_threshold = 64,
+      width = "0.4",
     },
     keymaps = {
       close = "<Esc>",
@@ -21,8 +23,8 @@ return {
       preview_scroll_down = "<C-d>",
       toggle_debug = nil,
     },
-    width = "0.3",
     height = "0.5",
+    width = "0.6",
   },
   keys = {
     m("<leader>f", [[lua require("fff").find_files()]]),
