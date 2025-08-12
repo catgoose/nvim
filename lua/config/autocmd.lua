@@ -84,7 +84,7 @@ autocmd({ "BufEnter" }, {
   pattern = { "*" },
   callback = function(event)
     if bo.buftype == "" and bo.filetype == "" then
-      -- q_to_quit(event)
+      q_to_quit(event)
     end
   end,
 })
@@ -187,7 +187,13 @@ autocmd({ "BufWritePost" }, {
   },
   callback = function()
     if not u.diag_error() then
+      -- stop lua lsp autofolding on save
+      local fm = vim.o.foldmethod
+      vim.o.foldmethod = "manual"
       u.reload_lua()
+      vim.schedule(function()
+        vim.o.foldmethod = fm
+      end)
     end
   end,
 })

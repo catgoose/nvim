@@ -976,7 +976,6 @@ import { test, expect, Page } from '@playwright/test';
       i(1)
     )
   ),
-  --  TODO: 2024-06-03 - make choice for this on desc snippet
   s(
     "prdesc",
     fmt(

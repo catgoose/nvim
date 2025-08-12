@@ -257,13 +257,6 @@ function M.hover_handler()
       dapui.hover(nil, { border = "rounded" })
     end
   end
-  local ufo_ok, ufo = pcall(require, "ufo")
-  if ufo_ok then
-    local winid = ufo.peekFoldedLinesUnderCursor()
-    if winid then
-      return
-    end
-  end
   local ft = bo.filetype
   if tbl_contains({ "vim", "help" }, ft) then
     cmd("silent! h " .. fn.expand("<cword>"))
