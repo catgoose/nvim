@@ -26,7 +26,7 @@ function M.init()
 
   local servers = {
     no_cfg_ls = {
-      "angularls",
+      -- "angularls",
       "azure_pipelines_ls",
       "bashls",
       "csharp_ls",
@@ -83,6 +83,7 @@ function M.init()
     cssmodules_ls = {
       filetypes = vue_ft,
     },
+    angularls = {},
     ts_ls = {
       filetypes = ts_ft,
       init_options = {

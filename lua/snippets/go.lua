@@ -467,9 +467,11 @@ fmt.Printf({}, {})
     fmt(
       [[
 fmt.Println({})
+{}
     ]],
       {
         i(1),
+        i(0),
       }
     )
   ),
@@ -478,10 +480,12 @@ fmt.Println({})
     fmt(
       [[
 fmt.Fprintf({}, {})
+{}
     ]],
       {
         i(1),
         i(2),
+        i(0),
       }
     )
   ),
@@ -490,9 +494,11 @@ fmt.Fprintf({}, {})
     fmt(
       [[
 fmt.Fprintln({})
+{}
     ]],
       {
         i(1),
+        i(0),
       }
     )
   ),
@@ -501,10 +507,12 @@ fmt.Fprintln({})
     fmt(
       [[
 fmt.Sprintf({}, {})
+{}
     ]],
       {
         i(1),
         i(2),
+        i(0),
       }
     )
   ),
@@ -513,9 +521,11 @@ fmt.Sprintf({}, {})
     fmt(
       [[
 fmt.Sprintln({})
+{}
     ]],
       {
         i(1),
+        i(0),
       }
     )
   ),
