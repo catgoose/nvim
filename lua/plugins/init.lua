@@ -36,29 +36,4 @@ return {
       config = true,
     },
   },
-  {
-    "supermaven-inc/supermaven-nvim",
-    config = {
-      keymaps = {
-        accept_suggestion = "<Tab>",
-        clear_suggestion = "<C-]>",
-        accept_word = "<C-j>",
-      },
-      ignore_filetypes = { cpp = true },
-      -- color = {
-      --   suggestion_color = "#ffffff",
-      --   cterm = 244,
-      -- },
-      log_level = "off",
-      disable_inline_completion = false,
-      disable_keymaps = false,
-    },
-    init = function()
-      local kanagawa = require("kanagawa.colors").setup({ theme = "wave" })
-      local colors = kanagawa.palette
-      vim.api.nvim_set_hl(0, "CmpItemKindSupermaven", { fg = colors.springGreen })
-    end,
-    event = "InsertEnter",
-    lazy = true,
-  },
 }

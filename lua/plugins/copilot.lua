@@ -1,61 +1,28 @@
+local u = require("util")
+local m = u.lazy_map
+
 local opts = {
-  panel = {
-    enabled = false,
-    auto_refresh = true,
-    keymap = {
-      jump_prev = false,
-      jump_next = false,
-      accept = false,
-      refresh = false,
-      open = false,
-    },
-    layout = {
-      position = "bottom",
-      ratio = 0.4,
-    },
+  keymaps = {
+    accept_suggestion = "<Tab>",
+    clear_suggestion = "<C-k>",
+    accept_word = "<C-j>",
   },
-  suggestion = {
-    enabled = true,
-    -- auto_trigger = false,
-    auto_trigger = false,
-    debounce = 75,
-    keymap = {
-      accept = "<Tab>",
-      accept_line = "<S-Tab>",
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<M-o>",
-    },
+  ignore_filetypes = {
+    help = true,
+    gitcommit = true,
+    prompt = true,
   },
-  filetypes = {
-    help = false,
-    gitcommit = false,
-    prompt = false,
-    TelescopePrompt = false,
-    DressingInput = false,
-    DressingSelect = false,
-    harpoon = false,
-    neorepl = false,
-    lua = true,
-    oil = false,
-    typescript = true,
-    go = true,
-    ["dap-repl"] = false,
-    sh = function()
-      ---@diagnostic disable-next-line: param-type-mismatch
-      return not string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*")
-    end,
-    ["."] = false,
-  },
-  copilot_node_command = "node",
-  server_opts_overrides = {},
+  log_level = "off",
+  disable_inline_completion = false,
+  disable_keymaps = false,
 }
 
 return {
-  "mosheavni/copilot.lua",
+  "supermaven-inc/supermaven-nvim",
   opts = opts,
-  cmd = "Copilot",
-  event = "InsertEnter",
+  keys = {
+    m("<M-]>", "SupermavenToggle", { "n", "i" }),
+  },
+  cmd = { "SupermavenStart", "SupermavenToggle" },
   lazy = true,
-  enabled = false,
 }

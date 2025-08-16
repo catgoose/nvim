@@ -1,6 +1,7 @@
 local g = vim.g
 
 g.catgoose_terminal_enable_startinsert = 1
+g.catgoose_supermaven_disabled = true
 
 g.mapleader = " "
 g.maplocalleader = " "
