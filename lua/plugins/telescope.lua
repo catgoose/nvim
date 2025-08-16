@@ -185,7 +185,6 @@ local keys = {
   m("<leader>tk", [[Telescope keymaps]]),
   m("<leader>hh", [[Telescope help_tags]]),
   m("<leader>F", [[TelescopeFindFiles]]),
-  -- m("<leader>F", [[TelescopeFindFilesPreview]]),
   m("<leader>j", [[TelescopeLiveMultigrep]]),
   m("<leader>J", [[TelescopeLiveGrepHidden]]),
   m("<leader>e", [[TelescopeFindFilesNoIgnore]]),
@@ -242,6 +241,14 @@ return {
       require("telescope.builtin").fd({
         no_ignore = true,
         hidden = true,
+        layout_strategy = "vertical",
+        layout_config = {
+          width = 0.5,
+          height = 0.65,
+          vertical = {
+            prompt_position = "bottom",
+          },
+        },
       })
     end)
     create_cmd("TelescopeFindFilesCWD", function()
