@@ -79,6 +79,10 @@ local config = function()
         group_index = 2,
       },
       {
+        name = "supermaven",
+        group_index = 2,
+      },
+      {
         name = "nvim_lua",
         group_index = 3,
       },

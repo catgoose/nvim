@@ -29,6 +29,7 @@ local config = function()
       Operator = "",
       TypeParameter = "",
       Copilot = "",
+      Supermaven = "",
     },
   })
 end

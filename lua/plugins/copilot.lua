@@ -57,4 +57,5 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   lazy = true,
+  enabled = false,
 }
