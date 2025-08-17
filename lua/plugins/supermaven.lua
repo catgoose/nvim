@@ -11,6 +11,7 @@ local opts = {
     help = true,
     gitcommit = true,
     prompt = true,
+    oil = true,
   },
   log_level = "off",
   disable_inline_completion = false,
