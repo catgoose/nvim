@@ -4,7 +4,7 @@ local c = require("util").create_cmd
 local opts = {
   formatters_by_ft = {
     css = { "prettierd" },
-    html = { "prettierd" },
+    -- html = { "prettierd" },
     htmlangular = { "prettierd" },
     javascript = { "prettierd" },
     json = { "prettierd" },
@@ -17,10 +17,9 @@ local opts = {
     sh = { "shfmt", "shellharden" },
     bash = { "shfmt", "shellharden" },
     markdown = { "cbfmt", "prettierd", "markdownlint" },
-    go = { "goimports", "gofumpt" }, -- gofmt, gomodifytags
+    go = { "goimports", "gofumpt" },
     templ = {
       "templ",
-      "goimports",
       "injected",
     },
   },
@@ -30,9 +29,20 @@ local opts = {
     if disabled or vim.b[bufnr].disable_autoformat or vim.g.disable_autoformat then
       return
     end
-    return { timeout_ms = 500, lsp_fallback = true }
+    if
+      vim.bo.filetype == "templ"
+      and #vim.diagnostic.get(0, { severity = { min = vim.diagnostic.severity.ERROR } }) > 0
+    then
+      vim.lsp.buf.format({ async = true })
+      return nil
+    end
+    return {
+      timeout_ms = 500,
+      lsp_fallback = true,
+    }
   end,
-  notify_on_error = false,
+  log_level = vim.log.levels.DEBUG,
+  notify_on_error = true,
   formatters = {
     shfmt = {
       prepend_args = { "-i", "2" },
