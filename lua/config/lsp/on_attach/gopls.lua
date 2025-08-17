@@ -15,14 +15,7 @@ function M.on_attach(client, bufnr)
   end
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "<leader>k", function()
-    local clients = vim.lsp.get_clients({ bufnr = bufnr })
-    for _, _client in pairs(clients) do
-      if _client.name == "gopls" or _client.name == "golangci_lint_ls" then
-        vim.cmd.LspRestart(_client.name)
-      end
-    end
-  end, bufopts)
+  vim.keymap.set("n", "<leader>k", vim.cmd.LspRestart, bufopts)
 end
 
 return M
