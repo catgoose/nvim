@@ -2,7 +2,7 @@ return {
   {
     "jamessan/vim-gnupg",
     ft = "markdown",
-    lazy = true,
+    lazy = false,
   },
   {
     "lukas-reineke/virt-column.nvim",

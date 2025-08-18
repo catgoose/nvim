@@ -36,4 +36,8 @@ return {
       config = true,
     },
   },
+  -- {
+  --   "jamessan/vim-gnupg",
+  --   config = true,
+  -- },
 }
