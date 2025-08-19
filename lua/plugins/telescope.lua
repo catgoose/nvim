@@ -2,7 +2,7 @@ local u = require("util")
 local m = u.lazy_map
 local project = require("util.project")
 
-local base_file_ignore_patterns = { "node_modules", "\\.git" }
+local base_file_ignore_patterns = { "^node_modules/", "^.git/" }
 local function get_ignore_patterns()
   local patterns = require("neoconf").get("telescope.defaults.file_ignore_patterns")
   local ignore_patterns = u.deep_copy(base_file_ignore_patterns)
@@ -240,6 +240,7 @@ return {
     create_cmd("TelescopeFindFilesNoIgnore", function()
       require("telescope.builtin").fd({
         no_ignore = true,
+        file_ignore_patterns = get_ignore_patterns(),
         hidden = true,
         layout_strategy = "vertical",
         layout_config = {
