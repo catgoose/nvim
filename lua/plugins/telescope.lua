@@ -131,12 +131,6 @@ local config = function()
     },
     extensions = {
       hierarchy = {},
-      -- fzf = {
-      --   fuzzy = true,
-      --   override_generic_sorter = true,
-      --   override_file_sorter = true,
-      --   case_mode = "smart_case",
-      -- },
       ["ui-select"] = {
         require("telescope.themes").get_dropdown({
           winblend = 2,
@@ -197,10 +191,6 @@ local keys = {
 }
 keys = project.get_keys("helpgrep", keys)
 local dependencies = {
-  -- {
-  --   "nvim-telescope/telescope-fzf-native.nvim",
-  --   build = "make",
-  -- },
   "nvim-telescope/telescope-ui-select.nvim",
   "catgoose/do-the-needful.nvim",
   "folke/neoconf.nvim",
