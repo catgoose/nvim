@@ -1,13 +1,15 @@
 local m = require("util").lazy_map
 
 local opts = {
+  global = {
+    movement = {
+      next = { "<C-n>", "<C-j>" },
+      previous = { "<C-p>", "<C-k>" },
+    },
+  },
   namu_symbols = {
     enable = true,
     options = {
-      movement = {
-        next = { "<C-n>", "<C-j>" },
-        previous = { "<C-p>", "<C-k>" },
-      },
       auto_select = true,
       AllowKinds = {
         default = {
