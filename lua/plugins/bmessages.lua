@@ -5,7 +5,7 @@ local opts = {
 }
 
 return {
-  "catgoose/bmessages.nvim",
+  "ariel-frischer/bmessages.nvim",
   event = "VeryLazy",
   opts = opts,
   keys = {
