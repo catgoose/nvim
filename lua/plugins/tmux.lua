@@ -18,5 +18,5 @@ return {
   "aserowy/tmux.nvim",
   event = "BufReadPost",
   opts = opts,
-  lazy = true,
+  lazy = false,
 }
