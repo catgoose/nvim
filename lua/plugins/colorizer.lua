@@ -167,7 +167,6 @@ local plugin = {
 return dev and vim.tbl_extend("keep", plugin, {
   dir = "~/git/nvim-colorizer.lua",
 }) or vim.tbl_extend("keep", plugin, {
-  -- "catgoose/nvim-colorizer.lua",
-  "fei6409/nvim-colorizer.lua",
+  "catgoose/nvim-colorizer.lua",
   branch = "master",
 })
