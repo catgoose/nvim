@@ -31,6 +31,7 @@ local opts = {
     padding = 8,
     max_width = scale.width,
     max_height = scale.height,
+    border = "rounded",
   },
   view_options = {
     show_hidden = true,
