@@ -25,17 +25,6 @@ return {
     ft = "cs",
     config = true,
   },
-  {
-    {
-      "Olical/conjure",
-      ft = { "clojure", "fennel", "python", "lisp" },
-      lazy = true,
-    },
-    {
-      "gpanders/nvim-parinfer",
-      config = true,
-    },
-  },
   -- {
   --   "jamessan/vim-gnupg",
   --   config = true,
