@@ -1,16 +1,8 @@
 # fuckForticlient
 
-> [!IMPORTANT]
-> This repository is now officially **archived**. Again, thanks a lot to all the contributors and users for their support and
-> feedback. Time to move on!
-
-> [!IMPORTANT]
-> Now, openfortivpn natively supports SAML authentication at last! So this script is no longer needed. Thanks to all
-> those who have worked on it, helping me fix bugs or testing the script. I will stop supporting this script as of now, and
-> I will no longer accept pull-requests. Feel free to fork/clone it if you want!! So long!
-
 **fuckForticlient** is a command-line utility to connect to SAML fortivpn servers by using **openfortivpn** and the --cookie-in-stdin parameter.
-This repo was formerly a [Github gist](https://gist.github.com/nonamed01).
+
+This is a maintained fork of the [original repository](https://github.com/nonamed01/fuckForticlient) (archived). The original was formerly a [Github gist](https://gist.github.com/nonamed01).
 This script has been written for and tested on Debian GNU/Linux distros and derivatives. With minor changes, it may also work on RPM-based distros such as Fedora, etc.
 
 ## Why?
@@ -66,6 +58,17 @@ Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
 
 ```
 
+## Configuration
+
+Optional config file at `~/.config/fuckforticlient/config` (or `$XDG_CONFIG_HOME/fuckforticlient/config`). Copy `config.example` and set:
+
+- **SERVER** – default VPN server hostname
+- **URL** – SAML path (e.g. `/remote/saml/start?realm=`)
+- **TIMEOUT** – seconds to wait for SVPNCOOKIE (default 120)
+- **FUCKFORTICLIENT_OPTS** – extra options for openfortivpn (e.g. `--no-dns`)
+
+CLI options override config values.
+
 ## Dependencies
 
  * [openfortivpn](https://github.com/adrienverge/openfortivpn)
@@ -75,11 +78,28 @@ Usage: fuckForticlient.sh  -L|-u|-d|[-p][-P][-t][-v][-S][-c][-s]
  * [inotify-tools](https://github.com/inotify-tools/inotify-tools) - ```sudo apt install inotify-tools``` on Debian/Ubuntu and derivatives
 
 
+## vpn.sh wrapper
+
+`vpn.sh` is a thin wrapper that reads defaults from config and supports subcommands:
+
+- **vpn.sh** or **vpn.sh connect** – connect using saved cookie (same as `-s`)
+- **vpn.sh auth** – open browser for SAML login, then connect (same as `-c`)
+- **vpn.sh status** – show VPN IP if connected (same as `-i`)
+- **vpn.sh disconnect** – kill openfortivpn
+
+Put `SERVER` (and optionally `URL`, `TIMEOUT`, `FUCKFORTICLIENT_OPTS`) in your config so you can run `./vpn.sh` or `./vpn.sh connect` without passing `-S` each time.
+
 ## Alias
 If you do not want to re-type every single time the command to connect to your FortiVPN provider, you can add this alias to your ~.bashrc file:
 
 ```bash
     alias vpn='FUCKFORTICLIENT_OPTS="--no-dns" fuckForticlient.sh -S VPN_SERVER -c'
+```
+
+Or use the wrapper with config:
+
+```bash
+    alias vpn='/path/to/fuckForticlient/vpn.sh'
 ```
 
 After re-loading your ~.bashrc, you can connect to the vpn by simply running:

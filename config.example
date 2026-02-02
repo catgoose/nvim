@@ -1,0 +1,8 @@
+# fuckforticlient config
+# Copy to ~/.config/fuckforticlient/config or $XDG_CONFIG_HOME/fuckforticlient/config
+# CLI options override these values.
+
+SERVER=vpn.example.com
+URL=/remote/saml/start?realm=
+TIMEOUT=120
+# FUCKFORTICLIENT_OPTS=--no-dns
