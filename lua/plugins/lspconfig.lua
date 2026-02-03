@@ -14,7 +14,6 @@ return {
         ensure_installed = {
           "angularls",
           "bashls",
-          "csharp_ls",
           "cssls",
           "cssmodules_ls",
           "diagnosticls",

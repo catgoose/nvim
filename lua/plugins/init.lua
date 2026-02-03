@@ -23,7 +23,12 @@ return {
   {
     "seblj/roslyn.nvim",
     ft = "cs",
-    config = true,
+    opts = {
+      broad_search = true,
+      lock_target = false,
+      choose_target = nil,
+      ignore_target = nil,
+    },
   },
   -- {
   --   "jamessan/vim-gnupg",

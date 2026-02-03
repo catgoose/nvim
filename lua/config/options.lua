@@ -36,6 +36,7 @@ opt.foldlevel = 0
 opt.splitright = true
 opt.splitbelow = true
 opt.title = true
+opt.winborder = "rounded"
 
 -- Movement
 opt.scrolloff = 99
