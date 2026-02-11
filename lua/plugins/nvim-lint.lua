@@ -1,7 +1,7 @@
 return {
   {
-    -- "mfussenegger/nvim-lint",
-    dir = "~/git/nvim-lint",
+    "mfussenegger/nvim-lint",
+    -- dir = "~/git/nvim-lint",
     event = "VeryLazy",
     lazy = true,
     config = function()
