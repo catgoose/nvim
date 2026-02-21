@@ -1,10 +1,11 @@
 return {
   {
-    "Jay-Madden/auto-fix-return.nvim",
+    -- "Jay-Madden/auto-fix-return.nvim",
+    dir = "~/git/auto-fix-return.nvim",
     ft = { "go" },
     config = true,
     opts = {
-      log_level = vim.log.levels.DEBUG,
+      -- log_level = vim.log.levels.DEBUG,
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

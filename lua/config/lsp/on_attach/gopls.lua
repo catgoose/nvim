@@ -15,7 +15,7 @@ function M.on_attach(client, bufnr)
   end
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "<leader>k", vim.cmd.LspRestart, bufopts)
+  vim.keymap.set("n", "<leader>k", require("config.lsp.util").restart, bufopts)
 end
 
 return M
