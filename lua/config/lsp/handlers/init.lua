@@ -5,16 +5,6 @@ function M.init()
 
   ---@diagnostic disable-next-line: duplicate-set-field
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
-    local ts_lsp = { "ts_ls", "angularls", "volar" }
-    local clients = vim.lsp.get_clients({ id = ctx.client_id })
-    if clients and clients[1] and vim.tbl_contains(ts_lsp, clients[1].name) then
-      local err_diag = {
-        diagnostics = vim.tbl_filter(function(d)
-          return d.severity == vim.diagnostic.severity.ERROR
-        end, result.diagnostics),
-      }
-      require("ts-error-translator").translate_diagnostics(err, err_diag, ctx)
-    end
     vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
   end
   ---@diagnostic disable-next-line: duplicate-set-field

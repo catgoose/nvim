@@ -56,7 +56,20 @@ return {
     },
     {
       "dmmulroy/ts-error-translator.nvim",
-      config = true,
+      config = function()
+        require("ts-error-translator").setup({
+          servers = {
+            "astro",
+            "svelte",
+            "ts_ls",
+            "tsserver",
+            "typescript-tools",
+            "volar",
+            "vtsls",
+            "angularls",
+          },
+        })
+      end,
       event = "LspAttach",
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
       lazy = true,
