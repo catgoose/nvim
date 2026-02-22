@@ -1,5 +1,4 @@
 local f = {
-  "handlers",
   "autocmd",
   "diagnostic",
   "servers"

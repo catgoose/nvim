@@ -17,9 +17,9 @@ local function apply_code_actions(result, client)
     if res.result then
       for _, r in ipairs(res.result) do
         if r.edit then
-          vim.lsp.util.apply_workspace_edit(r.edit, client.offset_encoding)
+          vim.lsp.util.apply_workspace_edit(r.edit)
         else
-          client.exec_command(r.command)
+          client:exec_cmd(r.command)
         end
       end
     end
@@ -43,7 +43,7 @@ local function code_action(action, bufnr)
   if not client then
     return
   end
-  local params = vim.lsp.util.make_range_params(0, "utf-16")
+  local params = vim.lsp.util.make_range_params(0)
   params.context = { only = { action } }
   pcall(function()
     local result = client:request_sync("textDocument/codeAction", params, 1000, bufnr)
@@ -92,8 +92,7 @@ function M.remove_unused_imports(bufnr)
   local params = vim.lsp.util.make_given_range_params(
     { range.start_row, range.start_col },
     { range.end_row, range.end_col },
-    bufnr,
-    client.offset_encoding
+    bufnr
   )
   params.context = { only = { ACTIONS.remove } }
   local result = client:request_sync("textDocument/codeAction", params, 1000, bufnr)

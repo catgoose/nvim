@@ -27,9 +27,6 @@ if x_display ~= nil and x_display ~= "" then
   }
 end
 
----@diagnostic disable-next-line: duplicate-set-field
-vim.deprecate = function() end
-
 -- vim.filetype.add({ extension = { _hs = "hyperscript" } })
 
 -- -- g< to enter pager
