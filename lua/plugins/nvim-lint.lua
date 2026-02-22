@@ -10,7 +10,6 @@ return {
         javascript = { "eslint_d", "oxlint" },
         -- typescript = { "eslint_d", "oxlint" },
         typescript = { "oxlint" },
-        vue = { "eslint_d", "oxlint" },
         docker = { "hadolint" },
         fish = { "fish" },
         json = { "jsonlint" },

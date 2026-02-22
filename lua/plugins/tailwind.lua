@@ -10,7 +10,7 @@ return {
       hover_single_class = true,
     },
     keys = keys,
-    ft = { "vue", "html", "templ" },
+    ft = { "html", "templ" },
     lazy = true,
   },
   {

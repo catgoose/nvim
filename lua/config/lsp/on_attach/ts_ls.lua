@@ -46,9 +46,9 @@ local function code_action(action, bufnr)
   local params = vim.lsp.util.make_range_params(0, "utf-16")
   params.context = { only = { action } }
   pcall(function()
-    local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
-    if result then
-      apply_code_actions(result, client)
+    local result = client:request_sync("textDocument/codeAction", params, 1000, bufnr)
+    if result and result.result then
+      apply_code_actions({ [client.id] = result }, client)
     end
   end)
 end
@@ -96,8 +96,10 @@ function M.remove_unused_imports(bufnr)
     client.offset_encoding
   )
   params.context = { only = { ACTIONS.remove } }
-  local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
-  apply_code_actions(result, client)
+  local result = client:request_sync("textDocument/codeAction", params, 1000, bufnr)
+  if result and result.result then
+    apply_code_actions({ [client.id] = result }, client)
+  end
 end
 
 function M.add_missing_imports(bufnr)

@@ -999,35 +999,6 @@ test.describe('{}', () => {{
       { i(1), i(0) }
     )
   ),
-  s(
-    "vitest",
-    fmta(
-      [[
-import { DOMWrapper, VueWrapper, enableAutoUnmount } from '@vue/test-utils';
-import <> from '../<>.vue';
-
-describe('<>', () =>> {
-  let wrapper: VueWrapper;
-  beforeEach(() =>> {
-    wrapper = mount(<>, {});
-  });
-  enableAutoUnmount(afterEach);
-
-  it('<>', () =>> {
-    <>
-  })
-})
-    ]],
-      {
-        i(1),
-        smn(1),
-        smn(1),
-        smn(1),
-        i(2, "renders"),
-        i(0),
-      }
-    )
-  ),
   s("snap", t(".toMatchSnapshot()")),
   s("scr", t("await expect(page).toHaveScreenshot();")),
   s(

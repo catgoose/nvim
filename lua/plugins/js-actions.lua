@@ -5,7 +5,6 @@ local ft = {
   "javascriptreact",
   "typescript",
   "typescriptreact",
-  "vue",
 }
 
 return {

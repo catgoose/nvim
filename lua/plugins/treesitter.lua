@@ -38,7 +38,6 @@ local config = function()
       "typescript",
       "vim",
       "vimdoc",
-      "vue",
       "xml",
       "yaml",
     },

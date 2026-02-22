@@ -9,6 +9,20 @@ local function inlay_hints_autocmd(bufnr)
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end,
   })
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    group = inlay_hints_group,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end,
+  })
+  vim.api.nvim_create_autocmd("InsertLeave", {
+    group = inlay_hints_group,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+    end,
+  })
 end
 
 function M.inlay_hints()

@@ -12,7 +12,6 @@ local opts = {
     lua = { "stylua" },
     scss = { "prettierd" },
     typescript = { "prettierd" },
-    vue = { "prettierd" },
     fish = { "fish_indent" },
     sh = { "shfmt", "shellharden" },
     bash = { "shfmt", "shellharden" },

@@ -17,9 +17,7 @@ local capabilities = vim.tbl_deep_extend(
 
 function M.init()
   local ts_ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
-  local vue_ft = { unpack(ts_ft) }
-  table.insert(vue_ft, "vue")
-  local css_ft = { "css", "scss", "less", "sass", "vue" }
+  local css_ft = { "css", "scss", "less", "sass" }
   local tsdk = function()
     return vim.fn.getcwd() .. "/node_modules/typescript/lib"
   end
@@ -41,7 +39,6 @@ function M.init()
     tailwindcss = {
       filetypes = {
         "templ",
-        "vue",
         "html",
         "astro",
         "javascript",
@@ -74,13 +71,13 @@ function M.init()
       },
     },
     html = {
-      filetypes = { "html", "vue", "templ" },
+      filetypes = { "html", "templ" },
     },
     -- htmx = {
     --   filetypes = { "html", "templ" },
     -- },
     cssmodules_ls = {
-      filetypes = vue_ft,
+      filetypes = ts_ft,
     },
     angularls = {},
     ts_ls = {

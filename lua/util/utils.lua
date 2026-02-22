@@ -177,7 +177,6 @@ local function should_tw_values(ft)
   ft = ft or bo.filetype
   if not tbl_contains({
     "typescript",
-    "vue",
     "html",
     "templ",
   }, ft) then

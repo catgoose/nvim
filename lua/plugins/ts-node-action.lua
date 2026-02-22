@@ -91,7 +91,6 @@ return {
   "CKolkey/ts-node-action",
   opts = {
     html = html,
-    vue = html,
     angular = html,
     templ = templ,
   },

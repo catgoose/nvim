@@ -28,7 +28,7 @@ Neovim config for Go, Typescript, Lua plugin development, always WIP
 
 ![image](https://github.com/catgoose/nvim/blob/d28f5304602c0f45fe994b0b61db292cf131383d/dashboard.png)
 
-Welcome to my neovim config that I use for lua, Angular, NestJS, Vue, Go/HTMX
+Welcome to my neovim config that I use for lua, Angular, NestJS, Go/HTMX
 
 ## Screenshot
 
@@ -68,7 +68,6 @@ My other neovim projects
 
 - [do-the-needful.nvim](https://github.com/catgoose/do-the-needful.nvim)
 - [telescope-helpgrep.nvim](https://github.com/catgoose/telescope-helpgrep.nvim)
-- [vue-goto-definition](https://github.com/catgoose/vue-goto-definition.nvim)
 - [templ-goto-definition](https://github.com/catgoose/templ-goto-definition.nvim)
 
 ### Tmux

@@ -27,23 +27,6 @@ local projects = {
       "catgoose/telescope-helpgrep.nvim",
     },
   },
-  ["vue-goto-definition"] = {
-    keys = {},
-    dev_keys = {
-      {
-        dev_key,
-        function()
-          vim.cmd([[Lazy reload vue-goto-definition.nvim]])
-        end,
-      },
-      {
-        "gd",
-        function()
-          require("vue-goto-definition").goto_definition()
-        end,
-      },
-    },
-  },
   ["do-the-needful"] = {
     keys = {},
     dev_keys = {
@@ -128,7 +111,6 @@ local current_project = nil
 -- local current_project = projects.angler
 -- local current_project = projects.helpgrep
 -- local current_project = projects["do-the-needful"]
--- local current_project = projects["vue-goto-definition"]
 -- local current_project = projects["nvim-ts-autotag"]
 -- local current_project = projects["nvim-colorizer.lua"]
 -- local current_project = projects["nvim-colorizer.lua"]

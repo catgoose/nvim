@@ -6,14 +6,15 @@ local hl = {
 }
 
 local signs = {
-  { name = hl.error, dict = { text = "", texthl = hl.error } },
-  { name = hl.warn, dict = { text = "", texthl = hl.warn } },
-  { name = hl.hint, dict = { text = "", texthl = hl.hint } },
-  { name = hl.info, dict = { text = "", texthl = hl.info } },
+  -- Diagnostic signs are required by heirline (reads icons via sign_getdefined)
+  { name = hl.error, dict = { text = "", texthl = hl.error } },
+  { name = hl.warn, dict = { text = "", texthl = hl.warn } },
+  { name = hl.hint, dict = { text = "", texthl = hl.hint } },
+  { name = hl.info, dict = { text = "", texthl = hl.info } },
   {
     name = "DapBreakpoint",
     dict = {
-      text = "",
+      text = "",
       texthl = hl.error,
       numhl = hl.error,
     },
@@ -21,7 +22,7 @@ local signs = {
   {
     name = "DapStopped",
     dict = {
-      text = "",
+      text = "",
       texthl = hl.warn,
       numhl = hl.warn,
     },

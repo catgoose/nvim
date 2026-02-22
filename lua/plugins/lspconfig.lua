@@ -64,14 +64,13 @@ return {
             "ts_ls",
             "tsserver",
             "typescript-tools",
-            "volar",
             "vtsls",
             "angularls",
           },
         })
       end,
       event = "LspAttach",
-      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
       lazy = true,
     },
     {

@@ -5,7 +5,6 @@ return {
       "html",
       "typescript",
       "javascript",
-      "vue",
     },
   },
   event = "InsertEnter",

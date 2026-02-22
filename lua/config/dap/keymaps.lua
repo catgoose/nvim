@@ -43,7 +43,7 @@ function M.setup(dap)
   end)
   c("DapScopesTab", function()
     if session_eval() then
-      vim.api.nvim_command("tabnew")
+      vim.cmd.tabnew()
       widgets
         .builder(widgets.scopes)
         .new_buf(function()

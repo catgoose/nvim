@@ -15,7 +15,6 @@ local opt_file_pattern = {
   "*.scss",
   "*.sh",
   "*.ts",
-  "*.vue",
   "*.go",
   "Dockerfile",
   "docker-compose.yaml",
