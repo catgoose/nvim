@@ -4,6 +4,7 @@ local opts = {
   top_down = true,
   render = "simple",
   fps = 120,
+  level = vim.log.levels.DEBUG,
 }
 
 return {

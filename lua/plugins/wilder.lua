@@ -113,8 +113,9 @@ end
 
 return {
   "gelguy/wilder.nvim",
+  enabled = false,
   config = config,
-  keys = { "/", "?", ":" },
+  -- keys = { "/", "?", ":" },
   build = ":UpdateRemotePlugins",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
