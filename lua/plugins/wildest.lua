@@ -1,4 +1,4 @@
-local dev = false
+local dev = true
 local e = vim.tbl_extend
 
 local config = function()
@@ -6,30 +6,50 @@ local config = function()
 
   w.setup({
     modes = { ":", "/", "?" },
-    next_key = "<Tab>",
-    previous_key = "<S-Tab>",
+    next_key = { "<Tab>", "<C-j>" },
+    previous_key = { "<S-Tab>", "<C-k>" },
     accept_key = "<Down>",
     reject_key = "<Up>",
+    scroll_down_key = "<C-f>",
+    scroll_up_key = "<C-b>",
+    scroll_size = 10,
+    close_key = "<C-e>",
+    confirm_key = "<C-y>",
+    jump_keys = {
+      { "<C-n>", 5 },
+      { "<C-p>", -5 },
+    },
+    actions = {
+      ["<C-s>"] = "open_split",
+      ["<C-v>"] = "open_vsplit",
+      ["<C-t>"] = "open_tab",
+      ["<C-q>"] = "send_to_quickfix",
+      ["<C-x>"] = "toggle_preview",
+    },
+    preview = {
+      enabled = true,
+      position = "right",
+      anchor = "screen",
+      width = "40%",
+      height = "50%",
+      border = "rounded",
+      max_lines = 500,
+      title = true,
+    },
     noselect = true,
     longest_prefix = true,
     pipeline_timeout = 5000,
-
     pipeline = w.branch(
-      -- Branch 1: Short input → history + fuzzy
       {
         w.check(function(ctx, _)
           return #ctx.input < 2
         end),
         require("wildest.pipeline.history").history(),
+        w.frecency_boost({ blend = 0.4 }),
         w.fuzzy_filter(),
       },
-      -- Branch 2: :lua and := → lua completion
       w.lua_pipeline(),
-      -- Branch 3: :help → help tags
       w.help_pipeline({ fuzzy = true }),
-      -- Branch 4: :buf/:b → buffer names
-      w.buffer_pipeline({ fuzzy = true }),
-      -- Branch 5: file finder for :e, :sp, :vs etc.
       w.file_finder_pipeline({
         file_command = function(_, arg)
           if string.find(arg, ".") ~= nil then
@@ -40,14 +60,9 @@ local config = function()
         end,
         dir_command = { "fdfind", "-td" },
       }),
-      -- Branch 6: :s/pattern/ substitute
-      w.substitute_pipeline(),
-      -- Branch 7: general cmdline completion (catch-all for :)
       w.cmdline_pipeline({ fuzzy = true }),
-      -- Branch 8: search mode / and ?
       w.search_pipeline()
     ),
-
     renderer = w.renderer_mux({
       [":"] = w.popupmenu_palette_theme({
         border = "rounded",
@@ -71,38 +86,35 @@ local config = function()
         highlights = {
           border = "Normal",
           selected = "PmenuSel",
-          accent = "PmenuSel",
+          accent = "IncSearch",
+          selected_accent = "IncSearch",
           default = "Pmenu",
         },
         pumblend = 4,
-        min_height = 0,
-        max_height = "50%",
+        min_height = 10,
+        max_height = 25,
         min_width = "50%",
         max_width = "50%",
         prompt_position = "bottom",
-        margin = "15%",
+        margin = "auto",
       }),
       ["/"] = w.popupmenu_border_theme({
         border = "rounded",
         title = " Search ",
         fixed_height = false,
         highlighter = w.fzy_highlighter(),
-        left = {
-          "  ",
-        },
-        right = {
-          "  ",
-          w.popupmenu_scrollbar(),
-        },
+        left = { "  " },
+        right = { "  ", w.popupmenu_scrollbar() },
         highlights = {
           border = "Normal",
           selected = "PmenuSel",
-          accent = "PmenuSel",
+          accent = "IncSearch",
+          selected_accent = "IncSearch",
           default = "Pmenu",
         },
         pumblend = 4,
-        min_height = 0,
-        max_height = "50%",
+        min_height = 10,
+        max_height = 25,
         min_width = "25%",
         max_width = "25%",
       }),
@@ -111,22 +123,18 @@ local config = function()
         title = " Search ",
         fixed_height = false,
         highlighter = w.fzy_highlighter(),
-        left = {
-          "  ",
-        },
-        right = {
-          "  ",
-          w.popupmenu_scrollbar(),
-        },
+        left = { "  " },
+        right = { "  ", w.popupmenu_scrollbar() },
         highlights = {
           border = "Normal",
           selected = "PmenuSel",
-          accent = "PmenuSel",
+          accent = "IncSearch",
+          selected_accent = "IncSearch",
           default = "Pmenu",
         },
         pumblend = 4,
-        min_height = 0,
-        max_height = "50%",
+        min_height = 10,
+        max_height = 25,
         min_width = "25%",
         max_width = "25%",
       }),

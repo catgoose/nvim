@@ -36,72 +36,93 @@ local opts = {
     "*",
     "!dashboard",
     go = {
-      names_opts = {
-        uppercase = false,
-        camelcase = false,
+      parsers = {
+        names = { uppercase = false, camelcase = false },
       },
     },
     ps1 = {
-      RGB = false,
-      css = false,
+      parsers = {
+        hex = { enable = false },
+      },
     },
     typescript = {
-      css = true,
+      parsers = { css = true },
     },
     javascript = {
-      css = false,
+      parsers = { css = false },
     },
     json = {
-      css = false,
+      parsers = { css = false },
     },
     sh = {
-      css = false,
+      parsers = { css = false },
     },
     mason = {
-      css = false,
+      parsers = { css = false },
     },
     lazy = {
-      RGB = false,
-      css = false,
+      parsers = {
+        hex = { rgb = false },
+        css = false,
+      },
     },
     cmp_menu = {
-      tailwind = "normal",
+      parsers = {
+        tailwind = { enable = true, mode = "normal" },
+        css = true,
+      },
       always_update = true,
-      css = true,
     },
     cmp_docs = {
+      parsers = { css = true },
       always_update = true,
-      css = true,
     },
     TelescopeResults = {
-      RGB = false,
+      parsers = {
+        hex = { rgb = false },
+      },
     },
     markdown = {
-      RGB = false,
-      RRGGBB = true,
+      parsers = {
+        hex = { enable = true, rgb = false, rrggbb = true },
+      },
       always_update = true,
     },
     checkhealth = {
-      names = false,
+      parsers = {
+        names = { enable = false },
+      },
     },
     sshconfig = {
-      names = false,
+      parsers = {
+        names = { enable = false },
+      },
     },
     NeogitLogView = {
-      RGB = false,
+      parsers = {
+        hex = { rgb = false },
+      },
     },
     NeogitStatus = {
-      RGB = false,
-      css = false,
+      parsers = {
+        hex = { rgb = false },
+        css = false,
+      },
     },
     Mason = {
-      names = false,
+      parsers = {
+        names = { enable = false },
+      },
     },
     make = {
-      names = false,
+      parsers = {
+        names = { enable = false },
+      },
     },
     templ = {
-      tailwind = "both",
+      parsers = {
+        tailwind = { enable = true, mode = "both" },
+      },
     },
   },
   buftypes = {
@@ -109,38 +130,43 @@ local opts = {
     "!prompt",
     "!popup",
   },
-  user_default_options = {
-    names_opts = {
-      lowercase = true,
-      camelcase = true,
-      uppercase = true,
-      strip_digits = false,
+  options = {
+    parsers = {
+      names = {
+        enable = true,
+        lowercase = true,
+        camelcase = true,
+        uppercase = true,
+        strip_digits = false,
+      },
+      hex = {
+        enable = true,
+        rgb = true,
+        rgba = true,
+        rrggbb = true,
+        rrggbbaa = true,
+        aarrggbb = true,
+      },
+      rgb = { enable = true },
+      hsl = { enable = true },
+      oklch = { enable = true },
+      css = true,
+      css_fn = true,
+      xterm = { enable = true },
+      tailwind = { enable = true, mode = "lsp" },
+      sass = {
+        enable = true,
+        parsers = { css = true },
+      },
     },
-    names = true,
-    names_exclude = {
-      "Azure",
-      "azure",
+    display = {
+      mode = "background",
+      virtualtext = {
+        char = "■",
+        position = false,
+        hl_mode = "foreground",
+      },
     },
-    RGB = true,
-    RGBA = true,
-    RRGGBB = true,
-    RRGGBBAA = true,
-    AARRGGBB = true,
-    rgb_fn = true,
-    hsl_fn = true,
-    css = true,
-    css_fn = true,
-    xterm = true,
-    xcolor = true,
-    mode = "background",
-    tailwind = "lsp",
-    virtualtext_inline = false,
-    sass = {
-      enable = true,
-      parsers = { "css" },
-    },
-    virtualtext = "■",
-    virtualtext_mode = "foreground",
     always_update = true,
   },
   user_commands = true,
