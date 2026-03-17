@@ -30,6 +30,16 @@ function M.inlay_hints()
 end
 
 function M.init()
+  -- Disable Neovim's built-in LSP document color highlighting (enabled by default).
+  -- Colorizer handles all color highlighting instead.
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      if vim.lsp.document_color then
+        vim.lsp.document_color.enable(false, args.buf)
+      end
+    end,
+  })
+
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(event)

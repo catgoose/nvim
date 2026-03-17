@@ -1,15 +1,31 @@
-local dev = true
+local dev = true and not vim.g.lightweight
 local e = vim.tbl_extend
 
 local config = function()
   local w = require("wildest")
+  local wlog = require("wildest.log")
+
+  wlog.clear()
+
+  vim.keymap.set("n", "<leader>k", function()
+    wlog.flush()
+    vim.notify("Flushed " .. wlog.path(), vim.log.levels.INFO)
+  end, { desc = "Wildest: flush log" })
+
+  w.on("accept", function(_ctx, candidate)
+    if type(candidate) == "string" and candidate ~= "" then
+      w.frecency_visit(candidate)
+    end
+  end)
 
   w.setup({
     modes = { ":", "/", "?" },
-    next_key = { "<Tab>", "<C-j>" },
-    previous_key = { "<S-Tab>", "<C-k>" },
-    accept_key = "<Down>",
-    reject_key = "<Up>",
+    next_key = { "<C-j>", "<Down>" },
+    previous_key = { "<C-k>", "<Up>" },
+    mark_key = "<Tab>",
+    unmark_key = "<S-Tab>",
+    accept_key = "<C-l>",
+    reject_key = "<C-h>",
     scroll_down_key = "<C-f>",
     scroll_up_key = "<C-b>",
     scroll_size = 10,
@@ -25,6 +41,8 @@ local config = function()
       ["<C-t>"] = "open_tab",
       ["<C-q>"] = "send_to_quickfix",
       ["<C-x>"] = "toggle_preview",
+      ["<C-o>"] = "open_marked",
+      ["<C-d>"] = "delete_marked_buffers",
     },
     preview = {
       enabled = true,
@@ -61,7 +79,8 @@ local config = function()
         dir_command = { "fdfind", "-td" },
       }),
       w.cmdline_pipeline({ fuzzy = true }),
-      w.search_pipeline()
+      w.substitute_pipeline({ engine = "fast" }),
+      w.search_pipeline({ engine = "fast" })
     ),
     renderer = w.renderer_mux({
       [":"] = w.popupmenu_palette_theme({
@@ -72,7 +91,8 @@ local config = function()
         empty_message = " No matches ",
         highlighter = w.fzy_highlighter(),
         left = {
-          "  ",
+          w.popupmenu_frecency_bar({ dim_char = "▎" }),
+          " ",
           w.popupmenu_devicons(),
           w.popupmenu_buffer_flags({
             flags = " a + ",
@@ -96,14 +116,18 @@ local config = function()
         min_width = "50%",
         max_width = "50%",
         prompt_position = "bottom",
-        margin = "auto",
+        margin = "before_cursor",
+        bottom = {
+          w.popupmenu_statusline(),
+        },
       }),
       ["/"] = w.popupmenu_border_theme({
         border = "rounded",
         title = " Search ",
         fixed_height = false,
+        margin = 0,
         highlighter = w.fzy_highlighter(),
-        left = { "  " },
+        left = { w.popupmenu_frecency_bar({ dim_char = "▎" }), " " },
         right = { "  ", w.popupmenu_scrollbar() },
         highlights = {
           border = "Normal",
@@ -115,15 +139,16 @@ local config = function()
         pumblend = 4,
         min_height = 10,
         max_height = 25,
-        min_width = "25%",
-        max_width = "25%",
+        min_width = "100%",
+        max_width = "100%",
       }),
       ["?"] = w.popupmenu_border_theme({
         border = "rounded",
         title = " Search ",
         fixed_height = false,
+        margin = 0,
         highlighter = w.fzy_highlighter(),
-        left = { "  " },
+        left = { w.popupmenu_frecency_bar({ dim_char = "▎" }), " " },
         right = { "  ", w.popupmenu_scrollbar() },
         highlights = {
           border = "Normal",
@@ -135,8 +160,8 @@ local config = function()
         pumblend = 4,
         min_height = 10,
         max_height = 25,
-        min_width = "25%",
-        max_width = "25%",
+        min_width = "100%",
+        max_width = "100%",
       }),
     }),
   })
@@ -159,5 +184,6 @@ if dev == true then
 else
   return e("keep", plugin, {
     "catgoose/wildest.nvim",
+    build = "make -C csrc",
   })
 end

@@ -3,7 +3,9 @@ local m = u.lazy_map
 
 return {
   "dmtrKovalenko/fff.nvim",
-  build = "cargo build --release -Znext-lockfile-bump",
+  build = function()
+    require("fff.download").download_or_build_binary()
+  end,
   opts = {
     prompt = " ",
     preview = {

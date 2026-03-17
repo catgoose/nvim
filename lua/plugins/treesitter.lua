@@ -131,13 +131,21 @@ local config = function()
     },
   }
 
-  require("nvim-treesitter.configs").setup(opts)
+  local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+  if ok then
+    ts_configs.setup(opts)
+  else
+    require("nvim-treesitter").setup({})
+    require("nvim-treesitter").install(opts.ensure_installed)
+  end
 
   vim.treesitter.language.register("markdown", "octo")
 
-  local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-  -- k({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-  -- k({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+  local ok_repeat, ts_repeat_move = pcall(require, "nvim-treesitter.textobjects.repeatable_move")
+  if ok_repeat then
+    -- k({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+    -- k({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+  end
 
   -- vim.filetype.add({ extension = { _hs = "hyperscript" } })
   -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -161,7 +169,10 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        opts = { enable_autocmd = false },
+      },
       "CKolkey/ts-node-action",
       {
         "nvim-treesitter/nvim-treesitter-context",

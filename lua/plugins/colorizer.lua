@@ -1,4 +1,4 @@
-local dev = false
+local dev = true and not vim.g.lightweight
 local project = require("util.project")
 
 local function is_comment_on_line(line_num, bufnr, filetype)
@@ -31,139 +31,166 @@ local function is_comment_on_line(line_num, bufnr, filetype)
   end
 end
 
+-- local opts = {
+--   filetypes = {
+--     "*",
+--     "!dashboard",
+--     go = {
+--       parsers = {
+--         names = { uppercase = false, camelcase = false },
+--       },
+--     },
+--     ps1 = {
+--       parsers = {
+--         hex = { enable = false },
+--       },
+--     },
+--     typescript = {
+--       parsers = { css = true },
+--     },
+--     javascript = {
+--       parsers = { css = false },
+--     },
+--     json = {
+--       parsers = { css = false },
+--     },
+--     sh = {
+--       parsers = { css = false },
+--     },
+--     mason = {
+--       parsers = { css = false },
+--     },
+--     lazy = {
+--       parsers = {
+--         hex = { rgb = false },
+--         css = false,
+--       },
+--     },
+--     cmp_menu = {
+--       parsers = {
+--         tailwind = { enable = true, mode = "normal" },
+--         css = true,
+--       },
+--       always_update = true,
+--     },
+--     cmp_docs = {
+--       parsers = { css = true },
+--       always_update = true,
+--     },
+--     TelescopeResults = {
+--       parsers = {
+--         hex = { rgb = false },
+--       },
+--     },
+--     markdown = {
+--       parsers = {
+--         hex = { enable = true, rgb = false, rrggbb = true },
+--       },
+--       always_update = true,
+--     },
+--     checkhealth = {
+--       parsers = {
+--         names = { enable = false },
+--       },
+--     },
+--     sshconfig = {
+--       parsers = {
+--         names = { enable = false },
+--       },
+--     },
+--     NeogitLogView = {
+--       parsers = {
+--         hex = { rgb = false },
+--       },
+--     },
+--     NeogitStatus = {
+--       parsers = {
+--         hex = { rgb = false },
+--         css = false,
+--       },
+--     },
+--     Mason = {
+--       parsers = {
+--         names = { enable = false },
+--       },
+--     },
+--     make = {
+--       parsers = {
+--         names = { enable = false },
+--       },
+--     },
+--     templ = {
+--       parsers = {
+--         tailwind = { enable = true, mode = "both" },
+--       },
+--     },
+--   },
+--   buftypes = {
+--     "*",
+--     "!prompt",
+--     "!popup",
+--   },
+--   options = {
+--     parsers = {
+--       names = {
+--         enable = true,
+--         lowercase = true,
+--         camelcase = true,
+--         uppercase = true,
+--         strip_digits = false,
+--       },
+--       hex = {
+--         enable = true,
+--         rgb = true,
+--         rgba = true,
+--         rrggbb = true,
+--         rrggbbaa = true,
+--         aarrggbb = true,
+--       },
+--       rgb = { enable = true },
+--       hsl = { enable = true },
+--       oklch = { enable = true },
+--       css = true,
+--       css_fn = true,
+--       xterm = { enable = true },
+--       tailwind = { enable = true, mode = "lsp" },
+--       sass = {
+--         enable = true,
+--         parsers = { css = true },
+--       },
+--     },
+--     display = {
+--       -- mode = "background",
+--       mode = "virtualtext",
+--       virtualtext = {
+--         char = "■",
+--         position = false,
+--         hl_mode = "foreground",
+--       },
+--     },
+--     always_update = true,
+--   },
+--   user_commands = true,
+--   lazy_load = true,
+-- }
+
+local keys = project.get_keys("nvim-colorizer.lua")
+
 local opts = {
-  filetypes = {
-    "*",
-    "!dashboard",
-    go = {
-      parsers = {
-        names = { uppercase = false, camelcase = false },
-      },
-    },
-    ps1 = {
-      parsers = {
-        hex = { enable = false },
-      },
-    },
-    typescript = {
-      parsers = { css = true },
-    },
-    javascript = {
-      parsers = { css = false },
-    },
-    json = {
-      parsers = { css = false },
-    },
-    sh = {
-      parsers = { css = false },
-    },
-    mason = {
-      parsers = { css = false },
-    },
-    lazy = {
-      parsers = {
-        hex = { rgb = false },
-        css = false,
-      },
-    },
-    cmp_menu = {
-      parsers = {
-        tailwind = { enable = true, mode = "normal" },
-        css = true,
-      },
-      always_update = true,
-    },
-    cmp_docs = {
-      parsers = { css = true },
-      always_update = true,
-    },
-    TelescopeResults = {
-      parsers = {
-        hex = { rgb = false },
-      },
-    },
-    markdown = {
-      parsers = {
-        hex = { enable = true, rgb = false, rrggbb = true },
-      },
-      always_update = true,
-    },
-    checkhealth = {
-      parsers = {
-        names = { enable = false },
-      },
-    },
-    sshconfig = {
-      parsers = {
-        names = { enable = false },
-      },
-    },
-    NeogitLogView = {
-      parsers = {
-        hex = { rgb = false },
-      },
-    },
-    NeogitStatus = {
-      parsers = {
-        hex = { rgb = false },
-        css = false,
-      },
-    },
-    Mason = {
-      parsers = {
-        names = { enable = false },
-      },
-    },
-    make = {
-      parsers = {
-        names = { enable = false },
-      },
-    },
-    templ = {
-      parsers = {
-        tailwind = { enable = true, mode = "both" },
-      },
-    },
-  },
-  buftypes = {
-    "*",
-    "!prompt",
-    "!popup",
-  },
+  filetypes = { "*", "!dashboard" },
+  buftypes = { "*", "!prompt", "!popup" },
   options = {
     parsers = {
-      names = {
-        enable = true,
-        lowercase = true,
-        camelcase = true,
-        uppercase = true,
-        strip_digits = false,
-      },
-      hex = {
-        enable = true,
-        rgb = true,
-        rgba = true,
-        rrggbb = true,
-        rrggbbaa = true,
-        aarrggbb = true,
-      },
-      rgb = { enable = true },
-      hsl = { enable = true },
-      oklch = { enable = true },
-      css = true,
-      css_fn = true,
-      xterm = { enable = true },
-      tailwind = { enable = true, mode = "lsp" },
-      sass = {
-        enable = true,
-        parsers = { css = true },
+      tailwind = {
+        enable = false,
+        lsp = true,
       },
     },
     display = {
-      mode = "background",
+      mode = "underline",
       virtualtext = {
         char = "■",
-        position = false,
+        position = "eol",
         hl_mode = "foreground",
       },
     },
@@ -172,8 +199,6 @@ local opts = {
   user_commands = true,
   lazy_load = true,
 }
-
-local keys = project.get_keys("nvim-colorizer.lua")
 
 local plugin = {
   opts = opts,

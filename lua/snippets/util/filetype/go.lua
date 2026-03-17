@@ -1,7 +1,10 @@
 local ls = require("luasnip")
 local fmt = require("luasnip.extras.fmt").fmt
-local ts_locals = require("nvim-treesitter.locals")
-local ts_utils = require("nvim-treesitter.ts_utils")
+local ok_locals, ts_locals = pcall(require, "nvim-treesitter.locals")
+local ok_utils, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
+if not ok_locals or not ok_utils then
+  return { snippets = {}, autosnippets = {} }
+end
 
 local M = {}
 

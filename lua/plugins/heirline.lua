@@ -495,6 +495,9 @@ local config = function()
 
   local DAPBlock = {
     condition = function()
+      if vim.g.lightweight then
+        return false
+      end
       local session = require("dap").session()
       return session ~= nil
         and conditions.is_active()

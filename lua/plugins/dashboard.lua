@@ -15,6 +15,62 @@ local header = {
   [[]],
 }
 
+local center = {
+  {
+    desc = "Lazy sync / TSUpdate",
+    key = "s",
+    action = "UpdateAndSyncAll",
+  },
+  {
+    desc = "Find files",
+    key = "f",
+    action = "FFFFind",
+  },
+  {
+    desc = "Restore session",
+    key = "r",
+    action = "PersistenceLoad",
+  },
+  {
+    desc = "Select session",
+    key = "R",
+    action = "PersistenceSelect",
+  },
+  {
+    desc = "Empty buffer",
+    key = "e",
+    action = "enew",
+  },
+  {
+    desc = "Quit",
+    key = "q",
+    action = "q",
+  },
+}
+
+if not vim.g.lightweight then
+  table.insert(center, 2, {
+    desc = "One step for vimkind",
+    key = "l",
+    action = "OneStepForVimKindLaunch",
+  })
+  table.insert(center, 3, {
+    desc = "Mason",
+    key = "m",
+    action = "Mason",
+  })
+  table.insert(center, 4, {
+    desc = "DiffView main/master",
+    key = "d",
+    action = "DiffviewMain",
+  })
+  table.insert(center, 5, {
+    desc = "DiffView prompt",
+    key = "D",
+    action = "DiffviewPrompt",
+  })
+end
+
 local opts = {
   theme = "doom",
   hide = {
@@ -24,68 +80,7 @@ local opts = {
   },
   config = {
     header = header,
-    center = {
-      {
-        icon = "",
-        desc = "Lazy sync / TSUpdate",
-        key = "s",
-        action = "UpdateAndSyncAll",
-      },
-      {
-        icon = "",
-        desc = "One step for vimkind",
-        key = "l",
-        action = "OneStepForVimKindLaunch",
-      },
-      {
-        icon = "",
-        desc = "Mason",
-        key = "m",
-        action = "Mason",
-      },
-      {
-        icon = "",
-        desc = "Find files",
-        key = "f",
-        action = "FFFFind",
-      },
-      {
-        icon = "",
-        desc = "DiffView main/master",
-        key = "d",
-        action = "DiffviewMain",
-      },
-      {
-        icon = "",
-        desc = "DiffView prompt",
-        key = "D",
-        action = "DiffviewPrompt",
-      },
-      {
-        icon = "",
-        desc = "Restore session",
-        key = "r",
-        action = "PersistenceLoad",
-      },
-      {
-        icon = "",
-        desc = "Select session",
-        key = "R",
-        action = "PersistenceSelect",
-      },
-      {
-        icon = "",
-        desc = "Empty buffer",
-        key = "e",
-        action = "enew",
-      },
-      {
-        icon = "",
-        desc = "Quit",
-        key = "q",
-        action = "q",
-      },
-    },
+    center = center,
     footer = function()
       local info = { "", "" }
       local fortune = require("fortune").get_fortune()

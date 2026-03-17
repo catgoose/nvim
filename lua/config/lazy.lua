@@ -18,9 +18,17 @@ end
 ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+local host = require("util.host")
+
 require("lazy").setup("plugins", {
   defaults = {
     lazy = true,
+    cond = function(plugin)
+      if host.lightweight and vim.tbl_contains(host.disabled_plugins, plugin.name) then
+        return false
+      end
+      return true
+    end,
   },
   install = {
     colorscheme = { "kanagawa" },

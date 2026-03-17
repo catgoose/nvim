@@ -25,7 +25,7 @@ return {
           "gopls",
           "html",
           "jsonls",
-          "lua_ls",
+          -- "lua_ls",
           "marksman",
           "powershell_es",
           "sqlls",

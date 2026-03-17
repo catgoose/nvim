@@ -30,9 +30,9 @@ return {
   opts = opts,
   ft = "qf",
   dependencies = {
-    "junegunn/fzf",
-    build = function()
-      vim.fn["fzf#install"]()
-    end,
+    {
+      "junegunn/fzf",
+      build = "./install --bin",
+    },
   },
 }
