@@ -39,13 +39,13 @@ return {
         u.restore_cmdheight()
       end,
     })
-    autocmd({ "User" }, {
-      pattern = "NeogitPushComplete",
-      group = neogit,
-      callback = function()
-        require("neogit").close()
-      end,
-    })
+    -- autocmd({ "User" }, {
+    --   pattern = "NeogitPushComplete",
+    --   group = neogit,
+    --   callback = function()
+    --     require("neogit").close()
+    --   end,
+    -- })
   end,
   lazy = true,
   dependencies = {
