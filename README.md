@@ -75,3 +75,39 @@ My other neovim projects
 Tmux theme:
 
 [kanagawa-tmux](https://github.com/catgoose/kanagawa-tmux)
+
+## Clojure
+
+Baseline Clojure setup combines `clojure-lsp` (diagnostics, navigation,
+completion, formatting via Conform's LSP fallback) with `Olical/conjure`
+(REPL-driven evaluation over nREPL). Treesitter parser `clojure` is enabled
+and `julienvincent/nvim-paredit` provides structural editing. `cmp-conjure`
+adds REPL-aware completion to `nvim-cmp` for Lisp filetypes.
+
+### Machine prerequisites
+
+- Java (JDK 11+).
+- [Clojure CLI](https://clojure.org/guides/install_clojure) (`clojure` /
+  `clj`).
+- `clojure-lsp` is installed automatically through Mason (`:Mason` →
+  `clojure-lsp`).
+
+### First-run notes
+
+- LSP server name is `clojure_lsp`. Verify with `:checkhealth vim.lsp`.
+- `K` still routes through the repo `HoverHandler`; `L` opens direct LSP
+  hover. Conjure's `K` doc-word mapping is disabled to preserve this.
+- Start an nREPL inside a project (`clj -M:repl/server`, `lein repl`,
+  `bb nrepl-server`, or `shadow-cljs server`) and Conjure auto-connects via
+  the project's `.nrepl-port`. Manual connect: `:ConjureConnect`.
+- Useful commands: `:ConjureSchool` (interactive tutorial), `:ConjureLogVSplit`
+  (open eval log), `<localleader>ee` (eval current form),
+  `<localleader>er` (eval root form). `<localleader>` is `<Space>`.
+
+### Optional follow-ups
+
+- Parinfer-style editing: try [`parpar.nvim`](https://github.com/dundalek/parpar.nvim)
+  or [`gpanders/nvim-parinfer`](https://github.com/gpanders/nvim-parinfer)
+  in place of `nvim-paredit` if you prefer indentation-driven structure.
+- Per-project `.lsp/config.edn`, `.cljfmt.edn`, `.clj-kondo/config.edn`
+  belong in actual Clojure projects, not in dotfiles.

@@ -27,6 +27,7 @@ function M.init()
       -- "angularls",
       "azure_pipelines_ls",
       "bashls",
+      "clojure_lsp",
       "diagnosticls",
       "docker_compose_language_service",
       "dockerls",

@@ -1,4 +1,5 @@
-local dev = true and not vim.g.lightweight
+local colorizer_path = "~/git/nvim-colorizer.lua"
+local dev = require("util").use_local_plugin(colorizer_path)
 local project = require("util.project")
 
 local function is_comment_on_line(line_num, bufnr, filetype)
@@ -216,7 +217,7 @@ local plugin = {
 }
 
 return dev and vim.tbl_extend("keep", plugin, {
-  dir = "~/git/nvim-colorizer.lua",
+  dir = colorizer_path,
 }) or vim.tbl_extend("keep", plugin, {
   "catgoose/nvim-colorizer.lua",
   branch = "master",

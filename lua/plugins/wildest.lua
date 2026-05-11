@@ -1,4 +1,5 @@
-local dev = true and not vim.g.lightweight
+local wildest_path = "~/git/wildest.nvim"
+local dev = require("util").use_local_plugin(wildest_path)
 local e = vim.tbl_extend
 
 local config = function()
@@ -179,7 +180,7 @@ local plugin = {
 
 if dev == true then
   return e("keep", plugin, {
-    dir = "~/git/wildest.nvim",
+    dir = wildest_path,
   })
 else
   return e("keep", plugin, {

@@ -83,6 +83,14 @@ function M.lazy_map(lhs, rhs, modes)
   }
 end
 
+function M.path_exists(path)
+  return (vim.uv or vim.loop).fs_stat(fn.expand(path)) ~= nil
+end
+
+function M.use_local_plugin(path)
+  return not g.lightweight and M.path_exists(path)
+end
+
 function M.create_augroup(group, opts)
   opts = opts or { clear = true }
   return api.nvim_create_augroup(group, opts)
