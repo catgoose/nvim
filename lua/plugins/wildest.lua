@@ -117,7 +117,7 @@ local config = function()
         min_width = "50%",
         max_width = "50%",
         prompt_position = "bottom",
-        margin = "before_cursor",
+        margin = "auto",
         bottom = {
           w.popupmenu_statusline(),
         },
