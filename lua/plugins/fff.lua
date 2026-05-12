@@ -13,8 +13,8 @@ return {
       binary_file_threshold = 64,
     },
     layout = {
-      height = 0.4,
-      width = 0.5,
+      height = 0.5,
+      width = 0.6,
       prompt_position = "bottom",
       preview_position = "right",
       preview_size = 0.4,

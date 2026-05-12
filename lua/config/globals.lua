@@ -16,12 +16,12 @@ if x_display ~= nil and x_display ~= "" then
   g.clipboard = { -- install xclip
     name = "xclip",
     copy = {
-      ["+"] = "xclip -f -sel clip",
-      ["*"] = "xclip -f -sel clip",
+      ["+"] = { "sh", "-c", "xclip -f -sel clip | xclip -sel primary" },
+      ["*"] = { "sh", "-c", "xclip -f -sel primary | xclip -sel clip" },
     },
     paste = {
       ["+"] = "xclip -o -sel clip",
-      ["*"] = "xclip -o -sel clip",
+      ["*"] = "xclip -o -sel primary",
     },
     cache_enabled = 1,
   }
