@@ -28,6 +28,10 @@ local cursorline_disable_ft = {
   "terminal",
 }
 
+local function should_startinsert_terminal(bufnr)
+  return vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
+end
+
 local all_filetypes = augroup("AllFileTypesLocalOptions")
 autocmd({ "FileType" }, {
   group = all_filetypes,
@@ -104,7 +108,7 @@ autocmd({ "TermOpen" }, {
     end
     if bo.filetype == "" then
       api.nvim_set_option_value("filetype", "terminal", { buf = evt.buf })
-      if vim.g.catgoose_terminal_enable_startinsert == 1 then
+      if vim.g.catgoose_terminal_enable_startinsert == 1 and should_startinsert_terminal(evt.buf) then
         cmd.startinsert()
       end
     end
@@ -119,7 +123,7 @@ autocmd({ "WinEnter" }, {
   group = terminal,
   pattern = { "*" },
   callback = function()
-    if bo.filetype == "terminal" and vim.g.catgoose_terminal_enable_startinsert then
+    if bo.filetype == "terminal" and vim.g.catgoose_terminal_enable_startinsert and should_startinsert_terminal(0) then
       cmd.startinsert()
     end
   end,

@@ -255,6 +255,204 @@ local function is_diag_neotest()
   return found
 end
 
+local function is_clojure_filetype(ft)
+  return tbl_contains({ "clojure" }, ft)
+end
+
+local function command_exists(name)
+  return fn.exists(":" .. name) > 0
+end
+
+local function trim_empty_lines(lines)
+  local start_idx = 1
+  local end_idx = #lines
+  while start_idx <= end_idx and lines[start_idx]:match("^%s*$") do
+    start_idx = start_idx + 1
+  end
+  while end_idx >= start_idx and lines[end_idx]:match("^%s*$") do
+    end_idx = end_idx - 1
+  end
+  local trimmed = {}
+  for i = start_idx, end_idx do
+    trimmed[#trimmed + 1] = lines[i]
+  end
+  return trimmed
+end
+
+local function open_hover_preview(lines)
+  if not lines or vim.tbl_isempty(lines) then
+    return
+  end
+  vim.lsp.util.open_floating_preview(lines, "markdown", {
+    border = "rounded",
+    focus_id = "catgoose-hover-handler",
+  })
+end
+
+local function run_conjure_doc_word()
+  local ok, conjure_eval = pcall(require, "conjure.eval")
+  if ok and conjure_eval and conjure_eval["doc-word"] then
+    conjure_eval["doc-word"]()
+    return true
+  end
+  if command_exists("ConjureDocWord") then
+    cmd("silent! ConjureDocWord")
+    return true
+  end
+  return false
+end
+
+local function run_conjure_view_source()
+  local ok, action = pcall(require, "conjure.client.clojure.nrepl.action")
+  if ok and action and action["view-source"] then
+    action["view-source"]()
+    return true
+  end
+  if command_exists("ConjureCljViewSource") then
+    cmd("silent! ConjureCljViewSource")
+    return true
+  end
+  return false
+end
+
+local function has_conjure_source_target(info)
+  return info and not info.candidates and info.file and info.line
+end
+
+local function with_conjure_info(word, callback)
+  local ok_server, server = pcall(require, "conjure.client.clojure.nrepl.server")
+  local ok_extract, extract = pcall(require, "conjure.extract")
+  if not ok_server or not ok_extract or not word or word == "" then
+    return false
+  end
+
+  server["with-conn-and-ops-or-warn"]({ "info", "lookup" }, function(conn, ops)
+    local request
+    if ops.info then
+      request = {
+        op = "info",
+        ns = extract.context() or "user",
+        symbol = word,
+        session = conn.session,
+        ["download-sources-jar"] = 1,
+      }
+    elseif ops.lookup then
+      request = {
+        op = "lookup",
+        ns = extract.context() or "user",
+        sym = word,
+        session = conn.session,
+      }
+    end
+
+    if not request then
+      callback(nil)
+      return
+    end
+
+    server.send(request, function(msg)
+      if msg and msg.status and msg.status["no-info"] then
+        callback(nil)
+        return
+      end
+      callback(msg and (msg.info or msg) or nil)
+    end)
+  end, {
+    ["silent?"] = true,
+    ["else"] = function()
+      callback(nil)
+    end,
+  })
+
+  return true
+end
+
+local function run_conjure_hover_fallback()
+  local current_word = M.current_word()
+  if with_conjure_info(current_word, function(info)
+    if has_conjure_source_target(info) then
+      if not run_conjure_view_source() then
+        run_conjure_doc_word()
+      end
+    elseif not run_conjure_doc_word() then
+      run_conjure_view_source()
+    end
+  end) then
+    return true
+  end
+  return run_conjure_view_source() or run_conjure_doc_word()
+end
+
+local function lsp_hover_lines(result)
+  if not result or not result.contents then
+    return {}
+  end
+  local lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+  return trim_empty_lines(lines)
+end
+
+local function is_path_like_hover_line(line)
+  return line:match("^%*?%[.+%]%(.+%)%*?$") or line:match("^file://") or line:match("^/.+")
+end
+
+local function normalize_hover_line(line)
+  return line
+    :gsub("^```[%w_-]*$", "")
+    :gsub("^```$", "")
+    :gsub("[`*_]", "")
+    :gsub("%s+", " ")
+    :gsub("^%s+", "")
+    :gsub("%s+$", "")
+end
+
+local function is_noise_hover_line(line, current_word)
+  return line == ""
+    or line:match("^[─-]+$")
+    or line == current_word
+    or is_path_like_hover_line(line)
+end
+
+local function has_substantive_clojure_hover(result)
+  local current_word = M.current_word()
+  local lines = lsp_hover_lines(result)
+  for _, line in ipairs(lines) do
+    local normalized = normalize_hover_line(line)
+    if not is_noise_hover_line(normalized, current_word) then
+      return true, lines
+    end
+  end
+  return false, lines
+end
+
+local function clojure_hover_handler()
+  local client = vim.lsp.get_clients({
+    bufnr = 0,
+    name = "clojure_lsp",
+  })[1]
+  if not client then
+    return run_conjure_hover_fallback()
+  end
+
+  local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+  client:request("textDocument/hover", params, function(err, result)
+    if err then
+      run_conjure_hover_fallback()
+      return
+    end
+
+    local useful, lines = has_substantive_clojure_hover(result)
+    if useful then
+      open_hover_preview(lines)
+      return
+    end
+
+    if not run_conjure_hover_fallback() then
+      open_hover_preview(lines)
+    end
+  end, 0)
+  return true
+end
+
 --  TODO: 2024-07-01 - add fallback for previewing githunk
 function M.hover_handler()
   local dap_ok, dap = pcall(require, "dap")
@@ -283,6 +481,8 @@ function M.hover_handler()
     else
       vim.diagnostic.open_float()
     end
+  elseif is_clojure_filetype(ft) then
+    clojure_hover_handler()
   else
     vim.lsp.buf.hover({
       border = "rounded",

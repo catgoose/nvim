@@ -57,6 +57,8 @@ local html = {
   end,
 }
 
+local clojure = t.clojure()
+
 local templ = {
   ["tag_start"] = function(tsnode)
     local child = tsnode:named_child()
@@ -93,6 +95,8 @@ return {
     html = html,
     angular = html,
     templ = templ,
+    clojure = clojure,
+    edn = clojure,
   },
   keys = {
     m("<leader>i", [[lua require("ts-node-action").node_action()]]),

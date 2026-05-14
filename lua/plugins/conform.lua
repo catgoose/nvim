@@ -17,6 +17,10 @@ local opts = {
     bash = { "shfmt", "shellharden" },
     markdown = { "cbfmt", "prettierd", "markdownlint" },
     go = { "goimports", "gofumpt" },
+    clojure = { "cljstyle" },
+    clojurec = { "cljstyle" },
+    clojurescript = { "cljstyle" },
+    edn = { "cljstyle" },
     templ = {
       "templ",
       "injected",

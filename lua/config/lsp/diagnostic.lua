@@ -1,6 +1,7 @@
 local M = {}
 
 function M.init()
+  local diagnostic_signs = require("util.diagnostic_signs")
   vim.diagnostic.config({
     virtual_text = false,
     virtual_lines = {
@@ -15,15 +16,9 @@ function M.init()
       header = "",
       prefix = "",
     },
-    -- signs = require("config.signs")
     signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = '',
-        [vim.diagnostic.severity.WARN] = '',
-        [vim.diagnostic.severity.HINT] = '',
-        [vim.diagnostic.severity.INFO] = '',
-      }
-    }
+      text = diagnostic_signs.sign_text(),
+    },
   })
 end
 

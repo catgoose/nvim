@@ -1,16 +1,7 @@
-local hl = {
-  error = "DiagnosticSignError",
-  warn = "DiagnosticSignWarn",
-  hint = "DiagnosticSignHint",
-  info = "DiagnosticSignInfo",
-}
+local diagnostic_signs = require("util.diagnostic_signs")
+local hl = diagnostic_signs.hl
 
-local signs = {
-  -- Diagnostic signs are required by heirline (reads icons via sign_getdefined)
-  { name = hl.error, dict = { text = "", texthl = hl.error } },
-  { name = hl.warn, dict = { text = "", texthl = hl.warn } },
-  { name = hl.hint, dict = { text = "", texthl = hl.hint } },
-  { name = hl.info, dict = { text = "", texthl = hl.info } },
+local signs = vim.list_extend(diagnostic_signs.legacy_signs(), {
   {
     name = "DapBreakpoint",
     dict = {
@@ -43,7 +34,7 @@ local signs = {
       numhl = hl.error,
     },
   },
-}
+})
 for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, sign.dict)
 end

@@ -8,6 +8,7 @@ local config = function()
   local fn, api, bo = vim.fn, vim.api, vim.bo
   local neotest_ok, neotest = pcall(require, "neotest")
   local grapple_ok, grapple = pcall(require, "grapple")
+  local diagnostic_signs = require("util.diagnostic_signs")
 
   local winbar_inactive = {
     buftype = {
@@ -258,15 +259,13 @@ local config = function()
       self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
       self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
       self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+      self.error_icon = diagnostic_signs.icon(vim.diagnostic.severity.ERROR, { pad = true })
+      self.warn_icon = diagnostic_signs.icon(vim.diagnostic.severity.WARN, { pad = true })
+      self.info_icon = diagnostic_signs.icon(vim.diagnostic.severity.INFO, { pad = true })
+      self.hint_icon = diagnostic_signs.icon(vim.diagnostic.severity.HINT, { pad = true })
     end,
   }
   local Diagnostics = {
-    static = {
-      error_icon = fn.sign_getdefined("DiagnosticSignError")[1].text,
-      warn_icon = fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-      info_icon = fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-      hint_icon = fn.sign_getdefined("DiagnosticSignHint")[1].text,
-    },
     update = { "DiagnosticChanged", "BufEnter", "WinEnter" },
     {
       hl = function()
