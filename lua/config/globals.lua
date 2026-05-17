@@ -4,7 +4,7 @@ g.catgoose_terminal_enable_startinsert = 1
 g.catgoose_supermaven_disabled = true
 
 g.mapleader = " "
-g.maplocalleader = " "
+g.maplocalleader = ","
 g.suda_smart_edit = 1
 
 g.netrw_browse_split = 0

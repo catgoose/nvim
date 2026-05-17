@@ -8,11 +8,6 @@ local config = function()
 
   wlog.clear()
 
-  vim.keymap.set("n", "<leader>k", function()
-    wlog.flush()
-    vim.notify("Flushed " .. wlog.path(), vim.log.levels.INFO)
-  end, { desc = "Wildest: flush log" })
-
   w.on("accept", function(_ctx, candidate)
     if type(candidate) == "string" and candidate ~= "" then
       w.frecency_visit(candidate)

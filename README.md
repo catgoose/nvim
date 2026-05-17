@@ -101,8 +101,9 @@ adds REPL-aware completion to `nvim-cmp` for Lisp filetypes.
   `bb nrepl-server`, or `shadow-cljs server`) and Conjure auto-connects via
   the project's `.nrepl-port`. Manual connect: `:ConjureConnect`.
 - Useful commands: `:ConjureSchool` (interactive tutorial), `:ConjureLogVSplit`
-  (open eval log), `<localleader>ee` (eval current form),
-  `<localleader>er` (eval root form). `<localleader>` is `<Space>`.
+  (open eval log), `<leader>k` (fast eval current form),
+  `<localleader>ee` (eval current form), `<localleader>er` (eval root form).
+  `<localleader>` is `,`.
 
 ### Optional follow-ups
 

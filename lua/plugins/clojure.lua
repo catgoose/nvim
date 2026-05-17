@@ -10,6 +10,7 @@ local conjure_filetypes = {
 --[[
 Paredit
   Use this for editing structure safely.
+  `<localleader>` is `,` in this config.
 
   | Keys | Kind | Meaning | When to use |
   |---|---|---|---|
@@ -25,45 +26,47 @@ Paredit
   | <e | edit op | drag element left | same, opposite direction |
   | >f | edit op | drag form right | move a whole nested expression right |
   | <f | edit op | drag form left | same, opposite direction |
-  | <space>kr | edit op | raise form | remove one outer wrapper and keep the current form |
-  | <space>kR | edit op | raise element | unwrap one element from its enclosing form |
+  | <localleader>o | edit op | raise form | remove one outer wrapper and keep the current form |
+  | <localleader>O | edit op | raise element | unwrap one element from its enclosing form |
 ]]
 
 --[[ 
 Conjure
   Use this for REPL/eval workflow.
+  `<localleader>` is `,`; `<leader>k` remains a fast current-form eval alias.
 
   | Keys | Kind | Meaning | When to use |
   |---|---|---|---|
   | :ConjureSchool | command | interactive tutorial | first-time onboarding |
-  | <space>ee | eval | eval current form | most common command while editing |
-  | <space>er | eval | eval root/enclosing form | eval whole defn, let, etc. |
-  | <space>ew | eval | eval word under cursor | inspect a var quickly |
-  | <space>e! | eval/edit | eval and replace form with result | quick experimentation / reduction |
-  | <space>E | eval | eval visual selection or motion | eval exactly a region you choose |
-  | <space>eb | eval | eval buffer contents | push current unsaved buffer to REPL |
-  | <space>ef | eval | eval file from disk | reload saved file |
-  | <space>ls | log | open log split | inspect results persistently |
-  | <space>lv | log | open log vsplit | same, vertical |
-  | <space>lg | log | toggle log | quick show/hide |
-  | <space>ll | log | jump to latest log entry | follow newest result |
-  | <space>cf | connection | connect using .nrepl-port | attach to project REPL |
-  | <space>cd | connection | disconnect | leave current REPL |
-  | <space>car | connection | restart auto-REPL | restart hidden bb fallback |
-  | <space>vs | inspect | view source of symbol | inspect implementation |
-  | <space>ve | inspect | view last exception | debug failed eval |
-  | <space>x1 | inspect | macroexpand-1 | inspect one macro step |
-  | <space>xr | inspect | macroexpand | inspect macro output |
-  | <space>xa | inspect | macroexpand-all | deeper macro debugging |
-  | <space>tn | test | run current namespace tests | normal test loop |
-  | <space>tc | test | run current test | tight test-focused iteration |
-  | <space>rr | refresh | refresh changed namespaces | common reload flow |
-  | <space>ra | refresh | refresh all namespaces | full refresh |
+  | <leader>k | eval | eval current form | fastest current-form eval |
+  | <localleader>ee | eval | eval current form | canonical Conjure mapping |
+  | <localleader>er | eval | eval root/enclosing form | eval whole defn, let, etc. |
+  | <localleader>ew | eval | eval word under cursor | inspect a var quickly |
+  | <localleader>e! | eval/edit | eval and replace form with result | quick experimentation / reduction |
+  | <localleader>E | eval | eval visual selection or motion | eval exactly a region you choose |
+  | <localleader>eb | eval | eval buffer contents | push current unsaved buffer to REPL |
+  | <localleader>ef | eval | eval file from disk | reload saved file |
+  | <localleader>ls | log | open log split | inspect results persistently |
+  | <localleader>lv | log | open log vsplit | same, vertical |
+  | <localleader>lg | log | toggle log | quick show/hide |
+  | <localleader>ll | log | jump to latest log entry | follow newest result |
+  | <localleader>cf | connection | connect using .nrepl-port | attach to project REPL |
+  | <localleader>cd | connection | disconnect | leave current REPL |
+  | <localleader>car | connection | restart auto-REPL | restart hidden bb fallback |
+  | <localleader>vs | inspect | view source of symbol | inspect implementation |
+  | <localleader>ve | inspect | view last exception | debug failed eval |
+  | <localleader>x1 | inspect | macroexpand-1 | inspect one macro step |
+  | <localleader>xr | inspect | macroexpand | inspect macro output |
+  | <localleader>xa | inspect | macroexpand-all | deeper macro debugging |
+  | <localleader>tn | test | run current namespace tests | normal test loop |
+  | <localleader>tc | test | run current test | tight test-focused iteration |
+  | <localleader>rr | refresh | refresh changed namespaces | common reload flow |
+  | <localleader>ra | refresh | refresh all namespaces | full refresh |
 ]]
 
 local function configure_conjure()
   -- Conjure defaults made explicit for quick reference.
-  -- <localleader> is <Space> in this config.
+  -- <localleader> is `,` in this config.
   vim.g["conjure#mapping#prefix"] = "<localleader>"
   vim.g["conjure#mapping#log_split"] = "ls"
   vim.g["conjure#mapping#log_vsplit"] = "lv"
@@ -151,11 +154,162 @@ local function configure_conjure_output()
     end
 
     local current_win = vim.api.nvim_get_current_win()
-    log.split()
+    log.vsplit()
 
     if vim.api.nvim_win_is_valid(current_win) then
       vim.api.nvim_set_current_win(current_win)
     end
+  end)
+end
+
+local clojure_root_markers = {
+  ".nrepl-port",
+  ".shadow-cljs/nrepl.port",
+  "deps.edn",
+  "project.clj",
+  "bb.edn",
+  "shadow-cljs.edn",
+  ".git",
+}
+local clojure_port_markers = { ".nrepl-port", ".shadow-cljs/nrepl.port" }
+local clojure_connect_pending = false
+
+local function clojure_buf_path(bufnr)
+  local path = vim.api.nvim_buf_get_name(bufnr)
+  if path == "" then
+    return nil
+  end
+  return vim.fs.normalize(path)
+end
+
+local function clojure_buf_root(bufnr)
+  local path = clojure_buf_path(bufnr)
+  if not path then
+    return nil
+  end
+  return vim.fs.root(path, clojure_root_markers) or vim.fs.dirname(path)
+end
+
+local function clojure_port_file(bufnr)
+  local path = clojure_buf_path(bufnr)
+  if not path then
+    return nil
+  end
+
+  return vim.fs.find(clojure_port_markers, {
+    path = vim.fs.dirname(path),
+    upward = true,
+  })[1]
+end
+
+local function with_root_cwd(root, f)
+  if not root then
+    return f()
+  end
+
+  local win = vim.api.nvim_get_current_win()
+  return vim.api.nvim_win_call(win, function()
+    local had_local_dir = vim.fn.haslocaldir(0, 0) == 1
+    local previous_dir = had_local_dir and vim.fn.getcwd() or vim.fn.getcwd(-1, -1)
+
+    vim.cmd("lcd " .. vim.fn.fnameescape(root))
+    local ok, result = pcall(f)
+    vim.cmd((had_local_dir and "lcd " or "cd ") .. vim.fn.fnameescape(previous_dir))
+
+    if not ok then
+      error(result)
+    end
+
+    return result
+  end)
+end
+
+local function retry_clojure_connect(connect_fn, state, remaining)
+  local conn = state.get().conn
+  if (conn and conn["ready?"]) or remaining <= 0 then
+    clojure_connect_pending = false
+    return
+  end
+
+  vim.defer_fn(function()
+    local next_conn = state.get().conn
+    if next_conn and next_conn["ready?"] then
+      clojure_connect_pending = false
+      return
+    end
+
+    if not next_conn then
+      connect_fn()
+    end
+
+    retry_clojure_connect(connect_fn, state, remaining - 1)
+  end, 250)
+end
+
+local function maybe_autoconnect_clojure(bufnr)
+  if vim.bo[bufnr].filetype ~= "clojure" or clojure_connect_pending then
+    return
+  end
+
+  local ok_action, action = pcall(require, "conjure.client.clojure.nrepl.action")
+  local ok_server, server = pcall(require, "conjure.client.clojure.nrepl.server")
+  local ok_auto_repl, auto_repl = pcall(require, "conjure.client.clojure.nrepl.auto-repl")
+  local ok_state, state = pcall(require, "conjure.client.clojure.nrepl.state")
+  if not (ok_action and ok_server and ok_auto_repl and ok_state) or server["connected?"]() then
+    return
+  end
+
+  clojure_connect_pending = true
+  local port_file = clojure_port_file(bufnr)
+
+  if port_file then
+    local function connect_existing_repl()
+      action["connect-port-file"]({
+        ["silent?"] = true,
+      })
+    end
+
+    connect_existing_repl()
+    retry_clojure_connect(connect_existing_repl, state, 4)
+    return
+  end
+
+  local root = clojure_buf_root(bufnr)
+  local function connect_auto_repl()
+    with_root_cwd(root, function()
+      auto_repl["upsert-auto-repl-proc"]()
+
+      local port = state.get()["auto-repl-port"]
+      if port then
+        action["connect-host-port"]({
+          host = "127.0.0.1",
+          port = tostring(port),
+        })
+      end
+    end)
+  end
+
+  with_root_cwd(root, function()
+    auto_repl["upsert-auto-repl-proc"]()
+  end)
+  vim.defer_fn(function()
+    connect_auto_repl()
+    retry_clojure_connect(connect_auto_repl, state, 8)
+  end, 1000)
+end
+
+local function setup_clojure_autoconnect()
+  local group = vim.api.nvim_create_augroup("ConjureClojureAutoConnect", { clear = true })
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = group,
+    pattern = { "*" },
+    callback = function(event)
+      maybe_autoconnect_clojure(event.buf)
+    end,
+  })
+
+  vim.schedule(function()
+    maybe_autoconnect_clojure(vim.api.nvim_get_current_buf())
   end)
 end
 
@@ -175,7 +329,10 @@ return {
     "Olical/conjure",
     ft = conjure_filetypes,
     init = configure_conjure,
-    config = configure_conjure_output,
+    config = function()
+      configure_conjure_output()
+      setup_clojure_autoconnect()
+    end,
     dependencies = {
       "PaterJason/cmp-conjure",
     },
@@ -198,19 +355,9 @@ return {
   {
     "julienvincent/nvim-paredit",
     ft = { "clojure", "fennel", "scheme", "lisp", "racket" },
-    opts = function()
-      local api = require("nvim-paredit.api")
-      return {
-        use_default_keys = true,
-        indent = { enabled = true },
-        keys = {
-          -- Free <localleader>o for <leader>o (oil) since localleader == leader == <Space>.
-          ["<localleader>o"] = false,
-          ["<localleader>O"] = false,
-          ["<localleader>kr"] = { api.raise_form, "Raise form" },
-          ["<localleader>kR"] = { api.raise_element, "Raise element" },
-        },
-      }
-    end,
+    opts = {
+      use_default_keys = true,
+      indent = { enabled = true },
+    },
   },
 }
