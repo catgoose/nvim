@@ -144,6 +144,15 @@ local function configure_conjure_output()
   local hook = require("conjure.hook")
   local log = require("conjure.log")
   local default_display_hud = hook.get("display-hud")
+  local repl_split_row_threshold = 64
+
+  local function open_log_window()
+    if vim.o.lines < repl_split_row_threshold then
+      return log.split()
+    end
+
+    return log.vsplit()
+  end
 
   hook.override("display-hud", function(opts)
     if vim.bo.filetype ~= "clojure" then
@@ -154,7 +163,7 @@ local function configure_conjure_output()
     end
 
     local current_win = vim.api.nvim_get_current_win()
-    log.vsplit()
+    open_log_window()
 
     if vim.api.nvim_win_is_valid(current_win) then
       vim.api.nvim_set_current_win(current_win)
