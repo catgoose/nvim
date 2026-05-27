@@ -144,6 +144,8 @@ end
 local function configure_conjure_output()
   local hook = require("conjure.hook")
   local log = require("conjure.log")
+  local conjure_config = require("conjure.config")
+  local editor = require("conjure.editor")
   local default_display_hud = hook.get("display-hud")
   local repl_split_column_threshold = 128
   local resize_generation = 0
@@ -178,6 +180,35 @@ local function configure_conjure_output()
     return wins
   end
 
+  local function resize_visible_log_windows(wins, open_cmd)
+    local size
+    local set_size
+
+    if open_cmd == "split" then
+      local height = conjure_config["get-in"]({ "log", "split", "height" })
+      if height then
+        size = editor["percent-height"](height)
+        set_size = vim.api.nvim_win_set_height
+      end
+    elseif open_cmd == "vsplit" then
+      local width = conjure_config["get-in"]({ "log", "split", "width" })
+      if width then
+        size = editor["percent-width"](width)
+        set_size = vim.api.nvim_win_set_width
+      end
+    end
+
+    if not size or not set_size then
+      return
+    end
+
+    for _, win in ipairs(wins) do
+      if vim.api.nvim_win_is_valid(win) then
+        pcall(set_size, win, size)
+      end
+    end
+  end
+
   local function refresh_visible_log_layout()
     local wins = visible_log_windows()
     if vim.tbl_isempty(wins) then
@@ -186,6 +217,7 @@ local function configure_conjure_output()
 
     local desired = desired_log_open_cmd()
     if log.state["last-open-cmd"] == desired then
+      resize_visible_log_windows(wins, desired)
       return
     end
 
