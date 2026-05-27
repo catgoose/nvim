@@ -28,6 +28,7 @@ Paredit
   | <f | edit op | drag form left | same, opposite direction |
   | <localleader>o | edit op | raise form | remove one outer wrapper and keep the current form |
   | <localleader>O | edit op | raise element | unwrap one element from its enclosing form |
+  | <leader>i | edit op | wrap current form | add one outer list; on lists, leave insertion point for a new head |
 ]]
 
 --[[ 
@@ -144,14 +145,57 @@ local function configure_conjure_output()
   local hook = require("conjure.hook")
   local log = require("conjure.log")
   local default_display_hud = hook.get("display-hud")
-  local repl_split_row_threshold = 64
+  local repl_split_column_threshold = 128
+  local resize_generation = 0
 
   local function open_log_window()
-    if vim.o.lines < repl_split_row_threshold then
+    if vim.o.columns < repl_split_column_threshold then
       return log.split()
     end
 
     return log.vsplit()
+  end
+
+  local function desired_log_open_cmd()
+    if vim.o.columns < repl_split_column_threshold then
+      return "split"
+    end
+
+    return "vsplit"
+  end
+
+  local function visible_log_windows()
+    local wins = {}
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      if win ~= log.state.hud.id then
+        local buf = vim.api.nvim_win_get_buf(win)
+        local name = vim.api.nvim_buf_get_name(buf)
+        if name ~= "" and log["log-buf?"](name) then
+          wins[#wins + 1] = win
+        end
+      end
+    end
+    return wins
+  end
+
+  local function refresh_visible_log_layout()
+    local wins = visible_log_windows()
+    if vim.tbl_isempty(wins) then
+      return
+    end
+
+    local desired = desired_log_open_cmd()
+    if log.state["last-open-cmd"] == desired then
+      return
+    end
+
+    local current_win = vim.api.nvim_get_current_win()
+    log["close-visible"]()
+    open_log_window()
+
+    if vim.api.nvim_win_is_valid(current_win) then
+      vim.api.nvim_set_current_win(current_win)
+    end
   end
 
   hook.override("display-hud", function(opts)
@@ -169,6 +213,21 @@ local function configure_conjure_output()
       vim.api.nvim_set_current_win(current_win)
     end
   end)
+
+  local group = vim.api.nvim_create_augroup("ConjureLogResizeLayout", { clear = true })
+  vim.api.nvim_create_autocmd("VimResized", {
+    group = group,
+    callback = function()
+      resize_generation = resize_generation + 1
+      local generation = resize_generation
+      vim.defer_fn(function()
+        if generation ~= resize_generation then
+          return
+        end
+        refresh_visible_log_layout()
+      end, 50)
+    end,
+  })
 end
 
 local clojure_root_markers = {
@@ -333,6 +392,36 @@ local function setup_cmp_conjure()
   cmp.setup.buffer({ sources = merged })
 end
 
+local function setup_clojure_wrap_mapping()
+  local function set_wrap_keymap(bufnr)
+    vim.keymap.set("n", "<leader>i", function()
+      require("util.ts-node-action").wrap_clojure_form()
+    end, {
+      buffer = bufnr,
+      silent = true,
+      desc = "Wrap current Clojure form",
+    })
+  end
+
+  local group = vim.api.nvim_create_augroup("ClojureWrapFormMapping", { clear = true })
+  vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = { "clojure", "edn" },
+    callback = function(event)
+      set_wrap_keymap(event.buf)
+    end,
+  })
+
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufnr) then
+      local filetype = vim.bo[bufnr].filetype
+      if filetype == "clojure" or filetype == "edn" then
+        set_wrap_keymap(bufnr)
+      end
+    end
+  end
+end
+
 return {
   {
     "Olical/conjure",
@@ -341,6 +430,7 @@ return {
     config = function()
       configure_conjure_output()
       setup_clojure_autoconnect()
+      setup_clojure_wrap_mapping()
     end,
     dependencies = {
       "PaterJason/cmp-conjure",
