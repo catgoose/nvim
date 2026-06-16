@@ -119,6 +119,9 @@ function M.init()
     --   },
     -- },
     gopls = {
+      init_options = {
+        semanticTokens = true,
+      },
       settings = {
         gopls = {
           usePlaceholders = true,
