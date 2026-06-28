@@ -59,10 +59,6 @@ local config = function()
         enable = true,
         border = "rounded",
         floating_preview_opts = {},
-        -- peek_definition_code = {
-        -- 	["<leader>df"] = "@function.outer",
-        -- 	["<leader>dF"] = "@class.outer",
-        -- },
       },
       move = {
         enable = true,
@@ -75,12 +71,6 @@ local config = function()
           ["]w"] = "@parameter.inner",
           ["]d"] = "@block.inner",
           ["]a"] = "@attribute.inner",
-
-          -- ["]b"] = { query = "@scope", query_group = "locals" },
-          -- ["]o"] = "@object_declaration",
-          -- ["]k"] = "@object_key",
-          -- ["]v"] = "@object_value",
-          -- ["]m"] = "@this_method_call",
         },
         goto_previous_start = {
           ["[f"] = "@function.outer",
@@ -90,12 +80,6 @@ local config = function()
           ["[d"] = "@block.inner",
           ["[a"] = "@attribute.inner",
           ["[c"] = "@class.outer",
-
-          -- ["[b"] = { query = "@scope", query_group = "locals" },
-          -- ["[o"] = "@object_declaration",
-          -- ["[k"] = "@object_key",
-          -- ["[v"] = "@object_value",
-          -- ["[m"] = "@this_method_call",
         },
       },
       select = {

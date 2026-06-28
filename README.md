@@ -97,9 +97,11 @@ adds REPL-aware completion to `nvim-cmp` for Lisp filetypes.
 - LSP server name is `clojure_lsp`. Verify with `:checkhealth vim.lsp`.
 - `K` still routes through the repo `HoverHandler`; `L` opens direct LSP
   hover. Conjure's `K` doc-word mapping is disabled to preserve this.
-- Start an nREPL inside a project (`clj -M:repl/server`, `lein repl`,
-  `bb nrepl-server`, or `shadow-cljs server`) and Conjure auto-connects via
-  the project's `.nrepl-port`. Manual connect: `:ConjureConnect`.
+- Opening a Clojure buffer auto-starts and connects a hidden REPL: an existing
+  `.nrepl-port` wins, else a JVM nREPL for `deps.edn` roots, else `bb
+  nrepl-server` for `bb.edn`/scratch files. Start your own (`clj -M:repl/server`,
+  `lein repl`, `shadow-cljs server`) and Conjure connects via its `.nrepl-port`.
+  Manual connect: `:ConjureConnect`.
 - Useful commands: `:ConjureSchool` (interactive tutorial), `:ConjureLogVSplit`
   (open eval log), `<leader>k` (fast eval current form),
   `<localleader>ee` (eval current form), `<localleader>er` (eval root form).
