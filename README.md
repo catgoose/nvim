@@ -81,7 +81,7 @@ Tmux theme:
 Baseline Clojure setup combines `clojure-lsp` (diagnostics, navigation,
 completion, formatting via Conform's LSP fallback) with `Olical/conjure`
 (REPL-driven evaluation over nREPL). Treesitter parser `clojure` is enabled
-and `julienvincent/nvim-paredit` provides structural editing. `cmp-conjure`
+and `gpanders/nvim-parinfer` provides structural editing. `cmp-conjure`
 adds REPL-aware completion to `nvim-cmp` for Lisp filetypes.
 
 ### Machine prerequisites
@@ -98,19 +98,14 @@ adds REPL-aware completion to `nvim-cmp` for Lisp filetypes.
 - `K` still routes through the repo `HoverHandler`; `L` opens direct LSP
   hover. Conjure's `K` doc-word mapping is disabled to preserve this.
 - Opening a Clojure buffer auto-starts and connects a hidden REPL: an existing
-  `.nrepl-port` wins, else a JVM nREPL for `deps.edn` roots, else `bb
-  nrepl-server` for `bb.edn`/scratch files. Start your own (`clj -M:repl/server`,
-  `lein repl`, `shadow-cljs server`) and Conjure connects via its `.nrepl-port`.
-  Manual connect: `:ConjureConnect`.
+  `.nrepl-port` wins, else a JVM nREPL for `deps.edn`/`project.clj` roots,
+  else `bb nrepl-server` for `bb.edn`/scratch files. Start your own
+  (`clj -M:repl/server`, `lein repl`, `shadow-cljs server`) and Conjure
+  connects via its `.nrepl-port`. Manual connect: `:ConjureConnect`.
 - Useful commands: `:ConjureSchool` (interactive tutorial), `:ConjureLogVSplit`
   (open eval log), `<leader>k` (fast eval current form),
   `<localleader>ee` (eval current form), `<localleader>er` (eval root form).
   `<localleader>` is `,`.
 
-### Optional follow-ups
-
-- Parinfer-style editing: try [`parpar.nvim`](https://github.com/dundalek/parpar.nvim)
-  or [`gpanders/nvim-parinfer`](https://github.com/gpanders/nvim-parinfer)
-  in place of `nvim-paredit` if you prefer indentation-driven structure.
 - Per-project `.lsp/config.edn`, `.cljfmt.edn`, `.clj-kondo/config.edn`
   belong in actual Clojure projects, not in dotfiles.

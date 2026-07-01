@@ -1,26 +1,11 @@
 local clojure = require("util.clojure")
 
 --[[
-Paredit
-  Use this for editing structure safely.
-  `<localleader>` is `,` in this config.
+Parinfer
+  Use this for indentation-aware structural editing.
 
   | Keys | Kind | Meaning | When to use |
   |---|---|---|---|
-  | ( | motion | jump to parent form start | you’re nested deep and want the opening ( of the enclosing expr |
-  | ) | motion | jump to parent form end | same, but to the closing boundary |
-  | af | text object | around form | delete/yank/change a whole expression |
-  | if | text object | inside form | rewrite contents but keep delimiters |
-  | ae | text object | around element | operate on one child within a form |
-  | ie | text object | inside element | usually for strings/symbol-ish element edits |
-  | >) | edit op | slurp forwards | current form should include the next sibling |
-  | <) | edit op | barf forwards | current form includes too much; push last child out |
-  | >e | edit op | drag element right | reorder one argument / item / map pair |
-  | <e | edit op | drag element left | same, opposite direction |
-  | >f | edit op | drag form right | move a whole nested expression right |
-  | <f | edit op | drag form left | same, opposite direction |
-  | <localleader>o | edit op | raise form | remove one outer wrapper and keep the current form |
-  | <localleader>O | edit op | raise element | unwrap one element from its enclosing form |
   | <leader>i | edit op | wrap current form | add one outer list; on lists, leave insertion point for a new head |
 ]]
 
@@ -66,7 +51,7 @@ return {
     config = function()
       clojure.configure_conjure_output()
       clojure.setup_autoconnect()
-      clojure.setup_wrap_mapping()
+      clojure.setup_buffer_mappings()
     end,
     dependencies = {
       "PaterJason/cmp-conjure",
@@ -86,15 +71,6 @@ return {
       })
     end,
     lazy = true,
-  },
-  {
-    "julienvincent/nvim-paredit",
-    enabled = false,
-    ft = clojure.lisp_filetypes,
-    opts = {
-      use_default_keys = true,
-      indent = { enabled = true },
-    },
   },
   {
     "gpanders/nvim-parinfer",
