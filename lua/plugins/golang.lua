@@ -14,15 +14,12 @@ local auto_fix_return = {
   event = "VeryLazy",
 }
 
-auto_fix_return = vim.tbl_extend(
-  "keep",
-  auto_fix_return,
-  use_local_plugin(auto_fix_return_path) and {
+auto_fix_return =
+  vim.tbl_extend("keep", auto_fix_return, use_local_plugin(auto_fix_return_path) and {
     dir = auto_fix_return_path,
   } or {
     "Jay-Madden/auto-fix-return.nvim",
-  }
-)
+  })
 
 return {
   auto_fix_return,
@@ -30,17 +27,5 @@ return {
     "catgoose/templ-goto-definition",
     ft = { "go", "templ" },
     config = true,
-  },
-  {
-    "fredrikaverpil/godoc.nvim",
-    ft = { "go" },
-    version = "*",
-    build = "go install github.com/lotusirous/gostdsym/stdsym@latest", -- optional
-    cmd = { "GoDoc" },
-    opts = {
-      picker = {
-        type = "telescope",
-      },
-    },
   },
 }

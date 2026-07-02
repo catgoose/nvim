@@ -35,7 +35,6 @@ M.disabled_plugins = {
   -- Language-specific
   "auto-fix-return.nvim",
   "templ-goto-definition",
-  "godoc.nvim",
   -- Database
   "vim-dadbod-ui",
   -- Language/tool-specific
