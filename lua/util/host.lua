@@ -34,7 +34,10 @@ M.disabled_plugins = {
   "supermaven-nvim",
   -- Language-specific
   "auto-fix-return.nvim",
+  "conjure",
+  "cmp-conjure",
   "templ-goto-definition",
+  "nvim-parinfer",
   -- Database
   "vim-dadbod-ui",
   -- Language/tool-specific
